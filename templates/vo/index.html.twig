@@ -13,7 +13,7 @@
         {% for voiture in voList %}
             <div class="voiture-item">
                 {% for photo in voiture.photos %}
-                    <img src="{{ asset('img/vo/' ~  photo.img) }}" alt="Image de la voiture {{ voiture.marque }} {{ voiture.modele }}">
+                    <img src="{{ asset('uploads/vo/' ~  photo.img) }}" alt="Image de la voiture {{ voiture.marque }} {{ voiture.modele }}">
                 {% endfor %}
                     <h2>{{ voiture.marque }} {{ voiture.modele }}</h2>
                 {% if voiture.km %}

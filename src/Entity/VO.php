@@ -43,7 +43,8 @@ class VO
     /**
      * @var Collection<int, Photo>
      */
-    #[ORM\OneToMany(targetEntity: Photo::class, mappedBy: 'vo')]
+    // les photos se suppriment automatiquement si le véhicule est supprimé
+    #[ORM\OneToMany(targetEntity: Photo::class, mappedBy: 'vo', cascade: ['persist'], orphanRemoval: true)]
     private Collection $photos;
 
     public function __construct()
