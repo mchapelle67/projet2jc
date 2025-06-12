@@ -75,7 +75,7 @@ class VOTypeForm extends AbstractType
 
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Ajouter le véhicule',
+                'label' => 'Valider',
             ])
         ;
     }
