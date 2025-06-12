@@ -126,7 +126,7 @@ class VO
 
         return $this;
     }
-
+    
     public function getPhoto(): ?Photo
     {
         return $this->photo;
