@@ -4,8 +4,33 @@
         <meta charset="UTF-8">
         <title>{% block title %}Base{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
         {% block stylesheets %}
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        {% endblock %}
+
+        {% block meta %}
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="Site de vente de véhicules d'occasion">
+            <meta name="author" content="Votre Nom">
+            <meta name="keywords" content="voiture, occasion, vente, automobile">
+        {% endblock %}
+
+        {% block open_graph %}
+            <meta property="og:title" content="{% block og_title %}Titre par défaut{% endblock %}">
+            <meta property="og:description" content="{% block og_description %}Description par défaut{% endblock %}">
+            <meta property="og:image" content="{% block og_image %}URL de l'image par défaut{% endblock %}">
+            <meta property="og:url" content="{{ app.request.uri }}">
+        {% endblock %}
+
+        {% block twitter_card %}
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:title" content="{% block twitter_title %}Titre Twitter par défaut{% endblock %}">
+            <meta name="twitter:description" content="{% block twitter_description %}Description Twitter par défaut{% endblock %}">
+            <meta name="twitter:image" content="{% block twitter_image %}URL de l'image Twitter par défaut{% endblock %}">
         {% endblock %}
 
         {% block javascripts %}
@@ -14,37 +39,56 @@
         {% endblock %}
     </head>
     <body>
-        <header>
-            <figure>
-                {# logo #}
-            </figure>
-            <nav>
-                <ul>
-                    <li><a href="{{ path('app_home') }}">Accueil</a></li>
-                    <li><a href="">Nos services</a></li>
-                    <li><a href="{{ path('app_vo') }}">Vehicule d'occasion</a></li>
-                    <li><a href="">Nous contacter</a></li>
-                    {# <li><a href="">Menu burger admin</a></li> #}
-                </ul>
-            </nav>
-        </header>
-        {% block body %}{% endblock %}
-        <footer>
-            {# <figure>
-                <img="" alt="">Logo 
-            </figure>
-            <a href="">
-                <img="" alt="">Icone Facebook
-            </a>
-            <a href="">
-                <img="" alt="">Icone Twitter
-            </a>
-            <a href="">
-                <img="" alt="">Icone téléphone
-            </a>
-            <a href="">
-                <img="" alt="">Icone mail
-            </a> #}
-        </footer>
+        <div id="wrapper"> 
+            <div id="mainpage">
+                <header>
+                    <div id="nav-left-side">
+                        <figure>
+                            <p>2JC</p>
+                        </figure>
+                    </div>
+                    <div id="nav-right-side">
+                        <nav>
+                            <a href="{{ path('app_home') }}">Accueil</a></li>
+                            <a href="">Nos services</a></li>
+                            <a href="{{ path('app_vo') }}">Vehicule d'occasion</a></li>
+                            <a href="">Nous contacter</a></li>
+                            <a href="">
+                                <img src="{{ asset('icones/admin-users.png') }}" alt="Côté administrateur" class="">
+                            </a>
+                        </nav>
+                    </div>
+                </header>
+                {% block body %}{% endblock %}
+            </div>
+            <footer>
+                <div class="footer-left-side">
+                    <figure>
+                        <p>2JC</p>
+                    </figure> 
+                </div>    
+                <div id="social-media">
+                        <p>Suivez-nous</p>
+                        <a href="">
+                            <img src="{{ asset('icones/facebook.png') }}" alt="Icone Facebook">
+                        </a>
+                        <a href="">
+                            <img src="{{ asset('icones/mdi_instagram.png') }}" alt="Icone Instagram">
+                        </a>
+                    </div>
+                    <div id="contact-links">
+                        <a href="">
+                            <img src="{{ asset('icones/tel.png') }}" 
+                            alt="Icone téléphone">
+                            03 89 40 07 97
+                        </a>
+                        <a href="">
+                            <img src="{{ asset('icones/mail-outline.png')}}" 
+                            alt="Icone mail">
+                            Nous contacter
+                        </a> 
+                </div>
+            </footer>
+        </div>
     </body>
 </html>
