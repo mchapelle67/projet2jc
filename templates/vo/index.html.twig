@@ -50,7 +50,7 @@
                 {% endif %}
                 {# if admin #}
                 <a href="{{ path('edit_vo', {'id': voiture.id}) }}">Modifier</a>
-                {# <a href="{{ path('delete_vo', {'id': voiture.id}) }}">Supprimer</a> #}
+                <a href="{{ path('delete_vo', {'id': voiture.id}) }}">Supprimer</a>
                 {# endif #}
             </div>
         {% else %}

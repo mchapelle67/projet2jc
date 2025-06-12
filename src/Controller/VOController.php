@@ -187,4 +187,25 @@ final class VOController extends AbstractController
             'id' => $voId,
         ]);
     }
+
+    #[Route('/vo/delete/{id}', name: 'delete_vo')]
+    public function deleteVO(Request $request, EntityManagerInterface $entityManager, VORepository $voRepository): Response
+    {
+        // récupérer l'id du véhicule
+        $id = $request->attributes->get('id');
+        // trouver le véhicule dans la base de données
+        $vehicule = $voRepository->find($id);
+
+        // si le véhicule n'existe pas, rediriger vers la liste des véhicules d'occasion
+        if (!$vehicule) {
+            return $this->redirectToRoute('app_vo');
+        }
+
+        // supprimer le véhicule de la base de données
+        $entityManager->remove($vehicule);
+        $entityManager->flush();
+
+        // puis on redirige vers la liste des véhicules d'occasion
+        return $this->redirectToRoute('app_vo');
+    }
 }
