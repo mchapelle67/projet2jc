@@ -3,14 +3,17 @@
 namespace App\Form;
 
 use App\Entity\VO;
+use App\Entity\Photo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class VOTypeForm extends AbstractType
 {
@@ -63,6 +66,13 @@ class VOTypeForm extends AbstractType
                 'label' => 'Kilométrage',
                 'attr' => ['placeholder' => 'Entrez le kilométrage du véhicule'],
                 'required' => false,
+            ])
+            ->add('photos', FileType::class, [
+                'label' => 'Photos',
+                'mapped' => false,
+                'multiple' => true,
+                'required' => false,
+
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Ajouter le véhicule',
