@@ -12,9 +12,23 @@
     <div class="voiture-list">
         {% for voiture in voList %}
             <div class="voiture-item">
-                {% for photo in voiture.photos %}
-                    <img src="{{ asset('uploads/vo/' ~  photo.img) }}" alt="Image de la voiture {{ voiture.marque }} {{ voiture.modele }}">
-                {% endfor %}
+                {% if voiture.photos %}   
+                <div id="carouselVO{{ loop.index }}" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for photo in voiture.photos %}
+                            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                <img src="{{ asset('uploads/vo/' ~  photo.img) }}" class="d-block w-100" alt="Image de la voiture {{ voiture.marque }} {{ voiture.modele }}">
+                            </div>
+                    {% endfor %}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselVO{{ loop.index }}" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselVO{{ loop.index }}" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                {% endif %}
                     <h2>{{ voiture.marque }} {{ voiture.modele }}</h2>
                 {% if voiture.km %}
                         <p>Kilométrage: {{ voiture.km }} km</p>
