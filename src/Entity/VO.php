@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VORepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -16,12 +18,12 @@ class VO
 
     #[ORM\Column(length: 100)]
     private ?string $marque = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $prix = null;
-
+    
     #[ORM\Column(length: 255)]
     private ?string $modele = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $prix = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $anneeFabrication = null;
@@ -35,8 +37,19 @@ class VO
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $url = null;
 
-    #[ORM\ManyToOne(inversedBy: 'vo')]
-    private ?Photo $photo = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $km = null;
+
+    /**
+     * @var Collection<int, Photo>
+     */
+    #[ORM\OneToMany(targetEntity: Photo::class, mappedBy: 'vo')]
+    private Collection $photos;
+
+    public function __construct()
+    {
+        $this->photos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -127,14 +140,44 @@ class VO
         return $this;
     }
     
-    public function getPhoto(): ?Photo
+    public function getKm(): ?int
     {
-        return $this->photo;
+        return $this->km;
     }
 
-    public function setPhoto(?Photo $photo): static
+    public function setKm(?int $km): static
     {
-        $this->photo = $photo;
+        $this->km = $km;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Photo>
+     */
+    public function getPhotos(): Collection
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(Photo $photo): static
+    {
+        if (!$this->photos->contains($photo)) {
+            $this->photos->add($photo);
+            $photo->setVo($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photo $photo): static
+    {
+        if ($this->photos->removeElement($photo)) {
+            // set the owning side to null (unless already changed)
+            if ($photo->getVo() === $this) {
+                $photo->setVo(null);
+            }
+        }
 
         return $this;
     }

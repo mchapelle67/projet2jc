@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\PhotoRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PhotoRepository::class)]
@@ -18,16 +15,8 @@ class Photo
     #[ORM\Column(length: 255)]
     private ?string $img = null;
 
-    /**
-     * @var Collection<int, VO>
-     */
-    #[ORM\OneToMany(targetEntity: VO::class, mappedBy: 'photo')]
-    private Collection $vo;
-
-    public function __construct()
-    {
-        $this->vo = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'photos')]
+    private ?VO $vo = null;
 
     public function getId(): ?int
     {
@@ -46,32 +35,14 @@ class Photo
         return $this;
     }
 
-    /**
-     * @return Collection<int, VO>
-     */
-    public function getVo(): Collection
+    public function getVo(): ?VO
     {
         return $this->vo;
     }
 
-    public function addVo(VO $vo): static
+    public function setVo(?VO $vo): static
     {
-        if (!$this->vo->contains($vo)) {
-            $this->vo->add($vo);
-            $vo->setPhoto($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVo(VO $vo): static
-    {
-        if ($this->vo->removeElement($vo)) {
-            // set the owning side to null (unless already changed)
-            if ($vo->getPhoto() === $this) {
-                $vo->setPhoto(null);
-            }
-        }
+        $this->vo = $vo;
 
         return $this;
     }

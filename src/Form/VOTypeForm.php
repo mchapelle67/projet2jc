@@ -1,0 +1,79 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\VO;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
+class VOTypeForm extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('marque', TextType::class, [
+                'label' => 'Marque',
+                'attr' => ['placeholder' => 'Entrez la marque du véhicule'],
+            ])
+            ->add('modele', TextType::class, [
+                'label' => 'Modèle',
+                'attr' => ['placeholder' => 'Entrez le modèle du véhicule'],
+            ])
+            ->add('prix', TextType::class, [
+                'label' => 'Prix',
+                'attr' => ['placeholder' => 'Entrez le prix du véhicule'],
+                'required' => false,
+            ])
+            ->add('anneeFabrication', DateType::class, [
+                'widget' => 'single_text',
+                'placeholder' => 'jj/mm/aaaa',
+                'required' => false,
+            ])
+            ->add('carburant', ChoiceType::class, [
+                'label' => 'Carburant',
+                'choices' => [
+                    'Essence' => 'essence',
+                    'Diesel' => 'diesel',
+                    'Électrique' => 'electrique',
+                    'Hybride' => 'hybride',
+                    'Ethanol' => 'ethanol',
+                ],
+                'expanded' => false,
+                'multiple' => false,
+                'required' => false,
+                'placeholder' => 'Sélectionnez le type de carburant',
+            ])
+            ->add('description', TextType::class, [
+                'label' => 'Description',
+                'attr' => ['placeholder' => 'Entrez une description du véhicule'],
+                'required' => false,
+            ])
+            ->add('url', TextType::class, [
+                'label' => 'Leboncoin',
+                'attr' => ['placeholder' => 'Lien vers l\'annonce Leboncoin'],
+                'required' => false,
+            ])
+            ->add('km', IntegerType::class, [
+                'label' => 'Kilométrage',
+                'attr' => ['placeholder' => 'Entrez le kilométrage du véhicule'],
+                'required' => false,
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Ajouter le véhicule',
+            ])
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => VO::class,
+        ]);
+    }
+}
