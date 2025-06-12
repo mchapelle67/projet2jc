@@ -46,8 +46,12 @@
                    <p>Veuillez nous contacter pour plus de renseignement</p>     
                 {% endif %}
                 {% if voiture.prix %}
-                    <p>Prix: {{ voiture.prix }} €</p>
+                    <p>Prix: {{ voiture.prix }}</p>
                 {% endif %}
+                {# if admin #}
+                <a href="{{ path('edit_vo', {'id': voiture.id}) }}">Modifier</a>
+                {# <a href="{{ path('delete_vo', {'id': voiture.id}) }}">Supprimer</a> #}
+                {# endif #}
             </div>
         {% else %}
             <p>Aucune voiture d'occasion disponible pour le moment.</p>
