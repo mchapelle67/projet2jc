@@ -3,5 +3,40 @@
 {% block title %}Voiture d'occasion{% endblock %}
 
 {% block body %}
+    {# <figure
+        <img src="" alt="">Photo du parc d'occasion
+    </figure> #}
 
+    <h1>Notre parc automobile</h1>
+
+    <div class="voiture-list">
+        {% for voiture in voList %}
+            <div class="voiture-item">
+                {% for photo in voiture.photos %}
+                    <img src="{{ asset('img/vo/' ~  photo.img) }}" alt="Image de la voiture {{ voiture.marque }} {{ voiture.modele }}">
+                {% endfor %}
+                    <h2>{{ voiture.marque }} {{ voiture.modele }}</h2>
+                {% if voiture.km %}
+                        <p>Kilométrage: {{ voiture.km }} km</p>
+                {% endif %}
+                {% if voiture.carburant %}
+                    <p>Carburant: {{ voiture.carburant }}</p>
+                {% endif %}
+                {% if voiture.anneeFabrication %}
+                    <p>Année: {{ voiture.anneeFabrication|date("m/Y") }}</p>
+                {% endif %}
+                    <p>{{ voiture.description }}</p>
+                {% if voiture.url %}
+                    <a target="_blank" href="{{ voiture.url }}">En savoir plus</a>
+                {% else %}
+                   <p>Veuillez nous contacter pour plus de renseignement</p>     
+                {% endif %}
+                {% if voiture.prix %}
+                    <p>Prix: {{ voiture.prix }} €</p>
+                {% endif %}
+            </div>
+        {% else %}
+            <p>Aucune voiture d'occasion disponible pour le moment.</p>
+        {% endfor %}
+    </div>
 {% endblock %}
