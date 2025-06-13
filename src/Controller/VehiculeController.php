@@ -55,7 +55,6 @@ final class VehiculeController extends AbstractController
             $this->addFlash('error', 'Erreur lors de la création de votre devis');
         }
         
-        
         return $this->render('client/devis.html.twig', [
             'controller_name' => 'VehiculeController',
             'marques' => $marquesResponse,
