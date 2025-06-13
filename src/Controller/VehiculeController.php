@@ -51,6 +51,8 @@ final class VehiculeController extends AbstractController
                 'success' => true,
                 'message' => 'Devis créé avec succès ! Nous reviendrons vers vous rapidement.',
             ]);
+        } else {
+            $this->addFlash('error', 'Erreur lors de la création de votre devis');
         }
         
         

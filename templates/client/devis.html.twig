@@ -3,6 +3,13 @@
 {% block title %}Choix vehicule{% endblock %}
 
 {% block body %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">{{ message }}</div>
+{% endfor %}
+{% for message in app.flashes('error') %}
+    <div class="alert alert-danger">{{ message }}</div>
+{% endfor %}
+
     <form method="POST">
     <h1>Choix du véhicule</h1>
     <div class="form-group">
@@ -22,6 +29,7 @@
 
         <button type="submit" class="btn btn-primary mt-3">Valider</button>
     </form>
+
 
 <script>
 // affichage dynamique des modèles selon la marque sélctionné, evite de devoir rafraîchir la page 
