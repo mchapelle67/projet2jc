@@ -18,6 +18,7 @@
         <label for="modeles-list">Veuillez séléctionner un modèle</label>
         <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off">
         <datalist id="modeles-list"></datalist>
+        {{ form(vehiculeForm)}}
 
         <button type="submit" class="btn btn-primary mt-3">Valider</button>
     </form>
@@ -29,14 +30,16 @@ document.getElementById('marque').addEventListener('change', function() {
     fetch('/api/modeles?marque=' + encodeURIComponent(marque))
         .then(response => response.json())
         .then(data => {
-                console.log(data); // <--- Ajoute ceci pour voir la réponse dans la console
-
             const datalist = document.getElementById('modeles-list');
             datalist.innerHTML = '';
-            data.forEach(modele => {
-                // Adapte la propriété selon la structure retournée par ton API
-                datalist.innerHTML += `<option value="${modele.Model_Name}"></option>`;
-            });
+            if (data.length === 0) {
+                // Ajoute une option spéciale si aucun modèle n'est trouvé
+                datalist.innerHTML = `<option value="Pas de marque associée"></option>`;
+            } else {
+                data.forEach(modele => {
+                    datalist.innerHTML += `<option value="${modele.Model_Name}"></option>`;
+                });
+            }
         });
 });
 </script>
