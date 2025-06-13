@@ -3,6 +3,7 @@
 /.env.local
 /.env.local.php
 /.env.*.local
+.env
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
@@ -18,3 +19,27 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+# Fichiers de configuration d'IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers de build ou temporaires
+/node_modules/
+npm-debug.log
+yarn-error.log
+
+# Fichiers de test ou de couverture
+/coverage/
+.phpunit.result.cache
+
+# Autres fichiers sensibles ou inutiles
+*.log
+
+/src/Service/ApiService.php

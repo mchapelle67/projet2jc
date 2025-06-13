@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Choix vehicule{% endblock %}
+
+{% block body %}
+    <form method="POST">
+    <h1>Choix du véhicule</h1>
+    <div class="form-group">
+        <h2>Sélectionnez un véhicule :</h2>
+        <label for="marques-list">Veuillez séléctionner une marque</label>
+        <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off">
+        <datalist id="marques-list">
+            {% for marque in marques %}
+                <option value="{{ marque.Make_Name }}"></option>
+            {% endfor %}
+        </datalist>
+
+        <label for="modeles-list">Veuillez séléctionner un modèle</label>
+        <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off">
+        <datalist id="modeles-list"></datalist>
+
+        <button type="submit" class="btn btn-primary mt-3">Valider</button>
+    </form>
+
+<script>
+// affichage dynamique des modèles selon la marque sélctionné, evite de devoir rafraîchir la page 
+document.getElementById('marque').addEventListener('change', function() {
+    const marque = this.value;
+    fetch('/api/modeles?marque=' + encodeURIComponent(marque))
+        .then(response => response.json())
+        .then(data => {
+                console.log(data); // <--- Ajoute ceci pour voir la réponse dans la console
+
+            const datalist = document.getElementById('modeles-list');
+            datalist.innerHTML = '';
+            data.forEach(modele => {
+                // Adapte la propriété selon la structure retournée par ton API
+                datalist.innerHTML += `<option value="${modele.Model_Name}"></option>`;
+            });
+        });
+});
+</script>
+{% endblock %}
