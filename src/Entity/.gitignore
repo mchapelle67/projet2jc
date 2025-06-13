@@ -1,0 +1,36 @@
+# .gitignore à la racine du projet Symfony
+
+# Dépendances PHP
+/vendor/
+
+# Cache et logs Symfony
+/var/
+
+# Fichiers d'environnement locaux (jamais en prod !)
+.env.local
+.env.*.local
+
+# Secrets Symfony
+/config/secrets/*
+
+# Fichiers de configuration d'IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers de build ou temporaires
+/node_modules/
+npm-debug.log
+yarn-error.log
+
+# Fichiers de test ou de couverture
+/coverage/
+.phpunit.result.cache
+
+# Autres fichiers sensibles ou inutiles
+*.log
