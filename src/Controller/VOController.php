@@ -39,6 +39,10 @@ final class VOController extends AbstractController
     // gestion de l'upload des photos
     #[Autowire('%kernel.project_dir%/public/uploads/vo')] string $photoDirectory): Response
     {
+
+        // on verifie que l'utilisateur a le rôle admin
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        
         // création du form
         $vehicule = new VO();
         $form = $this->createForm(VOTypeForm::class, $vehicule);
@@ -99,6 +103,10 @@ final class VOController extends AbstractController
     public function editVO(Request $request, EntityManagerInterface $entityManager, VORepository $voRepository, SluggerInterface $slugger,
         #[Autowire('%kernel.project_dir%/public/uploads/vo')] string $photoDirectory): Response
     {
+
+        // on verifie que l'utilisateur a le rôle admin
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         // récupérer l'id du véhicule 
         $id = $request->attributes->get('id');
         // trouver le véhicule dans la base de données
@@ -168,6 +176,10 @@ final class VOController extends AbstractController
     #[Route('/vo/{voId}/delete/photo/{photoId}', name: 'delete_photo_vo')]
     public function deletePhotoVO(Request $request, EntityManagerInterface $entityManager, VORepository $voRepository, int $photoId, int $voId): Response
     {
+
+        // on verifie que l'utilisateur a le rôle admin
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         // on cherche les id 
         $vehicule = $entityManager->getRepository(VO::class)->find($voId);
         $photo = $entityManager->getRepository(Photo::class)->find($photoId);
@@ -191,6 +203,9 @@ final class VOController extends AbstractController
     #[Route('/vo/delete/{id}', name: 'delete_vo')]
     public function deleteVO(Request $request, EntityManagerInterface $entityManager, VORepository $voRepository): Response
     {
+        // on verifie que l'utilisateur a le rôle admin
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         // récupérer l'id du véhicule
         $id = $request->attributes->get('id');
         // trouver le véhicule dans la base de données

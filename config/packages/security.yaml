@@ -22,6 +22,11 @@ security:
                 # redirigier après connexion
                 default_target_path: app_home
                 enable_csrf: true
+            #  redirige en cas d'accès refusé (si l'user n'est pas admin)
+            access_denied_url: app_home
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
             logout:
                 path: app_logout
                 # where to redirect after logout
