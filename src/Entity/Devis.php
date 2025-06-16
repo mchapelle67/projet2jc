@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\DevisRepository;
+use DateTime;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DevisRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Devis
 {
     #[ORM\Id]
@@ -32,16 +35,19 @@ class Devis
     #[ORM\Column(type: Types::TEXT)]
     private ?string $text = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeImmutable $date_devis = null;
 
-    #[ORM\ManyToOne(inversedBy: 'nomPrestation')]
+    #[ORM\ManyToOne(inversedBy: 'prestation')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Prestation $prestation = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\OneToOne(targetEntity: Vehicule::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Vehicule $vehicule = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $dateModification = null;
 
     public function getId(): ?int
     {
@@ -125,9 +131,10 @@ class Devis
         return $this->date_devis;
     }
 
-    public function setDateDevis(\DateTimeImmutable $date_devis): static
+    #[ORM\PrePersist]
+    public function setDateDevis(): static
     {
-        $this->date_devis = $date_devis;
+        $this->date_devis = new DateTimeImmutable();
 
         return $this;
     }
@@ -144,6 +151,20 @@ class Devis
         return $this;
     }
 
+    public function getDateModification(): ?\DateTimeImmutable
+    {
+        return $this->dateModification;
+    }
+    
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function setDateModification(): static
+    {
+        $this->dateModification = new DateTimeImmutable();
+
+        return $this;
+    }
+    
     public function getVehicule(): ?Vehicule
     {
         return $this->vehicule;
@@ -155,4 +176,5 @@ class Devis
 
         return $this;
     }
+
 }

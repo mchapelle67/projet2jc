@@ -19,11 +19,14 @@ class Prestation
      * @var Collection<int, Devis>
      */
     #[ORM\OneToMany(targetEntity: Devis::class, mappedBy: 'prestation')]
-    private Collection $nomPrestation;
+    private Collection $prestation;
+
+    #[ORM\Column(length: 255)]
+    private ?string $nomPrestation = null;
 
     public function __construct()
     {
-        $this->nomPrestation = new ArrayCollection();
+        $this->prestation = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -34,29 +37,41 @@ class Prestation
     /**
      * @return Collection<int, Devis>
      */
-    public function getNomPrestation(): Collection
+    public function getPrestation(): Collection
     {
-        return $this->nomPrestation;
+        return $this->prestation;
     }
 
-    public function addNomPrestation(Devis $nomPrestation): static
+    public function addPrestation(Devis $prestation): static
     {
-        if (!$this->nomPrestation->contains($nomPrestation)) {
-            $this->nomPrestation->add($nomPrestation);
-            $nomPrestation->setPrestation($this);
+        if (!$this->prestation->contains($prestation)) {
+            $this->prestation->add($prestation);
+            $prestation->setPrestation($this);
         }
 
         return $this;
     }
 
-    public function removeNomPrestation(Devis $nomPrestation): static
+    public function removePrestation(Devis $prestation): static
     {
-        if ($this->nomPrestation->removeElement($nomPrestation)) {
+        if ($this->prestation->removeElement($prestation)) {
             // set the owning side to null (unless already changed)
-            if ($nomPrestation->getPrestation() === $this) {
-                $nomPrestation->setPrestation(null);
+            if ($prestation->getPrestation() === $this) {
+                $prestation->setPrestation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNomPrestation(): ?string
+    {
+        return $this->nomPrestation;
+    }
+
+    public function setNomPrestation(string $nomPrestation): static
+    {
+        $this->nomPrestation = $nomPrestation;
 
         return $this;
     }

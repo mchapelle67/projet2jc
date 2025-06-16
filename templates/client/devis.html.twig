@@ -10,45 +10,105 @@
     <div class="alert alert-danger">{{ message }}</div>
 {% endfor %}
 
-    <form method="POST">
-    <h1>Choix du véhicule</h1>
-    <div class="form-group">
-        <h2>Sélectionnez un véhicule :</h2>
-        <label for="marques-list">Veuillez séléctionner une marque</label>
-        <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off">
-        <datalist id="marques-list">
-            {% for marque in marques %}
+ <div class="form-container">
+        <div class="progress-bar-container">
+            <div class="progress-bar">
+                <div class="step active" data-step-title="Info">1</div>
+                <div class="progress-line"></div>
+                <div class="step" data-step-title="Amount">2</div>
+                <div class="progress-line"></div>
+                <div class="step" data-step-title="Payment">3</div>
+                <div class="progress-line"></div>
+                <div class="step" data-step-title="Review">4</div>
+            </div>
+        </div>
+
+
+{{ form_start(devisForm, {'attr': {'class': 'client-form'}}) }}
+ <div class="form-step active">
+    <h2>Informations personnelles</h2>
+        {{ form_row(devisForm.nom) }}
+        {{ form_row(devisForm.prenom) }}
+        {{ form_row(devisForm.email) }}
+        {{ form_row(devisForm.tel) }}
+        <h1>Choix du véhicule</h1>
+        <div class="form-group">
+            <h2>Sélectionnez un véhicule :</h2>
+            <label for="marques-list">Veuillez séléctionner une marque</label>
+            <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off">
+            <datalist id="marques-list">
+                {% for marque in marques %}
                 <option value="{{ marque.Make_Name }}"></option>
-            {% endfor %}
-        </datalist>
+                {% endfor %}
+            </datalist>
+            {{ form_row(devisForm.vehicule.marque) }}
 
-        <label for="modeles-list">Veuillez séléctionner un modèle</label>
-        <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off">
-        <datalist id="modeles-list"></datalist>
-        {{ form(vehiculeForm)}}
+            <label for="modeles-list">Veuillez séléctionner un modèle</label>
+            <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off">
+            <datalist id="modeles-list"></datalist>
+            {{ form_row(devisForm.vehicule.modele) }}
 
-        <button type="submit" class="btn btn-primary mt-3">Valider</button>
-    </form>
+            {{ form_row(devisForm.vehicule.anneeFabrication) }}
+            {{ form_row(devisForm.vehicule.km) }}
+            {{ form_row(devisForm.vehicule.carburant) }}
 
+            {{ form_row(devisForm.prestation) }}
+            {{ form_row(devisForm.text) }}
 
+            <button type="submit" class="btn btn-primary mt-3">Valider</button>
+        </div>
+{{ form_end(devisForm) }}
+{% endblock %}
+
+{% block javascripts %}
 <script>
-// affichage dynamique des modèles selon la marque sélctionné, evite de devoir rafraîchir la page 
-document.getElementById('marque').addEventListener('change', function() {
-    const marque = this.value;
-    fetch('/api/modeles?marque=' + encodeURIComponent(marque))
-        .then(response => response.json())
-        .then(data => {
-            const datalist = document.getElementById('modeles-list');
-            datalist.innerHTML = '';
-            if (data.length === 0) {
-                // Ajoute une option spéciale si aucun modèle n'est trouvé
-                datalist.innerHTML = `<option value="Pas de marque associée"></option>`;
-            } else {
-                data.forEach(modele => {
-                    datalist.innerHTML += `<option value="${modele.Model_Name}"></option>`;
-                });
-            }
-        });
+// on charge les marques au chargement de la page
+document.addEventListener('DOMContentLoaded', function() {
+
+    // on récupère les marques depuis l'API
+    document.getElementById('marque').addEventListener('change', function() {
+        const marque = this.value;
+        console.log('Marque sélectionnée :', marque);
+
+        // mettre à jour le champ caché pour la marque
+        const marqueHidden = document.querySelector('[name="devis_type_form[vehicule][marque]"]');
+        if (marqueHidden) {
+            marqueHidden.value = marque;
+            console.log('Champ caché marque mis à jour :', marqueHidden.value);
+        } else {
+            console.log('Champ caché marque introuvable');
+        }
+
+        // appel à l'API pour récupérer les modèles associés à la marque
+        fetch('/api/modeles?marque=' + encodeURIComponent(marque))
+            .then(response => response.json())
+            .then(data => {
+                console.log('Modèles reçus :', data);
+                const datalist = document.getElementById('modeles-list');
+                datalist.innerHTML = '';
+                if (data.length === 0) {
+                    datalist.innerHTML = `<option value="Pas de marque associée"></option>`;
+                } else {
+                    data.forEach(modele => {
+                        datalist.innerHTML += `<option value="${modele.Model_Name}"></option>`;
+                    });
+                }
+            });
+    });
+
+    // on met à jour le champ caché pour le modèle sélectionné
+    document.getElementById('modele').addEventListener('change', function() {
+        const modele = this.value;
+        console.log('Modèle sélectionné :', modele);
+
+        const modeleHidden = document.querySelector('[name="devis_type_form[vehicule][modele]"]');
+        if (modeleHidden) {
+            modeleHidden.value = modele;
+            console.log('Champ caché modèle mis à jour :', modeleHidden.value);
+        } else {
+            console.log('Champ caché modèle introuvable');
+        }
+    });
 });
 </script>
 {% endblock %}
