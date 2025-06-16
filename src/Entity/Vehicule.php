@@ -17,8 +17,8 @@ class Vehicule
     #[ORM\Column(nullable: true)]
     private ?int $km = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTime $anneeFabrication = null;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $anneeFabrication = null;
 
     #[ORM\Column(length: 100)]
     private ?string $marque = null;
@@ -46,12 +46,12 @@ class Vehicule
         return $this;
     }
 
-    public function getAnneeFabrication(): ?\DateTime
+    public function getAnneeFabrication(): ?int
     {
         return $this->anneeFabrication;
     }
 
-    public function setAnneeFabrication(?\DateTime $anneeFabrication): static
+    public function setAnneeFabrication(?int $anneeFabrication): static
     {
         $this->anneeFabrication = $anneeFabrication;
 
