@@ -10,54 +10,82 @@
     <div class="alert alert-danger">{{ message }}</div>
 {% endfor %}
 
- <div class="form-container">
-        <div class="progress-bar-container">
-            <div class="progress-bar">
-                <div class="step active" data-step-title="Info">1</div>
-                <div class="progress-line"></div>
-                <div class="step" data-step-title="Amount">2</div>
-                <div class="progress-line"></div>
-                <div class="step" data-step-title="Payment">3</div>
-                <div class="progress-line"></div>
-                <div class="step" data-step-title="Review">4</div>
+<section="form">
+<h1>Demande de devis</h1>
+
+<div class="form-container">
+    <div class="progress-bar-container">
+        <div class="progress-bar-form">
+            <div class="step active" data-step-title="Infos">1</div>
+            <div class="progress-line"></div>
+            <div class="step" data-step-title="Vehicule">2</div>
+            <div class="progress-line"></div>
+            <div class="step" data-step-title="Devis">3</div>
+            <div class="progress-line"></div>
+            <div class="step" data-step-title="Recap">4</div>
+        </div>
+    </div>
+
+
+{{ form_start(devisForm, {'attr': {'id': 'client-form'}}) }}
+    <div class="form-step active">
+        <h2>Informations personnelles</h2>
+                {{ form_row(devisForm.nom, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(devisForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(devisForm.email, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(devisForm.tel, {'row_attr': {'class': 'form-group'}}) }}
+    </div>
+    <div class="form-step">
+        <h2>Informations du véhicule</h2>
+            <div class="form-group">
+                <label for="marques-list">Veuillez séléctionner une marque</label>
+                <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off">
+                <datalist id="marques-list">
+                    {% for marque in marques %}
+                    <option value="{{ marque.Make_Name }}"></option>
+                    {% endfor %}
+                </datalist>
+                {{ form_row(devisForm.vehicule.marque) }}
             </div>
+            <div class="form-group">
+                <label for="modeles-list">Veuillez séléctionner un modèle</label>
+                <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off">
+                <datalist id="modeles-list"></datalist>
+                {{ form_row(devisForm.vehicule.modele) }}
+            </div>
+                {{ form_row(devisForm.vehicule.anneeFabrication, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(devisForm.vehicule.km, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(devisForm.vehicule.carburant, {'row_attr': {'class': 'form-group'}}) }}
+    </div>
+    <div class="form-step">
+        <h2>Detaillez votre demande</h2>
+            {{ form_row(devisForm.prestation, {'row_attr': {'class': 'form-group'}}) }}
+            {{ form_row(devisForm.text, {'row_attr': {'class': 'form-group'}}) }}
+    </div>
+    <div class="form-step">
+        <h2>Recapitulatif de votre demande</h2>
+            <div id="reviewDetails">
+                <p>Nom et prenom: <span data-review="nom"></span><span data-review="prenom"></span></p>
+                <p>Email: <span data-review="email"></span></p>
+                <p>Numéro de téléphone: <span data-review="tel"></span></p>
+                <p>Marque: <span data-review="marque"></span></p>
+                <p>Modèle: <span data-review="modele"></span></p>
+                <p>Année de fabrication: <span data-review="anneeFabrication"></span></p>
+                <p>Nombre de kilomètre: <span data-review="km"></span></p>
+                <p>Carburant: <span data-review="carburant"></span></p>
+                <p>Prestation: <span data-review="prestation"></span></p>
+                <p><span data-review="text"></span></p>
         </div>
-
-
-{{ form_start(devisForm, {'attr': {'class': 'client-form'}}) }}
- <div class="form-step active">
-    <h2>Informations personnelles</h2>
-        {{ form_row(devisForm.nom) }}
-        {{ form_row(devisForm.prenom) }}
-        {{ form_row(devisForm.email) }}
-        {{ form_row(devisForm.tel) }}
-        <h1>Choix du véhicule</h1>
-        <div class="form-group">
-            <h2>Sélectionnez un véhicule :</h2>
-            <label for="marques-list">Veuillez séléctionner une marque</label>
-            <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off">
-            <datalist id="marques-list">
-                {% for marque in marques %}
-                <option value="{{ marque.Make_Name }}"></option>
-                {% endfor %}
-            </datalist>
-            {{ form_row(devisForm.vehicule.marque) }}
-
-            <label for="modeles-list">Veuillez séléctionner un modèle</label>
-            <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off">
-            <datalist id="modeles-list"></datalist>
-            {{ form_row(devisForm.vehicule.modele) }}
-
-            {{ form_row(devisForm.vehicule.anneeFabrication) }}
-            {{ form_row(devisForm.vehicule.km) }}
-            {{ form_row(devisForm.vehicule.carburant) }}
-
-            {{ form_row(devisForm.prestation) }}
-            {{ form_row(devisForm.text) }}
-
-            <button type="submit" class="btn btn-primary mt-3">Valider</button>
-        </div>
+    </div>
+    <!-- Navigation -->
+    <div class="form-navigation">
+        <button type="button" id="prevBtn" class="btn btn-secondary">Précédent</button>
+        <button type="button" id="nextBtn" class="btn btn-primary">Suivant</button>
+        <button type="submit" id="submitBtn" class="btn btn-primary" style="display: none;">Valider</button>
+    </div>
+</div>
 {{ form_end(devisForm) }}
+</section>
 {% endblock %}
 
 {% block javascripts %}
@@ -87,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const datalist = document.getElementById('modeles-list');
                 datalist.innerHTML = '';
                 if (data.length === 0) {
-                    datalist.innerHTML = `<option value="Pas de marque associée"></option>`;
+                    datalist.innerHTML = `<option value="Pas de modèle associé"></option>`;
                 } else {
                     data.forEach(modele => {
                         datalist.innerHTML += `<option value="${modele.Model_Name}"></option>`;
@@ -109,6 +137,140 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Champ caché modèle introuvable');
         }
     });
+
+ // création les animations du formulaire
+    const formSteps = Array.from(document.querySelectorAll('.form-step'));
+    const progressSteps = Array.from(document.querySelectorAll('.progress-bar-form .step'));
+    const progressLines = Array.from(document.querySelectorAll('.progress-bar-form .progress-line'));
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const form = document.getElementById('client-form');
+    
+    let currentStep = 0;
+    
+    // initialise les étapes du formulaire en ajoutant active si l'index correspond à l'étape actuelle
+    function updateFormSteps() {
+        formSteps.forEach((step, index) => {
+            step.classList.toggle('active', index === currentStep);
+        });
+    }
+    
+    // met à jour la barre de progression en ajoutant active ou completed selon l'étape actuelle
+    function updateProgressBar() {
+        progressSteps.forEach((step, index) => {
+            if (index < currentStep) {
+                step.classList.add('completed');
+                step.classList.remove('active');
+            } else if (index === currentStep) {
+                step.classList.add('active');
+                step.classList.remove('completed');
+            } else {
+                step.classList.remove('active', 'completed');
+            }
+        });
+        
+        progressLines.forEach((line, index) => {
+            line.classList.toggle('active', index < currentStep);
+        });
+    }
+    
+    // met à jour les boutons de navigation en fonction de l'étape actuelle
+    function updateNavigationButtons() {
+        prevBtn.style.display = currentStep === 0 ? 'none' : 'inline-block';
+        // Affiche le bouton "Suivant" sauf à la dernière étape
+        nextBtn.style.display = currentStep < formSteps.length - 1 ? 'inline-block' : 'none';
+        // Affiche le bouton "Valider" seulement à la dernière étape
+        const submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn) {
+            submitBtn.style.display = currentStep === formSteps.length - 1 ? 'inline-block' : 'none';
+        }
+    }
+    
+    // validation de l'étape actuelle
+    function validateStep(stepIndex) {
+        const currentFormStep = formSteps[stepIndex];
+        const inputs = Array.from(currentFormStep.querySelectorAll('input[required], select[required]'));
+        let isValid = true;
+        
+        // gestion des erreurs
+        currentFormStep.querySelectorAll('.error-message').forEach(el => el.remove());
+        inputs.forEach(input => input.classList.remove('invalid'));
+        
+        inputs.forEach(input => {
+            let fieldValid = true;
+            if (input.type === 'checkbox' && !input.checked) {
+                fieldValid = false;
+            } else if (input.value.trim() === '') {
+                fieldValid = false;
+            } else if (input.type === 'email' && !/^\S+@\S+\.\S+$/.test(input.value)) {
+                fieldValid = false;
+            }
+            
+            if (!fieldValid) {
+                isValid = false;
+                input.classList.add('invalid');
+                const errorMsg = document.createElement('p');
+                errorMsg.className = 'error-message';
+                errorMsg.textContent = input.type === 'checkbox' ? 'This field is required.' : `Please enter a valid ${input.labels[0]?.textContent.toLowerCase() || 'value'}.`;
+                input.parentNode.appendChild(errorMsg);
+            }
+        });
+        return isValid;
+    }
+    
+    // gerer le recapitulatif 
+    function populateReviewDetails() {
+        const formData = new FormData(form);
+        const reviewData = {
+            nom: formData.get('devis_type_form[nom]') || 'Non renseigné',
+            prenom: formData.get('devis_type_form[prenom]') || 'Non renseigné',
+            email: formData.get('devis_type_form[email]') || 'Non renseigné',
+            tel: formData.get('devis_type_form[tel]') || 'Non renseigné',
+            marque: formData.get('marque') || 'Non renseigné',
+            modele: formData.get('modele') || 'Non renseigné',
+            anneeFabrication: formData.get('devis_type_form[vehicule][anneeFabrication]') || 'Non renseigné',
+            km: formData.get('devis_type_form[vehicule][km]') || 'Non renseigné',
+            carburant: formData.get('devis_type_form[vehicule][carburant]') || 'Non renseigné',
+            prestation: formData.get('devis_type_form[prestation]')|| 'Non renseigné',
+            text: formData.get('devis_type_form[text]') || 'Non renseigné',  
+        };
+        
+        for (const key in reviewData) {
+            const element = document.querySelector(`#reviewDetails [data-review="${key}"]`);
+            if (element) {
+                element.textContent = reviewData[key];
+            }
+        }
+    }
+    
+    // permet de passer à l'étape suivante si la validation est réussie
+    nextBtn.addEventListener('click', () => {
+        if (validateStep(currentStep)) {
+            currentStep++;
+            if (currentStep === formSteps.length - 1) { 
+                populateReviewDetails();
+            }
+            updateFormSteps();
+            updateProgressBar();
+            updateNavigationButtons();
+        }
+    });
+    
+    // permet de revenir à l'étape précédente
+    prevBtn.addEventListener('click', () => {
+        if (currentStep > 0) {
+            currentStep--;
+            updateFormSteps();
+            updateProgressBar();
+            updateNavigationButtons();
+        }
+    });
+    
+    // inititalise 
+    updateFormSteps();
+    updateProgressBar();
+    updateNavigationButtons();
 });
 </script>
 {% endblock %}

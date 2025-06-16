@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Symfony\Component\Form\FormTypeInterface;
 use App\Entity\Devis;
 use App\Form\DevisTypeForm;
 use App\Service\ApiService;
@@ -63,7 +62,8 @@ final class ClientController extends AbstractController
                 'success' => true,
                 'message' => 'Devis créé avec succès ! Nous reviendrons vers vous rapidement.',
             ]);
-        } else {
+        } 
+        else {
             $this->addFlash('error', 'Erreur lors de la création de votre devis');
         }
         
