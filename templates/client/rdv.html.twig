@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Demande de devis{% endblock %}
+{% block title %}Demande de rendez-vous{% endblock %}
 
 {% block body %}
 {% for message in app.flashes('success') %}
@@ -11,7 +11,7 @@
 {% endfor %}
 
 <section="form">
-<h1>Demande de devis</h1>
+<h1>Demande de rendez-vous</h1>
 
 <div class="form-container">
     <div class="progress-bar-container">
@@ -20,20 +20,20 @@
             <div class="progress-line"></div>
             <div class="step" data-step-title="Vehicule">2</div>
             <div class="progress-line"></div>
-            <div class="step" data-step-title="Devis">3</div>
+            <div class="step" data-step-title="Date">3</div>
             <div class="progress-line"></div>
             <div class="step" data-step-title="Recap">4</div>
         </div>
     </div>
 
 
-{{ form_start(devisForm, {'attr': {'id': 'client-form'}}) }}
+{{ form_start(rdvForm, {'attr': {'id': 'client-form'}}) }}
     <div class="form-step active">
         <h2>Informations personnelles</h2>
-                {{ form_row(devisForm.nom, {'row_attr': {'class': 'form-group'}}) }}
-                {{ form_row(devisForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
-                {{ form_row(devisForm.email, {'row_attr': {'class': 'form-group'}}) }}
-                {{ form_row(devisForm.tel, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(rdvForm.nom, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(rdvForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(rdvForm.email, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(rdvForm.tel, {'row_attr': {'class': 'form-group'}}) }}
     </div>
     <div class="form-step">
         <h2>Informations du véhicule</h2>
@@ -45,23 +45,23 @@
                     <option value="{{ marque.Make_Name }}"></option>
                     {% endfor %}
                 </datalist>
-                {{ form_row(devisForm.vehicule.marque) }}
+                {{ form_row(rdvForm.vehicule.marque) }}
             </div>
             <div class="form-group">
                 <label for="modeles-list">Veuillez séléctionner un modèle</label>
                 <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off">
                 <datalist id="modeles-list"></datalist>
-                {{ form_row(devisForm.vehicule.modele) }}
+                {{ form_row(rdvForm.vehicule.modele) }}
             </div>
-                {{ form_row(devisForm.vehicule.anneeFabrication, {'row_attr': {'class': 'form-group'}}) }}
-                {{ form_row(devisForm.vehicule.km, {'row_attr': {'class': 'form-group'}}) }}
-                {{ form_row(devisForm.vehicule.carburant, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(rdvForm.vehicule.anneeFabrication, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(rdvForm.vehicule.km, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(rdvForm.vehicule.carburant, {'row_attr': {'class': 'form-group'}}) }}
     </div>
     <div class="form-step">
-        <h2>Detaillez votre demande</h2>
-            {{ form_row(devisForm.prestation, {'row_attr': {'class': 'form-group'}}) }}
-            {{ form_row(devisForm.text, {'row_attr': {'class': 'form-group'}}) }}
-    </div>
+        <h2>Choisissez un créneau</h2>
+            {{ form_row(rdvForm.prestation, {'row_attr': {'class': 'form-group'}}) }}
+            {{ form_row(rdvForm.date_rdv, {'row_attr': {'class': 'form-group'}}) }}
+        </div>
     <div class="form-step">
         <h2>Recapitulatif de votre demande</h2>
             <div id="reviewDetails">
@@ -74,7 +74,7 @@
                 <p>Nombre de kilomètre: <span data-review="km"></span></p>
                 <p>Carburant: <span data-review="carburant"></span></p>
                 <p>Prestation: <span data-review="prestation"></span></p>
-                <p><span data-review="text"></span></p>
+                <p>Rendez-vous: <span data-review="date_rdv"></span></p>
         </div>
     </div>
     <!-- Navigation -->
@@ -84,7 +84,7 @@
         <button type="submit" id="submitBtn" class="btn btn-primary" style="display: none;">Valider</button>
     </div>
 </div>
-{{ form_end(devisForm) }}
+{{ form_end(rdvForm) }}
 </section>
 {% endblock %}
 
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Marque sélectionnée :', marque);
 
         // mettre à jour le champ caché pour la marque
-        const marqueHidden = document.querySelector('[name="devis_type_form[vehicule][marque]"]');
+        const marqueHidden = document.querySelector('[name="rdv_type_form[vehicule][marque]"]');
         if (marqueHidden) {
             marqueHidden.value = marque;
             console.log('Champ caché marque mis à jour :', marqueHidden.value);
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const modele = this.value;
         console.log('Modèle sélectionné :', modele);
 
-        const modeleHidden = document.querySelector('[name="devis_type_form[vehicule][modele]"]');
+        const modeleHidden = document.querySelector('[name="rdv_type_form[vehicule][modele]"]');
         if (modeleHidden) {
             modeleHidden.value = modele;
             console.log('Champ caché modèle mis à jour :', modeleHidden.value);
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
- // création les animations du formulaire
+// création les animations du formulaire
     const formSteps = Array.from(document.querySelectorAll('.form-step'));
     const progressSteps = Array.from(document.querySelectorAll('.progress-bar-form .step'));
     const progressLines = Array.from(document.querySelectorAll('.progress-bar-form .progress-line'));
@@ -223,17 +223,17 @@ document.addEventListener('DOMContentLoaded', function() {
     function populateReviewDetails() {
         const formData = new FormData(form);
         const reviewData = {
-            nom: formData.get('devis_type_form[nom]') || 'Non renseigné',
-            prenom: formData.get('devis_type_form[prenom]') || 'Non renseigné',
-            email: formData.get('devis_type_form[email]') || 'Non renseigné',
-            tel: formData.get('devis_type_form[tel]') || 'Non renseigné',
+            nom: formData.get('rdv_type_form[nom]') || 'Non renseigné',
+            prenom: formData.get('rdv_type_form[prenom]') || 'Non renseigné',
+            email: formData.get('rdv_type_form[email]') || 'Non renseigné',
+            tel: formData.get('rdv_type_form[tel]') || 'Non renseigné',
             marque: formData.get('marque') || 'Non renseigné',
             modele: formData.get('modele') || 'Non renseigné',
-            anneeFabrication: formData.get('devis_type_form[vehicule][anneeFabrication]') || 'Non renseigné',
-            km: formData.get('devis_type_form[vehicule][km]') || 'Non renseigné',
-            carburant: formData.get('devis_type_form[vehicule][carburant]') || 'Non renseigné',
-            prestation: formData.get('devis_type_form[prestation]')|| 'Non renseigné',
-            text: formData.get('devis_type_form[text]') || 'Non renseigné',  
+            anneeFabrication: formData.get('rdv_type_form[vehicule][anneeFabrication]') || 'Non renseigné',
+            km: formData.get('rdv_type_form[vehicule][km]') || 'Non renseigné',
+            carburant: formData.get('rdv_type_form[vehicule][carburant]') || 'Non renseigné',
+            prestation: formData.get('rdv_type_form[prestation]')|| 'Non renseigné',
+            dateRdv: formData.get('rdv_type_form[date_rdv]') || 'Non renseigné',  
         };
         
         for (const key in reviewData) {
