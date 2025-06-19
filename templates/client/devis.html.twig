@@ -3,11 +3,13 @@
 {% block title %}Demande de devis{% endblock %}
 
 {% block body %}
-{% for message in app.flashes('success') %}
-    <div class="alert alert-success">{{ message }}</div>
-{% endfor %}
-{% for message in app.flashes('error') %}
-    <div class="alert alert-danger">{{ message }}</div>
+{% for label, messages in app.flashes %}
+    {% set alertClass = (label == 'error') ? 'danger' : label %}
+    {% for message in messages %}
+        <div class="alert alert-{{ alertClass }}">
+            {{ message }}
+        </div>
+    {% endfor %}
 {% endfor %}
 
 <section="form">
@@ -34,11 +36,12 @@
                 {{ form_row(devisForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
                 {{ form_row(devisForm.email, {'row_attr': {'class': 'form-group'}}) }}
                 {{ form_row(devisForm.tel, {'row_attr': {'class': 'form-group'}}) }}
+                <h3 class="champs-obligatoires">*champs obligatoires</h3>
     </div>
     <div class="form-step">
         <h2>Informations du véhicule</h2>
             <div class="form-group">
-                <label for="marques-list">Veuillez séléctionner une marque</label>
+                <label for="marques-list">Veuillez séléctionner une marque*</label>
                 <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off">
                 <datalist id="marques-list">
                     {% for marque in marques %}
@@ -48,7 +51,7 @@
                 {{ form_row(devisForm.vehicule.marque) }}
             </div>
             <div class="form-group">
-                <label for="modeles-list">Veuillez séléctionner un modèle</label>
+                <label for="modeles-list">Veuillez séléctionner un modèle*</label>
                 <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off">
                 <datalist id="modeles-list"></datalist>
                 {{ form_row(devisForm.vehicule.modele) }}
@@ -59,13 +62,13 @@
     </div>
     <div class="form-step">
         <h2>Detaillez votre demande</h2>
-            {{ form_row(devisForm.prestation, {'row_attr': {'class': 'form-group'}}) }}
+            {{ form_row(devisForm.prestation, {'row_attr': {'class': 'form-group' }}) }}
             {{ form_row(devisForm.text, {'row_attr': {'class': 'form-group'}}) }}
     </div>
     <div class="form-step">
         <h2>Recapitulatif de votre demande</h2>
             <div id="reviewDetails">
-                <p>Nom et prenom: <span data-review="nom"></span><span data-review="prenom"></span></p>
+                <p>Nom et prenom: <span data-review="nom"> </span><span data-review="prenom"></span></p>
                 <p>Email: <span data-review="email"></span></p>
                 <p>Numéro de téléphone: <span data-review="tel"></span></p>
                 <p>Marque: <span data-review="marque"></span></p>
@@ -197,6 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
         currentFormStep.querySelectorAll('.error-message').forEach(el => el.remove());
         inputs.forEach(input => input.classList.remove('invalid'));
         
+        // vérification classique des champs requis
         inputs.forEach(input => {
             let fieldValid = true;
             if (input.type === 'checkbox' && !input.checked) {
@@ -212,12 +216,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 input.classList.add('invalid');
                 const errorMsg = document.createElement('p');
                 errorMsg.className = 'error-message';
-                errorMsg.textContent = input.type === 'checkbox' ? 'This field is required.' : `Please enter a valid ${input.labels[0]?.textContent.toLowerCase() || 'value'}.`;
+                errorMsg.textContent = input.type === 'checkbox' ? 'Ce champ est requis.' : 'Veuillez entrer une donnée valide.';
                 input.parentNode.appendChild(errorMsg);
             }
         });
+        
+        // vérification spécifique pour l'étape 2 : marque et modèle obligatoires
+        if (stepIndex === 1) {
+            const marque = document.getElementById('marque');
+            const modele = document.getElementById('modele');
+            if (!marque.value.trim() || !modele.value.trim()) {
+                isValid = false;
+                [marque, modele].forEach(input => {
+                    if (input && !input.value.trim()) {
+                        input.classList.add('invalid');
+                        const errorMsg = document.createElement('p');
+                        errorMsg.className = 'error-message';
+                        errorMsg.textContent = 'Ce champ est requis.';
+                        input.parentNode.appendChild(errorMsg);
+                    }
+                });
+            }
+        }
         return isValid;
     }
+
+
     
     // gerer le recapitulatif 
     function populateReviewDetails() {
@@ -231,8 +255,22 @@ document.addEventListener('DOMContentLoaded', function() {
             modele: formData.get('modele') || 'Non renseigné',
             anneeFabrication: formData.get('devis_type_form[vehicule][anneeFabrication]') || 'Non renseigné',
             km: formData.get('devis_type_form[vehicule][km]') || 'Non renseigné',
-            carburant: formData.get('devis_type_form[vehicule][carburant]') || 'Non renseigné',
-            prestation: formData.get('devis_type_form[prestation]')|| 'Non renseigné',
+            carburant: (() => {
+                const select = document.getElementById('devis_type_form_vehicule_carburant');
+                if (select) {
+                    const selected = select.options[select.selectedIndex];
+                    return selected ? selected.textContent : 'Non renseigné';
+                }
+                return 'Non renseigné';
+            })(),
+            prestation: (() => {
+                    const select = document.getElementById('devis_type_form_prestation');
+                    if (select) {
+                        const selected = select.options[select.selectedIndex];
+                        return selected ? selected.textContent : 'Non renseigné';
+                    }
+                    return 'Non renseigné';
+                })(),            
             text: formData.get('devis_type_form[text]') || 'Non renseigné',  
         };
         

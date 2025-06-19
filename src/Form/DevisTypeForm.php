@@ -18,26 +18,29 @@ class DevisTypeForm extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'Nom*',
             ])
             ->add('prenom', TextType::class, [
-                'label' => 'Prénom',
+                'label' => 'Prénom*',
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email',
+                'label' => 'Email*',
             ])
             ->add('tel', TelType::class, [
                 'label' => 'Téléphone',
                 'required' => false
             ])
             ->add('text', TextType::class, [
-                'label' => 'Veuillez détailler le problème ...'
+                'label' => 'Veuillez détailler le problème ...*',
+                 'attr' => [
+                    'rows' => 20,
+                ]
             ])
             ->add('prestation', EntityType::class, [
                 'class' => Prestation::class,
                 'choice_label' => 'nomPrestation',
-                'label' => 'Prestation',
-                'placeholder' => 'Sélectionnez une prestation'
+                'label' => 'Prestation*',
+                'placeholder' => 'Sélectionnez une prestation',
             ])
             ->add('vehicule', VehiculeTypeForm::class) // ajout du form vehicule pour l'imbriquer
         ;

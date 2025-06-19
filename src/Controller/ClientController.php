@@ -64,12 +64,10 @@ final class ClientController extends AbstractController
             $entityManager->flush();
                     
             // puis on redirige vers la liste des véhicules d'occasion
-            return $this->redirectToRoute('app_devis_client', [
-                'success' => true,
-                'message' => 'Devis créé avec succès ! Nous reviendrons vers vous rapidement.',
-            ]);
+             $this->addFlash('success', 'Votre demande de rendez-vous a bien été prise en compte, nous reviendrons vers vous très rapidement.');
+            return $this->redirectToRoute('app_devis_client');
         } 
-        else {
+        elseif ($devisForm->isSubmitted() && !$devisForm->isValid()) {
             $this->addFlash('error', 'Erreur lors de la création de votre devis');
         }
         
@@ -109,13 +107,13 @@ final class ClientController extends AbstractController
         if ($rdvForm->isSubmitted() && $rdvForm->isValid()) {
                     
             // on récupère les données du formulaire
-            $rdv = $rdvForm->getData();
+            $rdvData = $rdvForm->getData();
 
             // on créer automatiquement un statut 
-            $rdv->setStatut('En cours');
+            $rdvData->setStatut('En cours');
 
             // on gère les erreurs potentielles
-            if (!$rdv->getVehicule()->getMarque()) {
+            if (!$rdvData->getVehicule()->getMarque()) {
                 $this->addFlash('error', 'Veuillez sélectionner une marque de véhicule.');
                 return $this->render('client/rdv.html.twig', [
                     'controller_name' => 'ClientController',
@@ -131,19 +129,18 @@ final class ClientController extends AbstractController
                     'rdvForm' => $rdvForm->createView(),
                 ]);
             }
-        
+
             // on envois vers la bdd
             $entityManager->persist($rdv);
             $entityManager->flush();
                     
             // puis on redirige vers la liste des véhicules d'occasion
-            return $this->redirectToRoute('app_rdv_client', [
-                'success' => true,
-                'message' => 'Votre demande de rendez-vous a bien été prise en compte, nous reviendrons vers vous rapidement.',
-            ]);
+            $this->addFlash('success', 'Votre demande de rendez-vous a bien été prise en compte, nous reviendrons vers vous très rapidement.');
+            return $this->redirectToRoute('app_rdv_client');
         } 
-        else {
+        elseif ($rdvForm->isSubmitted() && !$rdvForm->isValid()) {
             $this->addFlash('error', 'Erreur lors de la création de votre demande de rendez-vous');
+            return $this->redirectToRoute('app_rdv_client');
         }
         
         return $this->render('client/rdv.html.twig', [
@@ -173,6 +170,12 @@ final class ClientController extends AbstractController
             $tel = $contactForm->get('tel')->getData();
         }
 
+        // on met des majuscules pour rendre plus esthetique
+        $nomData = $contactForm->get('nom')->getData();
+        $nom = strtoupper($nomData);
+        $prenomData = $contactForm->get('prenom')->getData();
+        $prenom = ucfirst(strtolower($prenomData));
+
         // on récupère les données du formulaire et on les prépare à l'envoi
         $contactData = $contactForm->getData();
         $mail = new PHPMailer(true);
@@ -197,7 +200,7 @@ final class ClientController extends AbstractController
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = 'Nouvelle demande de contact';
             $mail->Body    = 'Vous avez reçu un nouveau message : <br>' .
-                            'Nom : ' . $contactData['nom'] . ' ' . $contactData['prenom'] . '<br>' .
+                            'Nom : ' . $nom . ' ' . $prenom . '<br>' .
                             'Email : ' . $contactData['email'] . '<br>' .
                             'Teléphone : ' . $tel . '<br>' .
                             'Message : ' . nl2br($contactData['text']);

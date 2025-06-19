@@ -3,11 +3,13 @@
 {% block title %}Demande de rendez-vous{% endblock %}
 
 {% block body %}
-{% for message in app.flashes('success') %}
-    <div class="alert alert-success">{{ message }}</div>
-{% endfor %}
-{% for message in app.flashes('error') %}
-    <div class="alert alert-danger">{{ message }}</div>
+{% for label, messages in app.flashes %}
+    {% set alertClass = (label == 'error') ? 'danger' : label %}
+    {% for message in messages %}
+        <div class="alert alert-{{ alertClass }}">
+            {{ message }}
+        </div>
+    {% endfor %}
 {% endfor %}
 
 <section="form">
@@ -34,11 +36,12 @@
                 {{ form_row(rdvForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
                 {{ form_row(rdvForm.email, {'row_attr': {'class': 'form-group'}}) }}
                 {{ form_row(rdvForm.tel, {'row_attr': {'class': 'form-group'}}) }}
+                <h3 class="champs-obligatoires">*champs obligatoires</h3>
     </div>
     <div class="form-step">
         <h2>Informations du véhicule</h2>
             <div class="form-group">
-                <label for="marques-list">Veuillez séléctionner une marque</label>
+                <label for="marques-list">Veuillez séléctionner une marque*</label>
                 <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off">
                 <datalist id="marques-list">
                     {% for marque in marques %}
@@ -48,7 +51,7 @@
                 {{ form_row(rdvForm.vehicule.marque) }}
             </div>
             <div class="form-group">
-                <label for="modeles-list">Veuillez séléctionner un modèle</label>
+                <label for="modeles-list">Veuillez séléctionner un modèle*</label>
                 <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off">
                 <datalist id="modeles-list"></datalist>
                 {{ form_row(rdvForm.vehicule.modele) }}
@@ -65,7 +68,7 @@
     <div class="form-step">
         <h2>Recapitulatif de votre demande</h2>
             <div id="reviewDetails">
-                <p>Nom et prenom: <span data-review="nom"></span><span data-review="prenom"></span></p>
+                <p>Nom et prenom: <span data-review="nom"></span> <span data-review="prenom"></span></p>
                 <p>Email: <span data-review="email"></span></p>
                 <p>Numéro de téléphone: <span data-review="tel"></span></p>
                 <p>Marque: <span data-review="marque"></span></p>
@@ -212,12 +215,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 input.classList.add('invalid');
                 const errorMsg = document.createElement('p');
                 errorMsg.className = 'error-message';
-                errorMsg.textContent = input.type === 'checkbox' ? 'This field is required.' : `Please enter a valid ${input.labels[0]?.textContent.toLowerCase() || 'value'}.`;
+                errorMsg.textContent = input.type === 'checkbox' ? 'Ce champs est requis.' : 'Veuillez saisir une donnée valide';
                 input.parentNode.appendChild(errorMsg);
             }
         });
+
+      // vérification spécifique pour l'étape 2 : marque et modèle obligatoires
+        if (stepIndex === 1) {
+            const marque = document.getElementById('marque');
+            const modele = document.getElementById('modele');
+            if (!marque.value.trim() || !modele.value.trim()) {
+                isValid = false;
+                [marque, modele].forEach(input => {
+                    if (input && !input.value.trim()) {
+                        input.classList.add('invalid');
+                        const errorMsg = document.createElement('p');
+                        errorMsg.className = 'error-message';
+                        errorMsg.textContent = 'Ce champ est requis.';
+                        input.parentNode.appendChild(errorMsg);
+                    }
+                });
+            }
+        }
         return isValid;
-    }
+    }    
     
     // gerer le recapitulatif 
     function populateReviewDetails() {
@@ -231,9 +252,36 @@ document.addEventListener('DOMContentLoaded', function() {
             modele: formData.get('modele') || 'Non renseigné',
             anneeFabrication: formData.get('rdv_type_form[vehicule][anneeFabrication]') || 'Non renseigné',
             km: formData.get('rdv_type_form[vehicule][km]') || 'Non renseigné',
-            carburant: formData.get('rdv_type_form[vehicule][carburant]') || 'Non renseigné',
-            prestation: formData.get('rdv_type_form[prestation]')|| 'Non renseigné',
-            dateRdv: formData.get('rdv_type_form[date_rdv]') || 'Non renseigné',  
+            carburant: (() => {
+                const select = document.getElementById('rdv_type_form_vehicule_carburant');
+                if (select) {
+                    const selected = select.options[select.selectedIndex];
+                    return selected ? selected.textContent : 'Non renseigné';
+                }
+                return 'Non renseigné';
+            })(),
+            prestation: (() => {
+                    const select = document.getElementById('rdv_type_form_prestation');
+                    if (select) {
+                        const selected = select.options[select.selectedIndex];
+                        return selected ? selected.textContent : 'Non renseigné';
+                    }
+                    return 'Non renseigné';
+                })(),       
+            dateRdv: (() => {
+                const raw = formData.get('rdv_type_form[date_rdv]');
+                if (!raw) return 'Non renseigné';
+                const date = new Date(raw);
+                if (isNaN(date)) return raw; // si la conversion échoue, affiche brut
+
+                // Format : JJ/MM/AAAA à HH:MM
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                const hours = String(date.getHours()).padStart(2, '0');
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                return `${day}/${month}/${year} à ${hours}:${minutes}`;
+            })(),        
         };
         
         for (const key in reviewData) {

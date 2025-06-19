@@ -19,16 +19,17 @@ class RdvTypeForm extends AbstractType
     {
         $builder
             ->add('date_rdv', null, [
+                'label' => 'Date du rendez-vous*',
                 'widget' => 'single_text',
             ])
             ->add('nom', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'Nom*',
             ])
             ->add('prenom', TextType::class, [
-                'label' => 'Prénom',
+                'label' => 'Prénom*',
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email',
+                'label' => 'Email*',
             ])
             ->add('tel', TelType::class, [
                 'label' => 'Téléphone',
@@ -37,7 +38,7 @@ class RdvTypeForm extends AbstractType
             ->add('prestation', EntityType::class, [
                 'class' => Prestation::class,
                 'choice_label' => 'nomPrestation',
-                'label' => 'Prestation',
+                'label' => 'Prestation*',
                 'placeholder' => 'Sélectionnez une prestation'
             ])
             ->add('vehicule', VehiculeTypeForm::class) // ajout du form vehicule pour l'imbriquer
