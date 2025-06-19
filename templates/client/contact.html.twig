@@ -11,18 +11,19 @@
 {% endfor %}
 
 <section="form">
-<h1>Nous contacter</h1>
-
-{{ form_start(contactForm, {'attr': {'id': 'client-form'}}) }}
-    <div class="form-step active">
-        {{ form_row(contactForm.nom, {'row_attr': {'class': 'form-group'}}) }}
-        {{ form_row(contactForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
-        {{ form_row(contactForm.email, {'row_attr': {'class': 'form-group'}}) }}
-        {{ form_row(contactForm.tel, {'row_attr': {'class': 'form-group'}}) }}
-        {{ form_row(contactForm.text, {'row_attr': {'class': 'form-group'}}) }}
-        <h2>* champs obligatoires</h2>
-        {{ form_row(contactForm.submit, {'row_attr': {'class': 'form-group'}}) }}
+    {{ form_start(contactForm) }}
+    <div class="form-step active contact">
+        <h1>Nous contacter</h1>
+            <div class="col">
+                {{ form_row(contactForm.nom, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(contactForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
+            </div>
+                {{ form_row(contactForm.email, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(contactForm.tel, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(contactForm.text, {'row_attr': {'class': 'form-group'}}) }}
+                    <h2>* champs obligatoires</h2>
+                    {{ form_row(contactForm.submit, {'row_attr': {'class': 'form-group'}}) }}
     </div>
-{{ form_end(contactForm) }}
+    {{ form_end(contactForm) }}
 </section>
 {% endblock %}

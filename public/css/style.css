@@ -48,6 +48,10 @@ p {
     margin: 0;
 }
 
+.alert.alert-success, 
+.alert.alert-danger {
+    margin: 50px;
+}
 /* *************************** BASE ************************************ */
 header {
     width: 100%;
@@ -372,25 +376,6 @@ h2 {
     margin-right: 5px;
 }
 
-/* Thank You Message */
-#thankYouMessage {
-    text-align: center;
-    animation: fadeIn 0.5s ease-in-out;
-}
-#thankYouMessage h2 {
-    color: var(--success-color);
-    font-size: 2em;
-}
-#thankYouMessage p {
-    font-size: 1.1em;
-    margin-bottom: 20px;
-}
-#thankYouMessage img {
-    width: 80px; /* Adjust size as needed */
-    height: auto;
-    margin-top: 10px;
-}
-
 /* Validation Error Styling */
 input.invalid {
     border-color: var(--error-color);
@@ -425,3 +410,48 @@ input.invalid {
         width: 100%;
     }
 }
+/* ************************** FORMULAIRE CONTACT *********************************** */
+
+.form-step.active.contact {
+    width: 70%;
+    margin: 0 auto 50px auto;
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);  
+    background-color: white;
+        h1 {
+            background-color: white;
+            color: var(--blue-color);
+        }
+        h2 {
+            font-size: 0.7em;
+            text-align: start;
+            margin: 0;
+            color: var(--dark-gray);
+            font-weight: 400;
+        }
+}
+
+#contact_type_form_submit {
+    display: flex;
+    margin: 20px auto;
+    background-color: var(--red-color);
+    border: none;
+    color: white;
+    padding: 10px 20px; 
+    border-radius: var(--border-radius);
+        &:hover {
+            opacity: 0.7;
+        }
+}
+
+.col {
+    display: flex;
+    gap: 50px;
+    background-color: white;
+    width: 100%;    
+    .form-group {
+        width: 50%;
+    }
+}
+
