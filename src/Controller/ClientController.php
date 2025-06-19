@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 final class ClientController extends AbstractController
 {
@@ -162,16 +165,57 @@ final class ClientController extends AbstractController
         // si le formulaire est soumis et valide
         if ($contactForm->isSubmitted() && $contactForm->isValid()) {
                     
+        // on gère la reception des champs non obligatoires 
+        if (!$contactForm->get('tel')->getData()) {
+            $tel = 'Non renseigné';
+        }
+        else {
+            $tel = $contactForm->get('tel')->getData();
+        }
+
+        // on récupère les données du formulaire et on les prépare à l'envoi
+        $contactData = $contactForm->getData();
+        $mail = new PHPMailer(true);
+
+        try {
+            // paramètre du serveur SMTP
+            $mail->SMTPDebug = 2;                                   // affiche les messages de debug (mettre à 0 en prod)
+            $mail->Debugoutput = 'error_log';                         // pour que ça aille dans les logs PHP
+            $mail->isSMTP();                                            // Simple Mail Transfer Protocol
+            $mail->Host       = 'smtp.gmail.com';                     // configuration du serveur SMTP
+            $mail->SMTPAuth   = true;                                   // active l'authentification SMTP
+            $mail->Username   = 'manon.chp68@gmail.com';                     //SMTP username
+            $mail->Password   = 'cihmdotrnhdlkgva';                               //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            // sert à crypter la connexion
+            $mail->Port       = 465;                                    // port du serveur SMTP
+
+            // réglages de l'expéditeur et du destinataire
+            $mail->setFrom('manon.chp68@gmail.com', '2jc');
+            $mail->addAddress('manon.chp68@gmail.com');     
+
+            // contenu du message
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = 'Nouvelle demande de contact';
+            $mail->Body    = 'Vous avez reçu un nouveau message : <br>' .
+                            'Nom : ' . $contactData['nom'] . ' ' . $contactData['prenom'] . '<br>' .
+                            'Email : ' . $contactData['email'] . '<br>' .
+                            'Teléphone : ' . $tel . '<br>' .
+                            'Message : ' . nl2br($contactData['text']);
+            $mail->AltBody = 'Ceci est le corps du message en texte brut pour les clients mail ne supportant pas le HTML';        
+
+            // envoi du mail
+            $mail->send();
+
             // on envois un message de confirmation et on redirige  
             $this->addFlash('success', 'Votre message a bien été envoyé, nous reviendrons vers vous très rapidement.');
-        } 
-        else {
-            $this->addFlash('error', 'Erreur lors de l\'envoi de votre message');
-        }
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Erreur lors de l\'envoi de votre message : ' . $e->getMessage());
+            }
         
         return $this->render('client/contact.html.twig', [
             'controller_name' => 'ClientController',
             'contactForm' => $contactForm->createView(),     
         ]);
+        }
     }
 }
