@@ -59,7 +59,7 @@ class Rdv
 
     public function setNom(string $nom): static
     {
-        $this->nom = $nom;
+        $this->nom = strtoupper($nom);
 
         return $this;
     }
@@ -71,7 +71,7 @@ class Rdv
 
     public function setPrenom(string $prenom): static
     {
-        $this->prenom = $prenom;
+        $this->prenom = ucfirst($prenom);
 
         return $this;
     }

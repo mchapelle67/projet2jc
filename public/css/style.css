@@ -34,6 +34,9 @@ img {
     --light-gray: #f4f4f4;
     --medium-gray: #e0e0e0;
     --dark-gray: #555;
+    --text-color: #333;
+    --success-color: #4CAF50; /* Green for success, keeping it standard */
+    --error-color: #F44336; /* Red for error */   
 }
 
 a {
@@ -128,17 +131,6 @@ footer {
 
 /* ************************** FORMULAIRES *********************************** */
 
-:root {
-
-    --text-color: #333;
-    --success-color: #4CAF50; /* Green for success, keeping it standard */
-    --error-color: #F44336; /* Red for error */
-
-    --font-family: 'Poppins', sans-serif;
-   
-}
-
-
 .form-container {
     background-color: white;
     padding: 30px 40px;
@@ -227,6 +219,11 @@ h2 {
     background-color: white;
     display: none;
     animation: fadeIn 0.5s ease-in-out;
+     h3 {
+        margin-bottom: 10px;
+        color: var(--blue-color);
+        font-weight: 600;
+    }
 }
 .form-step.active {
     display: block;
@@ -278,6 +275,13 @@ h2 {
 }
 .form-group-inline .form-group {
     flex: 1;
+}
+
+.form-step h3.champs-obligatoires {
+    color: var(--dark-grey);
+    background-color: white;
+    font-size: 0.7em;
+    margin: 0;
 }
 
 /* Checkbox styling */
