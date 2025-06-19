@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Forumulaire de contact{% endblock %}
+
+{% block body %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">{{ message }}</div>
+{% endfor %}
+{% for message in app.flashes('error') %}
+    <div class="alert alert-danger">{{ message }}</div>
+{% endfor %}
+
+<section="form">
+<h1>Nous contacter</h1>
+
+{{ form_start(contactForm, {'attr': {'id': 'client-form'}}) }}
+    <div class="form-step active">
+        {{ form_row(contactForm.nom, {'row_attr': {'class': 'form-group'}}) }}
+        {{ form_row(contactForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
+        {{ form_row(contactForm.email, {'row_attr': {'class': 'form-group'}}) }}
+        {{ form_row(contactForm.tel, {'row_attr': {'class': 'form-group'}}) }}
+        {{ form_row(contactForm.text, {'row_attr': {'class': 'form-group'}}) }}
+        {{ form_row(contactForm.submit, {'row_attr': {'class': 'form-group'}}) }}
+    </div>
+{{ form_end(contactForm) }}
+</section>
+{% endblock %}

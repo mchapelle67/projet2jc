@@ -7,6 +7,7 @@ use App\Entity\Devis;
 use App\Form\RdvTypeForm;
 use App\Form\DevisTypeForm;
 use App\Service\ApiService;
+use App\Form\ContactTypeForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -146,6 +147,31 @@ final class ClientController extends AbstractController
             'controller_name' => 'ClientController',
             'marques' => $marquesResponse,
             'rdvForm' => $rdvForm->createView(),     
+        ]);
+    }
+
+    #[Route('/contact/client', name: 'app_contact')]
+    public function contact(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        // on crée un forumlaire pour la prise de contact
+        $contactForm = $this->createForm(ContactTypeForm::class);
+
+        // on gère la requête
+        $contactForm->handleRequest($request);
+
+        // si le formulaire est soumis et valide
+        if ($contactForm->isSubmitted() && $contactForm->isValid()) {
+                    
+            // on envois un message de confirmation et on redirige  
+            $this->addFlash('success', 'Votre message a bien été envoyé, nous reviendrons vers vous très rapidement.');
+        } 
+        else {
+            $this->addFlash('error', 'Erreur lors de l\'envoi de votre message');
+        }
+        
+        return $this->render('client/contact.html.twig', [
+            'controller_name' => 'ClientController',
+            'contactForm' => $contactForm->createView(),     
         ]);
     }
 }
