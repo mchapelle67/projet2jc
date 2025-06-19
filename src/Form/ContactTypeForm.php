@@ -31,8 +31,7 @@ class ContactTypeForm extends AbstractType
             ->add('text', TextType::class, [
                 'label' => 'Message *',
                 'attr' => [
-                    'rows' => 5,
-                    'placeholder' => 'Votre message ici...'
+                    'rows' => 20,
                 ]
             ])
             ->add('submit', SubmitType::class, [

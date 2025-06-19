@@ -212,10 +212,11 @@ final class ClientController extends AbstractController
                 $this->addFlash('error', 'Erreur lors de l\'envoi de votre message : ' . $e->getMessage());
             }
         
+        }
+
         return $this->render('client/contact.html.twig', [
             'controller_name' => 'ClientController',
             'contactForm' => $contactForm->createView(),     
         ]);
-        }
     }
 }
