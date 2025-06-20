@@ -176,4 +176,5 @@ class Devis
         return $this;
     }
 
+    
 }

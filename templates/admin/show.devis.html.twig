@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Devis n°{{ devis.id }}{% endblock %}
+
+
+{% block body %}
+<h1>Devis n°{{ devis.id }}</h1>
+    <h2>Statut: {{ devis.statut }}</h2>
+        <h3>Date de création du devis: {{ devis.dateDevis|date('d/m/Y à H:i') }}</h3>
+        <h3>Dernière modification: {{ devis.dateModification|date('d/m/Y à H:i') }}</h3>
+
+<h4>Informations personnelles:</h4>
+    <p>Nom et prenom: {{ devis.nom }} {{ devis.prenom }}</p>
+    <p>Email: {{ devis.email }}</p>
+    {% if devis.tel %}
+        <p> Téléphone: {{ devis.tel }} </p>
+    {% else %}
+        <p>Téléphone: donnée non renseignée</p>
+    {% endif %}
+
+<h4>Informations du vehicule:</h4>
+    <p>Marque: {{ devis.vehicule.marque }}</p>
+    <p>Modèle: {{ devis.vehicule.modele }}</p>
+    {% if devis.vehicule.anneeFabrication %}
+        <p>Année de fabrication: {{ devis.vehicule.anneeFabrication }}</p>    
+    {% else %}  
+        <p>Année de fabrication: donnée non renseignée</p>
+    {% endif %}
+    {% if devis.vehicule.km %}
+        <p>Kilomètre: {{ devis.vehicule.km }}</p>
+    {% else %}
+        <p>Kilomètre: donnée non renseignée</p>
+    {% endif %}
+    {% if devis.vehicule.carburant %}
+        <p>Carburant: {{ devis.vehicule.carburant.typeCarburant }}</p>
+    {% else %}
+        <p>Carburant: donnée non renseignée</p>
+    {% endif %}
+
+<h4>Demande de devis:</h4>
+<p>Type de prestation: {{ devis.prestation.nomPrestation }}</p>
+    {{ devis.text }}
+
+{% if devis.reponse.contenu %}
+<h4>Reponse du garage</h4>
+    <p>{{ devis.reponse.contenu }}</p>
+    <p>Date de la réponse: {{ devis.reponse.dateReponse|date('d/m/Y à H:i') }}</p>
+{% else %}
+    <p>Aucune réponse n'a été fournie pour ce devis.</p>
+{% endif %}
+
+<h5>Gérer le statut</h5>
+    <button><a href="">Traiter le devis</a></button>
+    <button><a href="">Devis refusé</a></button>
+    <button><a href="{{ path('app_admin_devis') }}">Retour à la liste des devis</a></button>
+{% endblock %}
