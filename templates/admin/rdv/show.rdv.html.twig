@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rdv n°{{ rdv.id }}{% endblock %}
+
+
+{% block body %}
+<h1>Rdv n°{{ rdv.id }}</h1>
+    <h2>Statut: {{ rdv.statut }}</h2>
+        <h3>Date du rdv: {{ rdv.dateRdv|date('d/m/Y à H:i') }}</h3>
+        <h3>Dernière modification: {{ rdv.dateModification|date('d/m/Y à H:i') }}</h3>
+            <p>Type de prestation: {{ rdv.prestation.nomPrestation }}</p>
+
+<h4>Informations personnelles:</h4>
+    <p>Nom et prenom: {{ rdv.nom }} {{ rdv.prenom }}</p>
+    <p>Email: {{ rdv.email }}</p>
+    {% if rdv.tel %}
+        <p> Téléphone: {{ rdv.tel }} </p>
+    {% else %}
+        <p>Téléphone: donnée non renseignée</p>
+    {% endif %}
+
+<h4>Informations du vehicule:</h4>
+    <p>Marque: {{ rdv.vehicule.marque }}</p>
+    <p>Modèle: {{ rdv.vehicule.modele }}</p>
+    {% if rdv.vehicule.anneeFabrication %}
+        <p>Année de fabrication: {{ rdv.vehicule.anneeFabrication }}</p>    
+    {% else %}  
+        <p>Année de fabrication: donnée non renseignée</p>
+    {% endif %}
+    {% if rdv.vehicule.km %}
+        <p>Kilomètre: {{ rdv.vehicule.km }}</p>
+    {% else %}
+        <p>Kilomètre: donnée non renseignée</p>
+    {% endif %}
+    {% if rdv.vehicule.carburant %}
+        <p>Carburant: {{ rdv.vehicule.carburant.typeCarburant }}</p>
+    {% else %}
+        <p>Carburant: donnée non renseignée</p>
+    {% endif %}
+
+{% if rdv.statut == 'En cours' %}
+    <p>Ce rdv est en attente de confirmation.</p>
+    <p>Veuillez indiquer si le rendez-vous est confirmé ou non.</p>
+    <button><a href="">Accepter le rdv</a></button>
+    <button><a href="">Refuser le rdv</a></button>
+{% elseif rdv.statut == 'Confirmer' %}
+    <button><a href="">Annuler le rdv</a></button>
+{% endif %}
+    <button><a href="{{ path('app_admin_rdv') }}">Retour à la liste des rdv</a></button>
+{% endblock %}
