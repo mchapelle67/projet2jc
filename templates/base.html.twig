@@ -60,8 +60,14 @@
                     </div>
                 </header>
                 <ul>
+                    <p><strong>Partie client:</strong></p>
                     <li><a href="{{ path('app_devis_client') }}">Devis</a></li>
                     <li><a href="{{ path('app_rdv_client') }}">Rdv</a></li>
+                    <p><strong>Partie admin:</strong></p>
+                    <li><a href="{{ path('add_vo') }}">Ajouter VO</a></li>
+                    <li><a href="{{ path('app_admin_devis') }}">Demande de devis</a></li>
+                    <li><a href="">Demande de rdv</a></li>
+                    <li><a href="">Gestion des entités</a></li>
                 </ul>
                 {% block body %}{% endblock %}
             </div>

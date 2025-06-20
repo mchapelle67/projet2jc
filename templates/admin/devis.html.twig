@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des devis{% endblock %}
+
+{% block body %}
+{% for label, messages in app.flashes %}
+    {% set alertClass = (label == 'error') ? 'danger' : label %}
+    {% for message in messages %}
+        <div class="alert alert-{{ alertClass }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+    <h1>Gestion des devis</h1>
+
+    <h2>Liste des devis en cours</h2>
+    {% for devis in devisEnCours %}
+        <p>Devis n° {{ devis.id }} </p>
+        <p>Client: {{ devis.nom }} {{ devis.prenom }}</p>
+        <p>Date de la demande: {{ devis.dateDevis|date('d/m/Y à H:i') }}</p>
+        <p><a href="{{ path('gestion_devis', {'id': devis.id}) }}">Gerer le devis</a></p><br>
+    {% else %}
+        <p>Aucun devis en cours.</p>
+    {% endfor %}
+
+    <button><a href="{{ path('app_devis_archives') }}">Voir les devis archivés</a></button>
+{% endblock %}
