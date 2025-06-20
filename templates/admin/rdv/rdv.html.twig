@@ -20,10 +20,20 @@
         <p>Client: {{ rdv.nom }} {{ rdv.prenom }}</p>
         <p>Date du rdv: {{ rdv.dateRdv|date('d/m/Y à H:i') }}</p>
         <p>Prestation: {{ rdv.prestation.nomPrestation }}</p>
-        {# <p><a href="{{ path('gestion_devis', {'id': devis.id}) }}">Voir détail</a></p><br> #}
+        <p><a href="{{ path('gestion_rdv', {'id': rdv.id}) }}">Voir détail</a></p><br>
     {% else %}
         <p>Aucun rendez-vous en attente.</p>
     {% endfor %}
 
-    {# <button><a href="{{ path('app_devis_archives') }}">Voir les devis archivés</a></button> #}
+    <h2>Rdv traîtés à venir</h2>
+    {% for rdv in rdvConfirmer %}
+        <p>Rdv n° {{ rdv.id }} </p>
+        <p>Client: {{ rdv.nom }} {{ rdv.prenom }}</p>
+        <p>Date du rdv: {{ rdv.dateRdv|date('d/m/Y à H:i') }}</p>
+        <p>Prestation: {{ rdv.prestation.nomPrestation }}</p>
+        <p><a href="{{ path('gestion_rdv', {'id': rdv.id}) }}">Voir détail</a></p><br>
+    {% else %}
+        <p>Aucun rendez-vous à venir.</p>
+    {% endfor %}    
+        <button><a href="{{ path('app_rdv_archives') }}">Voir les rdv archivés</a></button>
 {% endblock %}

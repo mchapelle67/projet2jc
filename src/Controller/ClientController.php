@@ -110,7 +110,7 @@ final class ClientController extends AbstractController
             $rdvData = $rdvForm->getData();
 
             // on créer automatiquement un statut 
-            $rdvData->setStatut('En cours');
+            $rdvData->setStatut('En attente');
 
             // on gère les erreurs potentielles
             if (!$rdvData->getVehicule()->getMarque()) {

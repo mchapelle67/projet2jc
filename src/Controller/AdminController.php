@@ -42,7 +42,7 @@ final class AdminController extends AbstractController
 
         // on récupère les devis en bdd
         $devisList = $devisRepository->findBy([], ['date_devis' => 'DESC']);
-        // on filtre les devis en cours
+        // on filtre les devis 
         $devisArchives = array_filter($devisList, function (Devis $devis) {
             return $devis->getStatut() === 'Archivé';
         });
@@ -138,16 +138,69 @@ final class AdminController extends AbstractController
         // on verifie que l'utilisateur a le rôle admin
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        // on récupère les devis en bdd
+        // on récupère les rdv en bdd
         $rdvList = $rdvRepository->findAll();
-        // on filtre les devis en cours
+        // on filtre les rdv en cours
         $rdvEnCours = array_filter($rdvList, function (Rdv $rdv) {
-            return $rdv->getStatut() === 'En cours';
+            return $rdv->getStatut() === 'En attente';
+        });
+        // on filtre les rdv confirmés pas encore passés
+        $rdvConfirmer = array_filter($rdvList, function (Rdv $rdv) {
+            return $rdv->getStatut() === 'Confirmer' && $rdv->getDateRdv() > new \DateTime();
         });
 
         return $this->render('admin/rdv/rdv.html.twig', [
             'controller_name' => 'AdminController',
-            'rdvEnCours' => $rdvEnCours
+            'rdvEnCours' => $rdvEnCours,
+            'rdvConfirmer' => $rdvConfirmer
+        ]);
+    }
+
+    #[Route('/admin/rdv/archives', name: 'app_rdv_archives')]
+    public function archivesRdv(RdvRepository $rdvRepository): Response
+    {
+        // on verifie que l'utilisateur a le rôle admin
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        // on récupère les rdv en bdd
+        $rdvList = $rdvRepository->findBy([], ['date_demande' => 'DESC']);
+
+        // on filtre les rdv 
+        $rdvArchives = array_filter($rdvList, function (Rdv $rdv) {
+            return (
+                ($rdv->getStatut() === 'Confirmer' && $rdv->getDateRdv() < new \DateTime())
+                || $rdv->getStatut() === 'Refusé'
+            );
+        });
+
+        // met à jour le statut des rdv confirmés passés en "Clôturé"
+        foreach ($rdvArchives as $rdv) {
+            if ($rdv->getStatut() === 'Confirmer' && $rdv->getDateRdv() < new \DateTime()) {
+                $rdv->setStatut('Clôturé');
+            }
+        }
+
+        return $this->render('admin/rdv/archives.rdv.html.twig', [
+            'controller_name' => 'AdminController',
+            'rdvArchives' => $rdvArchives
+        ]);
+    }
+
+    #[Route('/admin/rdv/{id}', name: 'gestion_rdv')]
+    public function gestionRdv(RdvRepository $rdvRepository, int $id): Response
+    {
+        // on verifie que l'utilisateur a le rôle admin
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        // on récupère le devis en bdd
+        $rdv = $rdvRepository->findOneBy(['id' => $id]);
+        if (!$rdv) {
+            throw $this->createNotFoundException('Rendez-vous inexistant');
+        }
+
+        return $this->render('admin/rdv/show.rdv.html.twig', [
+            'controller_name' => 'AdminController',
+            'rdv' => $rdv
         ]);
     }
 }
