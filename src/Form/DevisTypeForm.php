@@ -33,7 +33,7 @@ class DevisTypeForm extends AbstractType
             ->add('text', TextType::class, [
                 'label' => 'Veuillez détailler le problème ...*',
                  'attr' => [
-                    'rows' => 20,
+                    'rows' => 30,
                 ]
             ])
             ->add('prestation', EntityType::class, [

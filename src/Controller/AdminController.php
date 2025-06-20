@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Rdv;
 use App\Entity\Devis;
 use Doctrine\ORM\EntityManager;
+use App\Repository\RdvRepository;
 use App\Repository\DevisRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +28,7 @@ final class AdminController extends AbstractController
             return $devis->getStatut() === 'En cours';
         });
 
-        return $this->render('admin/devis.html.twig', [
+        return $this->render('admin/devis/devis.html.twig', [
             'controller_name' => 'AdminController',
             'devisEnCours' => $devisEnCours
         ]);
@@ -45,7 +47,7 @@ final class AdminController extends AbstractController
             return $devis->getStatut() === 'Archivé';
         });
 
-        return $this->render('admin/archives.devis.html.twig', [
+        return $this->render('admin/devis/archives.devis.html.twig', [
             'controller_name' => 'AdminController',
             'devisArchives' => $devisArchives
         ]);
@@ -63,7 +65,7 @@ final class AdminController extends AbstractController
             throw $this->createNotFoundException('Devis inexistant');
         }
 
-        return $this->render('admin/show.devis.html.twig', [
+        return $this->render('admin/devis/show.devis.html.twig', [
             'controller_name' => 'AdminController',
             'devis' => $devis
         ]);
@@ -77,7 +79,7 @@ final class AdminController extends AbstractController
 
         // récupérer l'id du devis à supprimer
         $id = $request->attributes->get('id');
-        // trouver le véhicule dans la base de données
+        // trouver le devis dans la base de données
         $devis = $devisRepository->find($id);
         if ($devis) {
             // supprimer le devis de la base de données
@@ -86,12 +88,66 @@ final class AdminController extends AbstractController
 
             // puis on redirige vers la liste des devis``
             $this->addFlash('success', 'Le devis a été supprimé avec succès.');
-            return $this->redirectToRoute('app_admin_devis');
+            return $this->redirectToRoute('app_devis_archives');
             
         } elseif (!$devis) {
             // si le devis n'existe pas, on affiche un message d'erreur
             $this->addFlash('error', 'Le devis n\'a pas pu être supprimé.');
+            return $this->redirectToRoute('app_devis_archives');
+        }
+    }
+
+    #[Route('/admin/devis/update/{id}', name: 'update_devis')]
+    public function updateDevis(DevisRepository $devisRepository, int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+         // on verifie que l'utilisateur a le rôle admin
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        // récupérer l'id du devis à traiter
+        $id = $request->attributes->get('id');
+        // trouver le devis dans la base de données
+        $devis = $devisRepository->find($id);
+
+        if ($devis) {
+            // si le devis existe, on change son statut
+            $devis->setStatut('Archivé');
+
+            // on enregistre les modifications dans la base de données
+            $entityManager->persist($devis);
+            $entityManager->flush();
+
+            // puis on redirige vers la liste des devis``
+            $this->addFlash('success', 'Le devis a été traîtée avec succès.');
+            return $this->redirectToRoute('app_devis_archives');
+            
+        } elseif (!$devis) {
+            // si le devis n'existe pas, on affiche un message d'erreur
+            $this->addFlash('error', 'Le devis n\'a pas pu être traîté.');
             return $this->redirectToRoute('app_admin_devis');
         }
+
+         return $this->render('admin/devis/show.devis.html.twig', [
+            'controller_name' => 'AdminController',
+            'devis' => $devis
+        ]);
+    }
+
+    #[Route('/admin/rdv', name: 'app_admin_rdv')]
+    public function listRdv(RdvRepository $rdvRepository): Response
+    {
+        // on verifie que l'utilisateur a le rôle admin
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        // on récupère les devis en bdd
+        $rdvList = $rdvRepository->findAll();
+        // on filtre les devis en cours
+        $rdvEnCours = array_filter($rdvList, function (Rdv $rdv) {
+            return $rdv->getStatut() === 'En cours';
+        });
+
+        return $this->render('admin/rdv/rdv.html.twig', [
+            'controller_name' => 'AdminController',
+            'rdvEnCours' => $rdvEnCours
+        ]);
     }
 }

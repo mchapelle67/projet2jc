@@ -3,6 +3,15 @@
 {% block title %}Devis archivés{% endblock %}
 
 {% block body %}
+{% for label, messages in app.flashes %}
+    {% set alertClass = (label == 'error') ? 'danger' : label %}
+    {% for message in messages %}
+        <div class="alert alert-{{ alertClass }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
     <h1>Devis archivés</h1>
 
     <h2>Liste des devis archivés</h2>
