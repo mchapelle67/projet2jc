@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des rdv{% endblock %}
+
+{% block body %}
+{% for label, messages in app.flashes %}
+    {% set alertClass = (label == 'error') ? 'danger' : label %}
+    {% for message in messages %}
+        <div class="alert alert-{{ alertClass }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+    <h1>Liste des rendez-vous</h1>
+
+    <h2>Rdv en attente</h2>
+    {% for rdv in rdvEnCours %}
+        <p>Rdv n° {{ rdv.id }} </p>
+        <p>Client: {{ rdv.nom }} {{ rdv.prenom }}</p>
+        <p>Date du rdv: {{ rdv.dateRdv|date('d/m/Y à H:i') }}</p>
+        <p>Prestation: {{ rdv.prestation.nomPrestation }}</p>
+        {# <p><a href="{{ path('gestion_devis', {'id': devis.id}) }}">Voir détail</a></p><br> #}
+    {% else %}
+        <p>Aucun rendez-vous en attente.</p>
+    {% endfor %}
+
+    {# <button><a href="{{ path('app_devis_archives') }}">Voir les devis archivés</a></button> #}
+{% endblock %}
