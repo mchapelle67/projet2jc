@@ -15,6 +15,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class AdminController extends AbstractController
 {
+
+// route pour la gestion des devis -------------------------------------------------
+
     #[Route('/admin/devis', name: 'app_admin_devis')]
     public function listDevis(DevisRepository $devisRepository): Response
     {
@@ -53,7 +56,7 @@ final class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/devis/{id}', name: 'gestion_devis')]
+    #[Route('/admin/devis/{id}', name: 'show_devis')]
     public function gestionDevis(DevisRepository $devisRepository, int $id): Response
     {
         // on verifie que l'utilisateur a le rôle admin
@@ -132,6 +135,8 @@ final class AdminController extends AbstractController
         ]);
     }
 
+// Route pour la gestion des rendez-vous ----------------------------------------------------
+
     #[Route('/admin/rdv', name: 'app_admin_rdv')]
     public function listRdv(RdvRepository $rdvRepository): Response
     {
@@ -169,16 +174,9 @@ final class AdminController extends AbstractController
         $rdvArchives = array_filter($rdvList, function (Rdv $rdv) {
             return (
                 ($rdv->getStatut() === 'Confirmer' && $rdv->getDateRdv() < new \DateTime())
-                || $rdv->getStatut() === 'Refusé'
+                || $rdv->getStatut() === 'Refuser' || $rdv->getStatut() === 'Annuler'
             );
         });
-
-        // met à jour le statut des rdv confirmés passés en "Clôturé"
-        foreach ($rdvArchives as $rdv) {
-            if ($rdv->getStatut() === 'Confirmer' && $rdv->getDateRdv() < new \DateTime()) {
-                $rdv->setStatut('Clôturé');
-            }
-        }
 
         return $this->render('admin/rdv/archives.rdv.html.twig', [
             'controller_name' => 'AdminController',
@@ -186,8 +184,8 @@ final class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/rdv/{id}', name: 'gestion_rdv')]
-    public function gestionRdv(RdvRepository $rdvRepository, int $id): Response
+    #[Route('/admin/rdv/{id}', name: 'show_rdv')]
+    public function showRdv(RdvRepository $rdvRepository, int $id): Response
     {
         // on verifie que l'utilisateur a le rôle admin
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -203,4 +201,34 @@ final class AdminController extends AbstractController
             'rdv' => $rdv
         ]);
     }
+
+    #[Route('/admin/rdv/{action}/{id}', name: 'gestion_rdv_action', requirements: ['action' => 'accept|decline|cancel'])]
+    public function changeRdvStatut(RdvRepository $rdvRepository, string $action, int $id, EntityManagerInterface $entityManager): Response 
+    {
+        // on verifie que l'utilisateur a le rôle admin
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        // récupérer l'id du rendez-vous à traiter
+        $rdv = $rdvRepository->find($id);
+        if (!$rdv) {
+            throw $this->createNotFoundException('Rendez-vous inexistant');
+        }
+
+        if ($action === 'accept') {
+            $rdv->setStatut('Confirmer');
+            $this->addFlash('success', 'Le rendez-vous a été accepté avec succès.');
+        } elseif ($action === 'decline') {
+            $rdv->setStatut('Refuser');
+            $this->addFlash('success', 'Le rendez-vous a bien été refusé.');
+        } elseif ($action === 'cancel') {
+            $rdv->setStatut('Annuler');
+            $this->addFlash('success', 'Le rendez-vous a été annulé avec succès.');
+        } else {    
+            throw $this->createNotFoundException('Action inconnue');
+        }
+
+    $entityManager->flush();
+
+    return $this->redirectToRoute('app_admin_rdv');
+}
 }

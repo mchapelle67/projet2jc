@@ -38,13 +38,13 @@
         <p>Carburant: donnée non renseignée</p>
     {% endif %}
 
-{% if rdv.statut == 'En cours' %}
+{% if rdv.statut == 'En attente' %}
     <p>Ce rdv est en attente de confirmation.</p>
     <p>Veuillez indiquer si le rendez-vous est confirmé ou non.</p>
-    <button><a href="">Accepter le rdv</a></button>
-    <button><a href="">Refuser le rdv</a></button>
+    <button><a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'accept' }) }}">Accepter le rdv</a></button>
+    <button><a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'decline' }) }}">Refuser le rdv</a></button>
 {% elseif rdv.statut == 'Confirmer' %}
-    <button><a href="">Annuler le rdv</a></button>
+    <button><a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'cancel' }) }}">Annuler le rdv</a></button>
 {% endif %}
     <button><a href="{{ path('app_admin_rdv') }}">Retour à la liste des rdv</a></button>
 {% endblock %}
