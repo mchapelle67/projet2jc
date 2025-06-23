@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Devis archivés{% endblock %}
+{% block title %}Historique des devis{% endblock %}
 
 {% block body %}
 {% for label, messages in app.flashes %}
@@ -12,16 +12,16 @@
     {% endfor %}
 {% endfor %}
 
-    <h1>Devis archivés</h1>
-
-    <h2>Liste des devis archivés</h2>
-    {% for devis in devisArchives %}
+    <h1>Devis clôturés</h1>
+        {{ include('components/_search_data.html.twig', {'searchForm': searchForm}) }}
+    <h2>Liste des devis clos</h2>
+    {% for devis in devisHistorique %}
         <p>Devis n° {{ devis.id }} </p>
         <p>Client: {{ devis.nom }} {{ devis.prenom }}</p>
         <p>Date de la demande: {{ devis.dateDevis|date('d/m/Y à H:i') }}</p>
         <p><a href="{{ path('show_devis', {'id': devis.id}) }}">Voir le devis</a></p><br>
     {% else %}
-        <p>Aucun devis en cours.</p>
+        <p>Aucun devis trouvé.</p>
     {% endfor %}
 
     <button><a href="{{ path('app_admin_devis') }}">Voir les devis en cours</a></button>
