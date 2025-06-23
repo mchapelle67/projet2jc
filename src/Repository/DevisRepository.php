@@ -3,17 +3,46 @@
 namespace App\Repository;
 
 use App\Entity\Devis;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Model\SearchData;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<Devis>
  */
+
 class DevisRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private PaginatorInterface $paginator;
+
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, Devis::class);
+        $this->paginator = $paginator;
+    }
+
+
+    //    /** Resultat de recherche pour les devis
+    //     * @param SearchData $searchData
+    //     * @return PaginationInterface
+    //     */
+
+    public function findBySearch(SearchData $searchData): PaginationInterface
+    {
+        $devis = $this->createQueryBuilder('d')
+            ->andWhere('d.nom LIKE :q OR d.prenom LIKE :q OR d.email LIKE :q')
+            ->setParameter('q', '%' . $searchData->q . '%')
+            ->orderBy('d.date_devis', 'DESC');
+
+        $data = $devis
+            ->getQuery()
+            ->getResult();
+
+        $devis = $this->paginator->paginate($data, $searchData->page, 10);
+
+        return $devis;
     }
 
     //    /**
@@ -40,4 +69,5 @@ class DevisRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
 }

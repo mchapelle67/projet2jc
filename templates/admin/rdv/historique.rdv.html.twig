@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Rdv archivés{% endblock %}
+{% block title %}Hitorique des rendez-vous{% endblock %}
 
 {% block body %}
 {% for label, messages in app.flashes %}
@@ -12,16 +12,16 @@
     {% endfor %}
 {% endfor %}
 
-    <h1>Rendez-vous archivés</h1>
+    <h1>Historique desrendez-vous</h1>
 
-    <h2>Liste des rdv archivés</h2>
-    {% for rdv in rdvArchives %}
+    <h2>Liste des rdv</h2>
+    {% for rdv in rdvHistorique %}
         <p>Rdv n° {{ rdv.id }} </p>
         <p>Client: {{ rdv.nom }} {{ rdv.prenom }}</p>
         <p>Date du rdv: {{ rdv.dateRdv|date('d/m/Y à H:i') }}</p>
         <p><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Détail du rdv</a></p><br>
     {% else %}
-        <p>Aucun rdv archivés.</p>
+        <p>Aucun rdv dans l'historique.</p>
     {% endfor %}
 
     <button><a href="{{ path('app_admin_rdv') }}">Voir les rdv en cours</a></button>

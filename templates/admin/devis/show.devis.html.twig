@@ -43,8 +43,8 @@
 
 {% if devis.statut == 'En cours' %}
     <p>Ce devis est en attente de traitement.</p>
-    <p>Si ce devis a déjà été traîté, veuillez l'archiver en cliquant sur le bouton ci-dessous.</p>
-    <button><a href="{{ path('gestion_devis_action', {'id': devis.id, 'action': 'archiver' }) }}">Archiver le devis</a></button>
+    <p>Si ce devis a déjà été traîté, veuillez le clôturer en cliquant sur le bouton ci-dessous.</p>
+    <button><a href="{{ path('gestion_devis_action', {'id': devis.id, 'action': 'cloturer' }) }}">Clore le devis</a></button>
 {% else %}
     <button><a href="{{ path('gestion_devis_action', {'id': devis.id, 'action': 'delete' }) }}">SUPPRIMER DEFINITIVEMENT</a></button>
 {% endif %}
