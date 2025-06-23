@@ -74,17 +74,18 @@ final class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/devis/delete/{id}', name: 'delete_devis')]
+    #[Route('/admin/devis/{action}/{id}', name: 'gestion_devis_action', requirements: ['action' => 'delete|archiver'])]
     public function deleteDevis(DevisRepository $devisRepository, int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
          // on verifie que l'utilisateur a le rôle admin
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        // récupérer l'id du devis à supprimer
+        // récupérer l'id du devis
         $id = $request->attributes->get('id');
         // trouver le devis dans la base de données
         $devis = $devisRepository->find($id);
-        if ($devis) {
+
+        if ($devis && $request->attributes->get('action') === 'delete') {
             // supprimer le devis de la base de données
             $entityManager->remove($devis);
             $entityManager->flush();
@@ -93,25 +94,8 @@ final class AdminController extends AbstractController
             $this->addFlash('success', 'Le devis a été supprimé avec succès.');
             return $this->redirectToRoute('app_devis_archives');
             
-        } elseif (!$devis) {
-            // si le devis n'existe pas, on affiche un message d'erreur
-            $this->addFlash('error', 'Le devis n\'a pas pu être supprimé.');
-            return $this->redirectToRoute('app_devis_archives');
-        }
-    }
+        } elseif ($devis && $request->attributes->get('action') === 'archiver') {
 
-    #[Route('/admin/devis/update/{id}', name: 'update_devis')]
-    public function updateDevis(DevisRepository $devisRepository, int $id, Request $request, EntityManagerInterface $entityManager): Response
-    {
-         // on verifie que l'utilisateur a le rôle admin
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-        // récupérer l'id du devis à traiter
-        $id = $request->attributes->get('id');
-        // trouver le devis dans la base de données
-        $devis = $devisRepository->find($id);
-
-        if ($devis) {
             // si le devis existe, on change son statut
             $devis->setStatut('Archivé');
 
@@ -123,13 +107,13 @@ final class AdminController extends AbstractController
             $this->addFlash('success', 'Le devis a été traîtée avec succès.');
             return $this->redirectToRoute('app_devis_archives');
             
-        } elseif (!$devis) {
-            // si le devis n'existe pas, on affiche un message d'erreur
-            $this->addFlash('error', 'Le devis n\'a pas pu être traîté.');
+        } else {
+            // si l'action n'est pas reconnue, on affiche un message d'erreur
+            $this->addFlash('error', 'Action inconnue.');
             return $this->redirectToRoute('app_admin_devis');
         }
-
-         return $this->render('admin/devis/show.devis.html.twig', [
+            
+        return $this->render('admin/devis/show.devis.html.twig', [
             'controller_name' => 'AdminController',
             'devis' => $devis
         ]);
