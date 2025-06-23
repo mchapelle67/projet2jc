@@ -24,5 +24,7 @@
         <p>Aucun devis trouvé.</p>
     {% endfor %}
 
+    {{ knp_pagination_render(devisHistorique) }}
+
     <button><a href="{{ path('app_admin_devis') }}">Voir les devis en cours</a></button>
 {% endblock %}

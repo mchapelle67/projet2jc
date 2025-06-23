@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManager;
 use App\Repository\RdvRepository;
 use App\Repository\DevisRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -40,7 +41,7 @@ final class AdminController extends AbstractController
     }
 
     #[Route('/admin/devis/historique', name: 'app_devis_historique')]
-    public function historiqueDevis(DevisRepository $devisRepository, Request $request): Response
+    public function historiqueDevis(DevisRepository $devisRepository, Request $request, PaginatorInterface $paginator): Response
     {
         // on verifie que l'utilisateur a le rôle admin
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -48,7 +49,7 @@ final class AdminController extends AbstractController
         // on récupère les devis en bdd
         $devisList = $devisRepository->findBy([], ['date_devis' => 'DESC']);
         // on filtre les devis 
-        $devisHistorique = array_filter($devisList, function (Devis $devis) {
+        $devisHistoriqueArray = array_filter($devisList, function (Devis $devis) {
             return $devis->getStatut() === 'Clôturé';
         });
 
@@ -59,15 +60,14 @@ final class AdminController extends AbstractController
         $searchForm = $this->createForm(SearchTypeForm::class, $searchData);
         $searchForm->handleRequest($request);
 
+        // on créer la pagination
+        $page = $request->query->getInt('page', 1);
+
         // si le formulaire est soumis et valide
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             // on récupère le paramètre dans l'url, si il n'existe pas on met '1' par défaut
-            $searchData->page = $request->query->getInt('page', 1);
+            $searchData->page = $page;
             $devisResult = $devisRepository->findBySearch($searchData);
-
-            if (empty($devisResult)) {
-            $this->addFlash('info', 'Aucun devis trouvé pour cette recherche.');
-            }
 
             return $this->render('admin/devis/historique.devis.html.twig', [
             'controller_name' => 'AdminController',
@@ -75,6 +75,8 @@ final class AdminController extends AbstractController
             'searchForm' => $searchForm->createView()
             ]);
         }
+
+        $devisHistorique = $paginator->paginate($devisHistoriqueArray, $page, 10);
 
         return $this->render('admin/devis/historique.devis.html.twig', [
             'controller_name' => 'AdminController',
@@ -131,7 +133,7 @@ final class AdminController extends AbstractController
 
             // puis on redirige vers la liste des devis``
             $this->addFlash('success', 'Le devis a été traîté avec succès.');
-            return $this->redirectToRoute('app_devis_historique');
+            return $this->redirectToRoute('app_admin_devis');
 
         } else {
             // si l'action n'est pas reconnue, on affiche un message d'erreur
@@ -172,7 +174,7 @@ final class AdminController extends AbstractController
     }
 
     #[Route('/admin/rdv/historique', name: 'app_rdv_historique')]
-    public function historiqueRdv(RdvRepository $rdvRepository): Response
+    public function historiqueRdv(RdvRepository $rdvRepository, Request $request, PaginatorInterface $paginator): Response
     {
         // on verifie que l'utilisateur a le rôle admin
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -181,16 +183,40 @@ final class AdminController extends AbstractController
         $rdvList = $rdvRepository->findBy([], ['date_demande' => 'DESC']);
 
         // on filtre les rdv 
-        $rdvHistorique = array_filter($rdvList, function (Rdv $rdv) {
+        $rdvHistoriqueArray = array_filter($rdvList, function (Rdv $rdv) {
             return (
-                ($rdv->getStatut() === 'Confirmer' && $rdv->getDateRdv() < new \DateTime())
-                || $rdv->getStatut() === 'Refuser' || $rdv->getStatut() === 'Annuler'|| $rdv->getStatut() === 'Clôturé'
+                $rdv->getStatut() !== 'Confirmer'
             );
         });
 
+        // on créer un resultat de recherche
+        $searchData = new SearchData();
+
+        // on créer le formulaire de recherche
+        $searchForm = $this->createForm(SearchTypeForm::class, $searchData);
+        $searchForm->handleRequest($request);
+
+        $page = $request->query->getInt('page', 1);
+
+        // si le formulaire est soumis et valide
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            // on récupère le paramètre dans l'url, si il n'existe pas on met '1' par défaut
+            $searchData->page = $page;
+            $rdvResult = $rdvRepository->findBySearch($searchData);
+
+            return $this->render('admin/rdv/historique.rdv.html.twig', [
+            'controller_name' => 'AdminController',
+            'rdvHistorique' => $rdvResult,
+            'searchForm' => $searchForm->createView()
+            ]);
+        }
+
+        $rdvHistorique = $paginator->paginate($rdvHistoriqueArray, $page, 10);
+
         return $this->render('admin/rdv/historique.rdv.html.twig', [
             'controller_name' => 'AdminController',
-            'rdvHistorique' => $rdvHistorique
+            'rdvHistorique' => $rdvHistorique,
+            'searchForm' => $searchForm->createView()
         ]);
     }
 
