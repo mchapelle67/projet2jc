@@ -19,7 +19,7 @@
         <p>Devis n° {{ devis.id }} </p>
         <p>Client: {{ devis.nom }} {{ devis.prenom }}</p>
         <p>Date de la demande: {{ devis.dateDevis|date('d/m/Y à H:i') }}</p>
-        <p><a href="{{ path('gestion_devis', {'id': devis.id}) }}">Voir le devis</a></p><br>
+        <p><a href="{{ path('show_devis', {'id': devis.id}) }}">Voir le devis</a></p><br>
     {% else %}
         <p>Aucun devis en cours.</p>
     {% endfor %}

@@ -19,7 +19,7 @@
         <p>Rdv n° {{ rdv.id }} </p>
         <p>Client: {{ rdv.nom }} {{ rdv.prenom }}</p>
         <p>Date du rdv: {{ rdv.dateRdv|date('d/m/Y à H:i') }}</p>
-        <p><a href="{{ path('gestion_rdv', {'id': rdv.id}) }}">Détail du rdv</a></p><br>
+        <p><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Détail du rdv</a></p><br>
     {% else %}
         <p>Aucun rdv archivés.</p>
     {% endfor %}
