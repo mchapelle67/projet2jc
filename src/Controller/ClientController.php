@@ -64,7 +64,7 @@ final class ClientController extends AbstractController
             $entityManager->flush();
                     
             // puis on redirige vers la liste des véhicules d'occasion
-             $this->addFlash('success', 'Votre demande de rendez-vous a bien été prise en compte, nous reviendrons vers vous très rapidement.');
+             $this->addFlash('success', 'Votre demande de devis a bien été prise en compte, nous reviendrons vers vous très rapidement.');
             return $this->redirectToRoute('app_devis_client');
         } 
         elseif ($devisForm->isSubmitted() && !$devisForm->isValid()) {

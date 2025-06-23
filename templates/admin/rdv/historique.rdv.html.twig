@@ -12,8 +12,8 @@
     {% endfor %}
 {% endfor %}
 
-    <h1>Historique desrendez-vous</h1>
-
+    <h1>Historique des rendez-vous</h1>
+    {{ include('components/_search_data.html.twig', {'searchForm': searchForm}) }}
     <h2>Liste des rdv</h2>
     {% for rdv in rdvHistorique %}
         <p>Rdv n° {{ rdv.id }} </p>
@@ -23,6 +23,9 @@
     {% else %}
         <p>Aucun rdv dans l'historique.</p>
     {% endfor %}
+
+    {{ knp_pagination_render(rdvHistorique) }}
+
 
     <button><a href="{{ path('app_admin_rdv') }}">Voir les rdv en cours</a></button>
 {% endblock %}
