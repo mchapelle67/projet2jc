@@ -41,20 +41,12 @@
 <p>Type de prestation: {{ devis.prestation.nomPrestation }}</p>
     {{ devis.text }}
 
-{# {% if devis.reponse.contenu %}
-<h4>Reponse du garage</h4>
-    <p>{{ devis.reponse.contenu }}</p>
-    <p>Date de la réponse: {{ devis.reponse.dateReponse|date('d/m/Y à H:i') }}</p>
-{% else %}
-    <p>Aucune réponse n'a été fournie pour ce devis.</p>
-{% endif %} #}
-
 {% if devis.statut == 'En cours' %}
     <p>Ce devis est en attente de traitement.</p>
     <p>Si ce devis a déjà été traîté, veuillez l'archiver en cliquant sur le bouton ci-dessous.</p>
-    <button><a href="{{ path('update_devis', {'id': devis.id }) }}">Archiver le devis</a></button>
+    <button><a href="{{ path('gestion_devis_action', {'id': devis.id, 'action': 'archiver' }) }}">Archiver le devis</a></button>
 {% else %}
-    <button><a href="{{ path('delete_devis', {'id': devis.id }) }}">SUPPRIMER DEFINITIVEMENT</a></button>
+    <button><a href="{{ path('gestion_devis_action', {'id': devis.id, 'action': 'delete' }) }}">SUPPRIMER DEFINITIVEMENT</a></button>
 {% endif %}
     <button><a href="{{ path('app_admin_devis') }}">Retour à la liste des devis</a></button>
 {% endblock %}
