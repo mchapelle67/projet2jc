@@ -1,0 +1,38 @@
+<nav class="navbar navbar-light navbar-expand-lg bg-light">
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_home' %}active{% endif %}" href="{{ path('app_home') }}">Accueil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_services' %}active{% endif %}" href="#">Nos services</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_vo' %}active{% endif %}" href="{{ path('app_vo') }}">Vehicules d'occasions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_contact' %}active{% endif %}" href="{{ path('app_contact') }}">Nous contacter</a>
+      </li>
+      {% if app.user and "[ROLE_ADMIN]" %}
+      <li class="nav-item dropdown ms-auto">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="{{ asset('icones/admin-users.png') }}" alt="Partie administrateur">
+          </a>
+          <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#">Notifications</a>
+            <a class="dropdown-item" href="{{ path('app_admin_devis') }}">Gestion devis</a>
+            <a class="dropdown-item" href="{{ path('app_admin_rdv') }}">Gestion rdv</a>
+            <a class="dropdown-item" href="{{ path('add_vo') }}">Ajouter VO</a>
+            <a class="dropdown-item" href="{{ path('app_logout') }}">Deconnexion</a>
+          </div>
+      </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_login') }}">
+            <img src="{{ asset('icones/admin-users.png') }}" alt="Partie administrateur">
+          </a>
+        </li>
+        {% endif %}
+    </ul>
+  </div>
+</nav>

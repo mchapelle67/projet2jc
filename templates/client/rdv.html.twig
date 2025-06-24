@@ -12,9 +12,10 @@
     {% endfor %}
 {% endfor %}
 
-<section="form">
+<section class="form form-devis form-rdv">
 <h1>Demande de rendez-vous</h1>
-    <h2>Attention, ceci est une demande de rendez-vous ! Veuillez noter qu'il est nécéssaire d'attendre une confirmation de notre équipe.</h2>
+    <h2><span class="form-bold-h2">Attention, ceci est une demande de rendez-vous !</span>
+        <br>Veuillez noter qu'il est nécéssaire d'attendre une confirmation de notre équipe.</h2>
 
 <div class="form-container">
     <div class="progress-bar-container">
@@ -32,15 +33,15 @@
 
 {{ form_start(rdvForm, {'attr': {'id': 'client-form'}}) }}
     <div class="form-step active">
-        <h2>Informations personnelles</h2>
+        <h3>Informations personnelles</h3>
                 {{ form_row(rdvForm.nom, {'row_attr': {'class': 'form-group'}}) }}
                 {{ form_row(rdvForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
                 {{ form_row(rdvForm.email, {'row_attr': {'class': 'form-group'}}) }}
                 {{ form_row(rdvForm.tel, {'row_attr': {'class': 'form-group'}}) }}
-                <h3 class="champs-obligatoires">*champs obligatoires</h3>
+                <h4 class="champs-obligatoires">*champs obligatoires</h4>
     </div>
     <div class="form-step">
-        <h2>Informations du véhicule</h2>
+        <h3>Informations du véhicule</h3>
             <div class="form-group">
                 <label for="marques-list">Veuillez séléctionner une marque*</label>
                 <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off">
@@ -62,24 +63,24 @@
                 {{ form_row(rdvForm.vehicule.carburant, {'row_attr': {'class': 'form-group'}}) }}
     </div>
     <div class="form-step">
-        <h2>Choisissez un créneau</h2>
+        <h3>Choisissez un créneau</h3>
             {{ form_row(rdvForm.prestation, {'row_attr': {'class': 'form-group'}}) }}
             {{ form_row(rdvForm.date_rdv, {'row_attr': {'class': 'form-group'}}) }}
         </div>
     <div class="form-step">
-        <h2>Recapitulatif de votre demande</h2>
+        <h3>Recapitulatif de votre demande</h3>
             <div id="reviewDetails">
-                <p>Nom et prenom: <span data-review="nom"></span> <span data-review="prenom"></span></p>
-                <p>Email: <span data-review="email"></span></p>
-                <p>Numéro de téléphone: <span data-review="tel"></span></p>
-                <p>Marque: <span data-review="marque"></span></p>
-                <p>Modèle: <span data-review="modele"></span></p>
-                <p>Année de fabrication: <span data-review="anneeFabrication"></span></p>
-                <p>Nombre de kilomètre: <span data-review="km"></span></p>
-                <p>Carburant: <span data-review="carburant"></span></p>
-                <p>Prestation: <span data-review="prestation"></span></p>
-                <p>Rendez-vous: <span data-review="dateRdv"></span></p>
-        </div>
+                <p><strong>Nom et prenom:</strong> <span data-review="nom"></span> <span data-review="prenom"></span></p>
+                <p><strong>Email:</strong> <span data-review="email"></span></p>
+                <p><strong>Numéro de téléphone:</strong> <span data-review="tel"></span></p>
+                <p><strong>Marque:</strong> <span data-review="marque"></span></p>
+                <p><strong>Modèle:</strong> <span data-review="modele"></span></p>
+                <p><strong>Année de fabrication:</strong> <span data-review="anneeFabrication"></span></p>
+                <p><strong>Nombre de kilomètre:</strong> <span data-review="km"></span></p>
+                <p><strong>Carburant:</strong> <span data-review="carburant"></span></p>
+                <p><strong>Prestation:</strong> <span data-review="prestation"></span></p>
+                <p><strong>Rendez-vous:</strong> <span data-review="dateRdv"></span></p>
+            </div>
     </div>
     <!-- Navigation -->
     <div class="form-navigation">
