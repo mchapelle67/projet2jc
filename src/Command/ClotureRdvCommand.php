@@ -32,12 +32,11 @@ class ClotureRdvCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // on recupère les rdv avec le statut "Confirmer" et la date actuelle
-        $rdvTraite = $this->rdvRepository->findBy(['statut' => 'Confirmer
-        ']);
+        $rdvHistorique = $this->rdvRepository->findBy(['statut' => 'Confirmer']);
         $now = new \DateTime();
 
         // on les clôture une fois la date de rdv depassée
-        foreach ($rdvTraite as $rdv) {
+        foreach ($rdvHistorique as $rdv) {
             if ($rdv->getDateRdv() < $now) {
                 $rdv->setStatut('Clôturé');
             }

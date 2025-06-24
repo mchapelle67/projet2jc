@@ -12,8 +12,8 @@
     {% endfor %}
 {% endfor %}
 
-<section="form">
-<h1>Demande de devis</h1>
+<section class="form form-devis">
+    <h1>Demande de devis</h1>
 
 <div class="form-container">
     <div class="progress-bar-container">
@@ -58,7 +58,7 @@
             </div>
                 {{ form_row(devisForm.vehicule.anneeFabrication, {'row_attr': {'class': 'form-group'}}) }}
                 {{ form_row(devisForm.vehicule.km, {'row_attr': {'class': 'form-group'}}) }}
-                {{ form_row(devisForm.vehicule.carburant, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(devisForm.vehicule.carburant, {'row_attr': {'class': 'form-group form-carburant'}}) }}
     </div>
     <div class="form-step">
         <h2>Detaillez votre demande</h2>
@@ -66,18 +66,18 @@
             {{ form_row(devisForm.text, {'row_attr': {'class': 'form-group'}}) }}
     </div>
     <div class="form-step">
-        <h2>Recapitulatif de votre demande</h2>
-            <div id="reviewDetails">
-                <p>Nom et prenom: <span data-review="nom"> </span><span data-review="prenom"></span></p>
-                <p>Email: <span data-review="email"></span></p>
-                <p>Numéro de téléphone: <span data-review="tel"></span></p>
-                <p>Marque: <span data-review="marque"></span></p>
-                <p>Modèle: <span data-review="modele"></span></p>
-                <p>Année de fabrication: <span data-review="anneeFabrication"></span></p>
-                <p>Nombre de kilomètre: <span data-review="km"></span></p>
-                <p>Carburant: <span data-review="carburant"></span></p>
-                <p>Prestation: <span data-review="prestation"></span></p>
-                <p><span data-review="text"></span></p>
+        <h2>Récapitulatif de votre demande</h2>
+        <div id="reviewDetails">
+            <p><strong>Nom et prénom :</strong> <span data-review="nom"></span> <span data-review="prenom"></span></p>
+            <p><strong>Email :</strong> <span data-review="email"></span></p>
+            <p><strong>Numéro de téléphone :</strong> <span data-review="tel"></span></p>
+            <p><strong>Marque :</strong> <span data-review="marque"></span></p>
+            <p><strong>Modèle :</strong> <span data-review="modele"></span></p>
+            <p><strong>Année de fabrication :</strong> <span data-review="anneeFabrication"></span></p>
+            <p><strong>Nombre de kilomètres :</strong> <span data-review="km"></span></p>
+            <p><strong>Carburant :</strong> <span data-review="carburant"></span></p>
+            <p><strong>Prestation :</strong> <span data-review="prestation"></span></p>
+            <p><strong>Détail :</strong> <span data-review="text"></span></p>
         </div>
     </div>
     <!-- Navigation -->
