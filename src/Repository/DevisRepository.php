@@ -32,7 +32,7 @@ class DevisRepository extends ServiceEntityRepository
     public function findBySearch(SearchData $searchData): PaginationInterface
     {
         $devis = $this->createQueryBuilder('d')
-            ->andWhere('d.nom LIKE :q OR d.prenom LIKE :q OR d.email LIKE :q')
+            ->andWhere('d.nom LIKE :q OR d.prenom LIKE :q OR d.email LIKE :q OR d.id LIKE :q')
             ->setParameter('q', '%' . $searchData->q . '%')
             ->orderBy('d.date_devis', 'DESC');
 

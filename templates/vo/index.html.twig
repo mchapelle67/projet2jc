@@ -6,7 +6,7 @@
     {# <figure
         <img src="" alt="">Photo du parc d'occasion
     </figure> #}
-
+<section class="vo-list">
     <h1>Notre parc automobile</h1>
     <h2>Démarches administratives simplifiées.</h2>
     <h3>Achetez, roulez, on s’occupe du reste !</h3>
@@ -51,13 +51,14 @@
                 {% if voiture.prix %}
                     <p>Prix: {{ voiture.prix }}</p>
                 {% endif %}
-                {# if admin #}
-                <a href="{{ path('edit_vo', {'id': voiture.id}) }}">Modifier</a>
-                <a href="{{ path('delete_vo', {'id': voiture.id}) }}">Supprimer</a>
-                {# endif #}
+                {% if app.user and "[ROLE_ADMIN]" %}
+                    <a href="{{ path('edit_vo', {'id': voiture.id}) }}">Modifier</a>
+                    <a href="{{ path('delete_vo', {'id': voiture.id}) }}">Supprimer</a>
+                {% endif %}
             </div>
         {% else %}
             <p>Aucune voiture d'occasion disponible pour le moment.</p>
         {% endfor %}
     </div>
+</section>
 {% endblock %}
