@@ -14,13 +14,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use PHPMailer\PHPMailer\PHPMailer;
+use App\Service\MailService;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 final class ClientController extends AbstractController
 {
     #[Route('/devis/client', name: 'app_devis_client')]
-    public function devis(ApiService $apiService, Request $request, EntityManagerInterface $entityManager): Response
+    public function devis(ApiService $apiService, Request $request, EntityManagerInterface $entityManager, MailService $mail): Response
     {
         // on récupère toutes les marques de véhicules
         $marquesResponse = $apiService->getAllMakes();
@@ -36,41 +37,39 @@ final class ClientController extends AbstractController
         if ($devisForm->isSubmitted() && $devisForm->isValid()) {
                     
             // on récupère les données du formulaire
-            $devis = $devisForm->getData();
+            $devisData = $devisForm->getData();
 
             // on créer automatiquement un statut 
-            $devis->setStatut('En cours');
-
-            // on gère les erreurs potentielles
-            if (!$devis->getVehicule()->getMarque()) {
-                $this->addFlash('error', 'Veuillez sélectionner une marque de véhicule.');
-                return $this->render('client/devis.html.twig', [
-                    'controller_name' => 'ClientController',
-                    'marques' => $marquesResponse,
-                    'devisForm' => $devisForm->createView(),
-                ]);
-            }
-            if (!$devis->getVehicule()->getModele()) {
-                $this->addFlash('error', 'Veuillez sélectionner un modèle de véhicule.');
-                return $this->render('client/devis.html.twig', [
-                    'controller_name' => 'ClientController',
-                    'marques' => $marquesResponse,
-                    'devisForm' => $devisForm->createView(),
-                ]);
-            }
+            $devisData->setStatut('En cours');
         
             // on envois vers la bdd
-            $entityManager->persist($devis);
+            $entityManager->persist($devisData);
             $entityManager->flush();
-                    
+           
+            // on prepare les mails vers l'administrateur et le client    
+            $devisUrl = $this->generateUrl('show_devis', ['id' => $devisData->getId()], 0);             // On génère l'URL du devis
+            $tel = $devisData->getTel() ? $devisData->getTel() : 'Non renseigné';                 // On gère la reception des champs non obligatoires
+            $adminBody = '<strong>Vous avez reçu une nouvelle demande de devis.</strong> <br>' .
+                            'Nom : ' . $devisData->getNom() . ' ' . $devisData->getPrenom() . '<br>' .
+                            'Email : ' . $devisData->getEmail() . '<br>' .
+                            'Téléphone : ' . $tel . '<br>' .
+                            'Date de la demande : ' . $devisData->getDateDevis()->format('d-m-Y à H:m') . '<br>' .
+                            '<a href="' . $devisUrl . '">Cliquer ici pour acceder au devis</a>';
+
+            $clientBody = 'Votre demande de devis  n°' . $devisData->getId() . ' a bien été prise en compte.<br>' .
+                            'Nous reviendrons vers vous très rapidement.'; 
+            
+            $mail->sendMail('Confirmation de votre demande de devis', $clientBody, 'Confirmation de votre demande de devis'); // ajouter $devisData->getEmail(), 
+            $mail->sendMail('Nouvelle demande de devis', $adminBody, 'Nouvelle demande de devis.'); // ajouter mail admin
+            
             // puis on redirige vers la liste des véhicules d'occasion
-             $this->addFlash('success', 'Votre demande de devis a bien été prise en compte, nous reviendrons vers vous très rapidement.');
+            $this->addFlash('success', 'Votre demande de devis a bien été prise en compte, nous reviendrons vers vous très rapidement.');
             return $this->redirectToRoute('app_devis_client');
-        } 
-        elseif ($devisForm->isSubmitted() && !$devisForm->isValid()) {
-            $this->addFlash('error', 'Erreur lors de la création de votre devis');
-        }
-        
+
+            } elseif ($devisForm->isSubmitted() && !$devisForm->isValid()) {
+                $this->addFlash('error', 'Erreur lors de la création de votre devis');
+            }
+                     
         return $this->render('client/devis.html.twig', [
             'controller_name' => 'ClientController',
             'marques' => $marquesResponse,
@@ -91,7 +90,7 @@ final class ClientController extends AbstractController
     }
 
     #[Route('/rdv/client', name: 'app_rdv_client')]
-    public function rdv(ApiService $apiService, Request $request, EntityManagerInterface $entityManager): Response
+    public function rdv(ApiService $apiService, Request $request, EntityManagerInterface $entityManager, MailService $mail): Response
     {
         // on récupère toutes les marques de véhicules
         $marquesResponse = $apiService->getAllMakes();
@@ -109,40 +108,38 @@ final class ClientController extends AbstractController
             // on récupère les données du formulaire
             $rdvData = $rdvForm->getData();
 
-            // on créer automatiquement un statut 
+            // on créer automatiquement un statut et un rappel
+            $rdvData->setRappelRdv(0); // 0 = pas de rappe
             $rdvData->setStatut('En attente');
-
-            // on gère les erreurs potentielles
-            if (!$rdvData->getVehicule()->getMarque()) {
-                $this->addFlash('error', 'Veuillez sélectionner une marque de véhicule.');
-                return $this->render('client/rdv.html.twig', [
-                    'controller_name' => 'ClientController',
-                    'marques' => $marquesResponse,
-                    'rdvForm' => $rdvForm->createView(),
-                ]);
-            }
-            if (!$rdv->getVehicule()->getModele()) {
-                $this->addFlash('error', 'Veuillez sélectionner un modèle de véhicule.');
-                return $this->render('client/rdv.html.twig', [
-                    'controller_name' => 'ClientController',
-                    'marques' => $marquesResponse,
-                    'rdvForm' => $rdvForm->createView(),
-                ]);
-            }
 
             // on envois vers la bdd
             $entityManager->persist($rdv);
             $entityManager->flush();
-                    
-            // puis on redirige vers la liste des véhicules d'occasion
-            $this->addFlash('success', 'Votre demande de rendez-vous a bien été prise en compte, nous reviendrons vers vous très rapidement.');
-            return $this->redirectToRoute('app_rdv_client');
-        } 
-        elseif ($rdvForm->isSubmitted() && !$rdvForm->isValid()) {
-            $this->addFlash('error', 'Erreur lors de la création de votre demande de rendez-vous');
-            return $this->redirectToRoute('app_rdv_client');
-        }
         
+            // on prepare les mails vers l'administrateur et le client
+                $rdvUrl = $this->generateUrl('show_rdv', ['id' => $rdvData->getId()], 0);             // On génère l'URL du devis
+                $tel = $rdvData->getTel() ? $rdvData->getTel() : 'Non renseigné';                 // On gère la reception des champs non obligatoires
+                $adminBody = '<strong>Vous avez reçu une nouvelle demande de rdv.</strong> <br>' .
+                                'Nom : ' . $rdvData->getNom() . ' ' . $rdvData->getPrenom() . '<br>' .
+                                'Email : ' . $rdvData->getEmail() . '<br>' .
+                                'Téléphone : ' . $tel . '<br>' .
+                                'Prestation : ' . $rdvData->getPrestation()->getNomPrestation() . '<br>' .
+                                'Date du rdv : ' . $rdvData->getDateRdv()->format('d-m-Y à H:m') . '<br>' .
+                                '<a href="' . $rdvUrl . '">Cliquer ici pour acceder à la demande de rdv</a>';
+                $clientBody = 'Votre demande de rendez-vous n°' . $rdvData->getId() . ' a bien été prise en compte.<br>' .
+                                'Nous reviendrons vers vous très rapidement. Veuillez attendre notre confirmation.';
+
+                $mail->sendMail('Nouvelle demande de rdv', $adminBody, 'Nouvelle demande de rdv.'); // ajouter mail admin
+                $mail->sendMail('Demande de rendez-vous', $clientBody, 'Votre demande de rendez-vous à bien été prise en compte.'); // ajouter mail client
+
+                // puis on redirige vers la liste des véhicules d'occasion
+                $this->addFlash('success', 'Votre demande de rendez-vous a bien été prise en compte, nous reviendrons vers vous très rapidement.');
+                return $this->redirectToRoute('app_rdv_client');
+                
+            } elseif ($rdvForm->isSubmitted() && !$rdvForm->isValid()) {
+                $this->addFlash('error', 'Erreur lors de la création de votre demande de rendez-vous');
+            }       
+    
         return $this->render('client/rdv.html.twig', [
             'controller_name' => 'ClientController',
             'marques' => $marquesResponse,
@@ -151,7 +148,7 @@ final class ClientController extends AbstractController
     }
 
     #[Route('/contact/client', name: 'app_contact')]
-    public function contact(Request $request, EntityManagerInterface $entityManager): Response
+    public function contact(Request $request, MailService $mail): Response
     {
         // on crée un forumlaire pour la prise de contact
         $contactForm = $this->createForm(ContactTypeForm::class);
@@ -178,45 +175,21 @@ final class ClientController extends AbstractController
 
         // on récupère les données du formulaire et on les prépare à l'envoi
         $contactData = $contactForm->getData();
-        $mail = new PHPMailer(true);
+        $body = '<strong>Vous avez reçu un nouveau message.</strong> <br>' .
+                    'Nom : ' . $nom . ' ' . $prenom . '<br>' .
+                    'Email : ' . $contactData['email'] . '<br>' .
+                    'Teléphone : ' . $tel . '<br>' .
+                    'Message : ' . nl2br($contactData['text']);
 
-        try {
-            // paramètre du serveur SMTP
-            $mail->SMTPDebug = 2;                                   // affiche les messages de debug (mettre à 0 en prod)
-            $mail->Debugoutput = 'error_log';                         // pour que ça aille dans les logs PHP
-            $mail->isSMTP();                                            // Simple Mail Transfer Protocol
-            $mail->Host       = 'smtp.gmail.com';                     // configuration du serveur SMTP
-            $mail->SMTPAuth   = true;                                   // active l'authentification SMTP
-            $mail->Username   = 'manon.chp68@gmail.com';                     //SMTP username
-            $mail->Password   = 'cihmdotrnhdlkgva';                               //SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            // sert à crypter la connexion
-            $mail->Port       = 465;                                    // port du serveur SMTP
-
-            // réglages de l'expéditeur et du destinataire
-            $mail->setFrom('manon.chp68@gmail.com', '2jc');
-            $mail->addAddress('manon.chp68@gmail.com');     
-
-            // contenu du message
-            $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'Nouvelle demande de contact';
-            $mail->Body    = 'Vous avez reçu un nouveau message : <br>' .
-                            'Nom : ' . $nom . ' ' . $prenom . '<br>' .
-                            'Email : ' . $contactData['email'] . '<br>' .
-                            'Teléphone : ' . $tel . '<br>' .
-                            'Message : ' . nl2br($contactData['text']);
-            $mail->AltBody = 'Ceci est le corps du message en texte brut pour les clients mail ne supportant pas le HTML';        
-
-            // envoi du mail
-            $mail->send();
+        // envoi du mail
+        $mail->sendMail('Nouvelle demande de contact', $body, 'Nouvelle demande de contact');
 
             // on envois un message de confirmation et on redirige  
             $this->addFlash('success', 'Votre message a bien été envoyé, nous reviendrons vers vous très rapidement.');
-            } catch (\Exception $e) {
-                $this->addFlash('error', 'Erreur lors de l\'envoi de votre message : ' . $e->getMessage());
-            }
-        
+        } else { 
+            $this->addFlash('error', 'Votre demande de contact a echoué, veuillez réessayer plus tard.');
         }
-
+        
         return $this->render('client/contact.html.twig', [
             'controller_name' => 'ClientController',
             'contactForm' => $contactForm->createView(),     

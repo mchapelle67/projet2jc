@@ -32,7 +32,7 @@ class RdvRepository extends ServiceEntityRepository
     public function findBySearch(SearchData $searchData): PaginationInterface
     {
         $rdv = $this->createQueryBuilder('r')
-            ->andWhere('r.nom LIKE :q OR r.prenom LIKE :q OR r.email LIKE :q')
+            ->andWhere('r.nom LIKE :q OR r.prenom LIKE :q OR r.email LIKE :q OR r.id LIKE :q')
             ->setParameter('q', '%' . $searchData->q . '%')
             ->orderBy('r.date_demande', 'DESC');
 

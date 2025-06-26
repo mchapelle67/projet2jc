@@ -47,6 +47,9 @@ class Rdv
     #[ORM\JoinColumn(nullable: false)]
     private ?Vehicule $vehicule = null;
 
+    #[ORM\Column]
+    private ?bool $rappel_rdv = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -171,6 +174,18 @@ class Rdv
     public function setVehicule(Vehicule $vehicule): static
     {
         $this->vehicule = $vehicule;
+
+        return $this;
+    }
+
+    public function isRappelRdv(): ?bool
+    {
+        return $this->rappel_rdv;
+    }
+
+    public function setRappelRdv(bool $rappel_rdv): static
+    {
+        $this->rappel_rdv = $rappel_rdv;
 
         return $this;
     }
