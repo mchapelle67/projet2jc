@@ -6,7 +6,9 @@ use App\Entity\VO;
 use App\Entity\Photo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\All;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -72,17 +74,34 @@ class VOTypeForm extends AbstractType
             ])
             ->add('photos', FileType::class, [
                 'label' => 'Photos*',
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false,
                 'attr' => [
                     'class' => 'form-control',
                     'multiple' => true
                 ],
-                'multiple' => true,
-                'mapped' => false
+                'constraints' => [
+                    new All([
+                        'constraints' => [
+                            new File([
+                                'maxSize' => '5M',
+                                'mimeTypes' => [
+                                    'image/jpeg',
+                                    'image/png',
+                                    'image/gif',
+                                    'image/webp',
+                                    'image/jpg'
+                                ],
+                                'mimeTypesMessage' => 'Veuillez uploader une image valide (jpg, jpeg, png, gif, webp)',
+                            ]),
+                        ],
+                    ]),
+                ]
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Envoyer'
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
