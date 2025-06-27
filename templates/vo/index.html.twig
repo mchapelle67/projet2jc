@@ -3,6 +3,14 @@
 {% block title %}Voiture d'occasion{% endblock %}
 
 {% block body %}
+{% for label, messages in app.flashes %}
+    {% set alertClass = (label == 'error') ? 'danger' : label %}
+    {% for message in messages %}
+        <div class="alert alert-{{ alertClass }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
     {# <figure
         <img src="" alt="">Photo du parc d'occasion
     </figure> #}
@@ -10,7 +18,7 @@
     <h1>Notre parc automobile</h1>
     <h2>Démarches administratives simplifiées.</h2>
     <h3>Achetez, roulez, on s’occupe du reste !</h3>
-    <a href="">En savoirs plus sur le service de carte grise</a>
+    <button class="btn btn-primary">Service carte grise</button>
 
     <div class="voiture-list">
         {% for voiture in voList %}
@@ -32,33 +40,35 @@
                         </button>
                     </div>
                 {% endif %}
-                    <h2>{{ voiture.marque }} {{ voiture.modele }}</h2>
-                {% if voiture.km %}
-                        <p>Kilométrage: {{ voiture.km }} km</p>
-                {% endif %}
-                {% if voiture.carburant %}
-                    <p>Carburant: {{ voiture.carburant }}</p>
-                {% endif %}
-                {% if voiture.anneeFabrication %}
-                    <p>Année: {{ voiture.anneeFabrication|date("m/Y") }}</p>
-                {% endif %}
-                    <p>{{ voiture.description }}</p>
-                {% if voiture.url %}
-                    <a target="_blank" href="{{ voiture.url }}">En savoir plus</a>
-                {% else %}
-                   <p>Veuillez nous contacter pour plus de renseignement</p>     
-                {% endif %}
-                {% if voiture.prix %}
-                    <p>Prix: {{ voiture.prix }}</p>
-                {% endif %}
-                {% if app.user and "[ROLE_ADMIN]" %}
-                    <a href="{{ path('edit_vo', {'id': voiture.id}) }}">Modifier</a>
-                    <a href="{{ path('delete_vo', {'id': voiture.id}) }}">Supprimer</a>
-                {% endif %}
+                    <div class="voiture-details">
+                        <h2>{{ voiture.marque }} {{ voiture.modele }}</h2>
+                        {% if voiture.km %}
+                        <p><strong>Kilométrage:</strong> {{ voiture.km }} km</p>
+                        {% endif %}
+                        {% if voiture.carburant %}
+                        <p><strong>Carburant:</strong> {{ voiture.carburant }}</p>
+                        {% endif %}
+                        {% if voiture.anneeFabrication %}
+                        <p><strong>Année:</strong> {{ voiture.anneeFabrication }}</p>
+                        {% endif %}
+                        {% if voiture.prix %}
+                        <p><strong>Prix:</strong> {{ voiture.prix }}</p>
+                        {% endif %}
+                        <p>{{ voiture.description }}</p>
+                        {% if app.user and "[ROLE_ADMIN]" %}
+                            <a class="icones-vo" href="{{ path('edit_vo', {'id': voiture.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <a  class="icones-vo" href="{{ path('delete_vo', {'id': voiture.id}) }}"><i class="fa-regular fa-trash"></i></a>
+                        {% endif %}
+                    {% if voiture.url %}
+                        <a class="btn-links" role="button" target="_blank" href="{{ voiture.url }}">En savoir plus</a>
+                    {% else %}
+                        <p>Veuillez nous contacter pour plus de renseignement</p>     
+                    {% endif %}
+                </div>
             </div>
-        {% else %}
-            <p>Aucune voiture d'occasion disponible pour le moment.</p>
-        {% endfor %}
+            {% else %}
+                <p class="no-voiture">Aucune voiture d'occasion disponible pour le moment.</p>
+            {% endfor %}
     </div>
 </section>
 {% endblock %}

@@ -11,7 +11,7 @@
     {% endfor %}
 {% endfor %}
 
-<section="form">
+<section class="form">
     {{ form_start(contactForm) }}
     <div class="form-step active contact">
         <h1>Nous contacter</h1>
@@ -25,7 +25,7 @@
             </div>
                 {{ form_row(contactForm.text, {'row_attr': {'class': 'form-group'}}) }}
                     <h2>* champs obligatoires</h2>
-                    {{ form_row(contactForm.submit, {'row_attr': {'class': 'form-group'}}) }}
+                    {{ form_row(contactForm.submit, {'row_attr': {'class': 'form-group submit'}}) }}
     </div>
     {{ form_end(contactForm) }}
 </section>

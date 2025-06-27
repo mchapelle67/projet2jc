@@ -186,7 +186,7 @@ final class ClientController extends AbstractController
 
             // on envois un message de confirmation et on redirige  
             $this->addFlash('success', 'Votre message a bien été envoyé, nous reviendrons vers vous très rapidement.');
-        } else { 
+        } elseif ($contactForm->isSubmitted() && !$contactForm->isValid()) { 
             $this->addFlash('error', 'Votre demande de contact a echoué, veuillez réessayer plus tard.');
         }
         
