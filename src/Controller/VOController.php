@@ -60,10 +60,8 @@ final class VOController extends AbstractController
             if ($photosFile) {
                 // on boucle pour récupérer toutes les photos
                 foreach ($photosFile as $photoFile) {
-                    // récupère le nom d'origine sans extension
-                    $originalFilename = pathinfo($photoFile->getClientOriginalName(), PATHINFO_FILENAME);
-                    // transforme le nom en slug, nécessaire pour éviter les problèmes de sécurité
-                    $safeFilename = $slugger->slug($originalFilename);
+                    // hash le nom en slug, nécessaire pour éviter les problèmes de sécurité
+                    $safeFilename = hash_file('sha256', $photoFile->getPathname());
                     // on génère un nom de fichier unique en ajoutant un id pour éviter les conflits
                     $newFilename = $safeFilename.'-'.uniqid().'.'.$photoFile->guessExtension();
                     
@@ -141,10 +139,8 @@ final class VOController extends AbstractController
             if ($photosFile) {
                 // on boucle pour récupérer toutes les photos
                 foreach ($photosFile as $photoFile) {
-                    // récupère le nom d'origine sans extension
-                    $originalFilename = pathinfo($photoFile->getClientOriginalName(), PATHINFO_FILENAME);
-                    // transforme le nom en slug, nécessaire pour éviter les problèmes de sécurité, 
-                    $safeFilename = $slugger->slug($originalFilename);
+                    // hash le nom en slug, nécessaire pour éviter les problèmes de sécurité
+                    $safeFilename = hash_file('sha256', $photoFile->getPathname());
                     // on génère un nom de fichier unique en ajoutant un id pour éviter les conflits
                     $newFilename = $safeFilename.'-'.uniqid().'.'.$photoFile->guessExtension();
                     
@@ -159,17 +155,25 @@ final class VOController extends AbstractController
                     $photo = new Photo();
                     $photo->setImg($newFilename);
                     $vehicule->addPhoto($photo);  
+                } 
+            } else {
+                // ne rien faire : les anciennes images restent
+                $photoFile = $form->get('photos')->getData();
+            } 
+
+                // on enregistre les modifications dans la base de données
+                $entityManager->persist($vehicule);
+                $entityManager->flush();
+
+                // puis on redirige vers la liste des véhicules d'occasion
+                $this->addFlash('success', 'Le véhicule a été modifié avec succès.');
+                return $this->redirectToRoute('app_vo');
+
+            } elseif ($form->isSubmitted() && !$form->isValid()) {
+                // si le formulaire n'est pas soumis ou n'est pas valide, on ajoute un message flash
+                $this->addFlash('error', 'Erreur lors de la modification du vehicule.');
             }
-
-            // on enregistre les modifications dans la base de données
-            $entityManager->persist($vehicule);
-            $entityManager->flush();
-
-            // puis on redirige vers la liste des véhicules d'occasion
-            return $this->redirectToRoute('app_vo');
-            }
-        }
-
+    
         // affichage du formulaire d'édition
         return $this->render('vo/edit.html.twig', [
             'form' => $form->createView(),
@@ -218,14 +222,15 @@ final class VOController extends AbstractController
 
         // si le véhicule n'existe pas, rediriger vers la liste des véhicules d'occasion
         if (!$vehicule) {
+            $this->addFlash('error', 'Le véhicule n\'existe pas.');
             return $this->redirectToRoute('app_vo');
         }
 
         // supprimer le véhicule de la base de données
         $entityManager->remove($vehicule);
         $entityManager->flush();
-
-        // puis on redirige vers la liste des véhicules d'occasion
+        
+        $this->addFlash('success', 'Le véhicule a été supprimé avec succès.');
         return $this->redirectToRoute('app_vo');
     }
 }
