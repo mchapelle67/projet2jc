@@ -62,7 +62,7 @@ final class VOController extends AbstractController
                 foreach ($photosFile as $photoFile) {
                     // récupère le nom d'origine sans extension
                     $originalFilename = pathinfo($photoFile->getClientOriginalName(), PATHINFO_FILENAME);
-                    // transforme le nom en slug, nécessaire pour éviter les problèmes de sécurité, 
+                    // transforme le nom en slug, nécessaire pour éviter les problèmes de sécurité
                     $safeFilename = $slugger->slug($originalFilename);
                     // on génère un nom de fichier unique en ajoutant un id pour éviter les conflits
                     $newFilename = $safeFilename.'-'.uniqid().'.'.$photoFile->guessExtension();
