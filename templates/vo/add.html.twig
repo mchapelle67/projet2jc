@@ -3,9 +3,29 @@
 {% block title %}Ajouter voiture d'occasion{% endblock %}
 
 {% block body %}
-    <h1>Ajouter vehicule</h1>
-    <h2>Attention la marque et le modèle sont obligatoires à la soumission de ce formulaire.</h2>
-    <div class="voiture-list-form">
-        {{ form(form)}}
+
+<section class="form">
+    {{ form_start(form) }}
+    <div class="form-step active contact">
+        <h1>Ajouter un vehicule</h1>
+            <div class="col">
+                {{ form_row(form.marque, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(form.modele, {'row_attr': {'class': 'form-group'}}) }}
+            </div>
+            <div class="col">
+                {{ form_row(form.anneeFabrication, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(form.km, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(form.prix, {'row_attr': {'class': 'form-group'}}) }}
+            </div>
+            <div clas="col mb-3">
+                {{ form_row(form.description, {'row_attr': {'class': 'form-group '}}) }}
+            </div>
+                {{ form_row(form.carburant, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(form.url, {'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(form.photos, {'row_attr': {'class': 'form-group form-label'}}) }}
+                
+                {{ form_row(form.submit, {'row_attr': {'class': 'form-group submit'}}) }}
+        {{ form_end(form)}}
     </div>
+</section>
 {% endblock %}

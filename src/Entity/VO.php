@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\VORepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VORepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class VO
 {
     #[ORM\Id]
@@ -26,7 +28,7 @@ class VO
     private ?string $prix = null;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $anneeFabrication = null;
+    private ?string $anneeFabrication = null;
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $carburant = null;
@@ -46,6 +48,12 @@ class VO
     // les photos se suppriment automatiquement si le véhicule est supprimé
     #[ORM\OneToMany(targetEntity: Photo::class, mappedBy: 'vo', cascade: ['persist'], orphanRemoval: true)]
     private Collection $photos;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $date_creation = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $date_modification = null;
 
     public function __construct()
     {
@@ -93,12 +101,12 @@ class VO
         return $this;
     }
 
-    public function getAnneeFabrication(): ?\DateTimeImmutable
+    public function getAnneeFabrication(): ?string
     {
         return $this->anneeFabrication;
     }
 
-    public function setAnneeFabrication(?\DateTimeImmutable $anneeFabrication): static
+    public function setAnneeFabrication(?string $anneeFabrication): static
     {
         $this->anneeFabrication = $anneeFabrication;
 
@@ -179,6 +187,33 @@ class VO
                 $photo->setVo(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeImmutable
+    {
+        return $this->date_creation;
+    }
+
+    #[ORM\PrePersist]
+    public function setDateCreation(): static
+    {
+        $this->date_creation = new \DateTimeImmutable();
+
+        return $this;
+    }
+
+    public function getDateModification(): ?\DateTimeImmutable
+    {
+        return $this->date_modification;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function setDateModification(): static
+    {
+        $this->date_modification = new \DateTimeImmutable();
 
         return $this;
     }

@@ -21,7 +21,8 @@ final class VOController extends AbstractController
     public function index(VORepository $voRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         // créer liste des véhicules d'occasion et des photos associées
-        $voList = $voRepository->findAll();
+        $voList = $voRepository->findBy([], ['date_modification' => 'DESC']);
+
         $photos = [];
         foreach ($voList as $vo) {
             $photos[$vo->getId()] = $vo->getPhotos()->toArray();
@@ -39,7 +40,6 @@ final class VOController extends AbstractController
     // gestion de l'upload des photos
     #[Autowire('%kernel.project_dir%/public/uploads/vo')] string $photoDirectory): Response
     {
-
         // on verifie que l'utilisateur a le rôle admin
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         
@@ -78,19 +78,24 @@ final class VOController extends AbstractController
                     $photo = new Photo();
                     $photo->setImg($newFilename);
                     $vehicule->addPhoto($photo);  
+                }
+                    
+                // on récupère les données du formulaire
+                $vehicule = $form->getData();
+                        
+                // on envois vers la bdd
+                $entityManager->persist($vehicule);
+                $entityManager->flush();
+                        
+                // puis on redirige vers la liste des véhicules d'occasion
+                $this->addFlash("success", "Le véhicule a été ajouté avec succès.");
+                return $this->redirectToRoute('app_vo');
+
+            } elseif ($form->isSubmitted() && !$form->isValid()) {
+            // si le formulaire n'est pas soumis ou n'est pas valide, on ajoute un message flash
+            $this->addFlash('error', 'Veuillez remplir tout les champs requis.');
             }
-                    
-            // on récupère les données du formulaire
-            $vehicule = $form->getData();
-                    
-            // on envois vers la bdd
-            $entityManager->persist($vehicule);
-            $entityManager->flush();
-                    
-            // puis on redirige vers la liste des véhicules d'occasion
-            return $this->redirectToRoute('app_vo');
-            }
-        }   
+        }
         
         // affichage du formulaire
         return $this->render('vo/add.html.twig', [

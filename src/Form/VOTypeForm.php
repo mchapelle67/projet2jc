@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class VOTypeForm extends AbstractType
 {
@@ -21,11 +22,11 @@ class VOTypeForm extends AbstractType
     {
         $builder
             ->add('marque', TextType::class, [
-                'label' => 'Marque',
+                'label' => 'Marque*',
                 'attr' => ['placeholder' => 'Entrez la marque du véhicule'],
             ])
             ->add('modele', TextType::class, [
-                'label' => 'Modèle',
+                'label' => 'Modèle*',
                 'attr' => ['placeholder' => 'Entrez le modèle du véhicule'],
             ])
             ->add('prix', TextType::class, [
@@ -33,9 +34,9 @@ class VOTypeForm extends AbstractType
                 'attr' => ['placeholder' => 'Entrez le prix du véhicule'],
                 'required' => false,
             ])
-            ->add('anneeFabrication', DateType::class, [
-                'widget' => 'single_text',
-                'placeholder' => 'jj/mm/aaaa',
+            ->add('anneeFabrication', TextType::class, [
+                'label' => 'Année de fabrication',
+                'attr' => ['placeholder' => 'mm/aaaa'],
                 'required' => false,
             ])
             ->add('carburant', ChoiceType::class, [
@@ -52,10 +53,12 @@ class VOTypeForm extends AbstractType
                 'required' => false,
                 'placeholder' => 'Sélectionnez le type de carburant',
             ])
-            ->add('description', TextType::class, [
-                'label' => 'Description',
-                'attr' => ['placeholder' => 'Entrez une description du véhicule'],
-                'required' => false,
+            ->add('description', TextareaType::class, [
+                'attr' => [
+                    'placeholder' => 'Entrez une description du véhicule',
+                    'class' => 'form-control'
+                ],
+                'required' => false
             ])
             ->add('url', TextType::class, [
                 'label' => 'Leboncoin',
@@ -64,18 +67,20 @@ class VOTypeForm extends AbstractType
             ])
             ->add('km', IntegerType::class, [
                 'label' => 'Kilométrage',
-                'attr' => ['placeholder' => 'Entrez le kilométrage du véhicule'],
+                'attr' => ['placeholder' => 'Entrez les km'],
                 'required' => false,
             ])
             ->add('photos', FileType::class, [
-                'label' => 'Photos',
-                'mapped' => false,
+                'label' => 'Photos*',
+                'attr' => [
+                    'class' => 'form-control',
+                    'multiple' => true
+                ],
                 'multiple' => true,
-                'required' => false,
-
+                'mapped' => false
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Valider',
+                'label' => 'Envoyer'
             ])
         ;
     }
