@@ -13,12 +13,15 @@
       <li class="nav-item">
         <a class="nav-link {% if app.request.attributes.get('_route') == 'app_contact' %}active{% endif %}" href="{{ path('app_contact') }}">Nous contacter</a>
       </li>
-      {% if app.user and "[ROLE_ADMIN]" %}
+      {% if is_granted('ROLE_ADMIN')%}
       <li class="nav-item dropdown ms-auto">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="{{ asset('icones/admin-users.png') }}" alt="Partie administrateur">
           </a>
           <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLink">
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+              <a class="dropdown-item" href="dashboard_admin">Dashboard admin</a>
+            {% endif %}
             <a class="dropdown-item" href="#">Notifications</a>
             <a class="dropdown-item" href="{{ path('app_admin_devis') }}">Gestion devis</a>
             <a class="dropdown-item" href="{{ path('app_admin_rdv') }}">Gestion rdv</a>
