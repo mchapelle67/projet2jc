@@ -24,7 +24,7 @@
         {% for voiture in voList %}
             <div class="voiture-item">
                 {% if voiture.photos %}   
-                <div id="carouselVO{{ loop.index }}" class="carousel slide" data-bs-ride="carousel">
+                <div id="carouselVO{{ loop.index }}" class="carousel slide vo" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         {% for photo in voiture.photos %}
                             <div class="carousel-item {% if loop.first %}active{% endif %}">
@@ -32,10 +32,10 @@
                             </div>
                     {% endfor %}
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselVO{{ loop.index }}" data-bs-slide="prev">
+                        <button class="carousel-control-prev vo" type="button" data-bs-target="#carouselVO{{ loop.index }}" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon"></span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselVO{{ loop.index }}" data-bs-slide="next">
+                        <button class="carousel-control-next vo" type="button" data-bs-target="#carouselVO{{ loop.index }}" data-bs-slide="next">
                             <span class="carousel-control-next-icon"></span>
                         </button>
                     </div>
