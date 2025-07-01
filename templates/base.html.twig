@@ -2,10 +2,13 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Base{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <meta name="description" content="{% block metadescription %}{% endblock %}">
+        <meta name="keywords" content="{% block keywords %}{% endblock %}">
+        <meta name="robots" content="{% block robots %}{% endblock %}">    
+
+        <title>{% block title %}{% endblock %}</title>
+
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20128%20128'%3E%3Ctext%20y='1.2em'%20font-size='96'%3E%E2%9A%AB%EF%B8%8F%3C/text%3E%3Ctext%20y='1.3em'%20x='0.2em'%20font-size='76'%20fill='%23fff'%3Esf%3C/text%3E%3C/svg%3E">        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
         {% block stylesheets %}
@@ -49,11 +52,6 @@
                 <header>
                     {{ include('components/_nav_bar.html.twig') }}
                 </header>
-                <ul>
-                    <p><strong>Partie client:</strong></p>
-                    <li><a href="{{ path('app_devis_client') }}">Devis</a></li>
-                    <li><a href="{{ path('app_rdv_client') }}">Rdv</a></li>
-                </ul>
                 {% block body %}{% endblock %}
             </div>
             <footer>
