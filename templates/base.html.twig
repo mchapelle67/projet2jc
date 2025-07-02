@@ -47,6 +47,14 @@
         {% endblock %}
     </head>
     <body>
+    {% for label, messages in app.flashes %}
+        {% set alertClass = (label == 'error') ? 'danger' : label %}
+        {% for message in messages %}
+            <div class="alert alert-{{ alertClass }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
         <div id="wrapper"> 
             <div id="mainpage">
                 <header>
@@ -55,32 +63,7 @@
                 {% block body %}{% endblock %}
             </div>
             <footer>
-                <div class="footer-left-side">
-                    <figure>
-                        <p>2JC</p>
-                    </figure> 
-                </div>    
-                <div id="social-media">
-                        <p>Suivez-nous</p>
-                        <a href="">
-                            <img src="{{ asset('icones/facebook.png') }}" alt="Icone Facebook">
-                        </a>
-                        <a href="">
-                            <img src="{{ asset('icones/mdi_instagram.png') }}" alt="Icone Instagram">
-                        </a>
-                    </div>
-                    <div id="contact-links">
-                        <a href="">
-                            <img src="{{ asset('icones/tel.png') }}" 
-                            alt="Icone téléphone">
-                            03 89 40 07 97
-                        </a>
-                        <a href="">
-                            <img src="{{ asset('icones/mail-outline.png')}}" 
-                            alt="Icone mail">
-                            Nous contacter
-                        </a> 
-                </div>
+                {{ include('components/_footer.html.twig') }}
             </footer>
         </div>
     </body>

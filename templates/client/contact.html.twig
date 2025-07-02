@@ -3,14 +3,6 @@
 {% block title %}Forumulaire de contact{% endblock %}
 
 {% block body %}
-{% for label, messages in app.flashes %}
-    {% for message in messages %}
-        <div class="alert alert-{{ label }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endfor %}
-
 <section class="form">
     {{ form_start(contactForm) }}
     <div class="form-step active contact">

@@ -3,26 +3,17 @@
 {% block title %}Hitorique des rendez-vous{% endblock %}
 
 {% block body %}
-{% for label, messages in app.flashes %}
-    {% set alertClass = (label == 'error') ? 'danger' : label %}
-    {% for message in messages %}
-        <div class="alert alert-{{ alertClass }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endfor %}
-
-    <h1>Historique des rendez-vous</h1>
+<h1>Historique des rendez-vous</h1>
     {{ include('components/_search_data.html.twig', {'searchForm': searchForm}) }}
-    <h2>Liste des rdv</h2>
-    {% for rdv in rdvHistorique %}
-        <p>Rdv n° {{ rdv.id }} </p>
-        <p>Client: {{ rdv.nom }} {{ rdv.prenom }}</p>
-        <p>Date du rdv: {{ rdv.dateRdv|date('d/m/Y à H:i') }}</p>
-        <p><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Détail du rdv</a></p><br>
-    {% else %}
-        <p>Aucun rdv dans l'historique.</p>
-    {% endfor %}
+        <h2>Liste des rdv</h2>
+        {% for rdv in rdvHistorique %}
+            <p>Rdv n° {{ rdv.id }} </p>
+            <p>Client: {{ rdv.nom }} {{ rdv.prenom }}</p>
+            <p>Date du rdv: {{ rdv.dateRdv|date('d/m/Y à H:i') }}</p>
+            <p><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Détail du rdv</a></p><br>
+        {% else %}
+            <p>Aucun rdv dans l'historique.</p>
+        {% endfor %}
 
     {{ knp_pagination_render(rdvHistorique) }}
 

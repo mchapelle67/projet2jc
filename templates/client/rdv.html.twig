@@ -3,15 +3,6 @@
 {% block title %}Demande de rendez-vous{% endblock %}
 
 {% block body %}
-{% for label, messages in app.flashes %}
-    {% set alertClass = (label == 'error') ? 'danger' : label %}
-    {% for message in messages %}
-        <div class="alert alert-{{ alertClass }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endfor %}
-
 <section class="form form-devis form-rdv">
 <h1>Demande de rendez-vous</h1>
     <h2><span class="form-bold-h2">Attention, ceci est une demande de rendez-vous !</span>

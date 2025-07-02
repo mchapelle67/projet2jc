@@ -3,17 +3,7 @@
 {% block title %}Gestion des rdv{% endblock %}
 
 {% block body %}
-{% for label, messages in app.flashes %}
-    {% set alertClass = (label == 'error') ? 'danger' : label %}
-    {% for message in messages %}
-        <div class="alert alert-{{ alertClass }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endfor %}
-
-    <h1>Liste des rendez-vous</h1>
-
+<h1>Liste des rendez-vous</h1>
     <h2>Rdv en attente</h2>
     {% for rdv in rdvEnCours %}
         <p>Rdv n° {{ rdv.id }} </p>
