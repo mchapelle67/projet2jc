@@ -7,36 +7,51 @@
 {% block title %}Garage 2JC à Altkirch | Entretien, réparation & véhicules d’occasion{% endblock %}
 
 {% block body %}
-<section class="img-home">
-    <h1 class="sr-only">Garage 2JC - Mécanique et entretien à Altkirch</h1>    <figure>
-        <img src="{{ asset('images/midas.png') }}" alt="Photo du garage automobile 2JC" class="logo">
-    </figure>
-</section>
-
+<div class="hero container-parallaxe ">
+    <section class="parallax parallax__first">
+        <div class="parallax__layers">
+            <div class="hero-overlay">
+                <div class="hero-content">
+                    <h1>Garage 2JC à Altkirch</h1>
+                    <h2>Entretien, réparation et vehicules d'occasion</h2> 
+                    <a class="cta-blue" role="button" href="{{ path('app_rdv_client') }}">Prendez rendez-vous</a>  
+                </div> 
+            </div>
+        </div>
+    </section>
 <section class="container-fluid home-1">
-    <div class="block-home">
-        <i class="fa-solid fa-calendar-days"></i>
-            <h2>Rendez-vous</h2>
-            <p>
-                Gagnez du temps : <br>planifiez votre prochain rendez-vous en quelques clics.
-            </p>
-        <a class="btn-links" role="button" href="{{ path('app_rdv_client') }}">Prendre un rendez-vous</a>
-    </div>
-    <div class="block-home">
-        <i class="fa-solid fa-wrench"></i>
+    <div class="div-home">
+        <a class="links-home" role="button" href="{{ path('app_devis_client') }}">
+            <i class="fa-solid fa-wrench icon-custom" style="color:#FFFFFF;"></i>
             <h2>Demander un devis</h2>
             <p>
-                Détaillez votre besoin, on s’occupe du reste. <br>Sans engagement, rapide, et 100% gratuit.     
+                Détaillez votre besoin, <br>
+                on s’occupe du reste. <br>
+                Sans engagement, et 100% gratuit.     
             </p>
-        <a class="btn-links" role="button" href="{{ path('app_devis_client') }}">Demander un devis</a>
+        </a>
     </div>
-    <div class="block-home">
-        <i class="fa-solid fa-car"></i>
+    <div class="div-home">
+        <a class="links-home" role="button" href="{{ path('app_vo') }}">
+            <i class="fa-solid fa-car icon-custom" style="color:#FFFFFF;"></i>
             <h2>Parc automobile</h2>
             <p>
-                Découvrez nos véhicules d’occasion révisés et garantis. <br>Service de carte grise  sur place.
+                Découvrez nos véhicules d’occasion<br> 
+                révisés et garantis. <br>
+                Service de carte grise  sur place.
             </p>
-        <a class="btn-links" role="button" href="{{ path('app_vo') }}">Voir nos vehicules</a>
+        </a>
+    </div>
+    <div class="div-home">
+        <a class="links-home" role="button" href="{{ path('app_rdv_client') }}">
+            <i class="fa-solid fa-envelope icon-custom" style="color:#FFFFFF;"></i>
+            <h2>Nous contacter</h2>
+            <p>
+                Une équipe à votre écoute<br>
+                pour répondre à toutes vos questions<br>
+                et vous accompagner au mieux.
+            </p>
+        </a>
     </div>
 </section>
 <section class="effet_parallaxe">
@@ -50,84 +65,58 @@
 <section class="container-fluid home-2">
     <div class="block-service service">
         <figure>
-            <img src="{{ asset('images/image1.png') }}" alt="" class="img-service">
+            <img src="{{ asset('images/image1.png') }}" alt="Service automobile" class="img-service">
         </figure>
-        <div class="block-text service">
+        <div class="block-text">
             <h2>Nos services</h2>
             <p>
                 Nous proposons une large gamme de services pour répondre à tous vos besoins automobiles.
                 De la mécanique générale à la carrosserie, en passant par l'entretien et la réparation.
             </p>
-                <a class="btn-links" role="button" href="">En savoir plus</a>
+            <a class="cta-blue" href="#">En savoir plus</a>
         </div>
     </div>
+
     <div class="block-service xp">
-        <div class="block-text xp">
-            <h2>Notre experience</h2>
+        <figure>
+            <img src="{{ asset('images/image2.png') }}" alt="Expérience garage" class="img-xp">
+        </figure>
+        <div class="block-text">
+            <h2>Notre expérience</h2>
             <p>
                 Depuis 2010, nous mettons notre expertise à votre service pour vous offrir un service de qualité.
                 Notre équipe est composée de professionnels passionnés et expérimentés.
             </p>
-                <a class="btn-links" role="button" href="">En savoir plus</a>
-        </div>
-        <figure>
-            <img src="{{ asset('images/image2.png') }}" alt="" class="img-xp">
-        </figure>
-    </div>
-    <div class="block-service contact">
-        <figure>
-            <img src="{{ asset('images/image3.png') }}" alt="" class="img-contact">
-        </figure>
-        <div class="block-text contact">
-            <h2>Nous contacter</h2>
-            <p>
-                Vous avez une question ou besoin d'assistance ? <br>
-                N'hésitez pas à nous contacter, nous sommes là pour vous aider.
-            </p>
-                <a class="btn-links" role="button" href="{{ path('app_contact') }}">Nous contacter</a>
+            <a class="cta-blue" href="#">En savoir plus</a>
         </div>
     </div>
 </section>
 <section class="container-fluid home-3">
     <div class="google_maps">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2688.784071270999!2d7.23477577613881!3d47.63032847119202!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47918f50566824e9%3A0x5ade6b39a2e29d3b!2sGarage%202JC%20automobiles!5e0!3m2!1sfr!2sfr!4v1751363702092!5m2!1sfr!2sfr" 
-                width="600" 
-                height="450" 
-                style="border:0;"           
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2688.784071270999!2d7.23477577613881!3d47.63032847119202!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47918f50566824e9%3A0x5ade6b39a2e29d3b!2sGarage%202JC%20automobiles!5e0!3m2!1sfr!2sfr!4v1751363702092!5m2!1sfr!2sfr"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Localisation Garage 2JC">
+        </iframe>
     </div>
     <div class="localisation">
         <h3>GARAGE 2JC</h3>
         <address>
+            <p><i class="fa-solid fa-location-dot"></i>18 route de Thann, 68130 ALTKIRCH</p>
+            <p><a href="tel:0389400000"><i class="fa-solid fa-phone"></i> +33 3 89 40 00 00</a></p>
+            <p><a href="mailto:jerome.midas68@gmail.com"><i class="fa-solid fa-envelope"></i> jerome.midas68@gmail.com</a></p>
             <p>
-                <i class="fa-solid fa-location-dot"></i>
-                18 routes de Thann, <br>
-                68130 ALTKIRCH
+                <i class="fa-solid fa-clock"></i><br>
+                <strong>lun :</strong> fermé<br>
+                <strong>mar - ven :</strong> 8h30 - 12h30 / 13h30 - 18h<br>
+                <strong>sam :</strong> 8h - 13h<br>
+                <strong>dim :</strong> fermé
             </p>
-            <p>
-                <a href="tel:0389400000"><i class="fa-solid fa-phone"></i>+33 3 89 40 00 00</a>  <br>
-                <a href="mailto:jerome.midas68@gmail.com"><i class="fa-solid fa-envelope"></i>jerome.midas68@gmail.com</a>
-            </p>
-            <p>
-                <i class="fa-solid fa-clock"></i>
-                <strong>lundi:</strong> fermé <br>
-                <strong>mardi:</strong> 8h30 - 12h30 <br>
-                13h30 - 18h <br>
-                <strong>mercredi:</strong> 8h30 - 12h30 <br>
-                13h30 - 18h<br>
-                <strong>jeudi:</strong> 8h30 - 12h30<br>
-                13h30 - 18h<br>
-                <strong>vendredi:</strong> 8h30 - 12h30<br>
-                13h30 - 18h<br>
-                <strong>samedi:</strong> 8h - 13h<br>
-                <strong>dimanche:</strong> fermé
-            </p>
-            <a class="btn-links" role="button" href="https://www.google.com/maps/place/Garage+2JC/@47.6303285,7.2347758,15z/data=!4m6!3m5!1s0x47918f50566824e9:0x5ade6b39a2e29d3b!8m2!3d47.6303285!4d7.2347758!16s%2Fg%2F11c1lqv_9h" target="_blank">
+            <a class="cta-blue" href="https://www.google.com/maps/place/Garage+2JC/@47.6303285,7.2347758,15z" target="_blank" rel="noopener">
                 Se rendre sur place
             </a>
         </address>
     </div>
 </section>
+
 {% endblock %}
