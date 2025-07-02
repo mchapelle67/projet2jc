@@ -3,17 +3,8 @@
 {% block title %}Demande de devis{% endblock %}
 
 {% block body %}
-{% for label, messages in app.flashes %}
-    {% set alertClass = (label == 'error') ? 'danger' : label %}
-    {% for message in messages %}
-        <div class="alert alert-{{ alertClass }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endfor %}
-
 <section class="form form-devis">
-    <h1>Demande de devis</h1>
+<h1>Demande de devis</h1>
 
 <div class="form-container">
     <div class="progress-bar-container">

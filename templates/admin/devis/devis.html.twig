@@ -3,17 +3,7 @@
 {% block title %}Gestion des devis{% endblock %}
 
 {% block body %}
-{% for label, messages in app.flashes %}
-    {% set alertClass = (label == 'error') ? 'danger' : label %}
-    {% for message in messages %}
-        <div class="alert alert-{{ alertClass }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endfor %}
-
-    <h1>Gestion des devis</h1>
-
+<h1>Gestion des devis</h1>
     <h2>Liste des devis en cours</h2>
     {% for devis in devisEnCours %}
         <p>Devis n° {{ devis.id }} </p>

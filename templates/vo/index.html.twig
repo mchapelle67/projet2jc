@@ -3,14 +3,6 @@
 {% block title %}Voiture d'occasion{% endblock %}
 
 {% block body %}
-{% for label, messages in app.flashes %}
-    {% set alertClass = (label == 'error') ? 'danger' : label %}
-    {% for message in messages %}
-        <div class="alert alert-{{ alertClass }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endfor %}
     {# <figure
         <img src="" alt="">Photo du parc d'occasion
     </figure> #}
