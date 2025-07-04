@@ -76,7 +76,7 @@ final class AdminController extends AbstractController
             ]);
         }
 
-        $devisHistorique = $paginator->paginate($devisHistoriqueArray, $page, 10);
+        $devisHistorique = $paginator->paginate($devisHistoriqueArray, $page, 20);
 
         return $this->render('admin/devis/historique.devis.html.twig', [
             'controller_name' => 'AdminController',
@@ -211,7 +211,7 @@ final class AdminController extends AbstractController
             ]);
         }
 
-        $rdvHistorique = $paginator->paginate($rdvHistoriqueArray, $page, 10);
+        $rdvHistorique = $paginator->paginate($rdvHistoriqueArray, $page, 20);
 
         return $this->render('admin/rdv/historique.rdv.html.twig', [
             'controller_name' => 'AdminController',

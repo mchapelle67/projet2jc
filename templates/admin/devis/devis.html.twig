@@ -1,33 +1,37 @@
 {% extends 'base.html.twig' %}
 
+{% block robots %}noindex, nofollow{% endblock %}
+
+{% block nav %}{{ include('components/_nav_bar_aside.html.twig') }}{% endblock %}
+
 {% block title %}Gestion des devis{% endblock %}
 
 {% block body %}
-
-<h1>Liste des devis en cours</h1>
-{% if devisEnCours %} 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Date de la demande</th>
-                <th scope="col">Gérer le devis</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for devis in devisEnCours %}
-            <tr>
-                <td>{{ devis.id }}</td>
-                <td>{{ devis.nom }} {{ devis.prenom }}</td>
-                <td>{{ devis.dateDevis|date('d/m/Y à H:i') }}</td>
-                <td><a href="{{ path('show_devis', {'id': devis.id}) }}">Accéder au devis <i class="fa-solid fa-file-pen"></i></a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>Aucun devis en cours.</p>
-{% endif %}
-    <a class="btn-links" role="button" href="{{ path('app_devis_historique') }}">Voir les devis clos</a>
+<main class="main-admin">
+    <h1>Liste des devis en cours</h1>
+    {% if devisEnCours %} 
+        <table class="table table-striped">
+            <thead>
+                <tr class="table-warning">
+                    <th scope="col">#</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Date de la demande</th>
+                    <th scope="col">Gérer le devis</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for devis in devisEnCours %}
+                <tr>
+                    <th scope="row">{{ devis.id }}</th>
+                    <td>{{ devis.nom }} {{ devis.prenom }}</td>
+                    <td>{{ devis.dateDevis|date('d/m/Y à H:i') }}</td>
+                    <td><a href="{{ path('show_devis', {'id': devis.id}) }}">Voir le devis</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucun devis en cours.</p>
+    {% endif %}
+</main>
 {% endblock %}

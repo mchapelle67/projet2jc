@@ -1,22 +1,40 @@
 {% extends 'base.html.twig' %}
 
+{% block robots %}noindex, nofollow{% endblock %}
+{% block nav %}{{ include('components/_nav_bar_aside.html.twig') }}{% endblock %}
 {% block title %}Hitorique des rendez-vous{% endblock %}
 
 {% block body %}
-<h1>Historique des rendez-vous</h1>
+<main class="main-admin">
+    <h1>Historique des rendez-vous</h1>
     {{ include('components/_search_data.html.twig', {'searchForm': searchForm}) }}
-        <h2>Liste des rdv</h2>
+        {% if rdvHistorique is not empty %}
+          <table class="table table-striped">
+            <thead>
+                <tr class="table">
+                    <th scope="col">#</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Date du rendez-vous</th>
+                    <th scope="col">Prestation</th>
+                    <th scope="col">Gérer le rdv</th>
+                </tr>
+            </thead>
+            <tbody>
         {% for rdv in rdvHistorique %}
-            <p>Rdv n° {{ rdv.id }} </p>
-            <p>Client: {{ rdv.nom }} {{ rdv.prenom }}</p>
-            <p>Date du rdv: {{ rdv.dateRdv|date('d/m/Y à H:i') }}</p>
-            <p><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Détail du rdv</a></p><br>
-        {% else %}
-            <p>Aucun rdv dans l'historique.</p>
+            <tr>
+                <th scope="row">{{ rdv.id }}</th>
+                <td>{{ rdv.nom }} {{ rdv.prenom }}</td>
+                <td>{{ rdv.dateRdv|date('d/m/Y à H:i') }}</td>
+                <td>{{ rdv.prestation.nomPrestation }}</td>
+                <td><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Voir détail</a></td>
+            </tr>
         {% endfor %}
-
-    {{ knp_pagination_render(rdvHistorique) }}
-
-
-    <button><a href="{{ path('app_admin_rdv') }}">Voir les rdv en cours</a></button>
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucun rdv dans l'historique.</p>
+    {% endif %}
+        
+        {{ knp_pagination_render(rdvHistorique, 'bundles/custom_pagination.html.twig')}}
+</main>
 {% endblock %}

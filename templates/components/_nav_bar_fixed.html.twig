@@ -19,11 +19,9 @@
             <i class="fa-solid fa-user" style="color: #ffffff; opacity: 0.55;"></i>          </a>
           <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLink">
             {% if is_granted('ROLE_SUPER_ADMIN') %}
-              <a class="dropdown-item" href="dashboard_admin">Dashboard admin</a>
+              <a class="dropdown-item" href="dashboard_admin">SUPER ADMIN</a>
             {% endif %}
-            <a class="dropdown-item" href="#">Notifications</a>
-            <a class="dropdown-item" href="{{ path('app_admin_devis') }}">Gestion devis</a> 
-            <a class="dropdown-item" href="{{ path('app_admin_rdv') }}">Gestion rdv</a>
+            <a class="dropdown-item" href="{{ path('app_admin_rdv') }}">Dashboard admin</a>
             <a class="dropdown-item" href="{{ path('add_vo') }}">Ajouter VO</a>
             <a class="dropdown-item" href="{{ path('app_logout') }}">Deconnexion</a>
           </div>
@@ -39,15 +37,3 @@
   </div>
 </nav>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', function() {
-      if(window.scrollY > 50) {
-        navbar.classList.add('navbar-scrolled');
-      } else {
-        navbar.classList.remove('navbar-scrolled');
-      }
-    });
-  });
-  </script>

@@ -1,29 +1,67 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion des rdv{% endblock %}
+{% block robots %}noindex, nofollow{% endblock %}
 
-{% block body %}
-<h1>Liste des rendez-vous</h1>
-    <h2>Rdv en attente</h2>
-    {% for rdv in rdvEnCours %}
-        <p>Rdv n° {{ rdv.id }} </p>
-        <p>Client: {{ rdv.nom }} {{ rdv.prenom }}</p>
-        <p>Date du rdv: {{ rdv.dateRdv|date('d/m/Y à H:i') }}</p>
-        <p>Prestation: {{ rdv.prestation.nomPrestation }}</p>
-        <p><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Voir détail</a></p><br>
+{% block nav %}{{ include('components/_nav_bar_aside.html.twig') }}{% endblock %}
+
+{% block title %}Gestion des rendez-vous{% endblock %}
+
+{% block body %}   
+<main class="main-admin">
+    <h1>Liste des rendez-vous</h1>
+    {% if rdvEnCours %}
+        <h2>Rendez-vous en attente</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr class="table-warning">
+                    <th scope="col">#</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Date du rendez-vous</th>
+                    <th scope="col">Prestation</th>
+                    <th scope="col">Gérer le rdv</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for rdv in rdvEnCours %}
+            <tr>
+                <th scope="row">{{ rdv.id }}</th>
+                <td>{{ rdv.nom }} {{ rdv.prenom }}</td>
+                <td>{{ rdv.dateRdv|date('d/m/Y à H:i') }}</td>
+                <td>{{ rdv.prestation.nomPrestation }}</td>
+                <td><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Voir détail</a> <i class="fa-solid fa-file-pen"></i></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     {% else %}
         <p>Aucun rendez-vous en attente.</p>
-    {% endfor %}
-
-    <h2>Rdv traîtés à venir</h2>
-    {% for rdv in rdvConfirmer %}
-        <p>Rdv n° {{ rdv.id }} </p>
-        <p>Client: {{ rdv.nom }} {{ rdv.prenom }}</p>
-        <p>Date du rdv: {{ rdv.dateRdv|date('d/m/Y à H:i') }}</p>
-        <p>Prestation: {{ rdv.prestation.nomPrestation }}</p>
-        <p><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Voir détail</a></p><br>
+    {% endif %}
+    {% if rdvConfirmer is not empty %}
+        <h2>Rendez-vous traîtés à venir</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr class="table-success">
+                        <th scope="col">#</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Date du rendez-vous</th>
+                        <th scope="col">Prestation</th>
+                        <th scope="col">Gérer le rdv</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for rdv in rdvConfirmer %}
+                <tr>
+                    <th scope="row">{{ rdv.id }}</th>
+                    <td>{{ rdv.nom }} {{ rdv.prenom }}</td>
+                    <td>{{ rdv.dateRdv|date('d/m/Y à H:i') }}</td>
+                    <td>{{ rdv.prestation.nomPrestation }}</td>
+                    <td><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Voir détail</a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
     {% else %}
-        <p>Aucun rendez-vous à venir.</p>
-    {% endfor %}    
-        <button><a href="{{ path('app_rdv_historique') }}">Voir les rdv clos</a></button>
+        <h2>Aucun rendez-vous à venir.</h2>
+    {% endif %}
+</main>
 {% endblock %}
