@@ -3,16 +3,31 @@
 {% block title %}Gestion des devis{% endblock %}
 
 {% block body %}
-<h1>Gestion des devis</h1>
-    <h2>Liste des devis en cours</h2>
-    {% for devis in devisEnCours %}
-        <p>Devis n° {{ devis.id }} </p>
-        <p>Client: {{ devis.nom }} {{ devis.prenom }}</p>
-        <p>Date de la demande: {{ devis.dateDevis|date('d/m/Y à H:i') }}</p>
-        <p><a href="{{ path('show_devis', {'id': devis.id}) }}">Gerer le devis</a></p><br>
-    {% else %}
-        <p>Aucun devis en cours.</p>
-    {% endfor %}
 
-    <button><a href="{{ path('app_devis_historique') }}">Voir les devis clos</a></button>
+<h1>Liste des devis en cours</h1>
+{% if devisEnCours %} 
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Date de la demande</th>
+                <th scope="col">Gérer le devis</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for devis in devisEnCours %}
+            <tr>
+                <td>{{ devis.id }}</td>
+                <td>{{ devis.nom }} {{ devis.prenom }}</td>
+                <td>{{ devis.dateDevis|date('d/m/Y à H:i') }}</td>
+                <td><a href="{{ path('show_devis', {'id': devis.id}) }}">Accéder au devis <i class="fa-solid fa-file-pen"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Aucun devis en cours.</p>
+{% endif %}
+    <a class="btn-links" role="button" href="{{ path('app_devis_historique') }}">Voir les devis clos</a>
 {% endblock %}
