@@ -83,8 +83,13 @@
                     <a href="{{ path('gestion_devis_action', {'id': devis.id, 'action': 'cloturer'}) }}" class="btn btn-success">
                         <i class="fa-solid fa-check"></i> Devis traîté
                     </a>
+            <p class="mb-3">Si vous n'êtes pas en mesure de traîter ce devis, veuillez le refuser en cliquant sur le bouton ci-dessous.</p>
+             <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'decline'}) }}" class="btn btn-danger">
+                    <i class="fa-solid fa-xmark"></i> Refuser le devis
+            </a>
         {% else %}
-            <a href="{{ path('gestion_devis_action', {'id': devis.id, 'action': 'delete'}) }}" class="btn btn-outline-danger">
+            <a href="{{ path('gestion_devis_action', {'id': devis.id, 'action': 'delete'}) }}" class="btn btn-outline-danger"
+            onclick="return confirm('Êtes vous sûre de vouloir supprimer ce devis ? Cette action est irreversible.');">
                 <i class="fa-solid fa-ban"></i> Supprimer le devis
             </a>    
         {% endif %}
