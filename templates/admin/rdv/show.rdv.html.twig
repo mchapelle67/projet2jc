@@ -1,50 +1,104 @@
 {% extends 'base.html.twig' %}
 
+
+{% block robots %}noindex, nofollow{% endblock %}
+{% block nav %}{{ include('components/_nav_bar_aside.html.twig') }}{% endblock %}
 {% block title %}Rdv n°{{ rdv.id }}{% endblock %}
 
 
 {% block body %}
-<h1>Rdv n°{{ rdv.id }}</h1>
-    <h2>Statut: {{ rdv.statut }}</h2>
-        <h3>Date du rdv: {{ rdv.dateRdv|date('d/m/Y à H:i') }}</h3>
-        <h3>Dernière modification: {{ rdv.dateModification|date('d/m/Y à H:i') }}</h3>
-            <p>Type de prestation: {{ rdv.prestation.nomPrestation }}</p>
+<main class="main-admin">
+    <h1>Rendez-vous n°{{ rdv.id }}</h1>
+    <table class="table table-striped">
+        <thead>
+            {% if rdv.statut is same as 'En attente' %}
+                <tr class="table-warning">
+            {% elseif rdv.statut is same as 'Confirmer' %}
+                <tr class="table-success">
+            {% elseif rdv.statut is same as 'Refuser' or 'Annuler' %}
+                <tr class="table-danger">
+            {% else %}
+                <tr class="table">
+                {% endif %}
+                    <th scope="col">Date du rendez-vous</th>
+                    <th scope="col">Prestation</th>
+                    <th scope="col">Date de création</th>
+                    <th scope="col">Dernière modification</th>
+                    <th scope="col">Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ rdv.dateRdv|date('d/m/Y à H:i') }}</td>
+                <td>{{ rdv.prestation.nomPrestation }}</td>
+                <td>{{ rdv.dateDemande|date('d/m/Y') }}</td>
+                <td>{{ rdv.dateModification|date('d/m/Y') }}</td>
+                <th class="row">{{ rdv.statut }}</th>
+            </tr>
+            </tbody>
+        </table>
+        
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">Informations personnelles</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Nom :</strong> {{ rdv.nom }} {{ rdv.prenom }}</p>
+            <p><strong>Email :</strong> {{ rdv.email }}</p>
+            <p><strong>Téléphone :</strong> {{ rdv.tel ?? 'Donnée non renseignée' }}</p>
+        </div>
+    </div>
 
-<h4>Informations personnelles:</h4>
-    <p>Nom et prenom: {{ rdv.nom }} {{ rdv.prenom }}</p>
-    <p>Email: {{ rdv.email }}</p>
-    {% if rdv.tel %}
-        <p> Téléphone: {{ rdv.tel }} </p>
-    {% else %}
-        <p>Téléphone: donnée non renseignée</p>
-    {% endif %}
 
-<h4>Informations du vehicule:</h4>
-    <p>Marque: {{ rdv.vehicule.marque }}</p>
-    <p>Modèle: {{ rdv.vehicule.modele }}</p>
-    {% if rdv.vehicule.anneeFabrication %}
-        <p>Année de fabrication: {{ rdv.vehicule.anneeFabrication }}</p>    
-    {% else %}  
-        <p>Année de fabrication: donnée non renseignée</p>
-    {% endif %}
-    {% if rdv.vehicule.km %}
-        <p>Kilomètre: {{ rdv.vehicule.km }}</p>
-    {% else %}
-        <p>Kilomètre: donnée non renseignée</p>
-    {% endif %}
-    {% if rdv.vehicule.carburant %}
-        <p>Carburant: {{ rdv.vehicule.carburant.typeCarburant }}</p>
-    {% else %}
-        <p>Carburant: donnée non renseignée</p>
-    {% endif %}
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">Informations du véhicule</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Marque :</strong> {{ rdv.vehicule.marque }}</p>
+            <p><strong>Modèle :</strong> {{ rdv.vehicule.modele }}</p>
+            <p>
+                <strong>Année de fabrication :</strong>
+                {{ rdv.vehicule.anneeFabrication ?? 'Donnée non renseignée' }}
+            </p>
+            <p>
+                <strong>Kilométrage :</strong>
+                {{ rdv.vehicule.km ?? 'Donnée non renseignée' }}
+            </p>
+            <p>
+                <strong>Carburant :</strong>
+                {{ rdv.vehicule.carburant.typeCarburant ?? 'Donnée non renseignée' }}
+            </p>
+        </div>
+    </div>
 
-{% if rdv.statut == 'En attente' %}
-    <p>Ce rdv est en attente de confirmation.</p>
-    <p>Veuillez indiquer si le rendez-vous est confirmé ou non.</p>
-    <button><a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'accept' }) }}">Accepter le rdv</a></button>
-    <button><a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'decline' }) }}">Refuser le rdv</a></button>
-{% elseif rdv.statut == 'Confirmer' %}
-    <button><a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'cancel' }) }}">Annuler le rdv</a></button>
-{% endif %}
-    <button><a href="{{ path('app_admin_rdv') }}">Retour à la liste des rdv</a></button>
+    {% if rdv.statut == 'En attente' %}
+        <div class="alert alert-warning" role="alert">
+            <p class="mb-1">Ce rendez-vous est en attente de confirmation.</p>
+            <p class="mb-3">Veuillez indiquer si le rendez-vous est confirmé ou non.</p>
+            <div class="d-flex gap-2">
+                <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'accept'}) }}" class="btn btn-success">
+                    <i class="fa-solid fa-check"></i> Accepter le rendez-vous
+                </a>
+                <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'decline'}) }}" class="btn btn-danger">
+                    <i class="fa-solid fa-xmark"></i> Refuser le rendez-vous
+                </a>
+            </div>
+        </div>
+
+    {% elseif rdv.statut == 'Confirmer' %}
+        <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'cancel'}) }}" class="btn btn-outline-danger">
+            <i class="fa-solid fa-ban"></i> Annuler le rendez-vous
+        </a>
+
+    {% elseif rdv.statut == 'Refuser' or rdv.statut == 'Clôturé' %}
+       <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'cancel'}) }}" class="btn btn-outline-danger">
+            <i class="fa-solid fa-ban"></i> Supprimer le rendez-vous
+        </a>
+    {% endif %}
+</main>
 {% endblock %}
+
+
+
+   

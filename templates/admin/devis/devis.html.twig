@@ -16,7 +16,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Date de la demande</th>
-                    <th scope="col">Gérer le devis</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,13 +25,25 @@
                     <th scope="row">{{ devis.id }}</th>
                     <td>{{ devis.nom }} {{ devis.prenom }}</td>
                     <td>{{ devis.dateDevis|date('d/m/Y à H:i') }}</td>
-                    <td><a href="{{ path('show_devis', {'id': devis.id}) }}">Voir le devis</a></td>
+                    <td><a href="{{ path('show_devis', {'id': devis.id}) }}">Gérer le devis</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     {% else %}
-        <p>Aucun devis en cours.</p>
+        <table class="table table-striped">
+            <thead>
+                <tr class="table-warning">
+                    <th scope="col">#</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">#</th>
+                    <td>Pas de devis en attente.</td>
+                </tr>
+            </tbody>
+        </table>
     {% endif %}
 </main>
 {% endblock %}

@@ -9,8 +9,8 @@
 {% block body %}   
 <main class="main-admin">
     <h1>Liste des rendez-vous</h1>
+    <h2>Rendez-vous en attente</h2>
     {% if rdvEnCours %}
-        <h2>Rendez-vous en attente</h2>
         <table class="table table-striped">
             <thead>
                 <tr class="table-warning">
@@ -18,7 +18,7 @@
                     <th scope="col">Nom</th>
                     <th scope="col">Date du rendez-vous</th>
                     <th scope="col">Prestation</th>
-                    <th scope="col">Gérer le rdv</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,16 +28,28 @@
                 <td>{{ rdv.nom }} {{ rdv.prenom }}</td>
                 <td>{{ rdv.dateRdv|date('d/m/Y à H:i') }}</td>
                 <td>{{ rdv.prestation.nomPrestation }}</td>
-                <td><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Voir détail</a> <i class="fa-solid fa-file-pen"></i></td>
+                <td><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Gérer le rdv</a></td>
             </tr>
             {% endfor %}
             </tbody>
         </table>
     {% else %}
-        <p>Aucun rendez-vous en attente.</p>
+        <table class="table table-striped">
+            <thead>
+                <tr class="table-warning">
+                    <th scope="col">#</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table">   
+                    <th scope ="row">Aucun rendez-vous en attente</th>
+                </tr>
+            </tbody>
+        </table> 
     {% endif %}
-    {% if rdvConfirmer is not empty %}
-        <h2>Rendez-vous traîtés à venir</h2>
+
+    <h2>Rendez-vous traîtés à venir</h2>
+        {% if rdvConfirmer %}
             <table class="table table-striped">
                 <thead>
                     <tr class="table-success">
@@ -45,7 +57,7 @@
                         <th scope="col">Nom</th>
                         <th scope="col">Date du rendez-vous</th>
                         <th scope="col">Prestation</th>
-                        <th scope="col">Gérer le rdv</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,13 +67,24 @@
                     <td>{{ rdv.nom }} {{ rdv.prenom }}</td>
                     <td>{{ rdv.dateRdv|date('d/m/Y à H:i') }}</td>
                     <td>{{ rdv.prestation.nomPrestation }}</td>
-                    <td><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Voir détail</a></td>
+                    <td><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Gérer le rdv</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
     {% else %}
-        <h2>Aucun rendez-vous à venir.</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr class="table-success">
+                    <th scope="col">#</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>      
+                    <th scope ="row">Aucun rendez-vous à venir.</th>
+                </tr>
+            </tbody>
+        </table> 
     {% endif %}
 </main>
 {% endblock %}
