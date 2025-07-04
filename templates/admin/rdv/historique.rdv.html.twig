@@ -16,7 +16,7 @@
                     <th scope="col">Nom</th>
                     <th scope="col">Date du rendez-vous</th>
                     <th scope="col">Prestation</th>
-                    <th scope="col">Gérer le rdv</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,7 +26,7 @@
                 <td>{{ rdv.nom }} {{ rdv.prenom }}</td>
                 <td>{{ rdv.dateRdv|date('d/m/Y à H:i') }}</td>
                 <td>{{ rdv.prestation.nomPrestation }}</td>
-                <td><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Voir détail</a></td>
+                <td><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Gérer le rdv</a></td>
             </tr>
         {% endfor %}
             </tbody>

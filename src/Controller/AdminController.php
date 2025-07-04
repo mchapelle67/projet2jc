@@ -159,7 +159,7 @@ final class AdminController extends AbstractController
         $rdvList = $rdvRepository->findAll();
         // on filtre les rdv en cours
         $rdvEnCours = array_filter($rdvList, function (Rdv $rdv) {
-            return $rdv->getStatut() === 'En attente';
+            return $rdv->getStatut() === 'En attente' && $rdv->getDateRdv() > new \DateTime();;
         });
         // on filtre les rdv confirmés pas encore passés
         $rdvConfirmer = array_filter($rdvList, function (Rdv $rdv) {
@@ -185,7 +185,7 @@ final class AdminController extends AbstractController
         // on filtre les rdv 
         $rdvHistoriqueArray = array_filter($rdvList, function (Rdv $rdv) {
             return (
-                $rdv->getStatut() !== 'Confirmer'
+                $rdv->getStatut() !== 'Confirmer' && $rdv->getStatut() !== 'En attente'
             );
         });
 

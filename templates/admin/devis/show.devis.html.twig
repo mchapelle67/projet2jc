@@ -1,52 +1,92 @@
 {% extends 'base.html.twig' %}
 
+{% block robots %}noindex, nofollow{% endblock %}
+{% block nav %}{{ include('components/_nav_bar_aside.html.twig') }}{% endblock %}
+
 {% block title %}Devis n°{{ devis.id }}{% endblock %}
 
-
 {% block body %}
-<h1>Devis n°{{ devis.id }}</h1>
-    <h2>Statut: {{ devis.statut }}</h2>
-        <h3>Date de création du devis: {{ devis.dateDevis|date('d/m/Y à H:i') }}</h3>
-        <h3>Dernière modification: {{ devis.dateModification|date('d/m/Y à H:i') }}</h3>
+<main class="main-admin">
+    <h1>Devis n°{{ devis.id }}</h1>
+    <table class="table table-striped">
+            <thead>
+                {% if devis.statut is same as 'En cours' %}
+                    <tr class="table-warning">
+                {% else %}
+                    <tr class="table">
+                    {% endif %}
+                        <th scope="col">Date de la demande</th>
+                        <th scope="col">Dernière modification</th>
+                        <th scope="col">Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ devis.dateDevis|date('d/m/Y') }}</td>
+                    <td>{{ devis.dateModification|date('d/m/Y') }}</td>
+                    <th class="row">{{ devis.statut }}</th>
+                </tr>
+                </tbody>
+            </table>
 
-<h4>Informations personnelles:</h4>
-    <p>Nom et prenom: {{ devis.nom }} {{ devis.prenom }}</p>
-    <p>Email: {{ devis.email }}</p>
-    {% if devis.tel %}
-        <p> Téléphone: {{ devis.tel }} </p>
-    {% else %}
-        <p>Téléphone: donnée non renseignée</p>
-    {% endif %}
+ <div class="card mb-4">
+    <div class="card-header bg-dark text-white">
+        <h4 class="mb-0">Informations personnelles</h4>
+    </div>
+    <div class="card-body">
+        <p><strong>Nom :</strong> {{ devis.nom }} {{ devis.prenom }}</p>
+        <p><strong>Email :</strong> {{ devis.email }}</p>
+        <p><strong>Téléphone :</strong> {{ devis.tel ?? 'Donnée non renseignée' }}</p>
+    </div>
+</div>
 
-<h4>Informations du vehicule:</h4>
-    <p>Marque: {{ devis.vehicule.marque }}</p>
-    <p>Modèle: {{ devis.vehicule.modele }}</p>
-    {% if devis.vehicule.anneeFabrication %}
-        <p>Année de fabrication: {{ devis.vehicule.anneeFabrication }}</p>    
-    {% else %}  
-        <p>Année de fabrication: donnée non renseignée</p>
-    {% endif %}
-    {% if devis.vehicule.km %}
-        <p>Kilomètre: {{ devis.vehicule.km }}</p>
-    {% else %}
-        <p>Kilomètre: donnée non renseignée</p>
-    {% endif %}
-    {% if devis.vehicule.carburant %}
-        <p>Carburant: {{ devis.vehicule.carburant.typeCarburant }}</p>
-    {% else %}
-        <p>Carburant: donnée non renseignée</p>
-    {% endif %}
 
-<h4>Demande de devis:</h4>
-<p>Type de prestation: {{ devis.prestation.nomPrestation }}</p>
-    {{ devis.text }}
+<div class="card mb-4">
+    <div class="card-header bg-dark text-white">
+        <h4 class="mb-0">Informations du véhicule</h4>
+    </div>
+    <div class="card-body">
+        <p><strong>Marque :</strong> {{ devis.vehicule.marque }}</p>
+        <p><strong>Modèle :</strong> {{ devis.vehicule.modele }}</p>
+        <p>
+            <strong>Année de fabrication :</strong>
+            {{ devis.vehicule.anneeFabrication ?? 'Donnée non renseignée' }}
+        </p>
+        <p>
+            <strong>Kilométrage :</strong>
+            {{ devis.vehicule.km ?? 'Donnée non renseignée' }}
+        </p>
+        <p>
+            <strong>Carburant :</strong>
+            {{ devis.vehicule.carburant.typeCarburant ?? 'Donnée non renseignée' }}
+        </p>
+    </div>
+</div>
 
-{% if devis.statut == 'En cours' %}
-    <p>Ce devis est en attente de traitement.</p>
-    <p>Si ce devis a déjà été traîté, veuillez le clôturer en cliquant sur le bouton ci-dessous.</p>
-    <button><a href="{{ path('gestion_devis_action', {'id': devis.id, 'action': 'cloturer' }) }}">Clore le devis</a></button>
-{% else %}
-    <button><a href="{{ path('gestion_devis_action', {'id': devis.id, 'action': 'delete' }) }}">SUPPRIMER DEFINITIVEMENT</a></button>
-{% endif %}
-    <button><a href="{{ path('app_admin_devis') }}">Retour à la liste des devis</a></button>
+<div class="card mb-4">
+    <div class="card-header bg-dark text-white">
+        <h4 class="mb-0">Demande de devis</h4>
+    </div>
+    <div class="card-body">
+        <p><strong>Type de prestation:</strong> {{ devis.prestation.nomPrestation }}</p>
+        <p><strong>Demande:</strong> </p>
+            {{ devis.text }}
+    </div>
+</div>
+
+
+    {% if devis.statut == 'En cours' %}
+         <div class="alert alert-warning" role="alert">
+            <p class="mb-1">Ce devis est en attente de traitement.</p>
+            <p class="mb-3">Si ce devis a déjà été traîté, veuillez le clôturer en cliquant sur le bouton ci-dessous.</p>
+                <div class="d-flex gap-2">
+                    <a href="{{ path('gestion_devis_action', {'id': devis.id, 'action': 'cloturer'}) }}" class="btn btn-success">
+                        <i class="fa-solid fa-check"></i> Devis traîté
+                    </a>
+        {% else %}
+            <a href="{{ path('gestion_devis_action', {'id': devis.id, 'action': 'delete'}) }}" class="btn btn-outline-danger">
+                <i class="fa-solid fa-ban"></i> Supprimer le devis
+            </a>    
+        {% endif %}
+</main>
 {% endblock %}

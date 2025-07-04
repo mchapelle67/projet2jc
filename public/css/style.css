@@ -10,6 +10,12 @@ body {
     background-color: var(--white-color);
 }
 
+main {
+  background: none;
+  margin: 0;
+  padding: 0;
+}
+
 html {
   scroll-behavior: smooth;
   font-size: 16px; /* base for rem */
@@ -725,6 +731,10 @@ input.invalid {
 }
 
 /* ---------------------------------------- PAGE D'ACCEUIL --------------------------------------------------- */
+.home-main { 
+    width: 100% !important;
+}
+
 .icon-custom {
   color: white;           /* couleur de l’icône */
   background-color: var(--blue-color-cta);  /* fond */
@@ -958,6 +968,7 @@ figure {
   align-items: center;
   justify-content: center;
   color: white;
+  overflow: hidden;
 }
 
 .hero-overlay {
@@ -1048,6 +1059,15 @@ figure {
     transition: color 0.3s ease;
 }
 
+
+.main-admin h1 {
+    text-align: center;
+    margin: 1.875rem 0;
+    color: var(--dark-grey);
+    font-weight: 700;
+    
+}
+
 /* ************************************* ASIDE NAVBAR ************************************* */
 /* ================== ASIDE NAVBAR ================== */
 .ea-sidebar {
@@ -1088,7 +1108,7 @@ figure {
 }
 
 /* Décalage du contenu principal pour ne pas passer sous la sidebar */
-.main-admin, main {
+.main-admin {
     margin-left: 220px;
     padding: 30px;
     width: calc(100% - 220px);
