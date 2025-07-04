@@ -46,19 +46,19 @@
         {% block importmap %}{% endblock %}
         {% endblock %}
     </head>
-    <body>
-    {% for label, messages in app.flashes %}
-        {% set alertClass = (label == 'error') ? 'danger' : label %}
-        {% for message in messages %}
-            <div class="alert alert-{{ alertClass }}">
-                {{ message }}
-            </div>
+    <body class="{% block body_class %}{% endblock %}">    
+        {% for label, messages in app.flashes %}
+            {% set alertClass = (label == 'error') ? 'danger' : label %}
+            {% for message in messages %}
+                <div class="alert alert-{{ alertClass }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
         <div id="wrapper"> 
             <div id="mainpage">
                 <header>
-                    {{ include('components/_nav_bar.html.twig') }}
+                    {% block nav %}{% endblock %}
                 </header>
                 {% block body %}{% endblock %}
             </div>

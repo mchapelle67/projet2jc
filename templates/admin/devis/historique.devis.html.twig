@@ -1,21 +1,38 @@
 {% extends 'base.html.twig' %}
 
+{% block robots %}noindex, nofollow{% endblock %}
+{% block nav %}{{ include('components/_nav_bar_aside.html.twig') }}{% endblock %}
 {% block title %}Historique des devis{% endblock %}
 
 {% block body %}
- <h1>Devis clôturés</h1>
-    {{ include('components/_search_data.html.twig', {'searchForm': searchForm}) }}
-        <h2>Liste des devis clos</h2>
-        {% for devis in devisHistorique %}
-            <p>Devis n° {{ devis.id }} </p>
-            <p>Client: {{ devis.nom }} {{ devis.prenom }}</p>
-            <p>Date de la demande: {{ devis.dateDevis|date('d/m/Y à H:i') }}</p>
-            <p><a href="{{ path('show_devis', {'id': devis.id}) }}">Voir le devis</a></p><br>
-        {% else %}
+<main class="main-admin">
+    <h1>Devis clôturés</h1>
+        {{ include('components/_search_data.html.twig', {'searchForm': searchForm}) }}
+            {% if devisHistorique is not empty %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Date de la demande</th>
+                    <th scope="col">Gérer le devis</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for devis in devisHistorique %}
+                    <tr>
+                        <th scope="row">{{ devis.id }}</th>
+                        <td>{{ devis.nom }} {{ devis.prenom }}</td>
+                        <td>{{ devis.dateDevis|date('d/m/Y à H:i') }}</td>
+                        <td><a href="{{ path('show_devis', {'id': devis.id}) }}">Voir le devis</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
             <p>Aucun devis trouvé.</p>
-        {% endfor %}
+            {% endif %}
 
-    {{ knp_pagination_render(devisHistorique) }}
 
-    <button><a href="{{ path('app_admin_devis') }}">Voir les devis en cours</a></button>
 {% endblock %}
+            

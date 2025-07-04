@@ -1,0 +1,37 @@
+<div class="layout-admin">
+    <div class="ea-sidebar">
+    <nav class="ea-sidebar-menu">
+        <ul class="menu">
+            <li class="menu-item {% if app.request.attributes.get('_route') == 'app_admin_rdv' %}active{% endif %}">
+                <a href="{{ path('app_admin_rdv') }}" class="menu-item-contents">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span class="menu-item-label">Rdv en cours</span>
+                </a>
+            </li>
+            <li class="menu-item {% if app.request.attributes.get('_route') == 'app_admin_devis' %}active{% endif %}">
+                <a href="{{ path('app_admin_devis') }}" class="menu-item-contents">
+                    <i class="fa-regular fa-hourglass-half"></i>
+                    <span class="menu-item-label">Devis en cours</span>
+                </a>
+            </li>
+            <li class="menu-item {% if app.request.attributes.get('_route') == 'app_rdv_historique' %}active{% endif %}">
+                <a href="{{ path('app_rdv_historique') }}" class="menu-item-contents">
+                    <i class="fa-solid fa-box-archive"></i>
+                    <span class="menu-item-label">Historique des rdv</span>
+                </a>
+            </li>
+            <li class="menu-item {% if app.request.attributes.get('_route') == 'app_devis_historique' %}active{% endif %}">
+                <a href="{{ path('app_devis_historique') }}" class="menu-item-contents">
+                    <i class="fa-solid fa-box-archive"></i>
+                    <span class="menu-item-label">Historique des devis</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ path('app_home') }}" class="menu-item-contents">
+                <i class="fa-solid fa-house"></i>
+                    <span class="menu-item-label">Retour au site</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

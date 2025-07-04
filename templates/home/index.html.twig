@@ -6,19 +6,19 @@
 
 {% block title %}Garage 2JC à Altkirch | Entretien, réparation & véhicules d’occasion{% endblock %}
 
+{% block nav %}{{ include('components/_nav_bar_scroll.html.twig') }}{% endblock %}
+
+
 {% block body %}
-<div class="hero container-parallaxe ">
-    <section class="parallax parallax__first">
-        <div class="parallax__layers">
-            <div class="hero-overlay">
-                <div class="hero-content">
-                    <h1>Garage 2JC à Altkirch</h1>
-                    <h2>Entretien, réparation et vehicules d'occasion</h2> 
-                    <a class="cta-blue" role="button" href="{{ path('app_rdv_client') }}">Prendez rendez-vous</a>  
-                </div> 
-            </div>
-        </div>
-    </section>
+<section class="hero">
+    <div class="hero-overlay">
+        <div class="hero-content">
+            <h1>Garage 2JC à Altkirch</h1>
+            <h2>Entretien, réparation et vehicules d'occasion</h2> 
+            <a class="cta-blue" role="button" href="{{ path('app_rdv_client') }}">Prendez rendez-vous</a>  
+        </div> 
+    </div>
+</section>
 <section class="container-fluid home-1">
     <div class="div-home">
         <a class="links-home" role="button" href="{{ path('app_devis_client') }}">
@@ -50,8 +50,8 @@
                 Une équipe à votre écoute<br>
                 pour répondre à toutes vos questions<br>
                 et vous accompagner au mieux.
-            </p>
-        </a>
+            </a>
+        </p>
     </div>
 </section>
 <section class="effet_parallaxe">
