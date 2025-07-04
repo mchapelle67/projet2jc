@@ -91,8 +91,9 @@
             <i class="fa-solid fa-ban"></i> Annuler le rendez-vous
         </a>
 
-    {% elseif rdv.statut == 'Refuser' or rdv.statut == 'Clôturé' %}
-       <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'cancel'}) }}" class="btn btn-outline-danger">
+    {% else %}
+       <a href="{{ path('delete_rdv', {'id': rdv.id}) }}" class="btn btn-outline-danger"
+            onclick="return confirm('Êtes vous sûre de vouloir supprimer ce rendez-vous ? Cette action est irreversible.');">
             <i class="fa-solid fa-ban"></i> Supprimer le rendez-vous
         </a>
     {% endif %}

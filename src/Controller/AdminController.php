@@ -6,6 +6,7 @@ use App\Entity\Rdv;
 use App\Entity\Devis;
 use App\Model\SearchData;
 use App\Form\SearchTypeForm;
+use App\Service\MailService;
 use Doctrine\ORM\EntityManager;
 use App\Repository\RdvRepository;
 use App\Repository\DevisRepository;
@@ -135,6 +136,18 @@ final class AdminController extends AbstractController
             $this->addFlash('success', 'Le devis a été traîté avec succès.');
             return $this->redirectToRoute('app_admin_devis');
 
+        } elseif ($devis && $request->attributes->get('action') === 'decline') {
+            // si le devis existe, on change son statut
+            $devis->setStatut('Clôturé');
+
+            // on enregistre les modifications dans la base de données
+            $entityManager->persist($devis);
+            $entityManager->flush();
+            
+            // puis on redirige vers la liste des devis``
+            $this->addFlash('success', 'Le devis a été traîté avec succès.');
+            return $this->redirectToRoute('app_admin_devis');
+
         } else {
             // si l'action n'est pas reconnue, on affiche un message d'erreur
             $this->addFlash('error', 'Action inconnue.');
@@ -238,7 +251,7 @@ final class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/rdv/{action}/{id}', name: 'gestion_rdv_action', requirements: ['action' => 'accept|decline|cancel'])]
+    #[Route('/admin/rdv/{action}/{id}', name: 'gestion_rdv_action', requirements: ['action' => 'accept|decline|cancel|delete'])]
     public function changeRdvStatut(RdvRepository $rdvRepository, string $action, int $id, EntityManagerInterface $entityManager): Response 
     {
         // on verifie que l'utilisateur a le rôle admin
@@ -263,8 +276,79 @@ final class AdminController extends AbstractController
             throw $this->createNotFoundException('Action inconnue');
         }
 
-    $entityManager->flush();
+        $entityManager->flush();
 
-    return $this->redirectToRoute('app_admin_rdv');
-}
+        return $this->redirectToRoute('gestion_mail', [
+            'action' => 'rdv' . ucfirst($action),
+            'id' => $rdv->getId()
+        ]);
+    }
+
+ #[Route('/admin/delete/rdv/{id}', name: 'delete_rdv')]
+    public function deleteRdv(int $id, EntityManagerInterface $entityManager): Response 
+    {
+        // on verifie que l'utilisateur a le rôle admin
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        // on cherche les id 
+        $rdv = $entityManager->getRepository(Rdv::class)->find($id);
+
+        if (!$rdv) {
+            return $this->redirectToRoute('app_admin_rdv');
+        }
+
+        // enregistrer les modifications dans la base de données
+        $entityManager->remove($rdv);
+        $entityManager->flush();
+
+        // puis on retourne sur l'edit de ce véhicule
+        return $this->redirectToRoute('app_admin_rdv');
+    }
+
+#[Route('/admin/gestion/mail/{action}/{id}', name: 'gestion_mail', requirements: ['action' => 'rdvAccept|rdvDecline|rdvCancel|devisDecline'])]
+    public function gestionMail(MailService $mail, RdvRepository $rdvRepository, DevisRepository $devisRepository, string $action, int $id, EntityManagerInterface $entityManager): Response 
+    {
+
+        // on prépare le corps du mail selon l'action 
+        if ($action === 'rdvAccept') {
+            $rdv = $rdvRepository->find($id);
+            if (!$rdv) {
+                throw $this->createNotFoundException('Rendez-vous inexistant');
+            }
+            $body = "Votre rendez-vous du " . $rdv->getDateRdv()->format('d/m/Y H:i') . "  
+                    pour la prestation: " . $rdv->getPrestation()->getNomPrestation() . " a été accepté.";
+
+        } elseif ($action === 'rdvDecline') {
+            $rdv = $rdvRepository->find($id);
+            if (!$rdv) {
+                throw $this->createNotFoundException('Rendez-vous inexistant');
+            }
+            $body = "Votre rendez-vous du " . $rdv->getDateRdv()->format('d/m/Y H:i') . " 
+                    pour la prestation: " . $rdv->getPrestation()->getNomPrestation() . " a été accepté.";
+
+        } elseif ($action === 'rdvCancel') {
+            $rdv = $rdvRepository->find($id);
+            if (!$rdv) {
+                throw $this->createNotFoundException('Rendez-vous inexistant');
+            }
+            $body = "Votre rendez-vous du " . $rdv->getDateRdv()->format('d/m/Y H:i') . "                    
+            pour la prestation: " . $rdv->getPrestation()->getNomPrestation() . " a été annulé.";
+
+        } elseif ($action === 'devisDecline') {
+            $devis = $devisRepository->find($id);
+            if (!$devis) {
+                throw $this->createNotFoundException('Devis inexistant');
+            }
+            $body = "Votre devis n°" . $devis->getId() . " a été refusé.";
+        } else {    
+            throw $this->createNotFoundException('Action inconnue');
+        }
+
+        // envoi du mail
+        $mail->sendMail('Suite à votre demande', $body, 'Suite à votre demande'); // ajouter mail client 
+
+        // on envois un message de confirmation et on redirige  
+        $this->addFlash('success', 'Votre message a bien été envoyé.');
+        return $this->redirectToRoute('app_admin_rdv');
+    }
 }
