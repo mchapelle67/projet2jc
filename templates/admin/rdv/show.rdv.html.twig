@@ -74,7 +74,7 @@
 
     {% if rdv.statut == 'En attente' %}
         <div class="alert alert-warning" role="alert">
-            <p class="mb-1">Ce rendez-vous est en attente de confirmation.</p>
+            <p class="mb-1"><strong>Ce rendez-vous est en attente de confirmation.</strong></p>
             <p class="mb-3">Veuillez indiquer si le rendez-vous est confirmé ou non.</p>
             <div class="d-flex gap-2">
                 <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'accept'}) }}" class="btn btn-success">

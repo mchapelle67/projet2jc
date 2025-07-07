@@ -4,60 +4,61 @@
 
 {% block body %}
 <section class="form form-devis form-rdv">
-<h1>Demande de rendez-vous</h1>
+    <h1>Demande de rendez-vous</h1>
     <h2><span class="form-bold-h2">Attention, ceci est une demande de rendez-vous !</span>
         <br>Veuillez noter qu'il est nécéssaire d'attendre une confirmation de notre équipe.</h2>
-
-<div class="form-container">
-    <div class="progress-bar-container">
-        <div class="progress-bar-form">
-            <div class="step active" data-step-title="Infos">1</div>
-            <div class="progress-line"></div>
-            <div class="step" data-step-title="Vehicule">2</div>
-            <div class="progress-line"></div>
-            <div class="step" data-step-title="Date">3</div>
-            <div class="progress-line"></div>
-            <div class="step" data-step-title="Recap">4</div>
-        </div>
-    </div>
-
-
-{{ form_start(rdvForm, {'attr': {'id': 'client-form'}}) }}
-    <div class="form-step active">
-        <h3>Informations personnelles</h3>
+        
+        <div class="form-container">
+            <div class="progress-bar-container">
+                <div class="progress-bar-form">
+                    <div class="step active" data-step-title="Infos">1</div>
+                    <div class="progress-line"></div>
+                    <div class="step" data-step-title="Vehicule">2</div>
+                    <div class="progress-line"></div>
+                    <div class="step" data-step-title="Date">3</div>
+                    <div class="progress-line"></div>
+                    <div class="step" data-step-title="Recap">4</div>
+                </div>
+            </div>
+            
+            
+            {{ form_start(rdvForm, {'attr': {'id': 'client-form'}}) }}
+            <div class="form-step active">
+                <h3>Informations personnelles</h3>
                 {{ form_row(rdvForm.nom, {'row_attr': {'class': 'form-group'}}) }}
                 {{ form_row(rdvForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
                 {{ form_row(rdvForm.email, {'row_attr': {'class': 'form-group'}}) }}
                 {{ form_row(rdvForm.tel, {'row_attr': {'class': 'form-group'}}) }}
                 <h4 class="champs-obligatoires">*champs obligatoires</h4>
-    </div>
-    <div class="form-step">
-        <h3>Informations du véhicule</h3>
-            <div class="form-group">
-                <label for="marques-list">Veuillez séléctionner une marque*</label>
-                <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off">
-                <datalist id="marques-list">
-                    {% for marque in marques %}
-                    <option value="{{ marque.Make_Name }}"></option>
-                    {% endfor %}
-                </datalist>
-                {{ form_row(rdvForm.vehicule.marque) }}
             </div>
-            <div class="form-group">
-                <label for="modeles-list">Veuillez séléctionner un modèle*</label>
-                <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off">
-                <datalist id="modeles-list"></datalist>
-                {{ form_row(rdvForm.vehicule.modele) }}
-            </div>
+            <div class="form-step">
+                <h3>Informations du véhicule</h3>
+                <div class="form-group">
+                    <label for="marques-list">Veuillez séléctionner une marque*</label>
+                    <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off">
+                    <datalist id="marques-list">
+                        {% for marque in marques %}
+                        <option value="{{ marque.Make_Name }}"></option>
+                        {% endfor %}
+                    </datalist>
+                    {{ form_row(rdvForm.vehicule.marque) }}
+                </div>
+                <div class="form-group">
+                    <label for="modeles-list">Veuillez séléctionner un modèle*</label>
+                    <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off">
+                    <datalist id="modeles-list"></datalist>
+                    {{ form_row(rdvForm.vehicule.modele) }}
+                </div>
                 {{ form_row(rdvForm.vehicule.anneeFabrication, {'row_attr': {'class': 'form-group'}}) }}
                 {{ form_row(rdvForm.vehicule.km, {'row_attr': {'class': 'form-group'}}) }}
                 {{ form_row(rdvForm.vehicule.carburant, {'row_attr': {'class': 'form-group'}}) }}
-    </div>
-    <div class="form-step">
-        <h3>Choisissez un créneau</h3>
-            {{ form_row(rdvForm.prestation, {'row_attr': {'class': 'form-group'}}) }}
-            {{ form_row(rdvForm.date_rdv, {'row_attr': {'class': 'form-group'}}) }}
-        </div>
+            </div>
+            <div class="form-step">
+                <h3>Choisissez un créneau</h3>
+                    {{ form_row(rdvForm.prestation, {'row_attr': {'class': 'form-group'}}) }}
+                    {{ include('components/_calendar.html.twig') }}
+                    {{ form_row(rdvForm.date_rdv) }}
+            </div>
     <div class="form-step">
         <h3>Recapitulatif de votre demande</h3>
             <div id="reviewDetails">
@@ -231,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         return isValid;
-    }    
+    }   
     
     // gerer le recapitulatif 
     function populateReviewDetails() {
@@ -285,10 +286,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // permet de passer à l'étape suivante si la validation est réussie
+    // gestion du bouton "Suivant" pour valider l'étape actuelle
     nextBtn.addEventListener('click', () => {
         if (validateStep(currentStep)) {
             currentStep++;
+            // Appelle le calendrier à l'étape 3 (index 2)
+            if (currentStep === 2 && typeof initCalendarWidget === "function") {
+                initCalendarWidget();
+            }
             if (currentStep === formSteps.length - 1) { 
                 populateReviewDetails();
             }
