@@ -92,8 +92,12 @@
         </a>
 
     {% else %}
-       <a href="{{ path('delete_rdv', {'id': rdv.id}) }}" class="btn btn-outline-danger"
-            onclick="return confirm('Êtes vous sûre de vouloir supprimer ce rendez-vous ? Cette action est irreversible.');">
+        <a href="{{ path('app_admin_rdv_update', {'id': rdv.id}) }}" class="btn btn-outline-dark"
+        onclick="return confirm('Êtes vous sûre de vouloir rendre ce rendez-vous actif à nouveau ?');">
+            <i class="fa-solid fa-pencil"></i> Mettre à jour le statut
+        </a>
+       <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'delete'}) }}" class="btn btn-outline-danger" 
+       onclick="return confirm('Êtes vous sûre de vouloir supprimer ce rendez-vous ? Cette action est irreversible.');">
             <i class="fa-solid fa-ban"></i> Supprimer le rendez-vous
         </a>
     {% endif %}
