@@ -63,7 +63,7 @@ a {
     transition: color 0.3s ease;
 }
 
-.alert.alert-success, s
+.alert.alert-success,
 .alert.alert-danger {
     margin: 3.125rem;
 }
@@ -103,6 +103,10 @@ a {
 
 .btn-links:active {
     background-color: var(--dark-blue);
+}
+
+p {
+    margin-bottom: 0;
 }
 
 .cta-blue {
@@ -1154,3 +1158,6 @@ form.form-inline {
     align-items: center;
     margin: 1.25rem auto;
 }
+
+
+/* \* ************************************* CALENDRierR ***************************** */ 
