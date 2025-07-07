@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\SuperAdmin;
 
 use App\Entity\User;
 use App\Entity\Carburant;
 use App\Entity\Prestation;
-use App\Controller\Admin\UserCrudController;
+use App\Controller\SuperAdmin\UserCrudController;
 use Symfony\Component\HttpFoundation\Response;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;

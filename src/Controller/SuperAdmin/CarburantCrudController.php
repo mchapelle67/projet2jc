@@ -1,18 +1,15 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\SuperAdmin;
 
-use App\Entity\Prestation;
+use App\Entity\Carburant;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class PrestationCrudController extends AbstractCrudController
+class CarburantCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Prestation::class;
+        return Carburant::class;
     }
 
     /*

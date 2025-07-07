@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\SuperAdmin;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
