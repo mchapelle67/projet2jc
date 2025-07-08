@@ -1,0 +1,343 @@
+
+/* ************************** FORMULAIRES DEVIS ET RDV *********************************** */
+
+.form-container {
+    background-color: white;
+    padding: 1.875rem 2.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    max-width: 43.75rem;
+    overflow: hidden; 
+    margin: 3.125rem auto;
+}
+
+.form.form-devis h1 {
+    text-align: center;
+    margin: 1.875rem;
+    color: var(--blue-color);
+    font-weight: 700;
+}
+
+.form-step h2, 
+.form-step h3 {
+    background-color: white;
+    color: var(--blue-color);
+    text-align: center;
+    margin: 4.375rem 1.5625rem 2.1875rem 1.5625rem;
+    font-weight: 700;
+}
+
+.form.form-devis.form-rdv {
+    h1 {
+        margin-bottom: 0.625rem;
+    }
+    h2 {
+    text-align: center;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 1.2em;
+    }
+}
+
+.form-bold-h2 {
+    font-weight: 700;
+    background-color: var(--white-color);
+}
+
+/* Progress Bar */
+.progress-bar-container {
+    margin-bottom: 1.875rem;
+}
+.progress-bar-form {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+.progress-bar-form .step {
+    width: 2.1875rem;
+    height: 2.1875rem;
+    background-color: var(--grey-color);
+    color: var(--dark-gray);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+    border: 2px solid var(--gray-color);
+}
+.progress-bar-form .step.active {
+    background-color: var(--red-color);
+    color: white;
+    border-color: var(--red-color);
+    transform: scale(1.1);
+}
+.progress-bar-form .step.completed {
+    background-color: var(--red-color);
+    color: white;
+    border-color: var(--red-color);
+}
+.progress-bar-form .step::after {
+    content: attr(data-step-title);
+    position: absolute;
+    top: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8em;
+    color: var(--dark-gray);
+    white-space: nowrap;
+}
+.progress-bar-form .progress-line {
+    height: 0.25rem;
+    background-color: var(--medium-gray);
+    flex-grow: 1;
+    margin: 0 -0.125rem;
+    position: relative;
+    z-index: 1;
+}
+.progress-bar-form .progress-line.active {
+    background-color: var(--medium-gray);
+}
+
+/* Etapes du form */
+.form-step {
+    background-color: white;
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+.form-step.active {
+    display: block;
+    p {
+        background-color: white;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(1.25rem); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Form Groups and Inputs */
+.form-group {
+    background-color: white;
+    padding-bottom: 1.25rem;
+}
+
+.form-group.form-carburant {
+    background-color: white;
+    margin-top: 1.25rem;
+    margin-bottom: 0;
+}
+
+.form-group label {
+    background-color: white;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--dark-gray);
+}
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="number"],
+.form-group select {
+    background-color: white;
+    width: 100%;
+    padding: 0.75rem 0.9375rem;
+    border: 1px solid var(--medium-gray);
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.125rem rgba(255, 107, 107, 0.3);
+}
+.form-group-inline {
+    display: flex;
+    gap: 1.25rem;
+}
+.form-group-inline .form-group {
+    flex: 1;
+}
+
+.form-step h3.champs-obligatoires,
+.form-step h4.champs-obligatoires
+{
+    color: var(--dark-grey);
+    background-color: white;
+    font-size: 0.7em;
+    margin: 0;
+    font-weight: 400;
+    text-align: start;
+}
+
+/* Checkbox styling */
+.form-group input[type="checkbox"] {
+    margin-right: 0.5rem;
+    accent-color: var(--primary-color);
+    transform: scale(1.2);
+}
+.checkbox-label {
+    font-weight: normal !important;
+    color: var(--text-color) !important;
+    display: inline-flex !important;
+    align-items: center;
+}
+
+/* Amount Buttons */
+.amount-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    margin-bottom: 0.625rem;
+}
+.amount-btn {
+    padding: 0.625rem 0.9375rem;
+    background-color: var(--light-gray);
+    border: 2px solid var(--medium-gray);
+    color: var(--text-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.amount-btn:hover {
+    border-color: var(--accent-color);
+    background-color: #fff7e6;
+}
+.amount-btn.selected {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border-color: var(--primary-color);
+}
+
+/* Buttons */
+.form-navigation {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    gap: 1.875rem;
+    padding-top: 1.5625rem;
+}
+.btn {
+    padding: 0.75rem 1.5625rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+.btn:active {
+    transform: translateY(0.0625rem);
+}
+.btn-primary {
+    margin: 0.9375rem;
+    background-color: var(--red-color);
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #e65c5c;
+}
+.btn-secondary {
+    margin: 0.9375rem;
+    background-color: var(--medium-gray);
+    color: var(--dark-gray);
+}
+.btn-secondary:hover {
+    background-color: #c8c8c8;
+}
+#prevBtn {
+    /* visibility handled by JS */
+}
+#submitBtn {
+    background-color: var(--red-color);
+}
+#submitBtn:hover {
+    opacity: 0.7;
+}
+
+/* Review Details */
+#reviewDetails p {
+    padding-bottom: 0.625rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    background-color: white;
+}
+#reviewDetails p strong {
+    color: var(--secondary-color);
+    margin-right: 0.3125rem;
+}
+
+/* Validation Error Styling */
+input.invalid {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 0.125rem rgba(244, 67, 54, 0.3);
+}
+.error-message {
+    color: var(--error-color);
+    font-size: 0.85em;
+    margin-top: 0.3125rem;
+}
+
+
+
+/* ************************** FORMULAIRE CONTACT *********************************** */
+
+.form-step.active.contact {
+    width: 70%;
+    margin: 3.125rem auto 4.375rem auto;
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);  
+    background-color: white;
+        h1 {
+            background-color: white;
+            color: var(--blue-color);
+            margin: 0 0 2.5rem 0;
+            font-weight: 700;
+            text-align: center;
+        }
+        h2 {
+            font-size: 0.7em;
+            text-align: start;
+            margin: 0;
+            color: var(--dark-gray);
+            font-weight: 400;
+        }
+}
+
+#contact_type_form_submit,
+#vo_type_form_submit {
+    display: flex;
+    margin: 1.25rem auto 0 auto;
+    background-color: var(--red-color);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 0.625rem 2.5rem; 
+    font-size: 1.2em;
+    border-radius: var(--border-radius);
+        &:hover {
+            opacity: 0.7;
+        }
+}
+
+.col {
+    display: flex;
+    gap: 3.125rem;
+    background-color: white;
+    width: 100%;    
+    .form-group {
+        width: 50%;
+    }
+}

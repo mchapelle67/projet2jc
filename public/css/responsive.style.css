@@ -1,0 +1,61 @@
+/* --------------------------------- FORM CLIENT  --------------------------------- */
+@media (max-width: 480px) {
+    .form-container {
+        padding: 1.25rem;
+    }
+    .progress-bar .step::after {
+        display: none;
+    }
+    .form-group-inline {
+        flex-direction: column;
+        gap: 0;
+    }
+    .amount-options {
+        justify-content: center;
+    }
+    .form-navigation {
+        flex-direction: column-reverse;
+    }
+    .form-navigation .btn {
+        width: 100%;
+    }
+}
+
+/* --------------------------------- LOGIN --------------------------------- */
+@media (max-width: 768px) {
+    .block-service {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .block-text {
+        padding: 0;
+    }
+
+    .img-service,
+    .img-xp {
+        max-width: 80%;
+        margin: 0 auto;
+    }
+}
+
+/* --------------------------------- ACCUEIL --------------------------------- */
+@media (max-width: 768px) {
+    .container-fluid.home-3 {
+        flex-direction: column;
+        max-height: none;
+    }
+    .google_maps, .localisation {
+        flex: unset;
+        width: 100%;
+        height: 300px;
+        border-radius: 12px;
+    }
+    .localisation {
+        padding: 1.5rem 1rem;
+        text-align: center;
+    }
+    .localisation h3 {
+        font-size: 1.6rem;
+    }
+}

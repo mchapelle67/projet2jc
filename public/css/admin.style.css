@@ -1,0 +1,20 @@
+
+/* ******************************** GESTION RDV ADMIN ************************************ */
+.table td a:hover {
+    opacity: 0.7;
+}
+
+.table td a {
+    color: var(--blue-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+
+.main-admin h1 {
+    text-align: center;
+    margin: 1.875rem 0;
+    color: var(--dark-grey);
+    font-weight: 700;
+    
+}
