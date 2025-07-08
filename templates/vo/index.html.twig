@@ -9,64 +9,62 @@
 {% block nav %}{{ include('components/_nav_bar_fixed.html.twig') }}{% endblock %}
 
 {% block body %}
-    {# <figure
-        <img src="" alt="">Photo du parc d'occasion
-    </figure> #}
-<section class="vo-list">
-    <h1>Notre parc automobile</h1>
-    <h2>Démarches administratives simplifiées.</h2>
-    <h3>Achetez, roulez, on s’occupe du reste !</h3>
-    <button class="btn btn-primary">Service carte grise</button>
-
-    <div class="voiture-list">
-        {% for voiture in voList %}
-            <div class="voiture-item">
-                {% if voiture.photos %}   
-                <div id="carouselVO{{ loop.index }}" class="carousel slide vo" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        {% for photo in voiture.photos %}
-                            <div class="carousel-item {% if loop.first %}active{% endif %}">
-                                <img src="{{ asset('uploads/vo/' ~  photo.img) }}" class="d-block w-100" alt="Image de la voiture {{ voiture.marque }} {{ voiture.modele }}">
+<main>
+    <section class="vo-list">
+        <h1>Notre parc automobile</h1>
+        <h2>Démarches administratives simplifiées.</h2>
+        <h3>Achetez, roulez, on s’occupe du reste !</h3>
+        
+        <div class="voiture-list">
+            {% for voiture in voList %}
+                <div class="voiture-item">
+                    {% if voiture.photos %}   
+                    <div id="carouselVO{{ loop.index }}" class="carousel slide vo" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for photo in voiture.photos %}
+                                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                    <img src="{{ asset('uploads/vo/' ~  photo.img) }}" class="d-block w-100" alt="Image de la voiture {{ voiture.marque }} {{ voiture.modele }}">
+                                </div>
+                        {% endfor %}
                             </div>
-                    {% endfor %}
+                            <button class="carousel-control-prev vo" type="button" data-bs-target="#carouselVO{{ loop.index }}" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+                            <button class="carousel-control-next vo" type="button" data-bs-target="#carouselVO{{ loop.index }}" data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
                         </div>
-                        <button class="carousel-control-prev vo" type="button" data-bs-target="#carouselVO{{ loop.index }}" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon"></span>
-                        </button>
-                        <button class="carousel-control-next vo" type="button" data-bs-target="#carouselVO{{ loop.index }}" data-bs-slide="next">
-                            <span class="carousel-control-next-icon"></span>
-                        </button>
-                    </div>
-                {% endif %}
-                    <div class="voiture-details">
-                        <h2>{{ voiture.marque }} {{ voiture.modele }}</h2>
-                        {% if voiture.km %}
-                        <p><strong>Kilométrage:</strong> {{ voiture.km }} km</p>
-                        {% endif %}
-                        {% if voiture.carburant %}
-                        <p><strong>Carburant:</strong> {{ voiture.carburant }}</p>
-                        {% endif %}
-                        {% if voiture.anneeFabrication %}
-                        <p><strong>Année:</strong> {{ voiture.anneeFabrication }}</p>
-                        {% endif %}
-                        {% if voiture.prix %}
-                        <p><strong>Prix:</strong> {{ voiture.prix }}</p>
-                        {% endif %}
-                        <p>{{ voiture.description }}</p>
-                        {% if app.user and "[ROLE_ADMIN]" %}
-                            <a class="icones-vo" href="{{ path('edit_vo', {'id': voiture.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>
-                            <a  class="icones-vo" href="{{ path('delete_vo', {'id': voiture.id}) }}"><i class="fa-regular fa-trash"></i></a>
-                        {% endif %}
-                    {% if voiture.url %}
-                        <a class="btn-links" role="button" target="_blank" href="{{ voiture.url }}">En savoir plus</a>
-                    {% else %}
-                        <p>Veuillez nous contacter pour plus de renseignement</p>     
                     {% endif %}
+                        <div class="voiture-details">
+                            <h2>{{ voiture.marque }} {{ voiture.modele }}</h2>
+                            {% if voiture.km %}
+                            <p><strong>Kilométrage:</strong> {{ voiture.km }} km</p>
+                            {% endif %}
+                            {% if voiture.carburant %}
+                            <p><strong>Carburant:</strong> {{ voiture.carburant }}</p>
+                            {% endif %}
+                            {% if voiture.anneeFabrication %}
+                            <p><strong>Année:</strong> {{ voiture.anneeFabrication }}</p>
+                            {% endif %}
+                            {% if voiture.prix %}
+                            <p><strong>Prix:</strong> {{ voiture.prix }}</p>
+                            {% endif %}
+                            <p>{{ voiture.description }}</p>
+                            {% if app.user and "[ROLE_ADMIN]" %}
+                                <a class="icones-vo" href="{{ path('edit_vo', {'id': voiture.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a  class="icones-vo" href="{{ path('delete_vo', {'id': voiture.id}) }}"><i class="fa-regular fa-trash"></i></a>
+                            {% endif %}
+                        {% if voiture.url %}
+                            <a class="btn-links" role="button" target="_blank" href="{{ voiture.url }}">En savoir plus</a>
+                        {% else %}
+                            <p>Veuillez nous contacter pour plus de renseignement</p>     
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
-            {% else %}
-                <p class="no-voiture">Aucune voiture d'occasion disponible pour le moment.</p>
-            {% endfor %}
-    </div>
-</section>
+                {% else %}
+                    <p class="no-voiture">Aucune voiture d'occasion disponible pour le moment.</p>
+                {% endfor %}
+        </div>
+    </section>
+</main>
 {% endblock %}
