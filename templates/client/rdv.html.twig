@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fieldValid = false;
             } else if (input.type === 'email' && !/^\S+@\S+\.\S+$/.test(input.value)) {
                 fieldValid = false;
-            }
+            } 
             
             if (!fieldValid) {
                 isValid = false;
@@ -214,7 +214,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-      // vérification spécifique pour l'étape 2 : marque et modèle obligatoires
+        // validation spécifique pour le champ téléphone 
+        const telInput = currentFormStep.querySelector('input[type="tel"]');
+        if (telInput && telInput.value.trim() !== '' && !/^[\d+\s\-()]+$/.test(telInput.value)) {
+            console.log('Numéro de téléphone invalide détecté !');
+            isValid = false;
+            telInput.classList.add('invalid');
+            const errorMsg = document.createElement('p');
+            errorMsg.className = 'error-message';
+            errorMsg.textContent = 'Veuillez entrer un numéro de téléphone valide.';
+            telInput.parentNode.appendChild(errorMsg);
+        }
+
+      // vérification spécifique pour la marque et le modèle
         if (stepIndex === 1) {
             const marque = document.getElementById('marque');
             const modele = document.getElementById('modele');
@@ -231,9 +243,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
         }
+
+        // validation spécifique pour tous les champs number 
+        const numberInputs = Array.from(currentFormStep.querySelectorAll('input[type="number"]'));
+        numberInputs.forEach(numberInput => {
+            // si le champ n'est pas vide et que ce n'est pas un nombre entier, ou si le champ est invalide selon HTML5
+            if (
+                (numberInput.value.trim() !== '' && !/^\d+$/.test(numberInput.value.trim())) ||
+                !numberInput.validity.valid
+            ) {
+                isValid = false;
+                numberInput.classList.add('invalid');
+                const errorMsg = document.createElement('p');
+                errorMsg.className = 'error-message';
+                errorMsg.textContent = 'Veuillez saisir un nombre entier valide.';
+                numberInput.parentNode.appendChild(errorMsg);
+            }
+        });
+        // validation spécifique pour la date 
+        const dateInput = currentFormStep.querySelector('[name="rdv_type_form[date_rdv]"]');
+        if (dateInput) {
+            if (dateInput.value.trim() === '' || !dateInput.validity.valid) {
+            isValid = false;
+            dateInput.classList.add('invalid');
+            const errorMsg = document.createElement('p');
+            errorMsg.className = 'error-message';
+            errorMsg.textContent = 'Veuillez saisir une date.';
+            dateInput.parentNode.appendChild(errorMsg);
+            }
+        }
+
         return isValid;
-    }   
-    
+    }
+
     // gerer le recapitulatif 
     function populateReviewDetails() {
         const formData = new FormData(form);
@@ -247,13 +289,21 @@ document.addEventListener('DOMContentLoaded', function() {
             anneeFabrication: formData.get('rdv_type_form[vehicule][anneeFabrication]') || 'Non renseigné',
             km: formData.get('rdv_type_form[vehicule][km]') || 'Non renseigné',
             carburant: (() => {
-                const select = document.getElementById('rdv_type_form_vehicule_carburant');
-                if (select) {
+            const select = document.getElementById('devis_type_form_vehicule_carburant');
+                if (select && select.selectedIndex >= 0) {
                     const selected = select.options[select.selectedIndex];
-                    return selected ? selected.textContent : 'Non renseigné';
+                    // Vérifie si la valeur est vide ou si le texte correspond à l'option par défaut
+                    if (
+                        !selected.value ||
+                        selected.value === "" ||
+                        selected.textContent.trim().toLowerCase().includes("sélectionner")
+                    ) {
+                        return "Non renseigné";
+                    }
+                    return selected.textContent;
                 }
-                return 'Non renseigné';
-            })(),
+                return "Non renseigné";
+                })(),
             prestation: (() => {
                     const select = document.getElementById('rdv_type_form_prestation');
                     if (select) {
