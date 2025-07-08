@@ -1,31 +1,35 @@
 {% extends 'base.html.twig' %}
 
+{% block robots %}noindex, nofollow{% endblock %}
 {% block title %}Se connecter{% endblock %}
+
+{% block nav %}{{ include('components/_nav_bar_fixed.html.twig') }}{% endblock %}
 
 {% block body %}
     {% if error %}
         <div class="alert alert-danger">Erreur de connexion.</div>
     {% endif %}
-
-<section class="login-form">
-    <form method="post">
-        <div class="form-group login">
-        <h1>Se connecter</h1>
-            <label for="username">E-mail</label>
+<main>
+    <section class="login-form">
+        <form method="post">
+            <div class="form-group login">
+                <h1>Se connecter</h1>
+                <label for="username">E-mail</label>
                 <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
-            <label for="password">Password</label>
+                <label for="password">Password</label>
                 <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
-            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Se connecter">
-            
-            {# protection csrf #}
-            <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
-            {#  remember me #}
-            <div class="checkbox mb-3">
-                <input type="checkbox" name="_remember_me" id="_remember_me">
-                <label for="_remember_me">Rester connecté</label>
-            </div>
-            <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</p>
-        </div>    
-    </form>
-</section>
+                <input type="submit" class="btn btn-lg btn-primary btn-block" value="Se connecter">
+                
+                {# protection csrf #}
+                <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+                {#  remember me #}
+                <div class="checkbox mb-3">
+                    <input type="checkbox" name="_remember_me" id="_remember_me">
+                    <label for="_remember_me">Rester connecté</label>
+                </div>
+                <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
+            </div>    
+        </form>
+    </section>
+</main>
 {% endblock %}

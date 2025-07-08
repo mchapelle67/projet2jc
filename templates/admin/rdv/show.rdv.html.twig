@@ -5,7 +5,6 @@
 {% block nav %}{{ include('components/_nav_bar_aside.html.twig') }}{% endblock %}
 {% block title %}Rdv n°{{ rdv.id }}{% endblock %}
 
-
 {% block body %}
 <main class="main-admin">
     <h1>Rendez-vous n°{{ rdv.id }}</h1>
@@ -75,13 +74,10 @@
     {% if rdv.statut == 'En attente' and rdv.dateRdv < now %}
         <div class="alert alert-warning" role="alert">
             <p class="mb-1"><strong>Ce rendez-vous n'a pas été traîté mais sa date est depassée.</strong></p>
-            <p class="mb-3">Désirez-vous proposer une nouvelle date pour cette prestation ?.</p>
+            <p class="mb-3">En cliquant ci-dessous, vous archiverez le rendez-vous et aurez la possiblité de proposer une nouvelle date.</p>
             <div class="d-flex gap-2">
-                <a href="mailto:{{ rdv.email }}" class="btn btn-success">
-                    <i class="fa-solid fa-check"></i> Proposer une nouvelle date
-                </a>
                 <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'decline'}) }}" class="btn btn-danger">
-                    <i class="fa-solid fa-xmark"></i> Refuser le rendez-vous
+                    <i class="fa-solid fa-xmark"></i> Clôturer le rendez-vous
                 </a>
             </div>
         </div>

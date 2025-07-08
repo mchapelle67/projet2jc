@@ -31,6 +31,12 @@ class ClotureRdvCommand extends Command
     // permet de cloturer automatiquement un rdv lorsque la date de celui-ci est dépassée
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+
+        date_default_timezone_set('Europe/Paris');
+        
+        // on affiche un message de début d'exécution dans la console
+        $output->writeln('--- Exécution à ' . (new \DateTime())->format('Y-m-d H:i:s') . ' ---');
+
         // on recupère les rdv avec le statut "Confirmer" et la date actuelle
         $rdvHistorique = $this->rdvRepository->findBy(['statut' => 'Confirmer']);
         $now = new \DateTime();

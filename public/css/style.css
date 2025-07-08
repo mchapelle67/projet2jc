@@ -1161,3 +1161,33 @@ form.form-inline {
 
 
 /* \* ************************************* CALENDRierR ***************************** */ 
+label {
+  display: block;
+  margin: 0.5em 0 0.3em;
+  font-weight: 600;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+input[type="date"], select {
+  padding: 0.4em 0.6em;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  width: 200px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+input[type="date"]:focus, select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0,123,255,0.5);
+}
+
+#time-rdv:disabled {
+  background-color: #f0f0f0;
+  color: #999;
+  cursor: not-allowed;
+}

@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Envois de mail pour reset le mot de passe{% endblock %}
+{% block robots %}noindex, nofollow{% endblock %}
+{% block title %}Envois de mail pour reinitialiser le mot de passe{% endblock %}
+
+{% block nav %}{{ include('components/_nav_bar_fixed.html.twig') }}{% endblock %}
 
 {% block body %}
     <p>
