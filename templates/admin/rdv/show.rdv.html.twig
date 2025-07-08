@@ -29,7 +29,7 @@
             </thead>
             <tbody>
             <tr>
-                <td>{{ rdv.dateRdv|date('d/m/Y à H:i') }}</td>
+                <td><strong>{{ rdv.dateRdv|date('d/m/Y à H:i') }}</strong></td>
                 <td>{{ rdv.prestation.nomPrestation }}</td>
                 <td>{{ rdv.dateDemande|date('d/m/Y') }}</td>
                 <td>{{ rdv.dateModification|date('d/m/Y') }}</td>
@@ -71,8 +71,22 @@
             </p>
         </div>
     </div>
+    
+    {% if rdv.statut == 'En attente' and rdv.dateRdv < now %}
+        <div class="alert alert-warning" role="alert">
+            <p class="mb-1"><strong>Ce rendez-vous n'a pas été traîté mais sa date est depassée.</strong></p>
+            <p class="mb-3">Désirez-vous proposer une nouvelle date pour cette prestation ?.</p>
+            <div class="d-flex gap-2">
+                <a href="mailto:{{ rdv.email }}" class="btn btn-success">
+                    <i class="fa-solid fa-check"></i> Proposer une nouvelle date
+                </a>
+                <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'decline'}) }}" class="btn btn-danger">
+                    <i class="fa-solid fa-xmark"></i> Refuser le rendez-vous
+                </a>
+            </div>
+        </div>
 
-    {% if rdv.statut == 'En attente' %}
+    {% elseif rdv.statut == 'En attente' %}
         <div class="alert alert-warning" role="alert">
             <p class="mb-1"><strong>Ce rendez-vous est en attente de confirmation.</strong></p>
             <p class="mb-3">Veuillez indiquer si le rendez-vous est confirmé ou non.</p>
