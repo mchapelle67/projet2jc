@@ -1,0 +1,208 @@
+/* *************************** NAV ************************************ */
+
+.navbar.navbar-scrolled {
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: background-color 2s;
+}
+
+.navbar-expand-lg .navbar-collapse {
+    justify-content: end;
+    text-transform: uppercase;  
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1030;
+}
+
+.navbar-nav {
+    display: flex;
+    gap: 6rem; 
+    margin-right: 1.25rem;
+    align-items: end;
+    img {
+        width: 2em;
+        height: auto;
+    }
+}
+
+.dropdown-menu-start {
+  right: 0;
+  left: auto;
+  transform-origin: top left;
+}
+
+.navbar .dropdown-toggle::after {
+  display: none;
+}
+
+/* *************************** FOOTER ************************************ */
+footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#footer-left-side,
+#contact-links {
+    width: 30%;
+}
+
+#social-media, 
+#contact-links {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    a {
+        margin-right: 0.5rem;
+        display: flex;
+        align-items: center;
+        img {
+            width: 1.5em;
+            height: auto;
+            margin: 0 0.5rem;
+        }
+    }
+    p {
+        margin-right: 1rem;
+    }
+}
+
+#social-media {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+#contact-links {
+    justify-content: flex-end;
+}
+
+.sf-toolbar-clearer {
+    display: none !important;
+}
+
+
+/* ************************************* ASIDE NAVBAR ************************************* */
+/* ================== ASIDE NAVBAR ================== */
+.ea-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 220px;
+    background-color: #181818;
+    color: #fff;
+    z-index: 1000;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ea-sidebar-menu .menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-item {
+    padding: 12px 20px;
+}
+
+.menu-item-contents {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+}
+
+/* Décalage du contenu principal pour ne pas passer sous la sidebar */
+.main-admin {
+    margin-left: 220px;
+    padding: 30px;
+    width: calc(100% - 220px);
+    box-sizing: border-box;
+}
+
+.menu-item.active {
+    background-color: #333;
+}
+/*  *************************** PAGINATION ******************************** */
+.pagination {
+    background: transparent;
+    margin: 2.5rem auto;
+}
+
+.pagination .page-link {
+    color: black;
+    border: 1px solid #181818;
+    transition: background 0.2s, color 0.2s;
+}
+
+.pagination .page-link:hover,
+.pagination .page-link:focus {
+    background: #333;
+    color: #fff;
+}
+
+.pagination .active .page-link {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+/* ************************************* SEARCH BAR ***************************** */
+#search_type_form_q {
+    width: 50%;
+    margin-right: 15px;
+}
+
+form.form-inline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1.25rem auto;
+}
+
+
+/* \* ************************************* CALENDRierR ***************************** */ 
+label {
+  display: block;
+  margin: 0.5em 0 0.3em;
+  font-weight: 600;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+input[type="date"], select {
+  padding: 0.4em 0.6em;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  width: 200px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+input[type="date"]:focus, select:focus {
+  border-color: var(--blue-color);
+  outline: none;
+  box-shadow: 0 0 5px rgba(0,123,255,0.5);
+}
+
+#time-rdv:disabled {
+  background-color: #f0f0f0;
+  color: #999;
+  cursor: not-allowed;
+}
