@@ -191,7 +191,7 @@ p {
 
 .container-fluid.home-1 {
     width: 90%;
-    margin: 3.125rem auto;
+    margin: 3.125rem auto 4rem;
     display: flex;
     text-align: center;
     justify-content: space-around;
@@ -214,10 +214,9 @@ p {
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
-    padding: 6.25rem;
+    padding: 10rem;
     color: white;
     text-align: center;
-    margin-bottom: 3.125rem;
 }
 .parallaxe h2 {
     font-size: 3em;
@@ -246,7 +245,7 @@ p {
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 2rem;
-    max-width: 75rem; /* 1200px -> 75rem */
+    max-width: 90rem; /* 1200px -> 75rem */
     margin: 0 auto;
 }
 
