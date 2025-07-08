@@ -181,11 +181,11 @@ final class AdminController extends AbstractController
         $rdvList = $rdvRepository->findAll();
         // on filtre les rdv en cours
         $rdvEnCours = array_filter($rdvList, function (Rdv $rdv) {
-            return $rdv->getStatut() === 'En attente' && $rdv->getDateRdv() > new \DateTime();;
+            return $rdv->getStatut() === 'En attente';
         });
         // on filtre les rdv confirmés pas encore passés
         $rdvConfirmer = array_filter($rdvList, function (Rdv $rdv) {
-            return $rdv->getStatut() === 'Confirmer' && $rdv->getDateRdv() > new \DateTime();
+            return $rdv->getStatut() === 'Confirmer';
         });
 
         return $this->render('admin/rdv/rdv.html.twig', [
@@ -200,13 +200,6 @@ final class AdminController extends AbstractController
     {
         // on récupère les rdv en bdd
         $rdvList = $rdvRepository->findBy([], ['date_demande' => 'DESC']);
-
-        // on filtre les rdv 
-        $rdvHistoriqueArray = array_filter($rdvList, function (Rdv $rdv) {
-            return (
-                $rdv->getStatut() !== 'Confirmer' && $rdv->getStatut() !== 'En attente'
-            );
-        });
 
         // on créer un resultat de recherche
         $searchData = new SearchData();
@@ -230,7 +223,7 @@ final class AdminController extends AbstractController
             ]);
         }
 
-        $rdvHistorique = $paginator->paginate($rdvHistoriqueArray, $page, 20);
+        $rdvHistorique = $paginator->paginate($rdvList, $page, 20);
 
         return $this->render('admin/rdv/historique.rdv.html.twig', [
             'controller_name' => 'AdminController',
@@ -248,9 +241,14 @@ final class AdminController extends AbstractController
             throw $this->createNotFoundException('Rendez-vous inexistant');
         }
 
+         //  on récupère la date d'ajourd'hui
+        $now = new \DateTime();
+
+
         return $this->render('admin/rdv/show.rdv.html.twig', [
             'controller_name' => 'AdminController',
-            'rdv' => $rdv
+            'rdv' => $rdv,
+            'now' => $now
         ]);
     }
 
