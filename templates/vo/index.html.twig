@@ -6,15 +6,20 @@
 
 {% block title %}Véhicules d’occasion fiables au meilleur prix – Trouvez votre voiture idéale{% endblock %}
 
-{% block nav %}{{ include('components/_nav_bar_fixed.html.twig') }}{% endblock %}
+{% block nav %}{{ include('components/_nav_bar_scroll.html.twig') }}{% endblock %}
 
 {% block body %}
-<main>
+<main class="main-home">
+      <section class="hero-vo">
+        <div class="hero-overlay-vo">
+            <div class="hero-content-vo">
+                <h1>Notre parc automobile</h1>
+                <h2>Démarches administratives simplifiées.</h2>
+                <h3>Achetez, roulez, on s’occupe du reste !</h3>
+            </div> 
+        </div>
+    </section>
     <section class="vo-list">
-        <h1>Notre parc automobile</h1>
-        <h2>Démarches administratives simplifiées.</h2>
-        <h3>Achetez, roulez, on s’occupe du reste !</h3>
-        
         <div class="voiture-list">
             {% for voiture in voList %}
                 <div class="voiture-item">
