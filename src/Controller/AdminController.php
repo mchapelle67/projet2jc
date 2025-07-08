@@ -172,7 +172,7 @@ final class AdminController extends AbstractController
         ]);
     }
 
-// Route pour la gestion des rendez-vous ----------------------------------------------------
+// route pour la gestion des rendez-vous ----------------------------------------------------
 
     #[Route('/rdv', name: 'app_admin_rdv')]
     public function listeRdv(RdvRepository $rdvRepository): Response
@@ -241,9 +241,8 @@ final class AdminController extends AbstractController
             throw $this->createNotFoundException('Rendez-vous inexistant');
         }
 
-         //  on récupère la date d'ajourd'hui
+        // on récupère la date d'ajourd'hui
         $now = new \DateTime();
-
 
         return $this->render('admin/rdv/show.rdv.html.twig', [
             'controller_name' => 'AdminController',
@@ -269,7 +268,7 @@ final class AdminController extends AbstractController
                 'action' => 'rdvAccept',
                 'id' => $rdv->getId()
             ]);
-        
+
         } elseif ($action === 'decline') {
             $rdv->setStatut('Refuser');
             $this->addFlash('success', 'Le rendez-vous a bien été refusé.');
@@ -283,7 +282,7 @@ final class AdminController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Le rendez-vous a été supprimé avec succès.');
             return $this->redirectToRoute('app_admin_rdv');
-        
+
         } else {    
             throw $this->createNotFoundException('Action inconnue');
         }
@@ -306,15 +305,17 @@ final class AdminController extends AbstractController
         if (!$rdv) {
             throw $this->createNotFoundException('Rdv inexistant');
         }
+
+        $now = new \DateTime();
         
         $rdv->setStatut('En attente');
-
         $entityManager->persist($rdv);
         $entityManager->flush();
         
         return $this->render('admin/rdv/show.rdv.html.twig', [
             'controller_name' => 'AdminController',
-            'rdv' => $rdv
+            'rdv' => $rdv, 
+            'now' => $now
         ]);
     }
 

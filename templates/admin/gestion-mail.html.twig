@@ -25,7 +25,7 @@
                     <a class="btn btn-success" role="button" href="mailto:{{ rdv.email }}">
                         <i class="fa-solid fa-check"></i> Proposer une nouvelle date
                     </a>
-                    <a class="btn btn-danger" role="button" href="{{ path('gestion_mail', {'id': rdv.id, 'action': 'rdvDecline'}) }}">
+                    <a class="btn btn-danger" role="button" href="{{ path('gestion_mail', {'id': rdv.id, 'action': 'rdvCancel'}) }}">
                         <i class="fa-solid fa-xmark"></i> Envoyer un mail d'annulation
                     </a>
                 </div>

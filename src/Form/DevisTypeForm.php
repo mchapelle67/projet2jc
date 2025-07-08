@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class DevisTypeForm extends AbstractType
 {
@@ -30,10 +31,10 @@ class DevisTypeForm extends AbstractType
                 'label' => 'Téléphone',
                 'required' => false
             ])
-            ->add('text', TextType::class, [
+            ->add('text', TextareaType::class, [
                 'label' => 'Veuillez détailler le problème ...*',
                  'attr' => [
-                    'rows' => 30,
+                    'rows' => 3,
                 ]
             ])
             ->add('prestation', EntityType::class, [

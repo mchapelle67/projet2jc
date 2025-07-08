@@ -1,13 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Demande de rendez-vous{% endblock %}
+{% block metadescription %}Prenez rendez-vous en ligne avec le Garage 2JC à Altkirch : réparation, entretien auto, vidange, pneus, contrôle. Simple, rapide et sans engagement.{% endblock %}
+{% block keywords %}rendez-vous garage Altkirch, rdv, tarif, prix{% endblock %}
+{% block robots %}index, follow{% endblock %}
+
+{% block title %}Demande de rendez-vous Garage 2JC à Altkirch – Réparation, Entretien, Devis{% endblock %}
+
+{% block nav %}{{ include('components/_nav_bar_fixed.html.twig') }}{% endblock %}
 
 {% block body %}
-<section class="form form-devis form-rdv">
-    <h1>Demande de rendez-vous</h1>
-    <h2><span class="form-bold-h2">Attention, ceci est une demande de rendez-vous !</span>
-        <br>Veuillez noter qu'il est nécéssaire d'attendre une confirmation de notre équipe.</h2>
-        
+<main>
+    <section class="form form-devis form-rdv">
+        <h1>Demande de rendez-vous</h1>
+        <h2><span class="form-bold-h2">Attention, ceci est une demande de rendez-vous !</span>
+            <br>Veuillez noter qu'il est nécéssaire d'attendre une confirmation de notre équipe.</h2>
         <div class="form-container">
             <div class="progress-bar-container">
                 <div class="progress-bar-form">
@@ -20,353 +26,69 @@
                     <div class="step" data-step-title="Recap">4</div>
                 </div>
             </div>
-            
-            
             {{ form_start(rdvForm, {'attr': {'id': 'client-form'}}) }}
-            <div class="form-step active">
-                <h3>Informations personnelles</h3>
-                {{ form_row(rdvForm.nom, {'row_attr': {'class': 'form-group'}}) }}
-                {{ form_row(rdvForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
-                {{ form_row(rdvForm.email, {'row_attr': {'class': 'form-group'}}) }}
-                {{ form_row(rdvForm.tel, {'row_attr': {'class': 'form-group'}}) }}
-                <h4 class="champs-obligatoires">*champs obligatoires</h4>
-            </div>
-            <div class="form-step">
-                <h3>Informations du véhicule</h3>
-                <div class="form-group">
-                    <label for="marques-list">Veuillez séléctionner une marque*</label>
-                    <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off">
-                    <datalist id="marques-list">
-                        {% for marque in marques %}
-                        <option value="{{ marque.Make_Name }}"></option>
-                        {% endfor %}
-                    </datalist>
-                    {{ form_row(rdvForm.vehicule.marque) }}
+                <div class="form-step active">
+                    <h3>Informations personnelles</h3>
+                    {{ form_row(rdvForm.nom, {'row_attr': {'class': 'form-group'}}) }}
+                    {{ form_row(rdvForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
+                    {{ form_row(rdvForm.email, {'row_attr': {'class': 'form-group'}}) }}
+                    {{ form_row(rdvForm.tel, {'row_attr': {'class': 'form-group'}}) }}
+                    <h4 class="champs-obligatoires">*champs obligatoires</h4>
                 </div>
-                <div class="form-group">
-                    <label for="modeles-list">Veuillez séléctionner un modèle*</label>
-                    <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off">
-                    <datalist id="modeles-list"></datalist>
-                    {{ form_row(rdvForm.vehicule.modele) }}
+                <div class="form-step">
+                    <h3>Informations du véhicule</h3>
+                    <div class="form-group">
+                        <label for="marque">Veuillez séléctionner une marque*</label>
+                        <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off">
+                        <datalist id="marques-list">
+                            {% for marque in marques %}
+                            <option value="{{ marque.Make_Name }}"></option>
+                            {% endfor %}
+                        </datalist>
+                        {{ form_row(rdvForm.vehicule.marque) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="modele">Veuillez séléctionner un modèle*</label>
+                        <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off">
+                        <datalist id="modeles-list"></datalist>
+                        {{ form_row(rdvForm.vehicule.modele) }}
+                    </div>
+                    {{ form_row(rdvForm.vehicule.anneeFabrication, {'row_attr': {'class': 'form-group'}}) }}
+                    {{ form_row(rdvForm.vehicule.km, {'row_attr': {'class': 'form-group'}}) }}
+                    {{ form_row(rdvForm.vehicule.carburant, {'row_attr': {'class': 'form-group'}}) }}
                 </div>
-                {{ form_row(rdvForm.vehicule.anneeFabrication, {'row_attr': {'class': 'form-group'}}) }}
-                {{ form_row(rdvForm.vehicule.km, {'row_attr': {'class': 'form-group'}}) }}
-                {{ form_row(rdvForm.vehicule.carburant, {'row_attr': {'class': 'form-group'}}) }}
-            </div>
-            <div class="form-step">
-                <h3>Choisissez un créneau</h3>
+                <div class="form-step">
+                    <h3>Choisissez un créneau</h3>
                     {{ form_row(rdvForm.prestation, {'row_attr': {'class': 'form-group'}}) }}
                     {{ include('components/_calendar.html.twig') }}
                     {{ form_row(rdvForm.date_rdv) }}
-            </div>
-    <div class="form-step">
-        <h3>Recapitulatif de votre demande</h3>
-            <div id="reviewDetails">
-                <p><strong>Nom et prenom:</strong> <span data-review="nom"></span> <span data-review="prenom"></span></p>
-                <p><strong>Email:</strong> <span data-review="email"></span></p>
-                <p><strong>Numéro de téléphone:</strong> <span data-review="tel"></span></p>
-                <p><strong>Marque:</strong> <span data-review="marque"></span></p>
-                <p><strong>Modèle:</strong> <span data-review="modele"></span></p>
-                <p><strong>Année de fabrication:</strong> <span data-review="anneeFabrication"></span></p>
-                <p><strong>Nombre de kilomètre:</strong> <span data-review="km"></span></p>
-                <p><strong>Carburant:</strong> <span data-review="carburant"></span></p>
-                <p><strong>Prestation:</strong> <span data-review="prestation"></span></p>
-                <p><strong>Rendez-vous:</strong> <span data-review="dateRdv"></span></p>
-            </div>
-    </div>
-    <!-- Navigation -->
-    <div class="form-navigation">
-        <button type="button" id="prevBtn" class="btn btn-secondary">Précédent</button>
-        <button type="button" id="nextBtn" class="btn btn-primary">Suivant</button>
-        <button type="submit" id="submitBtn" class="btn btn-primary" style="display: none;">Valider</button>
-    </div>
-</div>
-{{ form_end(rdvForm) }}
-</section>
+                </div>
+                <div class="form-step">
+                    <h3>Recapitulatif de votre demande</h3>
+                    <div id="reviewDetails">
+                        <p><strong>Nom et prenom:</strong> <span data-review="nom"></span> <span data-review="prenom"></span></p>
+                        <p><strong>Email:</strong> <span data-review="email"></span></p>
+                        <p><strong>Numéro de téléphone:</strong> <span data-review="tel"></span></p>
+                        <p><strong>Marque:</strong> <span data-review="marque"></span></p>
+                        <p><strong>Modèle:</strong> <span data-review="modele"></span></p>
+                        <p><strong>Année de fabrication:</strong> <span data-review="anneeFabrication"></span></p>
+                        <p><strong>Nombre de kilomètre:</strong> <span data-review="km"></span></p>
+                        <p><strong>Carburant:</strong> <span data-review="carburant"></span></p>
+                        <p><strong>Prestation:</strong> <span data-review="prestation"></span></p>
+                        <p><strong>Rendez-vous:</strong> <span data-review="dateRdv"></span></p>
+                    </div>
+                </div>
+                <div class="form-navigation">
+                    <button type="button" id="prevBtn" class="btn btn-secondary">Précédent</button>
+                    <button type="button" id="nextBtn" class="btn btn-primary">Suivant</button>
+                    <button type="submit" id="submitBtn" class="btn btn-primary" style="display: none;">Valider</button>
+                </div>
+            {{ form_end(rdvForm) }}
+        </div>
+    </section>
+</main>
 {% endblock %}
 
 {% block javascripts %}
-<script>
-// on charge les marques au chargement de la page
-document.addEventListener('DOMContentLoaded', function() {
-
-    // on récupère les marques depuis l'API
-    document.getElementById('marque').addEventListener('change', function() {
-        const marque = this.value;
-        console.log('Marque sélectionnée :', marque);
-
-        // mettre à jour le champ caché pour la marque
-        const marqueHidden = document.querySelector('[name="rdv_type_form[vehicule][marque]"]');
-        if (marqueHidden) {
-            marqueHidden.value = marque;
-            console.log('Champ caché marque mis à jour :', marqueHidden.value);
-        } else {
-            console.log('Champ caché marque introuvable');
-        }
-
-        // appel à l'API pour récupérer les modèles associés à la marque
-        fetch('/api/modeles?marque=' + encodeURIComponent(marque))
-            .then(response => response.json())
-            .then(data => {
-                console.log('Modèles reçus :', data);
-                const datalist = document.getElementById('modeles-list');
-                datalist.innerHTML = '';
-                if (data.length === 0) {
-                    datalist.innerHTML = `<option value="Pas de modèle associé"></option>`;
-                } else {
-                    data.forEach(modele => {
-                        datalist.innerHTML += `<option value="${modele.Model_Name}"></option>`;
-                    });
-                }
-            });
-    });
-
-    // on met à jour le champ caché pour le modèle sélectionné
-    document.getElementById('modele').addEventListener('change', function() {
-        const modele = this.value;
-        console.log('Modèle sélectionné :', modele);
-
-        const modeleHidden = document.querySelector('[name="rdv_type_form[vehicule][modele]"]');
-        if (modeleHidden) {
-            modeleHidden.value = modele;
-            console.log('Champ caché modèle mis à jour :', modeleHidden.value);
-        } else {
-            console.log('Champ caché modèle introuvable');
-        }
-    });
-
-// création les animations du formulaire
-    const formSteps = Array.from(document.querySelectorAll('.form-step'));
-    const progressSteps = Array.from(document.querySelectorAll('.progress-bar-form .step'));
-    const progressLines = Array.from(document.querySelectorAll('.progress-bar-form .progress-line'));
-    const nextBtn = document.getElementById('nextBtn');
-    const prevBtn = document.getElementById('prevBtn');
-    const submitBtn = document.getElementById('submitBtn');
-    const form = document.getElementById('client-form');
-    
-    let currentStep = 0;
-    
-    // initialise les étapes du formulaire en ajoutant active si l'index correspond à l'étape actuelle
-    function updateFormSteps() {
-        formSteps.forEach((step, index) => {
-            step.classList.toggle('active', index === currentStep);
-        });
-    }
-    
-    // met à jour la barre de progression en ajoutant active ou completed selon l'étape actuelle
-    function updateProgressBar() {
-        progressSteps.forEach((step, index) => {
-            if (index < currentStep) {
-                step.classList.add('completed');
-                step.classList.remove('active');
-            } else if (index === currentStep) {
-                step.classList.add('active');
-                step.classList.remove('completed');
-            } else {
-                step.classList.remove('active', 'completed');
-            }
-        });
-        
-        progressLines.forEach((line, index) => {
-            line.classList.toggle('active', index < currentStep);
-        });
-    }
-    
-    // met à jour les boutons de navigation en fonction de l'étape actuelle
-    function updateNavigationButtons() {
-        prevBtn.style.display = currentStep === 0 ? 'none' : 'inline-block';
-        // Affiche le bouton "Suivant" sauf à la dernière étape
-        nextBtn.style.display = currentStep < formSteps.length - 1 ? 'inline-block' : 'none';
-        // Affiche le bouton "Valider" seulement à la dernière étape
-        const submitBtn = form.querySelector('button[type="submit"]');
-        if (submitBtn) {
-            submitBtn.style.display = currentStep === formSteps.length - 1 ? 'inline-block' : 'none';
-        }
-    }
-    
-    // validation de l'étape actuelle
-    function validateStep(stepIndex) {
-        const currentFormStep = formSteps[stepIndex];
-        const inputs = Array.from(currentFormStep.querySelectorAll('input[required], select[required]'));
-        let isValid = true;
-        
-        // gestion des erreurs
-        currentFormStep.querySelectorAll('.error-message').forEach(el => el.remove());
-        inputs.forEach(input => input.classList.remove('invalid'));
-        
-        inputs.forEach(input => {
-            let fieldValid = true;
-            if (input.type === 'checkbox' && !input.checked) {
-                fieldValid = false;
-            } else if (input.value.trim() === '') {
-                fieldValid = false;
-            } else if (input.type === 'email' && !/^\S+@\S+\.\S+$/.test(input.value)) {
-                fieldValid = false;
-            } 
-            
-            if (!fieldValid) {
-                isValid = false;
-                input.classList.add('invalid');
-                const errorMsg = document.createElement('p');
-                errorMsg.className = 'error-message';
-                errorMsg.textContent = input.type === 'checkbox' ? 'Ce champs est requis.' : 'Veuillez saisir une donnée valide';
-                input.parentNode.appendChild(errorMsg);
-            }
-        });
-
-        // validation spécifique pour le champ téléphone 
-        const telInput = currentFormStep.querySelector('input[type="tel"]');
-        if (telInput && telInput.value.trim() !== '' && !/^[\d+\s\-()]+$/.test(telInput.value)) {
-            console.log('Numéro de téléphone invalide détecté !');
-            isValid = false;
-            telInput.classList.add('invalid');
-            const errorMsg = document.createElement('p');
-            errorMsg.className = 'error-message';
-            errorMsg.textContent = 'Veuillez entrer un numéro de téléphone valide.';
-            telInput.parentNode.appendChild(errorMsg);
-        }
-
-      // vérification spécifique pour la marque et le modèle
-        if (stepIndex === 1) {
-            const marque = document.getElementById('marque');
-            const modele = document.getElementById('modele');
-            if (!marque.value.trim() || !modele.value.trim()) {
-                isValid = false;
-                [marque, modele].forEach(input => {
-                    if (input && !input.value.trim()) {
-                        input.classList.add('invalid');
-                        const errorMsg = document.createElement('p');
-                        errorMsg.className = 'error-message';
-                        errorMsg.textContent = 'Ce champ est requis.';
-                        input.parentNode.appendChild(errorMsg);
-                    }
-                });
-            }
-        }
-
-        // validation spécifique pour tous les champs number 
-        const numberInputs = Array.from(currentFormStep.querySelectorAll('input[type="number"]'));
-        numberInputs.forEach(numberInput => {
-            // si le champ n'est pas vide et que ce n'est pas un nombre entier, ou si le champ est invalide selon HTML5
-            if (
-                (numberInput.value.trim() !== '' && !/^\d+$/.test(numberInput.value.trim())) ||
-                !numberInput.validity.valid
-            ) {
-                isValid = false;
-                numberInput.classList.add('invalid');
-                const errorMsg = document.createElement('p');
-                errorMsg.className = 'error-message';
-                errorMsg.textContent = 'Veuillez saisir un nombre entier valide.';
-                numberInput.parentNode.appendChild(errorMsg);
-            }
-        });
-        // validation spécifique pour la date 
-        const dateInput = currentFormStep.querySelector('[name="rdv_type_form[date_rdv]"]');
-        if (dateInput) {
-            if (dateInput.value.trim() === '' || !dateInput.validity.valid) {
-            isValid = false;
-            dateInput.classList.add('invalid');
-            const errorMsg = document.createElement('p');
-            errorMsg.className = 'error-message';
-            errorMsg.textContent = 'Veuillez saisir une date.';
-            dateInput.parentNode.appendChild(errorMsg);
-            }
-        }
-
-        return isValid;
-    }
-
-    // gerer le recapitulatif 
-    function populateReviewDetails() {
-        const formData = new FormData(form);
-        const reviewData = {
-            nom: formData.get('rdv_type_form[nom]') || 'Non renseigné',
-            prenom: formData.get('rdv_type_form[prenom]') || 'Non renseigné',
-            email: formData.get('rdv_type_form[email]') || 'Non renseigné',
-            tel: formData.get('rdv_type_form[tel]') || 'Non renseigné',
-            marque: formData.get('marque') || 'Non renseigné',
-            modele: formData.get('modele') || 'Non renseigné',
-            anneeFabrication: formData.get('rdv_type_form[vehicule][anneeFabrication]') || 'Non renseigné',
-            km: formData.get('rdv_type_form[vehicule][km]') || 'Non renseigné',
-            carburant: (() => {
-            const select = document.getElementById('devis_type_form_vehicule_carburant');
-                if (select && select.selectedIndex >= 0) {
-                    const selected = select.options[select.selectedIndex];
-                    // Vérifie si la valeur est vide ou si le texte correspond à l'option par défaut
-                    if (
-                        !selected.value ||
-                        selected.value === "" ||
-                        selected.textContent.trim().toLowerCase().includes("sélectionner")
-                    ) {
-                        return "Non renseigné";
-                    }
-                    return selected.textContent;
-                }
-                return "Non renseigné";
-                })(),
-            prestation: (() => {
-                    const select = document.getElementById('rdv_type_form_prestation');
-                    if (select) {
-                        const selected = select.options[select.selectedIndex];
-                        return selected ? selected.textContent : 'Non renseigné';
-                    }
-                    return 'Non renseigné';
-                })(),       
-            dateRdv: (() => {
-                const raw = formData.get('rdv_type_form[date_rdv]');
-                if (!raw) return 'Non renseigné';
-                const date = new Date(raw);
-                if (isNaN(date)) return raw; // si la conversion échoue, affiche brut
-
-                // Format : JJ/MM/AAAA à HH:MM
-                const day = String(date.getDate()).padStart(2, '0');
-                const month = String(date.getMonth() + 1).padStart(2, '0');
-                const year = date.getFullYear();
-                const hours = String(date.getHours()).padStart(2, '0');
-                const minutes = String(date.getMinutes()).padStart(2, '0');
-                return `${day}/${month}/${year} à ${hours}:${minutes}`;
-            })(),        
-        };
-        
-        for (const key in reviewData) {
-            const element = document.querySelector(`#reviewDetails [data-review="${key}"]`);
-            if (element) {
-                element.textContent = reviewData[key];
-            }
-        }
-    }
-    
-    // gestion du bouton "Suivant" pour valider l'étape actuelle
-    nextBtn.addEventListener('click', () => {
-        if (validateStep(currentStep)) {
-            currentStep++;
-            // Appelle le calendrier à l'étape 3 (index 2)
-            if (currentStep === 2 && typeof initCalendarWidget === "function") {
-                initCalendarWidget();
-            }
-            if (currentStep === formSteps.length - 1) { 
-                populateReviewDetails();
-            }
-            updateFormSteps();
-            updateProgressBar();
-            updateNavigationButtons();
-        }
-    });
-    
-    // permet de revenir à l'étape précédente
-    prevBtn.addEventListener('click', () => {
-        if (currentStep > 0) {
-            currentStep--;
-            updateFormSteps();
-            updateProgressBar();
-            updateNavigationButtons();
-        }
-    });
-    
-    // inititalise 
-    updateFormSteps();
-    updateProgressBar();
-    updateNavigationButtons();
-});
-</script>
+    <script src="{{ asset('js/rdv.js') }}"></script>
 {% endblock %}

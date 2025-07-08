@@ -1,24 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Forumulaire de contact{% endblock %}
+{% block metadescription %}Besoin d’un renseignement ? Contactez le Garage 2JC à Altkirch pour vos réparations, entretiens auto et conseils mécaniques.{% endblock %}
+{% block keywords %}contact garage Altkirch, informations{% endblock %}
+{% block robots %}index, follow{% endblock %}
+
+{% block title %}Contactez Garage 2JC à Altkirch – Réparation, Entretien, Devis{% endblock %}
+
+{% block nav %}{{ include('components/_nav_bar_fixed.html.twig') }}{% endblock %}
 
 {% block body %}
-<section class="form">
-    {{ form_start(contactForm) }}
-    <div class="form-step active contact">
-        <h1>Nous contacter</h1>
-            <div class="col">
-                {{ form_row(contactForm.nom, {'row_attr': {'class': 'form-group'}}) }}
-                {{ form_row(contactForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
-            </div>
-            <div class="col">
-                {{ form_row(contactForm.email, {'row_attr': {'class': 'form-group'}}) }}
-                {{ form_row(contactForm.tel, {'row_attr': {'class': 'form-group'}}) }}
-            </div>
-                {{ form_row(contactForm.text, {'row_attr': {'class': 'form-group'}}) }}
-                    <h2>* champs obligatoires</h2>
-                    {{ form_row(contactForm.submit, {'row_attr': {'class': 'form-group submit'}}) }}
-    </div>
-    {{ form_end(contactForm) }}
-</section>
+<main class="main-home">
+    <section class="form">
+        {{ form_start(contactForm) }}
+        <div class="form-step active contact">
+            <h1>Nous contacter</h1>
+                <div class="col">
+                    {{ form_row(contactForm.nom, {'row_attr': {'class': 'form-group'}}) }}
+                    {{ form_row(contactForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
+                </div>
+                <div class="col">
+                    {{ form_row(contactForm.email, {'row_attr': {'class': 'form-group'}}) }}
+                    {{ form_row(contactForm.tel, {'row_attr': {'class': 'form-group'}}) }}
+                </div>
+                <div class="col mb-3">
+                    {{ form_row(contactForm.text, {'row_attr': {'class': 'form-group'}}) }}
+                </div>
+                        <h2>* champs obligatoires</h2>
+                        {{ form_row(contactForm.submit, {'row_attr': {'class': 'form-group submit'}}) }}
+        </div>
+        {{ form_end(contactForm) }}
+    </section>
+</main>
 {% endblock %}

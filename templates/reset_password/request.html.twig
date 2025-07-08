@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block robots %}noindex, nofollow{% endblock %}
 {% block title %}Réinitialisez votre mot de passe{% endblock %}
+
+{% block nav %}{{ include('components/_nav_bar_fixed.html.twig') }}{% endblock %}
 
 {% block body %}
     <h1>Réinitialisez votre mot de passe</h1>

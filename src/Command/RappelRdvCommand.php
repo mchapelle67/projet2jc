@@ -32,6 +32,12 @@ class RappelRdvCommand extends Command
 
 protected function execute(InputInterface $input, OutputInterface $output): int
 {
+    
+    date_default_timezone_set('Europe/Paris');
+    
+    // on affiche un message de début d'exécution dans la console
+    $output->writeln('--- Exécution à ' . (new \DateTime())->format('Y-m-d H:i:s') . ' ---');
+
     // Rendez-vous dans ~48h
     $rdvs = $this->rdvRepository->findBy(['rappel_rdv' => 0]);
     

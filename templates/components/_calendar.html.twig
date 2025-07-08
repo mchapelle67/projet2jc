@@ -1,146 +1,115 @@
-<style>
-label {
-  display: block;
-  margin: 0.5em 0 0.3em;
-  font-weight: 600;
-  font-family: Arial, sans-serif;
-  color: #333;
-}
-
-input[type="date"], select {
-  padding: 0.4em 0.6em;
-  font-size: 1em;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-family: Arial, sans-serif;
-  width: 200px;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
-}
-
-input[type="date"]:focus, select:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 5px rgba(0,123,255,0.5);
-}
-
-#time-rdv:disabled {
-  background-color: #f0f0f0;
-  color: #999;
-  cursor: not-allowed;
-}
-</style>
-
 <label for="dateInput">Choisissez une date :</label>
-<input type="date" id="dateInput" name="dateInput" min="" />
+<input type="date" id="dateInput" name="dateInput"/>
 
 <label for="timeSelect">Choisissez une heure :</label>
 <select id="timeSelect" name="timeSelect" disabled>
   <option>Choisissez une date d'abord</option>
 </select>
 
+{% block javascripts %}
 <script>
-function initCalendarWidget() {
-  const dateInput = document.getElementById('dateInput');
-  const timeSelect = document.getElementById('timeSelect');
-  const dateRdvHidden = document.getElementById('rdv_type_form_date_rdv');
-  if (!dateInput || !timeSelect || !dateRdvHidden) return;
+    function initCalendarWidget() {
+      const dateInput = document.getElementById('dateInput');
+      const timeSelect = document.getElementById('timeSelect');
+      const dateRdvHidden = document.getElementById('rdv_type_form_date_rdv');
+      if (!dateInput || !timeSelect || !dateRdvHidden) return;
 
-  // Fixe la date minimale à aujourd'hui
-  const today = new Date().toISOString().split('T')[0];
-  dateInput.min = today;
+      // Fixe la date minimale à aujourd'hui
+      const today = new Date().toISOString().split('T')[0];
+      dateInput.min = today;
 
-  // Vérifie si le jour est bloqué
-  function isBlockedDay(date) {
-    const day = date.getDay();
-    return day === 0 || day === 1;
-  }
-
-  // Valide la date choisie
-  function validateDateInput() {
-    if (!dateInput.value) {
-      timeSelect.innerHTML = '<option>Choisissez une date valide</option>';
-      timeSelect.disabled = true;
-      return false;
-    }
-    const selectedDate = new Date(dateInput.value);
-    if (isBlockedDay(selectedDate)) {
-      alert("Pas de rendez-vous possible le dimanche ni le lundi. Merci de choisir un autre jour.");
-      dateInput.value = "";
-      timeSelect.innerHTML = '<option>Choisissez une date valide</option>';
-      timeSelect.disabled = true;
-      return false;
-    }
-    return true;
-  }
-
-  // Convertit "HH:MM" en minutes
-  function timeToMinutes(t) {
-    const [h, m] = t.split(':').map(Number);
-    return h * 60 + m;
-  }
-
-  // Convertit minutes en "HH:MM"
-  function minutesToTime(m) {
-    const h = Math.floor(m / 60);
-    const min = m % 60;
-    return `${h.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}`;
-  }
-
-  // Génère les créneaux horaires
-  function generateTimeOptions(date) {
-    timeSelect.innerHTML = '';
-    timeSelect.disabled = false;
-    const day = date.getDay();
-    let slots = [];
-    if (day >= 2 && day <= 5) { // Mar-Ven
-      slots = [
-        { start: '08:30', end: '11:30' },
-        { start: '13:30', end: '17:00' }
-      ];
-    } else if (day === 6) { // Samedi
-      slots = [
-        { start: '08:00', end: '11:00' }
-      ];
-    } else {
-      timeSelect.innerHTML = '<option>Pas de créneaux disponibles</option>';
-      timeSelect.disabled = true;
-      return;
-    }
-    slots.forEach(({ start, end }) => {
-      let current = timeToMinutes(start);
-      const endM = timeToMinutes(end);
-      while (current <= endM) {
-        const option = document.createElement('option');
-        option.value = minutesToTime(current);
-        option.textContent = minutesToTime(current);
-        timeSelect.appendChild(option);
-        current += 30;
+      // Vérifie si le jour est bloqué
+      function isBlockedDay(date) {
+        const day = date.getDay();
+        return day === 0 || day === 1;
       }
-    });
-  }
 
-  // Met à jour le champ caché
-  function updateHiddenDateTime() {
-    if (!dateInput.value || !timeSelect.value) {
-      dateRdvHidden.value = '';
-      return;
+      // Valide la date choisie
+      function validateDateInput() {
+        if (!dateInput.value) {
+          timeSelect.innerHTML = '<option>Choisissez une date valide</option>';
+          timeSelect.disabled = true;
+          return false;
+        }
+        const selectedDate = new Date(dateInput.value);
+        if (isBlockedDay(selectedDate)) {
+          alert("Pas de rendez-vous possible le dimanche ni le lundi. Merci de choisir un autre jour.");
+          dateInput.value = "";
+          timeSelect.innerHTML = '<option>Choisissez une date valide</option>';
+          timeSelect.disabled = true;
+          return false;
+        }
+        return true;
+      }
+
+      // Convertit "HH:MM" en minutes
+      function timeToMinutes(t) {
+        const [h, m] = t.split(':').map(Number);
+        return h * 60 + m;
+      }
+
+      // Convertit minutes en "HH:MM"
+      function minutesToTime(m) {
+        const h = Math.floor(m / 60);
+        const min = m % 60;
+        return `${h.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}`;
+      }
+
+      // Génère les créneaux horaires
+      function generateTimeOptions(date) {
+        timeSelect.innerHTML = '';
+        timeSelect.disabled = false;
+        const day = date.getDay();
+        let slots = [];
+        if (day >= 2 && day <= 5) { // Mar-Ven
+          slots = [
+            { start: '08:30', end: '11:30' },
+            { start: '13:30', end: '17:00' }
+          ];
+        } else if (day === 6) { // Samedi
+          slots = [
+            { start: '08:00', end: '11:00' }
+          ];
+        } else {
+          timeSelect.innerHTML = '<option>Pas de créneaux disponibles</option>';
+          timeSelect.disabled = true;
+          return;
+        }
+        slots.forEach(({ start, end }) => {
+          let current = timeToMinutes(start);
+          const endM = timeToMinutes(end);
+          while (current <= endM) {
+            const option = document.createElement('option');
+            option.value = minutesToTime(current);
+            option.textContent = minutesToTime(current);
+            timeSelect.appendChild(option);
+            current += 30;
+          }
+        });
+      }
+
+      // Met à jour le champ caché
+      function updateHiddenDateTime() {
+        if (!dateInput.value || !timeSelect.value) {
+          dateRdvHidden.value = '';
+          return;
+        }
+        const datetimeIso = dateInput.value + 'T' + timeSelect.value;
+        dateRdvHidden.value = datetimeIso;
+      }
+
+      // Listeners
+      dateInput.addEventListener('change', () => {
+        if (!validateDateInput()) return;
+        const selectedDate = new Date(dateInput.value);
+        generateTimeOptions(selectedDate);
+        updateHiddenDateTime();
+      });
+
+      timeSelect.addEventListener('change', updateHiddenDateTime);
+
+      // Réinitialise le select à l'init
+      timeSelect.disabled = true;
     }
-    const datetimeIso = dateInput.value + 'T' + timeSelect.value;
-    dateRdvHidden.value = datetimeIso;
-  }
-
-  // Listeners
-  dateInput.addEventListener('change', () => {
-    if (!validateDateInput()) return;
-    const selectedDate = new Date(dateInput.value);
-    generateTimeOptions(selectedDate);
-    updateHiddenDateTime();
-  });
-
-  timeSelect.addEventListener('change', updateHiddenDateTime);
-
-  // Réinitialise le select à l'init
-  timeSelect.disabled = true;
-}
 </script>
+{% endblock %}

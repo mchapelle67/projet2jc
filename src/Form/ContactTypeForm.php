@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ContactTypeForm extends AbstractType
 {
@@ -28,10 +29,10 @@ class ContactTypeForm extends AbstractType
                 'label' => 'Téléphone',
                 'required' => false
             ])
-            ->add('text', TextType::class, [
+            ->add('text', TextareaType::class, [
                 'label' => 'Message *',
                 'attr' => [
-                    'rows' => 20,
+                    'rows' => 3
                 ]
             ])
             ->add('submit', SubmitType::class, [

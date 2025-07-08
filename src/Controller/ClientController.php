@@ -22,19 +22,6 @@ use PHPMailer\PHPMailer\Exception;
 final class ClientController extends AbstractController
 {
 
-// gestion api -----------------------------------------------------
-    #[Route('/api/modeles', name: 'api_modeles')]
-    public function apiModeles(ApiService $apiService, Request $request): Response
-    {
-        $marque = $request->query->get('marque');
-        $modeles = [];
-        if ($marque) {
-            $modeles = $apiService->getModelsByMake($marque);
-        }
-
-        return $this->json($modeles);
-    }
-
 // gestion des devis -----------------------------------------------------
 
     #[Route('/devis', name: 'app_devis_client')]
@@ -152,6 +139,20 @@ final class ClientController extends AbstractController
             'marques' => $marquesResponse,
             'rdvForm' => $rdvForm->createView(),     
         ]);
+    }
+
+// gestion api ---------------------------------------------------------------------
+
+    #[Route('/api/modeles', name: 'api_modeles')]
+    public function apiModeles(ApiService $apiService, Request $request): Response
+    {
+        $marque = $request->query->get('marque');
+        $modeles = [];
+        if ($marque) {
+            $modeles = $apiService->getModelsByMake($marque);
+        }
+
+        return $this->json($modeles);
     }
 
 // gestion de la page de contact -----------------------------------------------------
