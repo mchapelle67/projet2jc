@@ -18,9 +18,26 @@ use App\Service\MailService;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
+#[Route('/client')]
 final class ClientController extends AbstractController
 {
-    #[Route('/devis/client', name: 'app_devis_client')]
+
+// gestion api -----------------------------------------------------
+    #[Route('/api/modeles', name: 'api_modeles')]
+    public function apiModeles(ApiService $apiService, Request $request): Response
+    {
+        $marque = $request->query->get('marque');
+        $modeles = [];
+        if ($marque) {
+            $modeles = $apiService->getModelsByMake($marque);
+        }
+
+        return $this->json($modeles);
+    }
+
+// gestion des devis -----------------------------------------------------
+
+    #[Route('/devis', name: 'app_devis_client')]
     public function devis(ApiService $apiService, Request $request, EntityManagerInterface $entityManager, MailService $mail): Response
     {
         // on récupère toutes les marques de véhicules
@@ -77,19 +94,9 @@ final class ClientController extends AbstractController
         ]);
     }
 
-    #[Route('/api/modeles', name: 'api_modeles')]
-    public function apiModeles(ApiService $apiService, Request $request): Response
-    {
-        $marque = $request->query->get('marque');
-        $modeles = [];
-        if ($marque) {
-            $modeles = $apiService->getModelsByMake($marque);
-        }
+// gestion des rendez-vous -----------------------------------------------------
 
-        return $this->json($modeles);
-    }
-
-    #[Route('/rdv/client', name: 'app_rdv_client')]
+    #[Route('/rdv', name: 'app_rdv_client')]
     public function rdv(ApiService $apiService, Request $request, EntityManagerInterface $entityManager, MailService $mail): Response
     {
         // on récupère toutes les marques de véhicules
@@ -147,7 +154,9 @@ final class ClientController extends AbstractController
         ]);
     }
 
-    #[Route('/contact/client', name: 'app_contact')]
+// gestion de la page de contact -----------------------------------------------------
+
+    #[Route('/contact', name: 'app_contact')]
     public function contact(Request $request, MailService $mail): Response
     {
         // on crée un forumlaire pour la prise de contact

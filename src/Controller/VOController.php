@@ -15,9 +15,12 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
+#[Route('/vehicules-occasions')]
 final class VOController extends AbstractController
 {
-    #[Route('/vo', name: 'app_vo')]
+
+// VO partie client -----------------------------------------------------
+    #[Route('/liste', name: 'app_vo')]
     public function index(VORepository $voRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         // créer liste des véhicules d'occasion et des photos associées
@@ -35,7 +38,9 @@ final class VOController extends AbstractController
         ]);
     }
 
-    #[Route('/vo/add', name: 'add_vo')]
+// VO partie admin ----------------------------------------------------
+
+    #[Route('/add', name: 'add_vo')]
     public function addVO(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger,
     // gestion de l'upload des photos
     #[Autowire('%kernel.project_dir%/public/uploads/vo')] string $photoDirectory): Response
@@ -102,7 +107,7 @@ final class VOController extends AbstractController
         
     }
 
-    #[Route('/vo/edit/{id}', name: 'edit_vo')]
+    #[Route('/edit/{id}', name: 'edit_vo')]
     public function editVO(Request $request, EntityManagerInterface $entityManager, VORepository $voRepository, SluggerInterface $slugger,
         #[Autowire('%kernel.project_dir%/public/uploads/vo')] string $photoDirectory): Response
     {
@@ -182,7 +187,7 @@ final class VOController extends AbstractController
         ]);
     }
 
-    #[Route('/vo/{voId}/delete/photo/{photoId}', name: 'delete_photo_vo')]
+    #[Route('/{voId}/photo/{photoId}/delete', name: 'delete_photo_vo')]
     public function deletePhotoVO(Request $request, EntityManagerInterface $entityManager, VORepository $voRepository, int $photoId, int $voId): Response
     {
 
@@ -209,7 +214,7 @@ final class VOController extends AbstractController
         ]);
     }
 
-    #[Route('/vo/delete/{id}', name: 'delete_vo')]
+    #[Route('/delete/{id}', name: 'delete_vo')]
     public function deleteVO(Request $request, EntityManagerInterface $entityManager, VORepository $voRepository): Response
     {
         // on verifie que l'utilisateur a le rôle admin
