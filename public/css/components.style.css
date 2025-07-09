@@ -18,7 +18,12 @@
 }
 
 .navbar.fixed {
-    position: static;
+    background-color: rgba(0, 0, 0, 0.3) !important; /* ou la couleur que tu veux */
+    transition: background 0.3s;
+}
+
+.nav-link.fixed {
+    color: var(--light-gray) !important;
 }
 
 .navbar-nav {

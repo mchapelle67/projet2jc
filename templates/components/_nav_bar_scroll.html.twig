@@ -16,7 +16,8 @@
       {% if is_granted('ROLE_ADMIN')%}
       <li class="nav-item dropdown ms-auto">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa-solid fa-user" style="color: #ffffff; opacity: 0.55;"></i>          </a>
+            <i class="fa-solid fa-user fa-lg" style="color: #ffffff; opacity: 0.55;"></i>          
+          </a>
           <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLink">
             {% if is_granted('ROLE_SUPER_ADMIN') %}
               <a class="dropdown-item" href="dashboard_admin">SUPER ADMIN</a>
