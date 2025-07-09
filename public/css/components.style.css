@@ -22,8 +22,26 @@
     transition: background 0.3s;
 }
 
+.nav-link i {
+    color: #ffffff;
+    opacity: 0.55;
+    transition: opacity 0.2s;
+}
+
+.nav-link:hover i {
+    opacity: 1;
+}
+
 .nav-link.fixed {
     color: var(--light-gray) !important;
+}
+
+.nav-link.fixed:hover {
+    color: white !important;
+}
+
+.nav-link.fixed.active {
+    color: white !important;
 }
 
 .navbar-nav {
