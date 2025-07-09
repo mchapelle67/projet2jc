@@ -1,5 +1,4 @@
 /* *************************** NAV ************************************ */
-
 .navbar.navbar-scrolled {
     background-color: rgba(0, 0, 0, 0.8);
     transition: background-color 2s;
@@ -16,6 +15,10 @@
   left: 0;
   width: 100%;
   z-index: 1030;
+}
+
+.navbar.fixed {
+    position: static;
 }
 
 .navbar-nav {
@@ -175,7 +178,7 @@ form.form-inline {
 }
 
 
-/* \* ************************************* CALENDRierR ***************************** */ 
+/* \* ************************************* CALENDRIER ***************************** */ 
 label {
   display: block;
   margin: 0.5em 0 0.3em;
