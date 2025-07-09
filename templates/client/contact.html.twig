@@ -11,8 +11,8 @@
 {% block body %}
 <main class="main-home">
     <section class="form">
-        {{ form_start(contactForm) }}
-        <div class="form-step active contact">
+        {{ form_start(contactForm, {'attr': {'id': 'contact_type_form'}}) }}
+        <div class="form-contact">
             <h1>Nous contacter</h1>
                 <div class="col">
                     {{ form_row(contactForm.nom, {'row_attr': {'class': 'form-group'}}) }}
