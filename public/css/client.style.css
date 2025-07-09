@@ -292,20 +292,15 @@ input.invalid {
 
 
 /* ************************** FORMULAIRE CONTACT *********************************** */
-.form-contact {
-    width: 70%;
-    margin: 5rem auto 4.375rem auto;
-    padding: 2.5rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);  
+.main-contact {
     background-color: white;
-        h1 {
-            background-color: white;
-            color: var(--blue-color);
-            margin: 0 0 2.5rem 0;
-            font-weight: 700;
-            text-align: center;
-        }
+}
+
+.form-contact {
+    margin-top: 4rem;
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
         h2 {
             font-size: 0.7em;
             text-align: start;
@@ -318,7 +313,7 @@ input.invalid {
 #contact_type_form_submit {
     display: flex;
     margin: 1.25rem auto 0 auto;
-    background-color: var(--red-color);
+    background-color: var(--blue-color-cta);
     border: none;
     color: white;
     font-weight: 600;
@@ -344,6 +339,7 @@ input.invalid {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+        transition: all 0.2s ease-in-out;
         label {
             font-weight: 600;
             color: var(--blue-color);
@@ -357,40 +353,52 @@ input.invalid {
             font-size: 1rem;
             transition: border-color 0.3s ease;
             &:focus {
-                outline: none;
+                border-color: var(--blue-color);
             }
         }
     }
 }
 
-.hero-contact {
-  position: relative;
-  height: 50vh;
-  background: url('../images/contact.jpg') center center / cover no-repeat;
+.contact-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg-color);
 }
 
-.hero-overlay {
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 100%;
+.left-col {
+  width: 45vw;
   height: 100%;
+  background-image: url("../images/contact.avif");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.logo {
+  width: 10rem;
+  padding: 1.5rem;
+}
+
+.right-col {
+  background: var(--bg-color);
+  width: 50vw;
+  min-height: 100vh;
+  padding: 5rem 3.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-    h1 {
-        font-size: 3rem;
-        margin-bottom: 0.5rem;
+     h1 {
+        color: var(--dark-gray);
+        margin: 0 0 2.5rem 0;
+        font-weight: 700;
+        text-align: center;
     }
-    h2 {
-        font-size: 2rem;
-    }
-    h3 {
-        font-size: 1.5rem;
-        margin: 0.5rem;;
-    }
+}
+
+.contact-container input:focus,
+.contact-container select:focus,
+.contact-container textarea:focus {
+    border-color: var(--blue-color);
+    outline: none;
+    box-shadow: 0 0 5px 3px rgba(0, 123, 255, 0.2); 
 }

@@ -9,26 +9,32 @@
 {% block nav %}{{ include('components/_nav_bar_fixed.html.twig') }}{% endblock %}
 
 {% block body %}
-<main class="main-home">
+<main class="main-contact">
     <section class="form">
-        {{ form_start(contactForm, {'attr': {'id': 'contact_type_form'}}) }}
-        <div class="form-contact">
-            <h1>Nous contacter</h1>
-                <div class="col">
-                    {{ form_row(contactForm.nom, {'row_attr': {'class': 'form-group'}}) }}
-                    {{ form_row(contactForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
+        <div class="contact-container">
+            <div class="left-col">
+            </div>
+            <div class="right-col">
+                {{ form_start(contactForm, {'attr': {'id': 'contact_form'}}) }}
+                <div class="form-contact">
+                    <h1>Nous contacter</h1>
+                        <div class="col">
+                            {{ form_row(contactForm.nom, {'row_attr': {'class': 'form-group'}}) }}
+                            {{ form_row(contactForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
+                        </div>
+                        <div class="col">
+                            {{ form_row(contactForm.email, {'row_attr': {'class': 'form-group'}}) }}
+                            {{ form_row(contactForm.tel, {'row_attr': {'class': 'form-group'}}) }}
+                        </div>
+                        <div class="col mb-3">
+                            {{ form_row(contactForm.text, {'row_attr': {'class': 'form-group'}}) }}
+                        </div>
+                                <h2>* champs obligatoires</h2>
+                                {{ form_row(contactForm.submit, {'row_attr': {'class': 'form-group submit'}}) }}
                 </div>
-                <div class="col">
-                    {{ form_row(contactForm.email, {'row_attr': {'class': 'form-group'}}) }}
-                    {{ form_row(contactForm.tel, {'row_attr': {'class': 'form-group'}}) }}
-                </div>
-                <div class="col mb-3">
-                    {{ form_row(contactForm.text, {'row_attr': {'class': 'form-group'}}) }}
-                </div>
-                        <h2>* champs obligatoires</h2>
-                        {{ form_row(contactForm.submit, {'row_attr': {'class': 'form-group submit'}}) }}
+                {{ form_end(contactForm) }}
+            </div>
         </div>
-        {{ form_end(contactForm) }}
     </section>
 </main>
 {% endblock %}
