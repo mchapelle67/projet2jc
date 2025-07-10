@@ -7,8 +7,8 @@
 {% block body %}
 <main>
     <section class="form add-vo">
-        {{ form_start(form) }}
-        <div class="form-step active contact">
+        {{ form_start(form, {'attr': {'id': 'vo-add-form'} }) }}
+        <div class="form-step active vo">
             <h1>Ajouter un vehicule</h1>
                 <div class="col">
                     {{ form_row(form.marque, {'row_attr': {'class': 'form-group'}}) }}
@@ -17,15 +17,17 @@
                 <div class="col">
                     {{ form_row(form.anneeFabrication, {'row_attr': {'class': 'form-group'}}) }}
                     {{ form_row(form.km, {'row_attr': {'class': 'form-group'}}) }}
-                    {{ form_row(form.prix, {'row_attr': {'class': 'form-group'}}) }}
                 </div>
                 <div class="col mb-3">
                     {{ form_row(form.description, {'row_attr': {'class': 'form-group '}}) }}
                 </div>
                     {{ form_row(form.carburant, {'row_attr': {'class': 'form-group'}}) }}
+                <div class="col">
                     {{ form_row(form.url, {'row_attr': {'class': 'form-group'}}) }}
-                    {{ form_row(form.photos, {'row_attr': {'class': 'form-group form-label'}}) }}
-                    
+                    {{ form_row(form.prix, {'row_attr': {'class': 'form-group'}}) }}
+                </div>
+                {{ form_row(form.photos, {'row_attr': {'class': 'form-group form-label'}}) }}
+
                     {{ form_row(form.submit, {'row_attr': {'class': 'form-group submit'}}) }}
         </div>
         {{ form_end(form)}}

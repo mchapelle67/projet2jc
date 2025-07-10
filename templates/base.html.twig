@@ -52,9 +52,7 @@
             {% block body %}{% endblock %}
         </div>
         <div class="container">
-            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-                {{ include('components/_footer.html.twig') }}
-            </footer>
+            {% block footer %}{% endblock %}
         </div>
     </body>
 </html>

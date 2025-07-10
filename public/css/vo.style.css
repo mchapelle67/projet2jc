@@ -133,7 +133,7 @@
 #vo_type_form_submit {
     display: flex;
     margin: 1.25rem auto 0 auto;
-    background-color: var(--red-color);
+    background-color: var(--blue-color-cta);
     border: none;
     color: white;
     font-weight: 600;
@@ -143,4 +143,31 @@
         &:hover {
             opacity: 0.7;
         }
+}
+
+.form-step.active.vo {
+  padding: 3rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  width: 100%;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+#vo-add-form {
+  max-width: 800px;
+  width: 100% ;
+  margin: 5rem auto 2rem auto;
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--dark-gray);
+  }
+}
+.form.add-vo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  
+    align-items: center;       
+    min-height: 100vh;     input, 
 }
