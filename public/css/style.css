@@ -83,13 +83,6 @@ a {
     background-color: var(--dark-blue);
 }
 
-.dropdown-item.active, 
-.dropdown-item:active 
-{
-    background-color: var(--dark-blue);
-    color: white;
-}
-
 .btn-links {
     display: flex;
     width: fit-content;
@@ -132,6 +125,20 @@ p {
     background-color: var(--red-color);
 }
  
+.form-group {
+    input,
+    select,
+    textarea {
+      padding: 0.75rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      &:focus {
+        border-color: var(--blue-color);
+      }
+  }   
+}
 /* ************************************** LOGIN FORM ************************************* */
 .form-group.login {
     background-color: white;

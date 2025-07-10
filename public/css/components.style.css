@@ -65,6 +65,14 @@
   display: none;
 }
 
+.dropdown-item.active, 
+.dropdown-item:active 
+{
+    background-color: var(--blue-color-cta);
+    color: white;
+}
+
+
 /* *************************** FOOTER ************************************ */
 .text-body-secondary:hover i,
 .col-md-4.d-flex.align-items-center:hover a {
