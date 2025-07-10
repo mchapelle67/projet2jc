@@ -32,9 +32,9 @@
                     <div class="step" data-step-title="Recap">4</div>
                 </div>
             </div>
-
+            
             {{ form_start(devisForm, {'attr': {'id': 'client-form'}}) }}
-                <div class="form-step active">
+            <div class="form-step active">
                     <h2>Informations personnelles</h2>
                         {{ form_row(devisForm.nom, {'row_attr': {'class': 'form-group'}}) }}
                         {{ form_row(devisForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
@@ -82,6 +82,7 @@
                         <p><strong>Carburant :</strong> <span data-review="carburant"></span></p>
                         <p><strong>Prestation :</strong> <span data-review="prestation"></span></p>
                         <p><strong>Détail :</strong> <span data-review="text"></span></p>
+                        <span class="consentement">{{ form_row(devisForm.consentement) }}J'accepte que mes données soient utilisées pour le traitement de ma demande de devis.</span>
                     </div>
                 </div>
                 <!-- Navigation -->

@@ -75,8 +75,18 @@
 
 /* *************************** FOOTER ************************************ */
 .text-body-secondary:hover i,
-.col-md-4.d-flex.align-items-center:hover a {
+.col-md-4.d-flex.align-items-center:hover a,
+.nav-item:hover a {
     opacity: 0.5;
+}
+
+footer.py-3.my-4 {
+    margin-bottom: 0 !important;
+}
+
+.sf-toolbar-clearer {
+    display: none;
+    height: 0;
 }
 
 /* ************************************* ASIDE NAVBAR ************************************* */

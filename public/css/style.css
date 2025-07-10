@@ -145,7 +145,7 @@ p {
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     width: 60%;
-    margin: auto;
+    margin: 8rem auto 5rem auto;
     padding: 1.25rem;
 }
 .form-group.login h1 {
@@ -164,8 +164,9 @@ p {
 }
 
 .btn.btn-lg.btn-primary.btn-block {
-    margin-top: 3.125rem;
+    margin: 3.125rem auto 0 auto;
     display: flex;
+    border: none;
 }
 
 .checkbox.mb-3 {
@@ -178,6 +179,18 @@ p {
     margin: 0;
     font-weight: 500;
     font-size: 0.9rem;
+}
+
+.mdp-oublie {
+    display: block;
+    margin-top: 1.25rem;
+    color: var(--blue-color);
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 /* ---------------------------------------- PAGE D'ACCEUIL --------------------------------------------------- */
@@ -449,3 +462,35 @@ figure {
     max-width: 62.5rem; /* 1000px -> 62.5rem */
     padding: 0 1.25rem; /* 20px -> 1.25rem */
 }
+
+
+/* ---------------------------- MENTIONS LEGALES ------------------------------------ */
+.mentions-legales {
+  max-width: 800px;
+  margin: 8rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    h1, h2 {
+    color: #003049;
+    border-bottom: 2px solid #ced4da;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    }
+    p {
+    margin: 1rem 0;
+    }
+    strong {
+    color: #495057;
+    }
+}
+
+/* --------------------------------- OUBLIE MDP ------------------------------------------- */
+.retry-password {
+    text-decoration: underline;
+    &:hover {
+        opacity: 0.6;
+    }
+}
+

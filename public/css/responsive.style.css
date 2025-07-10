@@ -59,3 +59,11 @@
         font-size: 1.6rem;
     }
 }
+
+/* --------------------------------- MENTIONS LEGALES --------------------------------- */
+@media (max-width: 600px) {
+  main {
+    margin: 2rem 1rem;
+    padding: 1.5rem;
+  }
+}
