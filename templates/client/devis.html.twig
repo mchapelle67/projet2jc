@@ -6,12 +6,19 @@
 
 {% block title %}Contactez Garage 2JC à Altkirch – Réparation, Entretien, Devis{% endblock %}
 
-{% block nav %}{{ include('components/_nav_bar_fixed.html.twig') }}{% endblock %}
+{% block nav %}{{ include('components/_nav_bar_scroll.html.twig') }}{% endblock %}
 
 {% block body %}
-<main>
+<main class="main-home">
+    <section class="hero-form-devis">
+        <div class="hero-overlay-form">
+            <div class="hero-content-form">
+                <h1>Demande de devis</h1>
+                <h2>Obtenez une estimation rapide et gratuite</h2>
+            </div> 
+        </div>
+    </section>
     <section class="form form-devis">
-    <h1>Demande de devis</h1>
         <div class="form-container">
             <div class="progress-bar-container">
                 <div class="progress-bar-form">

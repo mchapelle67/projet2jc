@@ -6,14 +6,20 @@
 
 {% block title %}Demande de rendez-vous Garage 2JC à Altkirch – Réparation, Entretien, Devis{% endblock %}
 
-{% block nav %}{{ include('components/_nav_bar_fixed.html.twig') }}{% endblock %}
+{% block nav %}{{ include('components/_nav_bar_scroll.html.twig') }}{% endblock %}
 
 {% block body %}
-<main>
+<main class="main-home">
+    <section class="hero-form-rdv">
+        <div class="hero-overlay-form">
+            <div class="hero-content-form">
+                <h1>Demande de rendez-vous</h1>
+                <h2>Attention, ceci est une demande de rendez-vous !
+                <br>Veuillez noter qu'il est nécéssaire d'attendre une confirmation de notre équipe.</h2>
+            </div> 
+        </div>
+    </section>
     <section class="form form-devis form-rdv">
-        <h1>Demande de rendez-vous</h1>
-        <h2><span class="form-bold-h2">Attention, ceci est une demande de rendez-vous !</span>
-            <br>Veuillez noter qu'il est nécéssaire d'attendre une confirmation de notre équipe.</h2>
         <div class="form-container">
             <div class="progress-bar-container">
                 <div class="progress-bar-form">

@@ -1,6 +1,49 @@
 
 /* ************************** FORMULAIRES DEVIS ET RDV *********************************** */
 
+.hero-form-rdv {
+  position: relative;
+  height: 50vh;
+  background: url('../images/rdv.avif') center center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  overflow: hidden;
+}
+
+.hero-form-devis {
+  position: relative;
+  height: 50vh;
+  background: url('../images/devis.avif') center center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  overflow: hidden;
+}
+
+.hero-overlay-form {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+    h1 {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+    }
+    h2 {
+        font-size: 2rem;
+    }
+    h3 {
+        font-size: 1.5rem;
+        margin: 0.5rem;;
+    }
+}
+
 .form-container {
     background-color: white;
     padding: 1.875rem 2.5rem;
@@ -15,14 +58,14 @@
 .form.form-devis h1 {
     text-align: center;
     margin: 1.875rem;
-    color: var(--blue-color);
+    /* color: var(--dark-gray); */
     font-weight: 700;
 }
 
 .form-step h2, 
 .form-step h3 {
     background-color: white;
-    color: var(--blue-color);
+    color: var(--dark-gray);
     text-align: center;
     margin: 4.375rem 1.5625rem 2.1875rem 1.5625rem;
     font-weight: 700;
@@ -72,15 +115,15 @@
     border: 2px solid var(--gray-color);
 }
 .progress-bar-form .step.active {
-    background-color: var(--red-color);
+    background-color: var(--blue-color-cta);
     color: white;
-    border-color: var(--red-color);
+    border-color: var(--blue-color-cta);
     transform: scale(1.1);
 }
 .progress-bar-form .step.completed {
-    background-color: var(--red-color);
+    background-color: var(--blue-color-cta);
     color: white;
-    border-color: var(--red-color);
+    border-color: var(--blue-color-cta);
 }
 .progress-bar-form .step::after {
     content: attr(data-step-title);
@@ -139,7 +182,7 @@
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
-    color: var(--dark-gray);
+    color: var(--dark-blue);
 }
 .form-group input[type="text"],
 .form-group input[type="email"],
@@ -238,15 +281,16 @@
     transition: background-color 0.3s ease, transform 0.1s ease;
 }
 .btn:active {
+    background-color: var(--red-color) !important; 
     transform: translateY(0.0625rem);
 }
 .btn-primary {
     margin: 0.9375rem;
-    background-color: var(--red-color);
+    background-color: var(--blue-color-cta);
     color: white;
 }
 .btn-primary:hover {
-    background-color: #e65c5c;
+    background-color: var(--dark-blue-cta);
 }
 .btn-secondary {
     margin: 0.9375rem;

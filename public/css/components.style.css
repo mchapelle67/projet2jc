@@ -66,52 +66,10 @@
 }
 
 /* *************************** FOOTER ************************************ */
-footer {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.text-body-secondary:hover i,
+.col-md-4.d-flex.align-items-center:hover a {
+    opacity: 0.5;
 }
-
-#footer-left-side,
-#contact-links {
-    width: 30%;
-}
-
-#social-media, 
-#contact-links {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 0;
-    a {
-        margin-right: 0.5rem;
-        display: flex;
-        align-items: center;
-        img {
-            width: 1.5em;
-            height: auto;
-            margin: 0 0.5rem;
-        }
-    }
-    p {
-        margin-right: 1rem;
-    }
-}
-
-#social-media {
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-}
-
-#contact-links {
-    justify-content: flex-end;
-}
-
-.sf-toolbar-clearer {
-    display: none !important;
-}
-
 
 /* ************************************* ASIDE NAVBAR ************************************* */
 /* ================== ASIDE NAVBAR ================== */
