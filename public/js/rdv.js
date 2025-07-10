@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // appel à l'API pour récupérer les modèles associés à la marque
-        fetch('client/api/modeles?marque=' + encodeURIComponent(marque))
+        fetch('/client/api/modeles?marque=' + encodeURIComponent(marque))
             .then(response => response.json())
             .then(data => {
                 console.log('Modèles reçus :', data);

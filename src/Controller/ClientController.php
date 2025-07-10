@@ -22,8 +22,20 @@ use PHPMailer\PHPMailer\Exception;
 final class ClientController extends AbstractController
 {
 
-// gestion des devis -----------------------------------------------------
+// gestion api ---------------------------------------------------------------------
+    #[Route('/api/modeles', name: 'api_modeles')]
+    public function apiModeles(ApiService $apiService, Request $request): Response
+    {
+        $marque = $request->query->get('marque');
+        $modeles = [];
+        if ($marque) {
+            $modeles = $apiService->getModelsByMake($marque);
+        }
 
+        return $this->json($modeles);
+    }
+
+// gestion des devis -----------------------------------------------------
     #[Route('/devis', name: 'app_devis_client')]
     public function devis(ApiService $apiService, Request $request, EntityManagerInterface $entityManager, MailService $mail): Response
     {
@@ -82,7 +94,6 @@ final class ClientController extends AbstractController
     }
 
 // gestion des rendez-vous -----------------------------------------------------
-
     #[Route('/rdv', name: 'app_rdv_client')]
     public function rdv(ApiService $apiService, Request $request, EntityManagerInterface $entityManager, MailService $mail): Response
     {
@@ -140,23 +151,7 @@ final class ClientController extends AbstractController
             'rdvForm' => $rdvForm->createView(),     
         ]);
     }
-
-// gestion api ---------------------------------------------------------------------
-
-    #[Route('/api/modeles', name: 'api_modeles')]
-    public function apiModeles(ApiService $apiService, Request $request): Response
-    {
-        $marque = $request->query->get('marque');
-        $modeles = [];
-        if ($marque) {
-            $modeles = $apiService->getModelsByMake($marque);
-        }
-
-        return $this->json($modeles);
-    }
-
 // gestion de la page de contact -----------------------------------------------------
-
     #[Route('/contact', name: 'app_contact')]
     public function contact(Request $request, MailService $mail): Response
     {
