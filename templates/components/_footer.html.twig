@@ -1,22 +1,28 @@
-<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-    <div class="col-md-4 d-flex align-items-center">
-        <a href="{{ path('app_home') }}" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1" aria-label=​"Logo">
-            <figure>
-                Logo​
-            </figure>
-        </a>
-        ​<span class="mb-3 mb-md-0 text-body-secondary">​© 2025 Company, Inc​</span>​
+<footer class="py-3 my-4">
+    <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
+        <ul class="nav">
+            <li class="nav-item">
+                <a href="{{ path('app_home') }}" class="nav-link px-2 text-body-secondary">Accueil</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('mentions_legales') }}" class="nav-link px-2 text-body-secondary">Mentions légales</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('politique_confidentialite') }}" class="nav-link px-2 text-body-secondary">Politique de confidentialité</a>
+            </li>
+        </ul>
+        <ul class="nav">
+            <li class="ms-3">
+                <a href="https://www.facebook.com/p/2jc-Automobiles-100063767071947/?locale=fr_FR" aria-label="Facebook" class="text-body-secondary">
+                    <i class="fa-brands fa-facebook fa-xl"></i>
+                </a>
+            </li>
+            <li class="ms-3">
+                <a href="https://www.instagram.com/2jc_automobiles/" aria-label="Instagram" class="text-body-secondary">
+                    <i class="fa-brands fa-instagram fa-xl"></i>
+                </a>
+            </li>
+        </ul>
     </div>
-    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-        <li class="ms-3">
-            <a href="https://www.facebook.com/p/2jc-Automobiles-100063767071947/?locale=fr_FR" aria-label="Facebook" class="text-body-secondary">
-                <i class="fa-brands fa-facebook fa-xl"></i>
-            </a>
-        </li>
-        <li class="ms-3">
-            <a href="https://www.instagram.com/2jc_automobiles/" aria-label="Instagram" class="text-body-secondary">
-                <i class="fa-brands fa-instagram fa-xl"></i>
-            </a>
-        </li>
-    </ul>  
+    <p class="text-center text-body-secondary mb-0">© 2025 2JC Automobiles</p>
 </footer>

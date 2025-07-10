@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class DevisTypeForm extends AbstractType
@@ -32,7 +33,7 @@ class DevisTypeForm extends AbstractType
                 'required' => false
             ])
             ->add('text', TextareaType::class, [
-                'label' => 'Veuillez détailler le problème ...*',
+                'label' => 'Veuillez détailler votre demande ...*',
                  'attr' => [
                     'rows' => 3,
                 ]
@@ -44,6 +45,11 @@ class DevisTypeForm extends AbstractType
                 'placeholder' => 'Sélectionnez une prestation',
             ])
             ->add('vehicule', VehiculeTypeForm::class) // ajout du form vehicule pour l'imbriquer
+            ->add('consentement', CheckboxType::class, [
+                'label' => false,
+                'required' => true,
+                'mapped' => false
+            ])
         ;
     }
 

@@ -333,8 +333,16 @@ input.invalid {
     margin-top: 0.3125rem;
 }
 
+#devis_type_form_text {
+    width: 100%;
+}
 
-
+.consentement {
+    font-style: italic;
+    display: flex;
+    font-size: 0.8em;
+    gap: 0.5rem;
+}
 /* ************************** FORMULAIRE CONTACT *********************************** */
 .main-contact {
     background-color: white;

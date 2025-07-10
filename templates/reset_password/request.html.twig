@@ -4,12 +4,15 @@
 {% block title %}Réinitialisez votre mot de passe{% endblock %}
 
 {% block nav %}{{ include('components/_nav_bar_fixed.html.twig') }}{% endblock %}
+{% block footer %}{{ include('components/_footer.html.twig') }}{% endblock %}
+
 
 {% block body %}
+<main class="mentions-legales">
     <h1>Réinitialisez votre mot de passe</h1>
 
     {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email) }}
+        {{ form_row(requestForm.email, {'row_attr': {'class': 'form-group'}}) }}
         <div>
             <small>
                 Entrez votre adresse e-mail, et nous vous enverrons un lien pour réinitialiser votre mot de passe.
@@ -18,4 +21,5 @@
 
         <button class="btn btn-primary">Envoyer l’e-mail de réinitialisation</button>
     {{ form_end(requestForm) }}
+</main>
 {% endblock %}

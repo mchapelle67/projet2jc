@@ -4,11 +4,17 @@
 {% block title %}Envois de mail pour reinitialiser le mot de passe{% endblock %}
 
 {% block nav %}{{ include('components/_nav_bar_fixed.html.twig') }}{% endblock %}
+{% block footer %}{{ include('components/_footer.html.twig') }}{% endblock %}
 
 {% block body %}
+<main class="mentions-legales">
     <p>
         Si un compte correspondant à votre adresse e-mail existe, un e-mail vient d'être envoyé contenant un lien que vous pouvez utiliser pour réinitialiser votre mot de passe.
         Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
     </p>
-    <p>Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier de courriers indésirables ou <a href="{{ path('app_forgot_password_request') }}">réessayez</a>.</p>
+    <p>
+        Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier de courriers indésirables ou
+        <a class="retry-password" href="{{ path('app_forgot_password_request') }}">réessayez</a>.
+    </p>
+</main>
 {% endblock %}
