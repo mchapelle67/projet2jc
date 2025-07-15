@@ -7,7 +7,7 @@
 :root {
     --white-color: #F7F7F7;
     --blue-color: #0056b3;
-    --blue-hover: #003F8A;
+    --blue-hover: #003f8a;
     --dark-blue: #054864;
     --red-color: #DD1C1A;
     --dark-red: #d00000;
@@ -15,7 +15,9 @@
     --grey-color: #D1D5DB;
     --text-primary: #333333;
     --text-secondary: #4f4f4f;
-    --text-terciaire: #6B7280;
+    --text-tertiary: #828282;
+    --border-form: 1px solid #ccc;
+    --input-placeholder: #6c757d;
     --font-primary: 'Roboto', sans-serif;
     --font-secondary: 'Inter', sans-serif;
     --border-radius: 0.5rem;
@@ -65,7 +67,11 @@ img {
 a {
     color: black;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out, text-decoration 0.3s ease-in-out !important;
+}
+
+p {
+    margin-bottom: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -75,14 +81,6 @@ h1, h2, h3, h4, h5, h6 {
 .alert.alert-success,
 .alert.alert-danger {
     margin: 3.125rem;
-}
-
-.btn-check:checked+.btn, 
-.btn.active, 
-.btn.show, 
-.btn:first-child:active, 
-:not(.btn-check)+.btn:active {
-    background-color: var(--blue-hover);
 }
 
 .btn-links {
@@ -105,26 +103,22 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-p {
-    margin-bottom: 0;
+.cta-blue {
+    background-color: var(--blue-color);
+    padding: 1rem 2rem;
+    border-radius: var(--border-radius);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    &:hover {
+        background-color: var(--blue-hover);
+    }
+    &:active {
+        background-color: var(--red-color);
+    }
 }
 
-.cta-blue {
-  background-color: var(--blue-color);
-  padding: 1rem 2rem;
-  border-radius: var(--border-radius);
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s ease;
-}
-.cta-blue:hover {
-    background-color: var(--blue-hover);
-}
-.cta-blue:active {
-    background-color: var(--red-color);
-}
- 
 .form-group {
     input,
     select,

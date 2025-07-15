@@ -25,22 +25,42 @@ class VehiculeTypeForm extends AbstractType
             ->add('modele', HiddenType::class)
             ->add('km', IntegerType::class, [
                 'label' => 'Kilométrage',
-                'attr' => ['placeholder' => 'Entrez le kilométrage'],
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                    ],
+                'attr' => [
+                    'placeholder' => 'Entrez le kilométrage',
+                    'min' => 0,
+                    'max' => 9999999
+                ],
                 'required' => false
             ])
             ->add('anneeFabrication', IntegerType::class, [
                 'label' => 'Année de fabrication',
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
                 'required' => false,    
-                'attr' => ['placeholder' => 'ex : 2020'],
+                'attr' => [
+                    'placeholder' => "Entrez l'année de fabrication",
+                    'min' => 1900,
+                    'max' => date('Y')
+                ],
             ])
             ->add('carburant', EntityType::class, [
                 'class' => Carburant::class,
                 'choice_label' => 'typeCarburant',
-                'label' => 'Carburant',
+                'label' => 'Type de carburant',
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
                 'placeholder' => 'Sélectionnez le type de carburant',
                 'required' => false,
                 'expanded' => false,
-                'multiple' => false
+                'multiple' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
         ;
     }

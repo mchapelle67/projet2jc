@@ -32,18 +32,17 @@
                     <div class="step" data-step-title="Recap">4</div>
                 </div>
             </div>
-            
             {{ form_start(devisForm, {'attr': {'id': 'client-form'}}) }}
             <div class="form-step active">
-                    <h2>Informations personnelles</h2>
+                    <h3>Informations personnelles</h3>
                         {{ form_row(devisForm.nom, {'row_attr': {'class': 'form-group'}}) }}
                         {{ form_row(devisForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
                         {{ form_row(devisForm.email, {'row_attr': {'class': 'form-group'}}) }}
                         {{ form_row(devisForm.tel, {'row_attr': {'class': 'form-group'}}) }}
-                        <h3 class="champs-obligatoires">*champs obligatoires</h3>
+                        <p class="champs-obligatoires">*champs obligatoires</p>
                 </div>
                 <div class="form-step">
-                    <h2>Informations du véhicule</h2>
+                    <h3>Informations du véhicule</h3>
                         <div class="form-group">
                             <label for="marque">Veuillez séléctionner une marque*</label>
                             <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off">
@@ -65,12 +64,12 @@
                             {{ form_row(devisForm.vehicule.carburant, {'row_attr': {'class': 'form-group form-carburant'}}) }}
                 </div>
                 <div class="form-step">
-                    <h2>Detaillez votre demande</h2>
+                    <h3>Detaillez votre demande</h3>
                         {{ form_row(devisForm.prestation, {'row_attr': {'class': 'form-group' }}) }}
                         {{ form_row(devisForm.text, {'row_attr': {'class': 'form-group'}}) }}
                 </div>
                 <div class="form-step">
-                    <h2>Récapitulatif de votre demande</h2>
+                    <h3>Récapitulatif de votre demande</h3>
                     <div id="reviewDetails">
                         <p><strong>Nom et prénom :</strong> <span data-review="nom"></span> <span data-review="prenom"></span></p>
                         <p><strong>Email :</strong> <span data-review="email"></span></p>
