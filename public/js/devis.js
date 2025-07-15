@@ -136,25 +136,6 @@ document.addEventListener('DOMContentLoaded', function() {
             telInput.parentNode.appendChild(errorMsg);
         }
 
-        
-        // vérification spécifique pour l'étape 2 : marque et modèle obligatoires
-        if (stepIndex === 1) {
-            const marque = document.getElementById('marque');
-            const modele = document.getElementById('modele');
-            if (!marque.value.trim() || !modele.value.trim()) {
-                isValid = false;
-                [marque, modele].forEach(input => {
-                    if (input && !input.value.trim()) {
-                        input.classList.add('invalid');
-                        const errorMsg = document.createElement('p');
-                        errorMsg.className = 'error-message';
-                        errorMsg.textContent = 'Ce champ est requis.';
-                        input.parentNode.appendChild(errorMsg);
-                    }
-                });
-            }
-        }
-          
         // validation spécifique pour tous les champs number 
         const numberInputs = Array.from(currentFormStep.querySelectorAll('input[type="number"]'));
         numberInputs.forEach(numberInput => {
