@@ -2,14 +2,20 @@
 
 {% block robots %}noindex, nofollow{% endblock %}
 {% block title %}Ajouter un vehicule d'occasion.{% endblock %}
-{% block nav %}{{ include('components/_nav_bar_fixed.html.twig') }}{% endblock %}
+{% block nav %}{{ include('components/_nav_bar.html.twig') }}{% endblock %}
 
 {% block body %}
-<main>
+<main class="main-home">
+    <section class="hero-vo">
+        <div class="hero-overlay-vo">
+            <div class="hero-content-vo">
+                <h1>Ajouter un vehicule</h1>
+            </div> 
+        </div>
+    </section>
     <section class="form add-vo">
         {{ form_start(form, {'attr': {'id': 'vo-add-form'} }) }}
         <div class="form-step active vo">
-            <h1>Ajouter un vehicule</h1>
                 <div class="col">
                     {{ form_row(form.marque, {'row_attr': {'class': 'form-group'}}) }}
                     {{ form_row(form.modele, {'row_attr': {'class': 'form-group'}}) }}
@@ -28,7 +34,7 @@
                 </div>
                 {{ form_row(form.photos, {'row_attr': {'class': 'form-group form-label'}}) }}
 
-                    {{ form_row(form.submit, {'row_attr': {'class': 'form-group submit'}}) }}
+                    {{ form_row(form.submit, {'row_attr': {'class': 'form-group'}}) }}
         </div>
         {{ form_end(form)}}
     </section>

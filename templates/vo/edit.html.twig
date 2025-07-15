@@ -2,14 +2,21 @@
 
 {% block robots %}noindex, nofollow{% endblock %}
 {% block title %}Modifier un voiture d'occasion.{% endblock %}
-{% block nav %}{{ include('components/_nav_bar_fixed.html.twig') }}{% endblock %}
+{% block nav %}{{ include('components/_nav_bar.html.twig') }}{% endblock %}
+{% block footer %}{{ include('components/_footer.html.twig') }}{% endblock %}
 
 {% block body %}
-<main>
+<main class="main-home">
+    <section class="hero-vo">
+        <div class="hero-overlay-vo">
+            <div class="hero-content-vo">
+                <h1>Modifier un vehicule</h1>
+            </div> 
+        </div>
+    </section>
     <section class="form add-vo">
-        {{ form_start(form)}}
-        <div class="form-step active contact">
-            <h1>Modifier vehicule</h1>
+        {{ form_start(form, {'attr': {'id': 'vo-add-form'} })}}
+        <div class="form-step active vo">
                 <div class="col">
                     {{ form_row(form.marque, {'row_attr': {'class': 'form-group'}}) }}
                     {{ form_row(form.modele, {'row_attr': {'class': 'form-group'}}) }}
@@ -17,13 +24,15 @@
                 <div class="col">
                     {{ form_row(form.anneeFabrication, {'row_attr': {'class': 'form-group'}}) }}
                     {{ form_row(form.km, {'row_attr': {'class': 'form-group'}}) }}
-                    {{ form_row(form.prix, {'row_attr': {'class': 'form-group'}}) }}
                 </div>
                 <div class="col mb-3">
                     {{ form_row(form.description, {'row_attr': {'class': 'form-group '}}) }}
                 </div>
-                    {{ form_row(form.carburant, {'row_attr': {'class': 'form-group'}}) }}
-                    {{ form_row(form.url, {'row_attr': {'class': 'form-group'}}) }}            
+                {{ form_row(form.carburant, {'row_attr': {'class': 'form-group'}}) }}
+                <div class="col mb-3">
+                {{ form_row(form.url, {'row_attr': {'class': 'form-group'}}) }}            
+                {{ form_row(form.prix, {'row_attr': {'class': 'form-group'}}) }}
+                </div>
                     {{ form_row(form.photos, {'row_attr': {'class': 'form-group'}}) }}
                 <div class="photo-preview">
                     {% for photo in photos %}
@@ -36,7 +45,6 @@
                 {{ form_row(form.submit, {'row_attr': {'class': 'form-group submit'}}) }}
             </div>
         {{ form_end(form)}}
-        <a href="{{ path('app_vo') }}">Retour à la liste</a>
     </section>
 </main>
 {% endblock %}

@@ -1,16 +1,11 @@
 /* *************************** NAV ************************************ */
-.navbar.navbar-scrolled {
-    background-color: rgba(0, 0, 0, 0.8);
-    transition: background-color 2s;
-}
-
 .navbar-expand-lg .navbar-collapse {
     justify-content: end;
     text-transform: uppercase;  
 }
 
 .navbar {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -68,7 +63,7 @@
 .dropdown-item.active, 
 .dropdown-item:active 
 {
-    background-color: var(--blue-color-cta);
+    background-color: var(--blue-color);
     color: white;
 }
 
