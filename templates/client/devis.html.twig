@@ -44,8 +44,8 @@
                 <div class="form-step">
                     <h3>Informations du véhicule</h3>
                         <div class="form-group">
-                            <label for="marque">Veuillez séléctionner une marque*</label>
-                            <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off">
+                            <label for="marque" style="display: none;">Marque</label>
+                            <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off" placeholder="Veuillez séléctionner une marque*" required>
                             <datalist id="marques-list">
                                 {% for marque in marques %}
                                     <option value="{{ marque.Make_Name }}"></option>
@@ -54,14 +54,14 @@
                             {{ form_row(devisForm.vehicule.marque) }}
                         </div>
                         <div class="form-group">
-                            <label for="modele">Veuillez séléctionner un modèle*</label>
-                            <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off">
+                            <label for="modele" style="display: none;">Modèle</label>
+                            <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off" placeholder="Veuillez séléctionner un modèle*" required>
                             <datalist id="modeles-list"></datalist>
                             {{ form_row(devisForm.vehicule.modele) }}
                         </div>
                             {{ form_row(devisForm.vehicule.anneeFabrication, {'row_attr': {'class': 'form-group'}}) }}
                             {{ form_row(devisForm.vehicule.km, {'row_attr': {'class': 'form-group'}}) }}
-                            {{ form_row(devisForm.vehicule.carburant, {'row_attr': {'class': 'form-group form-carburant'}}) }}
+                            {{ form_row(devisForm.vehicule.carburant, {'row_attr': {'class': 'form-group'}}) }}
                 </div>
                 <div class="form-step">
                     <h3>Detaillez votre demande</h3>

@@ -130,16 +130,11 @@
     padding-bottom: 1.25rem;
 }
 
-.form-group.form-carburant {
-    margin-top: 1.25rem;
-    margin-bottom: 0;
-}
-
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
-    color: var(--blue-hover);
+    color: var(--blue-hover) !important;
 }
 
 .form-group input,
@@ -153,11 +148,6 @@
     transition: border-color 0.3s ease;
 }
 
-.form-group input::placeholder,
-.form-group select {
-    color: #6c757d;
-    font-family: var(--text-primary)
-}
 
 .form-group input:focus,
 .form-group select:focus,
@@ -182,19 +172,6 @@
     margin-top: 0 !important;
     text-align: start !important;
 }
-
-/* Checkbox styling
-.form-group input[type="checkbox"] {
-    margin-right: 0.5rem;
-    accent-color: var(--primary-color);
-    transform: scale(1.2);
-}
-.checkbox-label {
-    font-weight: normal !important;
-    color: var(--text-primary) !important;
-    display: inline-flex !important;
-    align-items: center;
-} */
 
 /* Buttons */
 .form-navigation {
@@ -279,6 +256,12 @@ input.invalid {
     gap: 0.7rem;
 }
 
+input::placeholder,
+textarea::placeholder,
+.form-group select::placeholder {
+    color: var(--bs-secondary-color) !important;
+}
+
 /* ************************** FORMULAIRE RDV ******************************************* */
 .hero-form-rdv {
   position: relative;
@@ -325,11 +308,13 @@ input.invalid {
   overflow: hidden;
 }
 
-.form.form-devis h1 {
-    text-align: center;
-    margin: 1.875rem;
-    /* color: var(--dark-gray); */
-    font-weight: 700;
+.form.form-devis {
+    margin-top: 5rem;
+    h1 {
+        text-align: center;
+        margin: 1.875rem;
+        font-weight: 700;
+    }
 }
 
 /* ************************** FORMULAIRE CONTACT *********************************** */

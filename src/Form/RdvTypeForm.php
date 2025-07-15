@@ -62,10 +62,10 @@ class RdvTypeForm extends AbstractType
                 'class' => Prestation::class,
                 'choice_label' => 'nomPrestation',
                 'label' => 'Prestation',
+                'placeholder' => 'Sélectionnez une prestation*',
                 'label_attr' => [
                     'class' => 'visually-hidden'
                 ],
-                'placeholder' => 'Sélectionnez une prestation*',
                 'attr' => [
                     'class' => 'form-control'
                 ]

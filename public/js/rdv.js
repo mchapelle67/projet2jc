@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 input.classList.add('invalid');
                 const errorMsg = document.createElement('p');
                 errorMsg.className = 'error-message';
-                errorMsg.textContent = input.type === 'checkbox' ? 'Ce champs est requis.' : 'Veuillez saisir une donnée valide';
+                errorMsg.textContent = input.type === 'checkbox' ? 'Ce champs est requis.' : 'Veuillez saisir une donnée valide.';
                 input.parentNode.appendChild(errorMsg);
             }
         });
@@ -135,24 +135,6 @@ document.addEventListener('DOMContentLoaded', function() {
             errorMsg.className = 'error-message';
             errorMsg.textContent = 'Veuillez entrer un numéro de téléphone valide.';
             telInput.parentNode.appendChild(errorMsg);
-        }
-
-      // vérification spécifique pour la marque et le modèle
-        if (stepIndex === 1) {
-            const marque = document.getElementById('marque');
-            const modele = document.getElementById('modele');
-            if (!marque.value.trim() || !modele.value.trim()) {
-                isValid = false;
-                [marque, modele].forEach(input => {
-                    if (input && !input.value.trim()) {
-                        input.classList.add('invalid');
-                        const errorMsg = document.createElement('p');
-                        errorMsg.className = 'error-message';
-                        errorMsg.textContent = 'Ce champ est requis.';
-                        input.parentNode.appendChild(errorMsg);
-                    }
-                });
-            }
         }
 
         // vérification spécifique pour tous les champs number 

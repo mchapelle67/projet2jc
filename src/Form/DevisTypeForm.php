@@ -20,33 +20,71 @@ class DevisTypeForm extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'label' => 'Nom*',
+                'label' => 'Nom',
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'attr' => [
+                    'placeholder' => 'Nom*'
+                ]
             ])
             ->add('prenom', TextType::class, [
-                'label' => 'Prénom*',
+                'label' => 'Prénom',
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'attr' => [
+                    'placeholder' => 'Prénom*'
+                ]
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email*',
+                'label' => 'Email',
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'attr' => [
+                    'placeholder' => 'Email*'
+                ]
             ])
             ->add('tel', TelType::class, [
                 'label' => 'Téléphone',
-                'required' => false
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Téléphone'
+                ]
             ])
             ->add('text', TextareaType::class, [
-                'label' => 'Veuillez détailler votre demande ...*',
+                'label' => 'Veuillez détailler votre demande...',
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
                  'attr' => [
                     'rows' => 3,
-                ]
+                    'placeholder' => 'Détails de la demande...*'
+                 ],
+                 
             ])
             ->add('prestation', EntityType::class, [
                 'class' => Prestation::class,
                 'choice_label' => 'nomPrestation',
-                'label' => 'Prestation*',
-                'placeholder' => 'Sélectionnez une prestation',
+                'label' => 'Prestation',
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'placeholder' => 'Sélectionnez une prestation*',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('vehicule', VehiculeTypeForm::class) // ajout du form vehicule pour l'imbriquer
             ->add('consentement', CheckboxType::class, [
-                'label' => false,
+                'label' => 'Consentement',
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
                 'required' => true,
                 'mapped' => false
             ])
