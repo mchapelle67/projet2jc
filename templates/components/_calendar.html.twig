@@ -1,10 +1,16 @@
-<label for="dateInput">Choisissez une date*</label>
-  <input type="date" id="dateInput" name="dateInput"/>
+<div class="col">
+  <div class="form-group"> 
+    <label for="dateInput">Choisissez une date*</label>
+      <input class="form-control" style="width: 100%" type="date" id="dateInput" name="dateInput"/>
+  </div>
 
-<label for="timeSelect">Choisissez une heure*</label>
-  <select id="timeSelect" name="timeSelect" disabled>
-    <option>Choisissez une date d'abord</option>
-  </select>
+  <div class="form-group">
+    <label for="timeSelect">Choisissez une heure*</label>
+      <select class="form-control" id="timeSelect" name="timeSelect" disabled>
+        <option>Choisissez une date d'abord</option>
+      </select>
+  </div>
+</div>
 
 {% block javascripts %}
 <script>

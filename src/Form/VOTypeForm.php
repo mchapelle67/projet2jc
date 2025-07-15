@@ -25,20 +25,24 @@ class VOTypeForm extends AbstractType
         $builder
             ->add('marque', TextType::class, [
                 'label' => 'Marque*',
-                'attr' => ['placeholder' => 'Entrez la marque du véhicule'],
+                'attr' => [
+                    'placeholder' => 'Entrez la marque du véhicule'],
             ])
             ->add('modele', TextType::class, [
                 'label' => 'Modèle*',
-                'attr' => ['placeholder' => 'Entrez le modèle du véhicule'],
+                'attr' => [
+                    'placeholder' => 'Entrez le modèle du véhicule'],
             ])
             ->add('prix', TextType::class, [
                 'label' => 'Prix',
-                'attr' => ['placeholder' => 'Entrez le prix du véhicule'],
+                'attr' => [
+                    'placeholder' => 'Entrez le prix du véhicule'],
                 'required' => false,
             ])
             ->add('anneeFabrication', TextType::class, [
                 'label' => 'Année de fabrication',
-                'attr' => ['placeholder' => 'mm/aaaa'],
+                'attr' => [
+                    'placeholder' => 'mm/aaaa'],
                 'required' => false,
             ])
             ->add('carburant', ChoiceType::class, [
@@ -49,6 +53,9 @@ class VOTypeForm extends AbstractType
                     'Électrique' => 'electrique',
                     'Hybride' => 'hybride',
                     'Ethanol' => 'ethanol',
+                ],
+                'attr' => [
+                    'class' => 'form-control'
                 ],
                 'expanded' => false,
                 'multiple' => false,
