@@ -23,7 +23,6 @@ final class AdminController extends AbstractController
 {
 
 // route pour la gestion des devis -------------------------------------------------
-
     #[Route('/devis', name: 'app_admin_devis')]
     public function listeDevis(DevisRepository $devisRepository): Response
     {
