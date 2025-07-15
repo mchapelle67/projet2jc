@@ -8,7 +8,7 @@
         <a class="nav-link {% if app.request.attributes.get('_route') == 'app_services' %}active{% endif %}" href="#">Nos services</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_vo' %}active{% endif %}" href="{{ path('app_vo') }}">Vehicules d'occasions</a>
+        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_vo' or 'add_vo' or 'edit_vo' %}active{% endif %}" href="{{ path('app_vo') }}">Vehicules d'occasions</a>
       </li>
       <li class="nav-item">
         <a class="nav-link {% if app.request.attributes.get('_route') == 'app_contact' %}active{% endif %}" href="{{ path('app_contact') }}">Nous contacter</a>
@@ -37,16 +37,3 @@
     </ul>
   </div>
 </nav>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', function() {
-      if(window.scrollY > 50) {
-        navbar.classList.add('navbar-scrolled');
-      } else {
-        navbar.classList.remove('navbar-scrolled');
-      }
-    });
-  });
-</script>

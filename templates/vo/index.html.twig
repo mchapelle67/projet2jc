@@ -6,12 +6,12 @@
 
 {% block title %}Véhicules d’occasion fiables au meilleur prix – Trouvez votre voiture idéale{% endblock %}
 
-{% block nav %}{{ include('components/_nav_bar_scroll.html.twig') }}{% endblock %}
+{% block nav %}{{ include('components/_nav_bar.html.twig') }}{% endblock %}
 {% block footer %}{{ include('components/_footer.html.twig') }}{% endblock %}
 
 {% block body %}
 <main class="main-home">
-      <section class="hero-vo">
+    <section class="hero-vo">
         <div class="hero-overlay-vo">
             <div class="hero-content-vo">
                 <h1>Notre parc automobile</h1>
@@ -25,24 +25,30 @@
             {% for voiture in voList %}
                 <div class="voiture-item">
                     {% if voiture.photos %}   
-                    <div id="carouselVO{{ loop.index }}" class="carousel slide vo" data-bs-ride="carousel">
+                    <div id="carouselVO{{ loop.index }}" class="carousel slide vo" data-bs-ride="false">
                         <div class="carousel-inner">
                             {% for photo in voiture.photos %}
                                 <div class="carousel-item {% if loop.first %}active{% endif %}">
                                     <img src="{{ asset('uploads/vo/' ~  photo.img) }}" class="d-block w-100" alt="Image de la voiture {{ voiture.marque }} {{ voiture.modele }}">
                                 </div>
-                        {% endfor %}
-                            </div>
+                            {% endfor %}
+                        </div>
+                        {% if voiture.photos|length > 1 %}
                             <button class="carousel-control-prev vo" type="button" data-bs-target="#carouselVO{{ loop.index }}" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon"></span>
                             </button>
                             <button class="carousel-control-next vo" type="button" data-bs-target="#carouselVO{{ loop.index }}" data-bs-slide="next">
                                 <span class="carousel-control-next-icon"></span>
                             </button>
+                        {% endif %}
                         </div>
                     {% endif %}
                         <div class="voiture-details">
-                            <h2>{{ voiture.marque }} {{ voiture.modele }}</h2>
+                        <h2>
+                            <a target="_blank" href="{{ voiture.url }}">
+                                {{ voiture.marque }} {{ voiture.modele }}
+                            </a>
+                        </h2>
                             {% if voiture.km %}
                             <p><strong>Kilométrage:</strong> {{ voiture.km }} km</p>
                             {% endif %}
@@ -58,7 +64,10 @@
                             <p>{{ voiture.description }}</p>
                             {% if app.user and "[ROLE_ADMIN]" %}
                                 <a class="icones-vo" href="{{ path('edit_vo', {'id': voiture.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>
-                                <a  class="icones-vo" href="{{ path('delete_vo', {'id': voiture.id}) }}"><i class="fa-regular fa-trash"></i></a>
+                                <a  class="icones-vo" href="{{ path('delete_vo', {'id': voiture.id}) }}"
+                                onclick="return confirm('Êtes vous sûre de vouloir supprimer ce vehicule ? Cette action est irreversible.');">
+                                    <i class="fa-regular fa-trash"></i>
+                                </a>
                             {% endif %}
                         {% if voiture.url %}
                             <a class="btn-links" role="button" target="_blank" href="{{ voiture.url }}">En savoir plus</a>
