@@ -32,13 +32,14 @@
     margin: 2rem auto;
 }
 
-.form-step h2, 
-.form-step h3 {
+.form-step h3, 
+.form-step h4 {
     background-color: white;
     color: var(--text-primary);
     text-align: center;
     margin: 4.3rem 1.5rem 2.1rem 1.5rem;
     font-weight: 700;
+    font-size: 2rem;
 }
 
 /* Barre de progression */
@@ -169,7 +170,7 @@
 .form-step p.champs-obligatoires {
     font-size: 0.7em !important;
     font-weight: 400 !important;
-    margin-top: 0 !important;
+    margin: 0.5rem !important;
     text-align: start !important;
 }
 
@@ -179,7 +180,7 @@
     display: flex;
     justify-content: center;
     gap: 1.875rem;
-    padding-top: 1.5625rem;
+    margin-top: 1rem;;
 } 
 
 .btn {
@@ -219,11 +220,12 @@
 
 /* Review Details */
 #reviewDetails p {
-    padding-bottom: 0.5rem;
-    font-size: 0.95rem;
-    font-weight: 400;
-    text-align: start;
-    color: var(--text-terciaire)
+    margin: 0 auto 0.5rem auto!important;
+    font-size: 0.95rem !important;
+    font-weight: 400 !important;
+    text-align: start !important;
+    color: var(--text-terciaire);
+    font-style: normal !important;
 }
 
 #reviewDetails p strong {
@@ -277,15 +279,16 @@ textarea::placeholder,
 .form.form-rdv {
     h3 {
         text-align: center;
-        font-weight: 500;
-        font-size: 2em;
-        margin: 2rem auto 0 auto;
+        font-weight: 400;
+        font-size: 1.5em;
+        margin: 3rem auto 0 auto;
     }
     p {
         font-size: 1.2rem;
-        margin: 0.5rem auto 2rem auto;
+        margin: 0.5rem auto 3rem auto;
         font-weight: 500;
         text-align: center;
+        font-style: italic;
     }
     a {
         color: var(--text-primary);

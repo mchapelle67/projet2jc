@@ -39,7 +39,7 @@
             </div>
             {{ form_start(rdvForm, {'attr': {'id': 'client-form'}}) }}
                 <div class="form-step active">
-                    <h3>Informations personnelles</h3>
+                    <h4>Informations personnelles</h4>
                     {{ form_row(rdvForm.nom, {'row_attr': {'class': 'form-group'}}) }}
                     {{ form_row(rdvForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
                     {{ form_row(rdvForm.email, {'row_attr': {'class': 'form-group'}}) }}
@@ -47,7 +47,7 @@
                     <p class="champs-obligatoires">*champs obligatoires</p>
                 </div>
                 <div class="form-step">
-                    <h3>Informations du véhicule</h3>
+                    <h4>Informations du véhicule</h4>
                     <div class="form-group">
                         <label for="marque" style="display: none;">Marque</label>
                             <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off" placeholder="Veuillez sélectionner une marque*" required>
@@ -69,13 +69,13 @@
                     {{ form_row(rdvForm.vehicule.carburant, {'row_attr': {'class': 'form-group'}}) }}
                 </div>
                 <div class="form-step">
-                    <h3>Choisissez un créneau</h3>
+                    <h4>Choisissez un créneau</h4>
                         {{ form_row(rdvForm.prestation, {'row_attr': {'class': 'form-group'}}) }}
                         {{ include('components/_calendar.html.twig') }}
                         {{ form_row(rdvForm.date_rdv) }}
                 </div>
                 <div class="form-step">
-                    <h3>Recapitulatif de votre demande</h3>
+                    <h4>Recapitulatif de votre demande</h4>
                     <div id="reviewDetails">
                         <p><strong>Nom et prenom:</strong> <span data-review="nom"></span> <span data-review="prenom"></span></p>
                         <p><strong>Email:</strong> <span data-review="email"></span></p>

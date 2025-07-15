@@ -98,6 +98,10 @@
 }
 
 /* ---------------- FORM ADD et EDIT VO ----------------- */
+.hero-vo.form {
+  height: 40vh;
+}
+
 #vo_type_form_submit {
   display: flex;
   margin: 1.25rem auto 0 auto;
