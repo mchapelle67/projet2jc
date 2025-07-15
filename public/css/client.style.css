@@ -1,27 +1,5 @@
 
-/* ************************** FORMULAIRES DEVIS ET RDV *********************************** */
-.hero-form-rdv {
-  position: relative;
-  height: 50vh;
-  background: url('../images/rdv.avif') center center / cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  overflow: hidden;
-}
-
-.hero-form-devis {
-  position: relative;
-  height: 50vh;
-  background: url('../images/devis.avif') center center / cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  overflow: hidden;
-}
-
+/* ************************************** FORMULAIRE COMMUN ************************** */
 .hero-overlay-form {
   background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
@@ -31,15 +9,15 @@
   justify-content: center;
   text-align: center;
     h1 {
-        font-size: 3rem;
-        margin-bottom: 0.5rem;
+      color: white;
+      font-size: 4rem;
+      margin-bottom: 0;
+      font-weight: 600;
     }
     h2 {
-        font-size: 2rem;
-    }
-    h3 {
-        font-size: 1.5rem;
-        margin: 0.5rem;;
+      color: white;
+      font-size: 2rem;
+      font-style: italic;
     }
 }
 
@@ -51,46 +29,23 @@
     width: 100%;
     max-width: 43.75rem;
     overflow: hidden; 
-    margin: 3.125rem auto;
-}
-
-.form.form-devis h1 {
-    text-align: center;
-    margin: 1.875rem;
-    /* color: var(--dark-gray); */
-    font-weight: 700;
+    margin: 2rem auto;
 }
 
 .form-step h2, 
 .form-step h3 {
     background-color: white;
-    color: var(--dark-gray);
+    color: var(--text-primary);
     text-align: center;
-    margin: 4.375rem 1.5625rem 2.1875rem 1.5625rem;
+    margin: 4.3rem 1.5rem 2.1rem 1.5rem;
     font-weight: 700;
 }
 
-.form.form-devis.form-rdv {
-    h1 {
-        margin-bottom: 0.625rem;
-    }
-    h2 {
-    text-align: center;
-    font-weight: 300;
-    font-style: italic;
-    font-size: 1.2em;
-    }
-}
-
-.form-bold-h2 {
-    font-weight: 700;
-    /* background-color: var(--white-color); */
-}
-
-/* Progress Bar */
+/* Barre de progression */
 .progress-bar-container {
     margin-bottom: 1.875rem;
 }
+
 .progress-bar-form {
     background-color: white;
     display: flex;
@@ -98,6 +53,7 @@
     align-items: center;
     position: relative;
 }
+
 .progress-bar-form .step {
     width: 2.1875rem;
     height: 2.1875rem;
@@ -113,116 +69,121 @@
     z-index: 2;
     border: 2px solid var(--grey-color);
 }
+
 .progress-bar-form .step.active {
     background-color: var(--blue-color);
-    color: white;
     border-color: var(--blue-color);
-    transform: scale(1.1);
+    color: white;
 }
+
 .progress-bar-form .step.completed {
     background-color: var(--blue-color);
-    color: white;
     border-color: var(--blue-color);
+    color: white;
 }
-.progress-bar-form .step::after {
+
+.progress-bar-form .step::after,
+.progress-bar-form .step.active::after,
+.progress-bar-form .step.completed::after {
     content: attr(data-step-title);
     position: absolute;
     top: 120%;
     left: 50%;
     transform: translateX(-50%);
     font-size: 0.8em;
-    color: var(--dark-gray);
+    color: var(--text-primary) !important;
     white-space: nowrap;
 }
+
 .progress-bar-form .progress-line {
     height: 0.25rem;
-    background-color: var(--medium-gray);
+    background-color: var(--grey-color);
     flex-grow: 1;
     margin: 0 -0.125rem;
     position: relative;
     z-index: 1;
 }
+
 .progress-bar-form .progress-line.active {
-    background-color: var(--medium-gray);
+    background-color: #A1A5AC;
 }
 
 /* Etapes du form */
-.form-step {
-    background-color: white;
-    display: none;
-    animation: fadeIn 0.5s ease-in-out;
-}
-.form-step.active {
-    display: block;
-    p {
-        background-color: white;
-    }
-}
-
+/* animation css */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(1.25rem); }
     to { opacity: 1; transform: translateY(0); }
 }
 
+.form-step {
+    background-color: white;
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.form-step.active {
+    display: block;
+}
+
 /* Form Groups and Inputs */
 .form-group {
-    background-color: white;
     padding-bottom: 1.25rem;
 }
 
 .form-group.form-carburant {
-    background-color: white;
     margin-top: 1.25rem;
     margin-bottom: 0;
 }
 
 .form-group label {
-    background-color: white;
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
-    color: var(--blue-color);
+    color: var(--blue-hover);
 }
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="tel"],
-.form-group input[type="number"],
+
+.form-group input,
 .form-group select {
-    background-color: white;
     width: 100%;
     padding: 0.75rem 0.9375rem;
-    border: 1px solid var(--medium-gray);
+    border: var(--border-form);
     border-radius: var(--border-radius);
     box-sizing: border-box;
     font-size: 1rem;
     transition: border-color 0.3s ease;
 }
-.form-group input:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.125rem rgba(255, 107, 107, 0.3);
+
+.form-group input::placeholder,
+.form-group select {
+    color: #6c757d;
+    font-family: var(--text-primary)
 }
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--blue-hover);
+    box-shadow: 0 0 0 0.125rem rgb(0, 86, 179, 0.5);
+}
+
 .form-group-inline {
     display: flex;
     gap: 1.25rem;
 }
+
 .form-group-inline .form-group {
     flex: 1;
 }
 
-.form-step h3.champs-obligatoires,
-.form-step h4.champs-obligatoires
-{
-    color: var(--dark-grey);
-    background-color: white;
-    font-size: 0.7em;
-    margin: 0;
-    font-weight: 400;
-    text-align: start;
+.form-step p.champs-obligatoires {
+    font-size: 0.7em !important;
+    font-weight: 400 !important;
+    margin-top: 0 !important;
+    text-align: start !important;
 }
 
-/* Checkbox styling */
+/* Checkbox styling
 .form-group input[type="checkbox"] {
     margin-right: 0.5rem;
     accent-color: var(--primary-color);
@@ -233,34 +194,7 @@
     color: var(--text-primary) !important;
     display: inline-flex !important;
     align-items: center;
-}
-
-/* Amount Buttons */
-.amount-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.625rem;
-    margin-bottom: 0.625rem;
-}
-.amount-btn {
-    padding: 0.625rem 0.9375rem;
-    background-color: var(--light-gray);
-    border: 2px solid var(--medium-gray);
-    color: var(--text-primari);
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-.amount-btn:hover {
-    border-color: var(--accent-color);
-    background-color: #fff7e6;
-}
-.amount-btn.selected {
-    background-color: var(--primary-color);
-    color: var(--white);
-    border-color: var(--primary-color);
-}
+} */
 
 /* Buttons */
 .form-navigation {
@@ -269,7 +203,8 @@
     justify-content: center;
     gap: 1.875rem;
     padding-top: 1.5625rem;
-}
+} 
+
 .btn {
     padding: 0.75rem 1.5625rem;
     border: none;
@@ -279,57 +214,58 @@
     font-weight: 600;
     transition: background-color 0.3s ease, transform 0.1s ease;
 }
+
 .btn:active {
-    background-color: var(--red-color) !important; 
     transform: translateY(0.0625rem);
 }
+
 .btn-primary {
     margin: 0.9375rem;
     background-color: var(--blue-color);
     color: white;
+    &:hover {
+        background-color: var(--blue-hover);
+    }
+    &:active {
+        background-color: var(--dark-red) !important;
+    }
 }
-.btn-primary:hover {
-    background-color: var(--blue-hover);
-}
+
 .btn-secondary {
     margin: 0.9375rem;
-    background-color: var(--medium-gray);
+    background-color: var(--grey-color);
     color: var(--dark-gray);
-}
-.btn-secondary:hover {
-    background-color: #c8c8c8;
-}
-#prevBtn {
-    /* visibility handled by JS */
-}
-#submitBtn {
-    background-color: var(--red-color);
-}
-#submitBtn:hover {
-    opacity: 0.7;
+    &:hover {
+        background-color: var(--input-placeholder);
+    }
 }
 
 /* Review Details */
 #reviewDetails p {
-    padding-bottom: 0.625rem;
+    padding-bottom: 0.5rem;
     font-size: 0.95rem;
-    line-height: 1.6;
-    background-color: white;
+    font-weight: 400;
+    text-align: start;
+    color: var(--text-terciaire)
 }
+
 #reviewDetails p strong {
-    color: var(--secondary-color);
+    color: var(--text-secondary);
     margin-right: 0.3125rem;
 }
 
 /* Validation Error Styling */
 input.invalid {
-    border-color: var(--error-color);
-    box-shadow: 0 0 0 0.125rem rgba(244, 67, 54, 0.3);
+    border-color: var(--dark-red);
+    box-shadow: 0 0 0 0.125rem rgb(208, 0, 0, 0.3);
 }
+
 .error-message {
-    color: var(--error-color);
-    font-size: 0.85em;
+    color: var(--dark-red);
+    font-size: 1em!important;
+    font-weight: 400 !important;
     margin-top: 0.3125rem;
+    text-align: start !important;
 }
 
 #devis_type_form_text {
@@ -340,8 +276,62 @@ input.invalid {
     font-style: italic;
     display: flex;
     font-size: 0.8em;
-    gap: 0.5rem;
+    gap: 0.7rem;
 }
+
+/* ************************** FORMULAIRE RDV ******************************************* */
+.hero-form-rdv {
+  position: relative;
+  height: 50vh;
+  background: url('../images/rdv.avif') center center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  overflow: hidden;
+}
+
+.form.form-rdv {
+    h3 {
+        text-align: center;
+        font-weight: 500;
+        font-size: 2em;
+        margin: 4rem auto 2rem auto;
+    }
+    p {
+        font-size: 1.2rem;
+        margin: 0.5rem;
+        font-weight: 500;
+        text-align: center;
+    }
+    a {
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+    a:hover {
+        opacity: 0.5;
+    }
+}
+
+/* ****************************** FORMULAIRE DEVIS  ***********************************xs*/
+.hero-form-devis {
+  position: relative;
+  height: 50vh;
+  background: url('../images/devis.avif') center center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  overflow: hidden;
+}
+
+.form.form-devis h1 {
+    text-align: center;
+    margin: 1.875rem;
+    /* color: var(--dark-gray); */
+    font-weight: 700;
+}
+
 /* ************************** FORMULAIRE CONTACT *********************************** */
 .main-contact {
     background-color: white;

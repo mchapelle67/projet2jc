@@ -23,27 +23,59 @@ class RdvTypeForm extends AbstractType
         $builder
             ->add('date_rdv', HiddenType::class)
             ->add('nom', TextType::class, [
-                'label' => 'Nom*',
-            ])
+                'label' => 'Nom',
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'attr' => [
+                    'placeholder' => 'Nom*'
+                ]            ])
             ->add('prenom', TextType::class, [
-                'label' => 'Prénom*',
+                'label' => 'Prenom',
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'attr' => [
+                    'placeholder' => 'Prénom*'
+                ]
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email*',
+                'label' => 'Email',
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'attr' => [
+                    'placeholder' => 'Email*'
+                ]
             ])
             ->add('tel', TelType::class, [
                 'label' => 'Téléphone',
-                'required' => false
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Téléphone'
+                ]
             ])
             ->add('prestation', EntityType::class, [
                 'class' => Prestation::class,
                 'choice_label' => 'nomPrestation',
-                'label' => 'Prestation*',
-                'placeholder' => 'Sélectionnez une prestation'
+                'label' => 'Prestation',
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'placeholder' => 'Sélectionnez une prestation*',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('vehicule', VehiculeTypeForm::class) // ajout du form vehicule pour l'imbriquer
             ->add('consentement', CheckboxType::class, [
-                'label' => false,
+                'label' => 'Consentement',
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
                 'required' => true,
                 'mapped' => false
             ])

@@ -15,12 +15,16 @@
         <div class="hero-overlay-form">
             <div class="hero-content-form">
                 <h1>Demande de rendez-vous</h1>
-                <h2>Attention, ceci est une demande de rendez-vous !
-                <br>Veuillez noter qu'il est nécéssaire d'attendre une confirmation de notre équipe.</h2>
+                <h2>Entretien, réparation, contrôle : prenez rendez-vous facilement</h2>
             </div> 
         </div>
     </section>
     <section class="form form-devis form-rdv">
+        <h3>
+            Attention, ceci est une demande de rendez-vous !<br>
+            Veuillez noter qu'il est nécéssaire d'attendre une confirmation de notre équipe.
+        </h3>
+        <p>Pour toute urgence, merci de nous contacter par téléphone au <a href="tel:+33389400101">03 89 40 01 01</strong></a>.</p>
         <div class="form-container">
             <div class="progress-bar-container">
                 <div class="progress-bar-form">
@@ -40,24 +44,24 @@
                     {{ form_row(rdvForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
                     {{ form_row(rdvForm.email, {'row_attr': {'class': 'form-group'}}) }}
                     {{ form_row(rdvForm.tel, {'row_attr': {'class': 'form-group'}}) }}
-                    <h4 class="champs-obligatoires">*champs obligatoires</h4>
+                    <p class="champs-obligatoires">*champs obligatoires</p>
                 </div>
                 <div class="form-step">
                     <h3>Informations du véhicule</h3>
                     <div class="form-group">
-                        <label for="marque">Veuillez séléctionner une marque*</label>
-                        <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off">
-                        <datalist id="marques-list">
-                            {% for marque in marques %}
-                            <option value="{{ marque.Make_Name }}"></option>
-                            {% endfor %}
-                        </datalist>
+                        <label for="marque" style="display: none;">Marque</label>
+                            <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off" placeholder="Veuillez sélectionner une marque*" required>
+                            <datalist id="marques-list">
+                                {% for marque in marques %}
+                                    <option value="{{ marque.Make_Name }}"></option>
+                                {% endfor %}
+                            </datalist>
                         {{ form_row(rdvForm.vehicule.marque) }}
                     </div>
                     <div class="form-group">
-                        <label for="modele">Veuillez séléctionner un modèle*</label>
-                        <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off">
-                        <datalist id="modeles-list"></datalist>
+                        <label for="modele" style="display: none;">Modèle</label>
+                            <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off" placeholder="Veuillez sélectionner un modèle*" required>
+                            <datalist id="modeles-list"></datalist>
                         {{ form_row(rdvForm.vehicule.modele) }}
                     </div>
                     {{ form_row(rdvForm.vehicule.anneeFabrication, {'row_attr': {'class': 'form-group'}}) }}
@@ -66,9 +70,9 @@
                 </div>
                 <div class="form-step">
                     <h3>Choisissez un créneau</h3>
-                    {{ form_row(rdvForm.prestation, {'row_attr': {'class': 'form-group'}}) }}
-                    {{ include('components/_calendar.html.twig') }}
-                    {{ form_row(rdvForm.date_rdv) }}
+                        {{ form_row(rdvForm.prestation, {'row_attr': {'class': 'form-group'}}) }}
+                        {{ include('components/_calendar.html.twig') }}
+                        {{ form_row(rdvForm.date_rdv) }}
                 </div>
                 <div class="form-step">
                     <h3>Recapitulatif de votre demande</h3>
@@ -83,7 +87,7 @@
                         <p><strong>Carburant:</strong> <span data-review="carburant"></span></p>
                         <p><strong>Prestation:</strong> <span data-review="prestation"></span></p>
                         <p><strong>Rendez-vous:</strong> <span data-review="dateRdv"></span></p>
-                        <span class="consentement">{{ form_row(rdvForm.consentement) }}J'accepte que mes données soient utilisées pour le traitement de ma demande de devis.</span>
+                        <span class="consentement">{{ form_row(rdvForm.consentement) }}J'accepte que mes données soient utilisées pour le traitement de ma demande de rendez-vous.</span>
                     </div>
                 </div>
                 <div class="form-navigation">

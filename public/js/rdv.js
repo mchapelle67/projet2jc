@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.style.display = currentStep === formSteps.length - 1 ? 'inline-block' : 'none';
         }
     }
-    
+
     // validation de l'étape actuelle
     function validateStep(stepIndex) {
         const currentFormStep = formSteps[stepIndex];
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // validation spécifique pour tous les champs number 
+        // vérification spécifique pour tous les champs number 
         const numberInputs = Array.from(currentFormStep.querySelectorAll('input[type="number"]'));
         numberInputs.forEach(numberInput => {
             // si le champ n'est pas vide et que ce n'est pas un nombre entier, ou si le champ est invalide selon HTML5
@@ -171,7 +171,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 numberInput.parentNode.appendChild(errorMsg);
             }
         });
-        // validation spécifique pour la date 
+        
+        // vérification spécifique pour la date 
         const dateInput = currentFormStep.querySelector('[name="rdv_type_form[date_rdv]"]');
         if (dateInput) {
             if (dateInput.value.trim() === '' || !dateInput.validity.valid) {
