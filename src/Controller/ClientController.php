@@ -80,7 +80,7 @@ final class ClientController extends AbstractController
             
             // puis on redirige vers la liste des véhicules d'occasion
             $this->addFlash('success', 'Votre demande de devis a bien été prise en compte, nous reviendrons vers vous très rapidement.');
-            return $this->redirectToRoute('app_devis_client');
+            return $this->redirectToRoute('app_home');
 
             } elseif ($devisForm->isSubmitted() && !$devisForm->isValid()) {
                 $this->addFlash('error', 'Erreur lors de la création de votre devis');
@@ -139,7 +139,7 @@ final class ClientController extends AbstractController
 
                 // puis on redirige vers la liste des véhicules d'occasion
                 $this->addFlash('success', 'Votre demande de rendez-vous a bien été prise en compte, nous reviendrons vers vous très rapidement.');
-                return $this->redirectToRoute('app_rdv_client');
+                return $this->redirectToRoute('app_home');
                 
             } elseif ($rdvForm->isSubmitted() && !$rdvForm->isValid()) {
                 $this->addFlash('error', 'Erreur lors de la création de votre demande de rendez-vous');
@@ -191,6 +191,8 @@ final class ClientController extends AbstractController
 
             // on envois un message de confirmation et on redirige  
             $this->addFlash('success', 'Votre message a bien été envoyé, nous reviendrons vers vous très rapidement.');
+            return $this->redirectToRoute('app_home');
+            
         } elseif ($contactForm->isSubmitted() && !$contactForm->isValid()) { 
             $this->addFlash('error', 'Votre demande de contact a echoué, veuillez réessayer plus tard.');
         }
