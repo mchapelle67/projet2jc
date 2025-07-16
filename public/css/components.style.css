@@ -10,33 +10,18 @@
   left: 0;
   width: 100%;
   z-index: 1030;
+  font-size: 1.1rem;
 }
 
-.navbar.fixed {
-    background-color: rgba(0, 0, 0, 0.3) !important; /* ou la couleur que tu veux */
-    transition: background 0.3s;
-}
-
-.nav-link i {
-    color: #ffffff;
-    opacity: 0.55;
-    transition: opacity 0.2s;
-}
-
-.nav-link:hover i {
-    opacity: 1;
-}
-
-.nav-link.fixed {
-    color: var(--light-gray) !important;
-}
-
-.nav-link.fixed:hover {
-    color: white !important;
-}
-
-.nav-link.fixed.active {
-    color: white !important;
+.nav-link {
+    padding: 0.5rem 1.5rem !important;
+    i {
+        color: white;
+        opacity: 0.55;
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }
 
 .navbar-nav {
@@ -60,18 +45,39 @@
   display: none;
 }
 
-.dropdown-item.active, 
-.dropdown-item:active 
-{
-    background-color: var(--blue-color);
-    color: white;
+.dropdown-item:hover {
+    background-color: var(--light-gray);
+    color: black;
+}
+
+.nav-item.dropdown.ms-auto {
+    i {
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+}
+
+#navbarDropdownMenuLink:focus {
+    outline: 2px solid transparent;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.navbar.fixed a,
+.nav-link.dropdown-toggle.fixed i {
+    color: black;
+    opacity: 0.9;
+    &:hover {
+        opacity: 0.6;
+    }
 }
 
 
 /* *************************** FOOTER ************************************ */
 .text-body-secondary:hover i,
 .col-md-4.d-flex.align-items-center:hover a,
-.nav-item:hover a {
+.nav-item.footer a:hover {
     opacity: 0.5;
 }
 
@@ -82,6 +88,12 @@ footer.py-3.my-4 {
 .sf-toolbar-clearer {
     display: none;
     height: 0;
+}
+
+.pb-3,
+.mb-3 {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 /* ************************************* ASIDE NAVBAR ************************************* */
