@@ -6,35 +6,36 @@
 
 {% block title %}Contactez Garage 2JC à Altkirch – Réparation, Entretien, Devis{% endblock %}
 
-{% block nav %}{{ include('components/_nav_bar_fixed.html.twig') }}{% endblock %}
+{% block nav %}{{ include('components/_nav_bar.html.twig') }}{% endblock %}
 {% block footer %}{{ include('components/_footer.html.twig') }}{% endblock %}
 
 {% block body %}
-<main class="main-contact">
-    <section class="form">
-        <div class="contact-container">
-            <div class="left-col">
-            </div>
-            <div class="right-col">
-                {{ form_start(contactForm, {'attr': {'id': 'contact_form'}}) }}
-                <div class="form-contact">
-                    <h1>Nous contacter</h1>
-                        <div class="col">
-                            {{ form_row(contactForm.nom, {'row_attr': {'class': 'form-group'}}) }}
-                            {{ form_row(contactForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
-                        </div>
-                        <div class="col">
-                            {{ form_row(contactForm.email, {'row_attr': {'class': 'form-group'}}) }}
-                            {{ form_row(contactForm.tel, {'row_attr': {'class': 'form-group'}}) }}
-                        </div>
-                        <div class="col mb-3">
-                            {{ form_row(contactForm.text, {'row_attr': {'class': 'form-group'}}) }}
-                        </div>
-                                <h2>* champs obligatoires</h2>
-                                {{ form_row(contactForm.submit, {'row_attr': {'class': 'form-group submit'}}) }}
+<main class="main-home">
+    <section class="hero-form-contact">
+        <div class="hero-overlay-form">
+            <div class="hero-content-form">
+                <h1>Nous contacter</h1>
+                <h2>Besoin d’un renseignement ? Nous sommes à votre écoute.</h2>
+            </div> 
+        </div>
+    </section>    
+    <section class="form form-devis">
+        <div class="form-container contact">
+            {{ form_start(contactForm, {'attr': {'id': 'contact_form'}}) }}
+            <div class="form-step active">
+                <div class="col">
+                    {{ form_row(contactForm.nom, {'row_attr': {'class': 'form-group'}}) }}
+                    {{ form_row(contactForm.prenom, {'row_attr': {'class': 'form-group'}}) }}
                 </div>
-                {{ form_end(contactForm) }}
+                    {{ form_row(contactForm.email, {'row_attr': {'class': 'form-group'}}) }}
+                    {{ form_row(contactForm.tel, {'row_attr': {'class': 'form-group'}}) }}
+                <div class="col mb-3">
+                    {{ form_row(contactForm.text, {'row_attr': {'class': 'form-group text'}}) }}
+                </div>
+                    <p class="champs-obligatoires">* champs obligatoires</p>
+                    {{ form_row(contactForm.submit, {'row_attr': {'class': 'form-group submit'}}) }}
             </div>
+            {{ form_end(contactForm) }}
         </div>
     </section>
 </main>

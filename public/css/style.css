@@ -31,7 +31,6 @@
     font-family: var(--font-primary);
     font-size: 1em;
     transition: all 0.3s ease-in-out;
-    color: var(--text-secondary);
 }
 
 body {

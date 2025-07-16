@@ -17,22 +17,52 @@ class ContactTypeForm extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'label' => 'Nom *',
+                'label' => 'Nom',
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'attr' => [
+                    'placeholder' => 'Nom*'
+                ]
             ])
             ->add('prenom', TextType::class, [
-                'label' => 'Prénom *',
+                'label' => 'Prénom',
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'attr' => [
+                    'placeholder' => 'Prénom*'
+                ]
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email *',
+                'label' => 'Email',
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'attr' => [
+                    'placeholder' => 'Email*'
+                ]
             ])
             ->add('tel', TelType::class, [
                 'label' => 'Téléphone',
-                'required' => false
+                'required' => false,
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'attr' => [
+                    'placeholder' => 'Téléphone'
+                ]
             ])
             ->add('text', TextareaType::class, [
-                'label' => 'Message *',
+                'label' => 'Message',
                 'attr' => [
                     'rows' => 3
+                ],
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'attr' => [
+                    'placeholder' => 'Veuillez détailler votre demande ...*',
                 ]
             ])
             ->add('submit', SubmitType::class, [
