@@ -77,10 +77,10 @@ h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-secondary);
 }
 
-.alert.alert-success,
+/* .alert.alert-success,
 .alert.alert-danger {
     margin: 3.125rem;
-}
+} */
 
 .btn-links {
     display: flex;

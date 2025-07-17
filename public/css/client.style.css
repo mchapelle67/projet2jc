@@ -383,7 +383,3 @@ textarea::placeholder,
 .form-container.contact {
     margin: 3rem auto 3rem auto !important;
 } 
-
-.form-group.text {
-    padding-bottom: 0;
-}

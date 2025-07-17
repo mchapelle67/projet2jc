@@ -14,6 +14,14 @@
     <section class="hero-form-devis">
         <div class="hero-overlay-form">
             <div class="hero-content-form">
+                {% for label, messages in app.flashes %}
+                {% set alertClass = (label == 'error') ? 'danger' : label %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ alertClass }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
                 <h1>Demande de devis</h1>
                 <h2>Obtenez une estimation rapide et gratuite</h2>
             </div> 

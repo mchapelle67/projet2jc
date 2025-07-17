@@ -6,6 +6,14 @@
 
 {% block body %}
 <main class="main-admin">
+    {% for label, messages in app.flashes %}
+    {% set alertClass = (label == 'error') ? 'danger' : label %}
+        {% for message in messages %}
+            <div class="alert alert-{{ alertClass }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
     <div class="alert alert-warning" role="alert">
         {% if action is same as('rdvDecline') %}
             <p class="mb-1"><strong>Envoi de mail de refus</strong></p>

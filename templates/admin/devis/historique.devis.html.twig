@@ -6,7 +6,7 @@
 
 {% block body %}
 <main class="main-admin">
-    <h1>Devis clôturés</h1>
+    <h1>Historique des devis</h1>
         {{ include('components/_search_data.html.twig', {'searchForm': searchForm}) }}
             {% if devisHistorique is not empty %}
             <table class="table table-striped">

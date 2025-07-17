@@ -112,7 +112,7 @@ final class AdminController extends AbstractController
 
             // puis on redirige vers la liste des devis``
             $this->addFlash('success', 'Le devis a été supprimé avec succès.');
-            return $this->redirectToRoute('app_devis_historique');
+            return $this->redirectToRoute('app_admin_devis');
             
         } elseif ($action === 'cloturer') {
             // si le devis existe, on change son statut
@@ -145,7 +145,7 @@ final class AdminController extends AbstractController
             // si l'action n'est pas reconnue, on affiche un message d'erreur
             $this->addFlash('error', 'Action inconnue.');
         }
-            
+
         return $this->redirectToRoute('app_admin_devis');
     }
 

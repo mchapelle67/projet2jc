@@ -6,7 +6,15 @@
 
 {% block body %}
 <main class="main-admin">
-    <h1>Liste des devis en cours</h1>
+    {% for label, messages in app.flashes %}
+    {% set alertClass = (label == 'error') ? 'danger' : label %}
+        {% for message in messages %}
+            <div class="alert alert-{{ alertClass }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <h1>Liste des devis en attente</h1>
     {% if devisEnCours %} 
         <table class="table table-striped">
             <thead>

@@ -4,13 +4,13 @@
             <li class="menu-item {% if app.request.attributes.get('_route') == 'app_admin_rdv' %}active{% endif %}">
                 <a href="{{ path('app_admin_rdv') }}" class="menu-item-contents">
                     <i class="fa-solid fa-calendar-days"></i>
-                    <span class="menu-item-label">Rdv en cours</span>
+                    <span class="menu-item-label">Rdv en attente</span>
                 </a>
             </li>
             <li class="menu-item {% if app.request.attributes.get('_route') == 'app_admin_devis' %}active{% endif %}">
                 <a href="{{ path('app_admin_devis') }}" class="menu-item-contents">
                     <i class="fa-regular fa-hourglass-half"></i>
-                    <span class="menu-item-label">Devis en cours</span>
+                    <span class="menu-item-label">Devis en attente</span>
                 </a>
             </li>
             <li class="menu-item {% if app.request.attributes.get('_route') == 'app_rdv_historique' %}active{% endif %}">
