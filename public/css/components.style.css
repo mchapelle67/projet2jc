@@ -1,6 +1,7 @@
 /* *************************** NAV ************************************ */
 .navbar-expand-lg .navbar-collapse {
     justify-content: end;
+    margin-right: 5%;
     text-transform: uppercase;  
 }
 
@@ -65,17 +66,12 @@
 }
 
 .navbar.fixed a,
-.nav-link.dropdown-toggle.fixed i,
-.nav-link.user.fixed i {
+.nav-link.dropdown-toggle.fixed i {
     color: black;
     opacity: 0.9;
     &:hover {
         opacity: 0.6;
     }
-}
-
-.nav-link.user i:hover{
-    opacity: 0.9;
 }
 /* *************************** FOOTER ************************************ */
 .text-body-secondary:hover i,
