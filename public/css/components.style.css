@@ -65,7 +65,8 @@
 }
 
 .navbar.fixed a,
-.nav-link.dropdown-toggle.fixed i {
+.nav-link.dropdown-toggle.fixed i,
+.nav-link.user.fixed i {
     color: black;
     opacity: 0.9;
     &:hover {
@@ -73,7 +74,9 @@
     }
 }
 
-
+.nav-link.user i:hover{
+    opacity: 0.9;
+}
 /* *************************** FOOTER ************************************ */
 .text-body-secondary:hover i,
 .col-md-4.d-flex.align-items-center:hover a,
@@ -95,6 +98,11 @@ footer.py-3.my-4 {
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
 }
+
+.text-center.text-body-secondary.mb-0 {
+    padding-top: 0.5rem !important;
+}
+
 
 /* ************************************* ASIDE NAVBAR ************************************* */
 /* ================== ASIDE NAVBAR ================== */
