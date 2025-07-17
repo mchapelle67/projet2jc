@@ -18,3 +18,10 @@
     font-weight: 700;
     
 }
+
+.btn.btn-danger, 
+.btn.btn-success {
+    margin-top: 0.8rem !important;
+    font-weight: 500;
+    font-size: 1em;
+}

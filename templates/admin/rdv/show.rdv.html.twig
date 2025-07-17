@@ -87,7 +87,8 @@
             <p class="mb-1"><strong>Ce rendez-vous est en attente de confirmation.</strong></p>
             <p class="mb-3">Veuillez indiquer si le rendez-vous est confirmé ou non.</p>
             <div class="d-flex gap-2">
-                <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'accept'}) }}" class="btn btn-success">
+                <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'accept'}) }}" class="btn btn-success"
+                    onclick="return confirm('Êtes vous sûre de pouvoir honorer ce rendez-vous ? Cette action entraînera un mail automatique au client.');">   
                     <i class="fa-solid fa-check"></i> Accepter le rendez-vous
                 </a>
                 <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'decline'}) }}" class="btn btn-danger">

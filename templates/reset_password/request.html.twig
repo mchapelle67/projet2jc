@@ -12,12 +12,12 @@
     <h1>Réinitialisez votre mot de passe</h1>
 
     {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email, {'row_attr': {'class': 'form-group'}}) }}
         <div>
             <small>
                 Entrez votre adresse e-mail, et nous vous enverrons un lien pour réinitialiser votre mot de passe.
             </small>
         </div>
+        {{ form_row(requestForm.email, {'row_attr': {'class': 'form-group'}}) }}
 
         <button class="btn btn-primary">Envoyer l’e-mail de réinitialisation</button>
     {{ form_end(requestForm) }}

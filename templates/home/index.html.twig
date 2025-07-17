@@ -11,7 +11,7 @@
 
 {% block body %}
 <main class="main-home">
-    <section class="hero">
+    <section id="hero">
         <div class="hero-overlay">
             <div class="hero-content">
             {% for label, messages in app.flashes %}
@@ -25,12 +25,11 @@
                 <h1>Garage 2JC automobiles</h1>
                 <h2>Entretien, réparation et vehicules d'occasion</h2> 
                 <a class="cta-blue" role="button" href="{{ path('app_rdv_client') }}">Prendre rendez-vous</a>  
-                <div class="chevron">
-                    <i class="fa-solid fa-chevron-down" style="color: #ffffff;"></i>
-                </div>
+                    <a class="chevron-down" href="#ancreBas"><i class="fa-solid fa-chevron-down" style="color: #ffffff;"></i></a>
             </div> 
         </div>
     </section>
+    <div id="ancreBas"></div>
     <section class="container-fluid home-1">
         <div class="div-home">
             <a class="links-home" role="button" href="{{ path('app_devis_client') }}">
@@ -85,7 +84,7 @@
                     Nous proposons une large gamme de services pour répondre à tous vos besoins automobiles.
                     De la mécanique générale à la carrosserie, en passant par l'entretien et la réparation.
                 </p>
-                <a role="button" class="cta-blue" href="#">En savoir plus</a>
+                <a role="button" class="cta-blue home" href="#">En savoir plus</a>
             </div>
         </div>
 
@@ -130,5 +129,6 @@
             </address>
         </div>
     </section>
+
 </main>
 {% endblock %}

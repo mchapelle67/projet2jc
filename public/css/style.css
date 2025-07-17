@@ -77,11 +77,6 @@ h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-secondary);
 }
 
-/* .alert.alert-success,
-.alert.alert-danger {
-    margin: 3.125rem;
-} */
-
 .btn-links {
     display: flex;
     width: fit-content;
@@ -93,6 +88,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     border-radius: var(--border-radius);
     transition: opacity 0.3s ease;
+
     &:hover {
         background-color: var(--blue-hover);
         color: #fff;
@@ -110,6 +106,7 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
     font-weight: bold;
     transition: background 0.3s ease;
+    font-size: 1.2em;
     &:hover {
         background-color: var(--blue-hover);
     }
@@ -152,7 +149,7 @@ h1, h2, h3, h4, h5, h6 {
     }
     label {
         margin: 1.25rem 0 0.2rem 0;
-        font-weight: 600;
+        font-weight: 500;
     }
     
 }
@@ -167,6 +164,7 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
     margin: 1.5rem auto;
     border: none;
+    font-size: 1.2em;
 }
 
 .checkbox.mb-3 {
@@ -185,9 +183,11 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
     margin-top: 0.5rem;
     font-size: 0.7rem;
+    font-weight: bold;
+    text-decoration: underline;
         &:hover {
-            text-decoration: underline;
-        }
+        opacity: 0.6;
+    }
 }
 
 /* ---------------------------------------- PAGE D'ACCEUIL --------------------------------------------------- */
@@ -196,7 +196,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 100% !important;
 }
 
-.hero {
+#hero {
   position: relative;
   height: 100vh;
   background: url('../images/car.design.png') center center / cover no-repeat;
@@ -208,8 +208,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hero-overlay {
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.01) 0%, rgba(0, 0, 0, 0.7) 64%);  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -229,15 +228,17 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-.chevron {
+.chevron-down {
     position: absolute;
     bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
     font-size: 2rem;
-    color: white;
     cursor: pointer;
-    animation: bounce 2s infinite;
+    i:hover {
+        transform: translate(1px, 50%);
+        opacity: 0.6;
+    }
 }
 
 /* Partie 2 */
@@ -255,7 +256,6 @@ h1, h2, h3, h4, h5, h6 {
     width: 30%;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
-    background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -269,6 +269,7 @@ h1, h2, h3, h4, h5, h6 {
     }
     p {
         text-align: center;
+        font-size: 1.2em;
         margin: 0 auto 1.25rem auto;
     }
     h2 {
@@ -281,7 +282,9 @@ h1, h2, h3, h4, h5, h6 {
     &:hover {
         transform: scale(1.05);
         transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
-        opacity: 0.8;
+        .icon-custom {
+            background-color: var(--blue-hover);
+        }
     }
 }
 
@@ -423,6 +426,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .localisation {
+    position: relative;
     flex: 3;
     background-color: rgba(0, 0, 0, 0.65);
     padding: 2rem 2.5rem;
@@ -465,8 +469,6 @@ h1, h2, h3, h4, h5, h6 {
     display: inline-block; 
     margin-top: 1rem !important;
 }
-
-
 
 /* ---------------------------- MENTIONS LEGALES ------------------------------------ */
 .mentions-legales {
