@@ -72,7 +72,7 @@ final class ClientController extends AbstractController
                             'Date de la demande : ' . $devisData->getDateDevis()->format('d-m-Y à H:m') . '<br>' .
                             '<a href="' . $devisUrl . '">Cliquer ici pour acceder au devis</a>';
 
-            $clientBody = 'Votre demande de devis  n°' . $devisData->getId() . ' a bien été prise en compte.<br>' .
+            $clientBody = 'Votre demande de devis a bien été prise en compte.<br>' .
                             'Nous reviendrons vers vous très rapidement.'; 
             
             $mail->sendMail('Confirmation de votre demande de devis', $clientBody, 'Confirmation de votre demande de devis'); // ajouter $devisData->getEmail(), 
@@ -131,7 +131,7 @@ final class ClientController extends AbstractController
                                 'Prestation : ' . $rdvData->getPrestation()->getNomPrestation() . '<br>' .
                                 'Date du rdv : ' . $rdvData->getDateRdv()->format('d-m-Y à H:m') . '<br>' .
                                 '<a href="' . $rdvUrl . '">Cliquer ici pour acceder à la demande de rdv</a>';
-                $clientBody = 'Votre demande de rendez-vous n°' . $rdvData->getId() . ' a bien été prise en compte.<br>' .
+                $clientBody = 'Votre demande de rendez-vous a bien été prise en compte.<br>' .
                                 'Nous reviendrons vers vous très rapidement. Veuillez attendre notre confirmation.';
 
                 $mail->sendMail('Nouvelle demande de rdv', $adminBody, 'Nouvelle demande de rdv.'); // ajouter mail admin

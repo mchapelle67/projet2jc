@@ -3,11 +3,11 @@
 
 {% block robots %}noindex, nofollow{% endblock %}
 {% block nav %}{{ include('components/_nav_bar_aside.html.twig') }}{% endblock %}
-{% block title %}Rdv n°{{ rdv.id }}{% endblock %}
+{% block title %}Rendez-vous{% endblock %}
 
 {% block body %}
 <main class="main-admin">
-    <h1>Rendez-vous n°{{ rdv.id }}</h1>
+    <h1>Rendez-vous</h1>
     <table class="table table-striped">
         <thead>
             {% if rdv.statut is same as 'En attente' %}

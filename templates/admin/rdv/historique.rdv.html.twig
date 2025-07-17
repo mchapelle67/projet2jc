@@ -12,7 +12,6 @@
           <table class="table table-striped">
             <thead>
                 <tr class="table">
-                    <th scope="col">#</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Date du rendez-vous</th>
                     <th scope="col">Prestation</th>
@@ -22,7 +21,6 @@
             <tbody>
         {% for rdv in rdvHistorique %}
             <tr>
-                <th scope="row">{{ rdv.id }}</th>
                 <td>{{ rdv.nom }} {{ rdv.prenom }}</td>
                 <td>{{ rdv.dateRdv|date('d/m/Y à H:i') }}</td>
                 <td>{{ rdv.prestation.nomPrestation }}</td>

@@ -2,11 +2,11 @@
 
 {% block robots %}noindex, nofollow{% endblock %}
 {% block nav %}{{ include('components/_nav_bar_aside.html.twig') }}{% endblock %}
-{% block title %}Devis n°{{ devis.id }}{% endblock %}
+{% block title %}Détail du devis{% endblock %}
 
 {% block body %}
 <main class="main-admin">
-    <h1>Devis n°{{ devis.id }}</h1>
+    <h1>Devis</h1>
     <table class="table table-striped">
             <thead>
                 {% if devis.statut is same as 'En cours' %}
