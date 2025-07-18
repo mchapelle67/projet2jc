@@ -28,7 +28,11 @@
             </thead>
             <tbody>
             <tr>
-                <td><strong>{{ rdv.dateRdv|date('d/m/Y à H:i') }}</strong></td>
+                <td><strong>{{ rdv.dateRdv|date('d/m/Y à H:i') }}</strong>
+                    {% if rdv.statut is same as 'Confirmer' %}
+                        <a href="{{ path('edit_rdv', {'id': rdv.id }) }}"><i class="fa-solid fa-pen" style="color: black; font-size: 0.8em;"></i></a>    
+                    {% endif %}
+                </td>
                 <td>{{ rdv.prestation.nomPrestation }}</td>
                 <td>{{ rdv.dateDemande|date('d/m/Y') }}</td>
                 <td>{{ rdv.dateModification|date('d/m/Y') }}</td>

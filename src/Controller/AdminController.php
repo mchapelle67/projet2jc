@@ -7,6 +7,7 @@ use App\Entity\Devis;
 use App\Model\SearchData;
 use App\Form\SearchTypeForm;
 use App\Service\MailService;
+use App\Form\EditRdvTypeForm;
 use App\Repository\RdvRepository;
 use App\Repository\DevisRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -135,7 +136,7 @@ final class AdminController extends AbstractController
             $entityManager->flush();
             
             $this->addFlash('success', 'Le devis a été traîté avec succès.');
-            return $this->render('admin/gestion-mail.html.twig', [
+            return $this->render('admin/gestionMail.html.twig', [
             'controller_name' => 'AdminController',
             'action' => 'devisDecline',
             'devis' => $devis,
@@ -288,7 +289,7 @@ final class AdminController extends AbstractController
 
         $entityManager->flush();
 
-        return $this->render('admin/gestion-mail.html.twig', [
+        return $this->render('admin/gestionMail.html.twig', [
             'controller_name' => 'AdminController',
             'action' => 'rdv' . ucfirst($action),
             'rdv' => $rdv,
@@ -297,7 +298,7 @@ final class AdminController extends AbstractController
     }
 
     #[Route('/rdv/update/{id}', name: 'app_admin_rdv_update')]
-    public function updateRdv(RdvRepository $rdvRepository, int $id, Request $request, EntityManagerInterface $entityManager): Response
+    public function updateStatutRdv(RdvRepository $rdvRepository, int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
         $id = $request->attributes->get('id');
         $rdv = $rdvRepository->find($id);
@@ -334,6 +335,40 @@ final class AdminController extends AbstractController
         return $this->render('admin/rdv/calendar.html.twig', [
             'controller_name' => 'AdminController',
             'events' => $events
+        ]);
+    }
+
+    #[Route('/rdv/edit/{id}', name: 'edit_rdv')]
+    public function editRdv(Request $request, EntityManagerInterface $entityManager, RdvRepository $rdvRepository): Response
+    {
+        // trouver le rdv dans la base de données
+        $id = $request->attributes->get('id');
+        $rdv = $rdvRepository->find($id);
+
+        if (!$rdv) {
+            return $this->redirectToRoute('app_admin_rdv');
+        }
+        
+        // créer le formulaire avec les données du véhicule
+        $rdvForm = $this->createForm(EditRdvTypeForm::class, $rdv);
+        
+        // gérer la requête
+        $rdvForm->handleRequest($request);
+
+        if ($rdvForm->isSubmitted() && $rdvForm->isValid()) {
+            // on enregistre les modifications dans la base de données
+            $entityManager->persist($rdvForm->getData());
+            $entityManager->flush();
+
+            } elseif ($rdvForm->isSubmitted() && !$rdvForm->isValid()) {
+                $this->addFlash('error', 'Erreur lors de la modification du rendez-vous.');
+            }
+    
+        // affichage du formulaire d'édition
+        return $this->render('admin/rdv/editRdv.html.twig', [
+            'controller_name' => 'AdminController',
+            'form' => $rdvForm->createView(),
+            'rdv' => $rdv
         ]);
     }
 

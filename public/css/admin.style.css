@@ -25,3 +25,13 @@
     font-weight: 500;
     font-size: 1em;
 }
+
+/* ********************************* EDIT RDV ********************************************** */
+.btn-edit-rdv {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    .btn.btn-success {
+        margin-top: 0 !important;
+    }
+}

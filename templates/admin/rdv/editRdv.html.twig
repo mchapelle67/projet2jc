@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+
+{% block robots %}noindex, nofollow{% endblock %}
+{% block nav %}{{ include('components/_nav_bar_aside.html.twig') }}{% endblock %}
+{% block title %}Editer le rendez-vous{% endblock %}
+
+{% block body %}
+<main class="main-admin">
+    <h1>
+        <i class="fa-solid fa-pen" style="color: black; font-size: 0.9em;"></i>
+        Editer le rendez-vous
+    </h1>
+    <table class="table table-striped">
+        <thead>
+            <tr class="table-success">
+                <th scope="col">Date du rendez-vous</th>
+                <th scope="col">Prestation</th>
+                <th scope="col">Date de création</th>
+                <th scope="col">Dernière modification</th>
+                <th scope="col">Statut</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            {{ form_start(form) }}
+                <td>{{ form_row(form.date_rdv) }}</td>
+                <td>{{ form_row(form.prestation) }}</td>
+                <td>{{ rdv.dateDemande|date('d/m/Y') }}</td>
+                <td>{{ rdv.dateModification|date('d/m/Y') }}</td>
+                <th class="row">{{ rdv.statut }}</th>
+            </tr>
+            </tbody>
+        </table>
+        
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">Informations personnelles</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Nom :</strong> {{ rdv.nom }} {{ rdv.prenom }}</p>
+            <p><strong>Email :</strong> {{ rdv.email }}</p>
+            <p><strong>Téléphone :</strong> {{ rdv.tel ?? 'Donnée non renseignée' }}</p>
+        </div>
+    </div>
+
+
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">Informations du véhicule</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Marque :</strong> {{ rdv.vehicule.marque }}</p>
+            <p><strong>Modèle :</strong> {{ rdv.vehicule.modele }}</p>
+            <p>
+                <strong>Année de fabrication :</strong>
+                {{ rdv.vehicule.anneeFabrication ?? 'Donnée non renseignée' }}
+            </p>
+            <p>
+                <strong>Kilométrage :</strong>
+                {{ rdv.vehicule.km ?? 'Donnée non renseignée' }}
+            </p>
+            <p>
+                <strong>Carburant :</strong>
+                {{ rdv.vehicule.carburant.typeCarburant ?? 'Donnée non renseignée' }}
+            </p>
+        </div>
+    </div>
+    <div class="btn-edit-rdv">
+        <a href="{{ path('show_rdv', {'id': rdv.id}) }}" class="btn btn-outline-dark">
+            <i class="fa-solid fa-left-long" style="margin-right: 0.5rem;"></i>Retourner au rendez-vous
+        </a>
+        <button type="submit" class="btn btn-success">
+            <i class="fa-solid fa-check" style="margin-right: 0.5rem;"></i>Enregistrer les modifications
+        </button>
+        {{ form_end(form) }}
+    </div>
+</main>
+{% endblock %}
+
+
+
+   
