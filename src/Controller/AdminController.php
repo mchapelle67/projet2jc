@@ -33,7 +33,7 @@ final class AdminController extends AbstractController
             return $devis->getStatut() === 'En cours';
         });
 
-        return $this->render('admin/devis/devis.html.twig', [
+        return $this->render('admin/devis/liste.devis.html.twig', [
             'controller_name' => 'AdminController',
             'devisEnCours' => $devisEnCours
         ]);
@@ -187,7 +187,7 @@ final class AdminController extends AbstractController
             return $rdv->getStatut() === 'Confirmer';
         });
 
-        return $this->render('admin/rdv/rdv.html.twig', [
+        return $this->render('admin/rdv/liste.rdv.html.twig', [
             'controller_name' => 'AdminController',
             'rdvEnCours' => $rdvEnCours,
             'rdvConfirmer' => $rdvConfirmer
@@ -317,7 +317,25 @@ final class AdminController extends AbstractController
             'now' => $now
         ]);
     }
+        
+    #[Route('/calendar/rdv', name: 'app_admin_rdv_calendar')]
+    public function calendrier(RdvRepository $rdvRepository): Response
+    {
+        $rdvs = $rdvRepository->findBy(['statut' => 'Confirmer']);
+        $events = [];
+        foreach ($rdvs as $rdv) {
+            $events[] = [
+                'title' => $rdv->getPrestation()->getNomPrestation(),
+                'start' => $rdv->getDateRdv()->format('Y-m-d\TH:i:s'),
+                'url' => $this->generateUrl('show_rdv', ['id' => $rdv->getId()])
+            ];
+        }
 
+        return $this->render('admin/rdv/calendar.html.twig', [
+            'controller_name' => 'AdminController',
+            'events' => $events
+        ]);
+    }
 
 // Route pour la gestion des mails ----------------------------------------------------
     #[Route('/gestion/mail/{action}/{id}', name: 'gestion_mail', requirements: ['action' => 'rdvAccept|rdvDecline|rdvCancel|devisDecline'])]

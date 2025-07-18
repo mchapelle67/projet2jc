@@ -3,7 +3,7 @@
         <ul class="menu">
             <li class="menu-item {% if app.request.attributes.get('_route') == 'app_admin_rdv' %}active{% endif %}">
                 <a href="{{ path('app_admin_rdv') }}" class="menu-item-contents">
-                    <i class="fa-solid fa-calendar-days"></i>
+                    <i class="fa-regular fa-hourglass-half"></i>
                     <span class="menu-item-label">Rdv en attente</span>
                 </a>
             </li>
@@ -11,6 +11,12 @@
                 <a href="{{ path('app_admin_devis') }}" class="menu-item-contents">
                     <i class="fa-regular fa-hourglass-half"></i>
                     <span class="menu-item-label">Devis en attente</span>
+                </a>
+            </li>
+            <li class="menu-item {% if app.request.attributes.get('_route') == 'app_admin_rdv_calendar' %}active{% endif %}">
+                <a href="{{ path('app_admin_rdv_calendar') }}" class="menu-item-contents">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span class="menu-item-label">Rdv à venir</span>
                 </a>
             </li>
             <li class="menu-item {% if app.request.attributes.get('_route') == 'app_rdv_historique' %}active{% endif %}">

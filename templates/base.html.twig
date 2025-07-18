@@ -6,14 +6,18 @@
             <meta name="description" content="{% block metadescription %}{% endblock %}">
             <meta name="keywords" content="{% block keywords %}{% endblock %}">
             <meta name="robots" content="{% block robots %}{% endblock %}">   
+
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta name="author" content="Garage 2JC">
+
             <meta property="og:title" content="{% block og_title %}Réparation Auto Toutes Marques | Garage 2JC Auto{% endblock %}">
             <meta property="og:description" content="{% block og_description %}Confiez votre véhicule au Garage 2JC Auto : entretien, réparation et diagnostics auto professionnels. Service rapide et fiable à prix juste.{% endblock %}">
             {# <meta property="og:image" content="{% block og_image %}{% endblock %}"> #}
+            
             <meta name="twitter:title" content="{% block twitter_title %}Garage 2JC Auto – Réparation et Entretien Auto Toutes Marques{% endblock %}">
             <meta name="twitter:description" content="{% block twitter_description %}Réparations mécaniques, vidanges, freins, pneus, climatisation… Faites confiance au Garage 2JC Auto pour un service auto de qualité.{% endblock %}">
             {# <meta name="twitter:image" content="{% block twitter_image %}{% endblock %}"> #}
+            {% block scriptCalendar %}{% endblock %}
         {% endblock %}
        
 
