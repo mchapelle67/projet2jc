@@ -7,16 +7,13 @@ use App\Entity\Devis;
 use App\Form\RdvTypeForm;
 use App\Form\DevisTypeForm;
 use App\Service\ApiService;
+use App\Service\MailService;
 use App\Form\ContactTypeForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use PHPMailer\PHPMailer\PHPMailer;
-use App\Service\MailService;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
 
 #[Route('/client')]
 final class ClientController extends AbstractController
@@ -199,7 +196,7 @@ final class ClientController extends AbstractController
         
         return $this->render('client/contact.html.twig', [
             'controller_name' => 'ClientController',
-            'contactForm' => $contactForm->createView(),     
+            'contactForm' => $contactForm->createView() 
         ]);
     }
 }

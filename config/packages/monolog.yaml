@@ -1,6 +1,7 @@
 monolog:
     channels:
         - deprecation # Deprecations are logged in the dedicated "deprecation" channel when it exists
+        - honeypot # Honeypot events are logged in the dedicated "honeypot" channel when it exists
 
 when@dev:
     monolog:
@@ -9,7 +10,12 @@ when@dev:
                 type: stream
                 path: "%kernel.logs_dir%/%kernel.environment%.log"
                 level: debug
-                channels: ["!event"]
+                channels: ["!deprecation", "!honeypot"]
+            honeypot:
+                type: stream
+                path: "%kernel.logs_dir%/honeypot.log"
+                level: alert
+                channels: [honeypot]           
             # uncomment to get logging in your browser
             # you may have to allow bigger header sizes in your Web server configuration
             #firephp:

@@ -65,6 +65,10 @@ class ContactTypeForm extends AbstractType
                     'placeholder' => 'Veuillez détailler votre demande ...*',
                 ]
             ])
+            ->add('bearpot', HoneyPotType::class, [
+                'label' => false,
+                'required' => false,
+            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Envoyer',
             ])

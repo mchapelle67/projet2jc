@@ -79,6 +79,10 @@ class RdvTypeForm extends AbstractType
                 'required' => true,
                 'mapped' => false
             ])
+            ->add('bearpot', HoneyPotType::class, [
+                'label' => false,
+                'required' => false,
+            ])    
         ;
 
         // transformer le champ date_rdv pour gérer l'affichage et la soumission

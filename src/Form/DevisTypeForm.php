@@ -88,6 +88,10 @@ class DevisTypeForm extends AbstractType
                 'required' => true,
                 'mapped' => false
             ])
+            ->add('bearpot', HoneyPotType::class, [
+                'label' => false,
+                'required' => false,
+            ])    
         ;
     }
 
