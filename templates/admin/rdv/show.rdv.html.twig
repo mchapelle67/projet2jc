@@ -86,7 +86,7 @@
             </div>
         </div>
 
-    {% elseif rdv.statut == 'En attente' %}
+    {% elseif rdv.statut == 'En attente' and is_granted('ROLE_ADMIN') %}
         <div class="alert alert-warning" role="alert">
             <p class="mb-1"><strong>Ce rendez-vous est en attente de confirmation.</strong></p>
             <p class="mb-3">Veuillez indiquer si le rendez-vous est confirmé ou non.</p>
@@ -101,12 +101,12 @@
             </div>
         </div>
 
-    {% elseif rdv.statut == 'Confirmer' %}
+    {% elseif rdv.statut == 'Confirmer' and is_granted('ROLE_ADMIN')%}
         <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'cancel'}) }}" class="btn btn-outline-danger">
             <i class="fa-solid fa-ban"></i> Annuler le rendez-vous
         </a>
 
-    {% else %}
+    {% elseif is_granted('ROLE_ADMIN') %}
         <a href="{{ path('app_admin_rdv_update', {'id': rdv.id}) }}" class="btn btn-outline-dark"
         onclick="return confirm('Êtes vous sûre de vouloir rendre ce rendez-vous actif à nouveau ?');">
             <i class="fa-solid fa-pencil"></i> Mettre à jour le statut

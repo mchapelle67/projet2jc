@@ -26,10 +26,9 @@ security:
             form_login:
                 login_path: app_login
                 check_path: app_login
-                # redirigier après connexion
-                default_target_path: app_admin_rdv
                 enable_csrf: true
-            #  redirige en cas d'accès refusé (si l'user n'est pas admin)
+                success_handler: App\Security\LoginSuccessHandler
+            #  redirige en cas d'accès refusé (si l'user n'est pas connecté)
             access_denied_url: app_home
             remember_me:
                 secret: '%kernel.secret%'
@@ -39,6 +38,7 @@ security:
                 path: app_logout
                 # where to redirect after logout
                 target: app_home
+            
             
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

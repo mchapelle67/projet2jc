@@ -13,21 +13,23 @@
         <li class="nav-item">
           <a class="nav-link {% if app.request.attributes.get('_route') == 'app_contact' %}active{% endif %}" href="{{ path('app_contact') }}">Nous contacter</a>
         </li>
-        {% if is_granted('ROLE_ADMIN')%}
-        <li class="nav-item dropdown ms-auto">
-            <a class="nav-link dropdown-toggle fixed" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa-solid fa-user fa-lg"></i>          
-            </a>
-            <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLink">
-              {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <a class="dropdown-item" href="{{ path('dashboard_admin') }}">SUPER ADMIN</a>
-              {% endif %}
-              <a class="dropdown-item" href="{{ path('app_admin_rdv') }}">Dashboard admin</a>
-              <a class="dropdown-item" href="{{ path('add_vo') }}">Ajouter VO</a>
-              <a class="dropdown-item" href="{{ path('app_logout') }}">Deconnexion</a>
-            </div>
-        </li>
-          {% endif %}
+      {% if is_granted('ROLE_USER')%}
+      <li class="nav-item dropdown ms-auto">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa-solid fa-user fa-lg"></i>          
+          </a>
+          <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLink">
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+              <a class="dropdown-item" href="{{ path('dashboard_admin') }}">SUPER ADMIN</a>
+            {% endif %}
+            <a class="dropdown-item" href="{{ path('app_admin_rdv_calendar') }}">Dashboard admin</a>
+            {% if is_granted('ROLE_ADMIN')%}
+            <a class="dropdown-item" href="{{ path('add_vo') }}">Ajouter VO</a>
+            {% endif %}
+            <a class="dropdown-item" href="{{ path('app_logout') }}">Deconnexion</a>
+          </div>
+      </li>
+      {% endif %}
       </ul>
     </div>
 </nav>

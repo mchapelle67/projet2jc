@@ -18,12 +18,12 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[IsGranted('ROLE_ADMIN')]
 #[Route('/admin')]
 final class AdminController extends AbstractController
 {
 
 // route pour la gestion des devis -------------------------------------------------
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/devis', name: 'app_admin_devis')]
     public function listeDevis(DevisRepository $devisRepository): Response
     {
@@ -40,6 +40,7 @@ final class AdminController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/devis/historique', name: 'app_devis_historique')]
     public function historiqueDevis(DevisRepository $devisRepository, Request $request, PaginatorInterface $paginator): Response
     {
@@ -83,6 +84,7 @@ final class AdminController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/devis/{id}', name: 'show_devis')]
     public function showDevis(DevisRepository $devisRepository, int $id): Response
     {
@@ -98,6 +100,7 @@ final class AdminController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/devis/{action}/{id}', name: 'gestion_devis_action', requirements: ['action' => 'decline|delete|cloturer'])]
     public function gestionDevis(string $action, DevisRepository $devisRepository, int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -150,6 +153,7 @@ final class AdminController extends AbstractController
         return $this->redirectToRoute('app_admin_devis');
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/devis/update/{id}', name: 'app_admin_devis_update')]
     public function updateDevis(int $id, DevisRepository $devisRepository, EntityManagerInterface $entityManager, Request $request): Response
     {
@@ -173,7 +177,7 @@ final class AdminController extends AbstractController
     }
 
 // route pour la gestion des rendez-vous ----------------------------------------------------
-
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/rdv', name: 'app_admin_rdv')]
     public function listeRdv(RdvRepository $rdvRepository): Response
     {
@@ -195,6 +199,7 @@ final class AdminController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/rdv/historique', name: 'app_rdv_historique')]
     public function historiqueRdv(RdvRepository $rdvRepository, Request $request, PaginatorInterface $paginator): Response
     {
@@ -232,6 +237,7 @@ final class AdminController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/rdv/{id}', name: 'show_rdv')]
     public function showRdv(RdvRepository $rdvRepository, int $id): Response
     {
@@ -251,6 +257,7 @@ final class AdminController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/rdv/{action}/{id}', name: 'gestion_rdv_action', requirements: ['action' => 'accept|decline|cancel|delete'])]
     public function gestionRdv(RdvRepository $rdvRepository, string $action, int $id, EntityManagerInterface $entityManager): Response 
     {
@@ -297,6 +304,7 @@ final class AdminController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/rdv/update/{id}', name: 'app_admin_rdv_update')]
     public function updateStatutRdv(RdvRepository $rdvRepository, int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -318,7 +326,8 @@ final class AdminController extends AbstractController
             'now' => $now
         ]);
     }
-        
+    
+    #[IsGranted('ROLE_USER')]
     #[Route('/calendar/rdv', name: 'app_admin_rdv_calendar')]
     public function calendrier(RdvRepository $rdvRepository): Response
     {
@@ -338,6 +347,7 @@ final class AdminController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/rdv/edit/{id}', name: 'edit_rdv')]
     public function editRdv(Request $request, EntityManagerInterface $entityManager, RdvRepository $rdvRepository): Response
     {
@@ -373,6 +383,7 @@ final class AdminController extends AbstractController
     }
 
 // Route pour la gestion des mails ----------------------------------------------------
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/gestion/mail/{action}/{id}', name: 'gestion_mail', requirements: ['action' => 'rdvAccept|rdvDecline|rdvCancel|devisDecline'])]
         public function gestionMail(MailService $mail, RdvRepository $rdvRepository, DevisRepository $devisRepository, string $action, int $id): Response 
         {
