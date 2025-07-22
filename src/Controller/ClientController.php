@@ -200,11 +200,11 @@ final class ClientController extends AbstractController
         ]);
     }
 
-// vues prestations et présentation du garage ---------------------------------------------
-    #[Route('/prestations', name: 'app_prestations')]
-    public function prestations(): Response
+// vues services et présentation du garage ---------------------------------------------
+    #[Route('/services', name: 'app_services')]
+    public function services(): Response
     {
-        return $this->render('client/prestations.html.twig', [
+        return $this->render('client/services.html.twig', [
             'controller_name' => 'ClientController',
         ]);
     }

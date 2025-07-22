@@ -1,0 +1,206 @@
+{% extends 'base.html.twig' %}
+
+{% block metadescription %}Prestations auto à Altkirch – 2JC Automobiles : entretien, réparation, vidange, freins, pneus, diagnostic et révision de votre véhicule toutes marques.{% endblock %}
+{% block keywords %}Garage automobile Altkirch, entretien voiture Altkirch, réparation auto Altkirch, vidange voiture Altkirch, diagnostic auto Altkirch, garage toutes marques Altkirch{% endblock %}
+{% block robots %}index, follow{% endblock %}
+
+{% block title %}Garage 2JC à Altkirch | Nos services{% endblock %}
+
+{% block nav %}{{ include('components/_nav_bar.html.twig') }}{% endblock %}
+{% block footer %}{{ include('components/_footer.html.twig') }}{% endblock %}
+
+{% block body %}
+<main class="main-home">
+<div id="ancreHaut"></div>
+    <section class="hero-services">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1>Nos services</h1>
+            </div> 
+        </div>
+    </section>
+    <section class="container-fluid home-2 services">
+        <div class="block-service services">
+            <figure>
+                <img src="{{ asset('images/image1.png') }}" alt="Service automobile" class="img-service services">
+            </figure>
+            <div class="block-text services" id="revisions">
+                <h2>Revisions moteur</h2>
+                <p>
+                    Chez 2JC Automobiles, nous assurons la révision complète de votre véhicule, 
+                    qu’il soit <strong>thermique, hybride ou 100 % électrique.</strong><br>
+                    Vérifications des organes essentiels, diagnostic électronique, remplacement des filtres et fluides 
+                    si nécessaire : nous adaptons notre intervention selon la technologie de votre voiture pour garantir 
+                    sécurité, performance et longévité.
+                </p>
+                <a role="button" class="cta-blue home services" href="{{ path('app_rdv_client') }}">Prendre rendez-vous</a>
+            </div>
+        </div>
+        <div class="block-service xp services">
+            <figure>
+                <img src="{{ asset('images/image2.png') }}" alt="Expérience garage" class="img-xp services">
+            </figure>
+            <div class="block-text services" id="pneus">
+                <h2>Remplacement pneumatique & géométrie</h2>
+                <p>
+                    Remplacement de pneus été, hiver ou 4 saisons, avec <strong>contrôle de la pression, 
+                    équilibrage des roues et serrage au couple.</strong><br>
+                    La géométrie (parallélisme) est ajustée pour garantir une usure régulière des pneus, 
+                    une direction précise et une meilleure stabilité du véhicule.
+                </p>
+                <a role="button" class="cta-blue home services" href="{{ path('app_rdv_client') }}">Prendre rendez-vous</a>
+            </div>
+        </div>
+    </section>
+    <section class="container-fluid home-2 services">
+        <div class="block-service services">
+            <figure>
+                <img src="{{ asset('images/image1.png') }}" alt="Service automobile" class="img-service services">
+            </figure>
+            <div class="block-text services" id="distribution">
+                <h2>Remplacement du kit de distribution</h2>
+                <p>
+                    Remplacement complet du kit de distribution (courroie, galets, pompe à eau si nécessaire) 
+                    <strong>selon les préconisations constructeur.</strong><br>
+                    Une intervention essentielle pour éviter toute casse moteur et garantir le bon fonctionnement du véhicule sur le long terme.
+                </p>
+                <a role="button" class="cta-blue home services" href="{{ path('app_rdv_client') }}">Prendre rendez-vous</a>
+            </div>
+        </div>
+        <div class="block-service xp services">
+            <figure>
+                <img src="{{ asset('images/image2.png') }}" alt="Expérience garage" class="img-xp services">
+            </figure>
+            <div class="block-text services" id="embrayage">
+                <h2>Remplacement embrayage & boîte de vitesses</h2>
+                <p>
+                   Diagnostic et remplacement de l’embrayage (butée, disque, mécanisme) en cas de patinage, 
+                   bruits ou difficultés de passage des vitesses. <br>
+                   Intervention également possible sur la boîte de vitesses (manuelle ou automatique)
+                    pour réparer ou remplacer les éléments défectueux et retrouver une conduite fluide.
+                </p>
+                <a role="button" class="cta-blue home services" href="{{ path('app_rdv_client') }}">Prendre rendez-vous</a>
+            </div>
+        </div>
+    </section>
+    <section class="container-fluid home-2 services">
+        <div class="block-service services">
+            <figure>
+                <img src="{{ asset('images/image1.png') }}" alt="Service automobile" class="img-service services">
+            </figure>
+            <div class="block-text services" id="freins">
+                <h2>Entretien & remplacement du système de freinage</h2>
+                <p>
+                    Contrôle complet des freins : <strong>plaquettes, disques, étriers, liquide de frein.</strong><br>
+                    Remplacement des pièces usées pour garantir un freinage efficace, une conduite sécurisée et conforme aux normes en vigueur.
+                </p>
+                <a role="button" class="cta-blue home services" href="{{ path('app_rdv_client') }}">Prendre rendez-vous</a>
+            </div>
+        </div>
+        <div class="block-service xp services">
+            <figure>
+                <img src="{{ asset('images/image2.png') }}" alt="Expérience garage" class="img-xp services">
+            </figure>
+            <div class="block-text services" id="trains">
+                <h2>Entretien des trains roulants & rotules</h2>
+                <p>
+                    Vérification et remplacement des éléments d’usure : <strong>rotules, silentblocs, biellettes, bras de suspension… </strong><br>
+                    Un entretien essentiel pour préserver la tenue de route, la stabilité du véhicule et éviter une usure prématurée des pneus.
+                </p>
+                <a role="button" class="cta-blue home services" href="{{ path('app_rdv_client') }}">Prendre rendez-vous</a>
+            </div>
+        </div>
+    </section>
+    <section class="container-fluid home-2 services">
+        <div class="block-service services">
+            <figure>
+                <img src="{{ asset('images/image1.png') }}" alt="Service automobile" class="img-service services">
+            </figure>
+            <div class="block-text services" id="clim">
+                <h2>Entretien & réparation de la climatisation</h2>
+                <p>
+                    <strong>Contrôle du circuit, recherche de fuites, recharge de gaz réfrigérant, nettoyage ou remplacement du filtre d’habitacle.</strong><br>
+                    En cas de panne, diagnostic complet et réparation pour garantir confort, efficacité et air sain à bord du véhicule.
+                </p>
+                <a role="button" class="cta-blue home services" href="{{ path('app_rdv_client') }}">Prendre rendez-vous</a>
+            </div>
+        </div>
+        <div class="block-service xp services">
+            <figure>
+                <img src="{{ asset('images/image2.png') }}" alt="Expérience garage" class="img-xp services">
+            </figure>
+            <div class="block-text services" id="decalaminage">
+                <h2>Décalaminage moteur & nettoyage du FAP</h2>
+                <p>
+                    Élimination des dépôts de suie et de calamine dans le moteur et le filtre à particules (FAP) pour <strong>retrouver des performances optimales, réduire la consommation de carburant et éviter l’encrassement prématuré.</strong><br>
+                    Intervention préventive ou curative selon l’état du véhicule.
+                </p>
+                <a role="button" class="cta-blue home services" href="{{ path('app_rdv_client') }}">Prendre rendez-vous</a>
+            </div>
+        </div>
+    </section>
+    <section class="container-fluid home-2 services">
+        <div class="block-service services">
+            <figure>
+                <img src="{{ asset('images/image1.png') }}" alt="Service automobile" class="img-service services">
+            </figure>
+            <div class="block-text services" id="reparations">
+                <h2>Réparations lourdes : moteur, turbo, EGR</h2>
+                <p>
+                    Diagnostic approfondi et intervention sur les organes majeurs du véhicule : <strong>réparation ou remplacement moteur, turbo, vanne EGR et autres composants essentiels.</strong><br>
+                    Expertise technique pour restaurer la puissance, la fiabilité et les performances de votre voiture.
+                </p>
+                <a role="button" class="cta-blue home services" href="{{ path('app_rdv_client') }}">Prendre rendez-vous</a>
+            </div>
+        </div>
+        <div class="block-service xp services">
+            <figure>
+                <img src="{{ asset('images/image2.png') }}" alt="Expérience garage" class="img-xp services">
+            </figure>
+            <div class="block-text services" id="ct">
+                <h2>Préparation au contrôle technique</h2>
+                <p>
+                    Vérification complète des éléments clés du véhicule (freins, éclairage, pneus, suspension, pollution…) 
+                    pour vous assurer de passer le contrôle technique sans surprise. 
+                    <strong>Diagnostic précis et conseils personnalisés pour éviter les contre-visites.</strong>
+                </p>
+                <a role="button" class="cta-blue home services" href="{{ path('app_rdv_client') }}">Prendre rendez-vous</a>
+            </div>
+        </div>
+    </section>
+    <section class="container-fluid home-2 services">
+        <div class="block-service services">
+            <figure>
+                <img src="{{ asset('images/image1.png') }}" alt="Service automobile" class="img-service services">
+            </figure>
+            <div class="block-text services" id="carteGrise">
+                <h2>Service carte grise française et étrangère</h2>
+                <p>
+                    Accompagnement complet pour vos démarches de changement, renouvellement ou création de carte grise, 
+                    <strong>que votre véhicule soit immatriculé en France ou à l’étranger.</strong><br>
+                    Gain de temps assuré grâce à une prise en charge rapide et sécurisée.
+                </p>
+                <a role="button" class="cta-blue home services" href="{{ path('app_rdv_client') }}">Prendre rendez-vous</a>
+            </div>
+        </div>
+        <div class="block-service xp services">
+            <figure>
+                <img src="{{ asset('images/image2.png') }}" alt="Expérience garage" class="img-xp services">
+            </figure>
+            <div class="block-text sublimauto services" id="nettoyage">
+                <h2>Nettoyage intérieur & extérieur</h2>
+                <p>
+                    Pour un véhicule toujours propre et soigné, notre partenaire Sublim Auto propose un nettoyage complet 
+                    intérieur et extérieur, alliant savoir-faire et produits de qualité.<br>
+                    Profitez d’un service local reconnu pour redonner éclat et fraîcheur à votre voiture, à chaque visite.
+                </p>
+                <p>
+                    <a class="links services" href="https://maps.app.goo.gl/TzHayJYAhaztaFQP6" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot services" style="margin-right: 0.5rem;"></i>18 route de Thann, 68130 ALTKIRCH<br>
+                    <a class="links services" href="tel:0626950545"><i class="fa-solid fa-phone services" style="margin-right: 0.2rem;"></i> +33 6 26 95 05 45</a>
+                </p>
+                <a role="button" class="cta-blue home services" href="{{ path('app_rdv_client') }}">Prendre rendez-vous</a>
+            </div>
+        </div>
+    </section>
+        <a class="chevron-up services" href="#ancreHaut"><i class="fa-solid fa-chevron-up fa-xl services"></i></a>
+{% endblock %}

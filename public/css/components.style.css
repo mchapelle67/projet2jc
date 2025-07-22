@@ -59,7 +59,7 @@
     }
 }
 
-#navbarDropdownMenuLink:focus {
+#navbarDropdownMenuLinkAdmin:focus {
     outline: 2px solid transparent;
     box-shadow: none !important;
     border: none !important;
@@ -73,6 +73,12 @@
         opacity: 0.6;
     }
 }
+
+.dropdown-item i {
+    margin-right: 0.5rem;
+    font-size: 0.8em;
+}
+
 /* *************************** FOOTER ************************************ */
 .text-body-secondary:hover i,
 .col-md-4.d-flex.align-items-center:hover a,

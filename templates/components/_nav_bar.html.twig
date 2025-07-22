@@ -4,8 +4,25 @@
       <li class="nav-item active">
         <a class="nav-link {% if app.request.attributes.get('_route') in ['app_home', 'app_rdv_client', 'app_devis_client'] %}active{% endif %}" href="{{ path('app_home') }}">Accueil</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_services' %}active{% endif %}" href="#">Nos services</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle {% if app.request.attributes.get('_route') == 'app_services' %}active{% endif %}" href="{{ path('app_services') }}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Nos services <i class="fa-solid fa-chevron-down" style="color: #ffffff; font-size: 0.8em; margin-left: 0.3rem;"></i>
+        </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{{ path('app_services') }}">Tous nos services</a>
+            <a class="dropdown-item" href="{{ path('app_services') }}#revisions"><i class="fa-solid fa-chevron-right"></i>Revisions moteur</a>
+            <a class="dropdown-item" href="{{ path('app_services') }}#pneus"><i class="fa-solid fa-chevron-right"></i>Pneumatique & géométrie</a>
+            <a class="dropdown-item" href="{{ path('app_services') }}#distribution"><i class="fa-solid fa-chevron-right"></i>Kit de distribution</a>
+            <a class="dropdown-item" href="{{ path('app_services') }}#embrayage"><i class="fa-solid fa-chevron-right"></i>Embrayage & boîte de vitesses</a>
+            <a class="dropdown-item" href="{{ path('app_services') }}#freins"><i class="fa-solid fa-chevron-right"></i>Système de freinage</a>
+            <a class="dropdown-item" href="{{ path('app_services') }}#trains"><i class="fa-solid fa-chevron-right"></i>Trains roulants & rotules</a>
+            <a class="dropdown-item" href="{{ path('app_services') }}#clim"><i class="fa-solid fa-chevron-right"></i>Climatisation</a>
+            <a class="dropdown-item" href="{{ path('app_services') }}#decalaminage"><i class="fa-solid fa-chevron-right"></i>Décalaminage</a>
+            <a class="dropdown-item" href="{{ path('app_services') }}#reparations"><i class="fa-solid fa-chevron-right"></i>Réparations lourdes</a>
+            <a class="dropdown-item" href="{{ path('app_services') }}#ct"><i class="fa-solid fa-chevron-right"></i>Préparation au contrôle technique</a>
+            <a class="dropdown-item" href="{{ path('app_services') }}#carteGrise"><i class="fa-solid fa-chevron-right"></i>Service carte grise</a>
+            <a class="dropdown-item" href="{{ path('app_services') }}#nettoyage"><i class="fa-solid fa-chevron-right"></i>Nettoyage intérieur & extérieur</a>
+          </div>
       </li>
       <li class="nav-item">
         <a class="nav-link {% if app.request.attributes.get('_route') in ['app_vo', 'add_vo', 'edit_vo'] %}active{% endif %}" href="{{ path('app_vo') }}">Vehicules d'occasions</a>
@@ -15,10 +32,10 @@
       </li>
       {% if is_granted('ROLE_USER')%}
       <li class="nav-item dropdown ms-auto">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa-solid fa-user fa-lg"></i>          
           </a>
-          <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLink">
+          <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLinkAdmin">
             {% if is_granted('ROLE_SUPER_ADMIN') %}
               <a class="dropdown-item" href="{{ path('dashboard_admin') }}">SUPER ADMIN</a>
             {% endif %}
