@@ -1,11 +1,11 @@
 tarteaucitron.init({
-    "privacyUrl": "./templates/home/politique-confidentitalite.html.twig", // Url de la politique de confidentialité
+    "privacyUrl": "/politique-confidentialite", // Url de la politique de confidentialité
     "bodyPosition": "top", // top place le bandeau de consentement au début du code html, mieux pour l'accessibilité
 
     "hashtag": "#tarteaucitron", // Hashtag qui permet d'ouvrir le panneau de contrôle
     "cookieName": "tarteaucitron", // Nom du cookie (uniquement lettres et chiffres)
 
-    "orientation": "bottom", // Position de la bannière (top - bottom - popup - banner)
+    "orientation": "top", // Position de la bannière (top - bottom - popup - banner)
 
     "groupServices": true, // Grouper les services par catégorie
     "showDetailsOnClick": true, // Cliquer pour ouvrir la description
