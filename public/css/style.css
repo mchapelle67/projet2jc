@@ -107,8 +107,12 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     transition: background 0.3s ease;
     font-size: 1.2em;
+    box-shadow: 0 4px 15px rgba(0, 86, 179, 0.2);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     &:hover {
         background-color: var(--blue-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 86, 179, 0.3);
     }
     &:active {
         background-color: var(--red-color);
@@ -165,6 +169,10 @@ h1, h2, h3, h4, h5, h6 {
     margin: 1.5rem auto;
     border: none;
     font-size: 1.2em;
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(0, 86, 179, 0.3);
+    }
 }
 
 .checkbox.mb-3 {
@@ -189,6 +197,8 @@ h1, h2, h3, h4, h5, h6 {
         opacity: 0.6;
     }
 }
+
+
 
 /* ---------------------------------------- PAGE D'ACCEUIL --------------------------------------------------- */
 /* Partie 1 */
@@ -360,7 +370,12 @@ h1, h2, h3, h4, h5, h6 {
         align-items: center;
         justify-content: center;
     }
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    }
 }
+
 
 .block-service.xp {
     display: flex;
@@ -390,6 +405,10 @@ h1, h2, h3, h4, h5, h6 {
     margin: auto;
 }
 
+.block-service:hover .img-service,
+.block-service:hover .img-xp {
+    transform: scale(1.02);
+}
 
 .img-service,
 .img-xp {
@@ -397,6 +416,7 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 20rem; 
     border-radius: var(--border-radius);
     box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
     object-fit: cover;
             width: fit-content;
 
@@ -469,6 +489,9 @@ h1, h2, h3, h4, h5, h6 {
 .localisation .cta-blue {
     display: inline-block; 
     margin-top: 1rem !important;
+    &:hover {
+        opacity: 1;
+    }
 }
 
 /* ---------------------------- MENTIONS LEGALES ------------------------------------ */
@@ -499,4 +522,7 @@ h1, h2, h3, h4, h5, h6 {
         opacity: 0.6;
     }
 }
+
+
+
 
