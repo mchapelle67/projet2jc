@@ -13,12 +13,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/client')]
 final class ClientController extends AbstractController
 {
-
 // gestion api ---------------------------------------------------------------------
     #[Route('/api/modeles', name: 'api_modeles')]
     public function apiModeles(ApiService $apiService, Request $request): Response
@@ -34,7 +34,7 @@ final class ClientController extends AbstractController
 
 // gestion des devis -----------------------------------------------------
     #[Route('/devis', name: 'app_devis_client')]
-    public function devis(ApiService $apiService, Request $request, EntityManagerInterface $entityManager, MailService $mail): Response
+    public function devis(ApiService $apiService, Request $request, EntityManagerInterface $entityManager, MailService $mail, RateLimiterFactory $contactLimiter): Response
     {
         // on récupère toutes les marques de véhicules
         $marquesResponse = $apiService->getAllMakes();
@@ -48,6 +48,13 @@ final class ClientController extends AbstractController
 
         // si le formulaire est soumis et valide
         if ($devisForm->isSubmitted() && $devisForm->isValid()) {
+
+            // on vérifie le rate limiter
+            $limiter = $contactLimiter->create(($request->getClientIp()));
+                if (!$limiter->consume(1)->isAccepted()) {
+                    $this->addFlash('error', 'Trop de formulaires envoyés. Veuillez patienter.');
+                    return $this->redirectToRoute('app_devis_clientt');
+                }
                     
             // on récupère les données du formulaire
             $devisData = $devisForm->getData();
@@ -92,7 +99,7 @@ final class ClientController extends AbstractController
 
 // gestion des rendez-vous -----------------------------------------------------
     #[Route('/rdv', name: 'app_rdv_client')]
-    public function rdv(ApiService $apiService, Request $request, EntityManagerInterface $entityManager, MailService $mail): Response
+    public function rdv(ApiService $apiService, Request $request, EntityManagerInterface $entityManager, MailService $mail, RateLimiterFactory $contactLimiter): Response
     {
         // on récupère toutes les marques de véhicules
         $marquesResponse = $apiService->getAllMakes();
@@ -106,6 +113,13 @@ final class ClientController extends AbstractController
 
         // si le formulaire est soumis et valide
         if ($rdvForm->isSubmitted() && $rdvForm->isValid()) {
+
+            // on vérifie le rate limiter
+            $limiter = $contactLimiter->create(($request->getClientIp()));
+                if (!$limiter->consume(1)->isAccepted()) {
+                    $this->addFlash('error', 'Trop de formulaires envoyés. Veuillez patienter.');
+                    return $this->redirectToRoute('app_rdv_client');
+                }
                     
             // on récupère les données du formulaire
             $rdvData = $rdvForm->getData();
@@ -150,7 +164,7 @@ final class ClientController extends AbstractController
     }
 // gestion de la page de contact -----------------------------------------------------
     #[Route('/contact', name: 'app_contact')]
-    public function contact(Request $request, MailService $mail): Response
+    public function contact(Request $request, MailService $mail, RateLimiterFactory $contactLimiter): Response
     {
         // on crée un forumlaire pour la prise de contact
         $contactForm = $this->createForm(ContactTypeForm::class);
@@ -160,14 +174,20 @@ final class ClientController extends AbstractController
 
         // si le formulaire est soumis et valide
         if ($contactForm->isSubmitted() && $contactForm->isValid()) {
-                    
-        // on gère la reception des champs non obligatoires 
-        if (!$contactForm->get('tel')->getData()) {
-            $tel = 'Non renseigné';
-        }
-        else {
-            $tel = $contactForm->get('tel')->getData();
-        }
+
+            // on vérifie le rate limiter
+            $limiter = $contactLimiter->create(($request->getClientIp()));
+                if (!$limiter->consume(1)->isAccepted()) {
+                    $this->addFlash('error', 'Trop de messages envoyés. Veuillez patienter.');
+                    return $this->redirectToRoute('app_contact');
+                }
+                        
+                // on gère la reception des champs non obligatoires 
+                if (!$contactForm->get('tel')->getData()) {
+                    $tel = 'Non renseigné';
+                } else {
+                    $tel = $contactForm->get('tel')->getData();
+                }
 
         // on met des majuscules pour rendre plus esthetique
         $nomData = $contactForm->get('nom')->getData();
@@ -186,9 +206,9 @@ final class ClientController extends AbstractController
         // envoi du mail
         $mail->sendMail('Nouvelle demande de contact', $body, 'Nouvelle demande de contact');
 
-            // on envois un message de confirmation et on redirige  
-            $this->addFlash('success', 'Votre message a bien été envoyé, nous reviendrons vers vous très rapidement.');
-            return $this->redirectToRoute('app_home');
+        // on envois un message de confirmation et on redirige  
+        $this->addFlash('success', 'Votre message a bien été envoyé, nous reviendrons vers vous très rapidement.');
+        return $this->redirectToRoute('app_home');
             
         } elseif ($contactForm->isSubmitted() && !$contactForm->isValid()) { 
             $this->addFlash('error', 'Votre demande de contact a echoué, veuillez réessayer plus tard.');

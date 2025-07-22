@@ -21,7 +21,6 @@ security:
             login_throttling:
                 max_attempts: 3 
                 interval: '15 minutes'
-            lazy: true
             provider: app_user_provider
             form_login:
                 login_path: app_login
@@ -34,12 +33,12 @@ security:
                 secret: '%kernel.secret%'
                 lifetime: 604800 # 1 week in seconds
                 always_remember_me: true
+                
             logout:
                 path: app_logout
                 # where to redirect after logout
                 target: app_home
-            
-            
+
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 

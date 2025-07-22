@@ -1,0 +1,12 @@
+framework:
+    rate_limiter:
+        contact:
+            policy: 'token_bucket'
+            limit: 1
+            interval: '1 minute'
+            rate: { interval: '1 minute', amount: 1 }
+        client_forms:
+            policy: 'sliding_window'
+            limit: 1
+            interval: '1 minute'
+            rate: { interval: '1 minute', amount: 1 }
