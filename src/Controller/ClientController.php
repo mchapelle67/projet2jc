@@ -199,4 +199,13 @@ final class ClientController extends AbstractController
             'contactForm' => $contactForm->createView() 
         ]);
     }
+
+// vues prestations et présentation du garage ---------------------------------------------
+    #[Route('/prestations', name: 'app_prestations')]
+    public function prestations(): Response
+    {
+        return $this->render('client/prestations.html.twig', [
+            'controller_name' => 'ClientController',
+        ]);
+    }
 }

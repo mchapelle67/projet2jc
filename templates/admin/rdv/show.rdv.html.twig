@@ -74,8 +74,9 @@
             </p>
         </div>
     </div>
-    
-    {% if rdv.statut == 'En attente' and rdv.dateRdv < now %}
+
+    {% if is_granted('ROLE_ADMIN')  %}
+        {% if rdv.statut == 'En attente' and rdv.dateRdv < now %}
         <div class="alert alert-warning" role="alert">
             <p class="mb-1"><strong>Ce rendez-vous n'a pas été traîté mais sa date est depassée.</strong></p>
             <p class="mb-3">En cliquant ci-dessous, vous archiverez le rendez-vous et aurez la possiblité de proposer une nouvelle date.</p>
@@ -85,36 +86,37 @@
                 </a>
             </div>
         </div>
-
-    {% elseif rdv.statut == 'En attente' and is_granted('ROLE_ADMIN') %}
+        
+        {% elseif rdv.statut == 'En attente' %}
         <div class="alert alert-warning" role="alert">
             <p class="mb-1"><strong>Ce rendez-vous est en attente de confirmation.</strong></p>
             <p class="mb-3">Veuillez indiquer si le rendez-vous est confirmé ou non.</p>
             <div class="d-flex gap-2">
                 <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'accept'}) }}" class="btn btn-success"
-                    onclick="return confirm('Êtes vous sûre de pouvoir honorer ce rendez-vous ? Cette action entraînera un mail automatique au client.');">   
+                onclick="return confirm('Êtes vous sûre de pouvoir honorer ce rendez-vous ? Cette action entraînera un mail automatique au client.');">   
                     <i class="fa-solid fa-check"></i> Accepter le rendez-vous
-                </a>
-                <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'decline'}) }}" class="btn btn-danger">
-                    <i class="fa-solid fa-xmark"></i> Refuser le rendez-vous
-                </a>
-            </div>
+            </a>
+            <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'decline'}) }}" class="btn btn-danger">
+                <i class="fa-solid fa-xmark"></i> Refuser le rendez-vous
+            </a>
         </div>
+    </div>
 
-    {% elseif rdv.statut == 'Confirmer' and is_granted('ROLE_ADMIN')%}
+        {% elseif rdv.statut == 'Confirmer'%}
         <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'cancel'}) }}" class="btn btn-outline-danger">
             <i class="fa-solid fa-ban"></i> Annuler le rendez-vous
         </a>
 
-    {% elseif is_granted('ROLE_ADMIN') %}
+        {% elseif is_granted('ROLE_ADMIN') %}
         <a href="{{ path('app_admin_rdv_update', {'id': rdv.id}) }}" class="btn btn-outline-dark"
         onclick="return confirm('Êtes vous sûre de vouloir rendre ce rendez-vous actif à nouveau ?');">
             <i class="fa-solid fa-pencil"></i> Mettre à jour le statut
         </a>
-       <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'delete'}) }}" class="btn btn-outline-danger" 
-       onclick="return confirm('Êtes vous sûre de vouloir supprimer ce rendez-vous ? Cette action est irreversible.');">
+        <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'delete'}) }}" class="btn btn-outline-danger" 
+        onclick="return confirm('Êtes vous sûre de vouloir supprimer ce rendez-vous ? Cette action est irreversible.');">
             <i class="fa-solid fa-ban"></i> Supprimer le rendez-vous
         </a>
+        {% endif %}
     {% endif %}
 </main>
 {% endblock %}
