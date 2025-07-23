@@ -1,24 +1,5 @@
 
 /* ************************************** FORMULAIRE COMMUN ************************** */
-.hero-overlay-form {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.01) 0%, rgba(0, 0, 0, 0.7) 64%);  width: 100%;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-    h1 {
-      font-size: 4rem;
-      margin-bottom: 0;
-      font-weight: 600;
-    }
-    h2 {
-      font-size: 2rem;
-      font-style: italic;
-    }
-}
-
 .col {
     display: flex;
     gap: 3.125rem;
@@ -250,7 +231,6 @@
     }
 }
 
-/* Review Details */
 #reviewDetails p {
     margin: 0 auto 0.5rem auto!important;
     font-size: 0.95rem !important;
@@ -298,17 +278,6 @@ textarea::placeholder,
 }
 
 /* ************************** FORMULAIRE RDV ******************************************* */
-.hero-form-rdv {
-  position: relative;
-  height: 60vh;
-  background: url('../images/rdv.avif') center center / cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  overflow: hidden;
-}
-
 .form.form-rdv {
     h3 {
         text-align: center;
@@ -333,17 +302,6 @@ textarea::placeholder,
 }
 
 /* ****************************** FORMULAIRE DEVIS  ***********************************xs*/
-.hero-form-devis {
-  position: relative;
-  height: 50vh;
-  background: url('../images/devis.avif') center center / cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  overflow: hidden;
-}
-
 .form.form-devis {
     margin-top: 5rem;
     h1 {
@@ -393,17 +351,6 @@ textarea::placeholder,
 } 
 
 /* ************************************** PAGE SERVICES ********************************** */
-.hero-services {
-  position: relative;
-  height: 50vh;
-  background: url('../images/mecanique_2.jpeg') center center / cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  overflow: hidden;
-}
-
 .block-text.sublimauto a.links:hover {
     opacity: 0.5;
 }

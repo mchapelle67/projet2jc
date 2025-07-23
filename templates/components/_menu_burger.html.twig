@@ -1,0 +1,94 @@
+<!-- Menu Burger (visible uniquement mobile) -->
+<div class="burger-menu">
+    <button class="burger-toggle" id="burger-toggle" aria-label="Menu">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+    </button>
+</div>
+
+<!-- Menu mobile (caché par défaut) -->
+<nav class="mobile-nav" id="mobile-nav">
+    <div class="mobile-nav-overlay"></div>
+    <div class="mobile-nav-content">
+        <div class="burger-menu-close">
+            <button class="burger-toggle" id="burger-close" aria-label="Fermer">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </button>
+        </div>
+        
+        <ul class="mobile-nav-links">
+            <li><a href="{{ path('app_home') }}"><i class="fa-solid fa-house"></i>Accueil</a></li>
+            <li><a href="{{ path('app_services') }}"><i class="fa-solid fa-wrench"></i>Nos services</a></li>
+            <li><a href="{{ path('app_devis_client') }}"><i class="fa-solid fa-file"></i>Devis</a></li>
+            <li><a href="{{ path('app_rdv_client') }}"><i class="fa-solid fa-calendar-days"></i>Rendez-vous</a></li>
+            <li><a href="{{ path('app_vo') }}"><i class="fa-solid fa-car"></i>Voitures d'occasions</a></li>
+            <li><a href="{{ path('app_contact') }}"><i class="fa-solid fa-at"></i>Contact</a></li>
+            <li><a href="{{ path('app_home')}}#localisation"><i class="fa-solid fa-location-dot"></i>Nous trouver</a></li>
+            <li><a href="tel:0389400000"><i class="fa-solid fa-phone"></i> +33 3 89 40 00 00</a></li>
+            <li class="social-links-container">
+                <a href="https://www.facebook.com/p/2jc-Automobiles-100063767071947/?locale=fr_FR" aria-label="Facebook" class="social-link">
+                    <i class="fa-brands fa-facebook fa-xl"></i>
+                </a>
+                <a href="https://www.instagram.com/2jc_automobiles/" aria-label="Instagram" class="social-link">
+                    <i class="fa-brands fa-instagram fa-xl"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔥 Script chargé');
+    
+    const burgerToggle = document.getElementById('burger-toggle');
+    const burgerClose = document.getElementById('burger-close'); // ← IMPORTANT
+    const mobileNav = document.getElementById('mobile-nav');
+    const overlay = document.querySelector('.mobile-nav-overlay');
+    
+    console.log('Éléments trouvés:', {
+        burgerToggle: !!burgerToggle,
+        burgerClose: !!burgerClose, // ← VÉRIFIE ça
+        mobileNav: !!mobileNav
+    });
+    
+    // Ouvrir
+    if (burgerToggle) {
+        burgerToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('🟢 OUVERTURE');
+            mobileNav.classList.add('open');
+            burgerToggle.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+    
+    // Fermer avec la croix
+    if (burgerClose) {
+        burgerClose.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('🔴 FERMETURE CROIX');
+            closeMenu();
+        });
+    } else {
+        console.error('❌ Bouton fermer NON TROUVÉ !');
+    }
+    
+    // Fermer avec overlay
+    if (overlay) {
+        overlay.addEventListener('click', function(e) {
+            console.log('🔴 FERMETURE OVERLAY');
+            closeMenu();
+        });
+    }
+    
+    function closeMenu() {
+        if (mobileNav) mobileNav.classList.remove('open');
+        if (burgerToggle) burgerToggle.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+</script>

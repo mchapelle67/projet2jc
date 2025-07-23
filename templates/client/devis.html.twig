@@ -11,9 +11,9 @@
 
 {% block body %}
 <main class="main-home">
-    <section class="hero-form-devis">
-        <div class="hero-overlay-form">
-            <div class="hero-content-form">
+    <section class="hero-secondaire">
+        <div class="hero-overlay-secondaire">
+            <div class="hero-content-secondaire">
                 {% for label, messages in app.flashes %}
                 {% set alertClass = (label == 'error') ? 'danger' : label %}
                     {% for message in messages %}

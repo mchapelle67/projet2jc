@@ -1,4 +1,13 @@
 /* *************************** NAV ************************************ */
+/* DESKTOP - Menu burger caché */
+.burger-menu {
+    display: none;
+}
+
+.mobile-nav {
+    display: none;
+}
+
 .navbar-expand-lg .navbar-collapse {
     justify-content: end;
     margin-right: 5%;
