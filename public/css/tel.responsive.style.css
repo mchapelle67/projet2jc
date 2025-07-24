@@ -242,6 +242,7 @@ footer {
     
     .block-text p {
         padding: 0.5rem 1rem;
+        margin-bottom: 0.5rem !important;
     }
     
     .block-text h2 {
@@ -309,4 +310,11 @@ footer {
     .form-navigation .btn {
         width: 100%;
     }
+
+/* ------------------------------------- SERVICES ------------------------------------- */
+.container-fluid.home-2.services {
+        margin-top: 3rem !important; /* ← Ajoute 3rem d'espace entre chaque section */
+    }
+
+
 }
