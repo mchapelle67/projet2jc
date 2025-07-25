@@ -12,10 +12,8 @@
     <div class="mobile-nav-overlay"></div>
     <div class="mobile-nav-content">
         <div class="burger-menu-close">
-            <button class="burger-toggle" id="burger-close" aria-label="Fermer">
-                <span class="burger-line"></span>
-                <span class="burger-line"></span>
-                <span class="burger-line"></span>
+            <button class="burger-close-icon" id="burger-close" aria-label="Fermer">
+                <i class="fa-solid fa-xmark fa-2xl"></i>
             </button>
         </div>
         
@@ -30,11 +28,11 @@
                     <a class="dropdown-item" href="{{ path('dashboard_admin') }}">SUPER ADMIN</a>
                     {% endif %}
                             <a class="dropdown-item" href="{{ path('app_admin_rdv_calendar') }}">Calendrier rdv</a>
-                    {% if is_granted('ROLE_ADMIN')%}
+                            <a class="dropdown-item" href="{{ path('app_rdv_historique') }}">Rdv historique</a>
+                            {% if is_granted('ROLE_ADMIN')%}
+                            <a class="dropdown-item" href="{{ path('app_devis_historique') }}">Devis historique</a>
                             <a class="dropdown-item" href="{{ path('app_admin_rdv') }}">Rdv en attente</a>
                             <a class="dropdown-item" href="{{ path('app_admin_devis') }}">Devis en attente</a>
-                            <a class="dropdown-item" href="{{ path('app_rdv_historique') }}">Rdv historique</a>
-                            <a class="dropdown-item" href="{{ path('app_devis_historique') }}">Devis historique</a>
                     <a class="dropdown-item" href="{{ path('add_vo') }}">Ajouter VO</a>
                     {% endif %}
                     <a class="dropdown-item" href="{{ path('app_logout') }}">Deconnexion</a>
@@ -60,20 +58,20 @@
         </ul>
     </div>
 </nav>
-
-<script>
+ <script>
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🔥 Script chargé');
     
     const burgerToggle = document.getElementById('burger-toggle');
-    const burgerClose = document.getElementById('burger-close'); // ← IMPORTANT
+    const burgerClose = document.getElementById('burger-close'); 
     const mobileNav = document.getElementById('mobile-nav');
     const overlay = document.querySelector('.mobile-nav-overlay');
     
     console.log('Éléments trouvés:', {
         burgerToggle: !!burgerToggle,
-        burgerClose: !!burgerClose, // ← VÉRIFIE ça
-        mobileNav: !!mobileNav
+        burgerClose: !!burgerClose, 
+        mobileNav: !!mobileNav,
+        overlay: !!overlay
     });
     
     // Ouvrir
@@ -83,14 +81,32 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('🟢 OUVERTURE');
             mobileNav.classList.add('open');
             burgerToggle.classList.add('active');
+            document.body.classList.add('menu-open');
             document.body.style.overflow = 'hidden';
         });
+    }
+    
+    // ✅ UNE SEULE fonction closeMenu
+    function closeMenu() {
+        console.log('📞 closeMenu() appelée');
+        if (mobileNav) {
+            mobileNav.classList.remove('open');
+            console.log('✅ Classe "open" supprimée');
+        }
+        if (burgerToggle) {
+            burgerToggle.classList.remove('active');
+            console.log('✅ Classe "active" supprimée');
+        }
+        document.body.classList.remove('menu-open');
+        document.body.style.overflow = '';
+        console.log('✅ Overflow restauré');
     }
     
     // Fermer avec la croix
     if (burgerClose) {
         burgerClose.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
             console.log('🔴 FERMETURE CROIX');
             closeMenu();
         });
@@ -106,10 +122,44 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    function closeMenu() {
-        if (mobileNav) mobileNav.classList.remove('open');
-        if (burgerToggle) burgerToggle.classList.remove('active');
-        document.body.style.overflow = '';
+    // ✅ MODIFIE cette partie pour permettre le dropdown
+    const mobileNavContent = document.querySelector('.mobile-nav-content');
+    if (mobileNavContent) {
+        mobileNavContent.addEventListener('click', function(e) {
+            // ✅ AUTORISE les clics sur les dropdowns
+            if (!e.target.closest('.dropdown') && !e.target.closest('.dropdown-menu')) {
+                e.stopPropagation();
+            }
+        });
+    }
+    
+    // ✅ AJOUTE la gestion spécifique du dropdown
+    const dropdownToggle = document.getElementById('navbarDropdownMenuLinkAdmin');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    
+    if (dropdownToggle && dropdownMenu) {
+        dropdownToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('🔽 TOGGLE DROPDOWN');
+            
+            // Toggle du dropdown
+            if (dropdownMenu.style.display === 'block') {
+                dropdownMenu.style.display = 'none';
+            } else {
+                dropdownMenu.style.display = 'block';
+            }
+        });
+        
+        // Fermer le dropdown quand on clique sur un item
+        const dropdownItems = dropdownMenu.querySelectorAll('.dropdown-item');
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', function() {
+                console.log('🔗 CLIC DROPDOWN ITEM - FERMETURE MENU');
+                dropdownMenu.style.display = 'none';
+                closeMenu(); // Ferme aussi le menu mobile
+            });
+        });
     }
 });
 </script>

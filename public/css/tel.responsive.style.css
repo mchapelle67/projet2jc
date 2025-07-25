@@ -32,7 +32,7 @@ footer {
 }
 
 
-.burger-menu {
+    .burger-menu {
         display: block;
         position: fixed;
         top: 20px;
@@ -41,12 +41,13 @@ footer {
     }
 
     .burger-toggle {
-        background: none;
+        background: rgba(0, 0, 0, 0.1);
         border: none;
         cursor: pointer;
         padding: 15px;
         border-radius: 4px;
         transition: all 0.3s ease;
+        margin: 1rem;
     }
     
     .burger-toggle:hover {
@@ -63,7 +64,7 @@ footer {
         transition: all 0.3s ease;
         border-radius: 2px;
     }
-        
+    
     .mobile-nav {
         display: none;
         position: fixed;
@@ -103,7 +104,27 @@ footer {
     .mobile-nav.open .mobile-nav-content {
         transform: translateX(0);
     }
+
+    .dropdown-item {
+        color: black !important;
+    }  
+
+    .nav-link:focus, .nav-link:hover {
+        color: white !important;
+    }
+
+    /* ✅ BOUTON HAMBURGER (ouvrir) - reste normal */
+    .burger-menu .burger-toggle .burger-line {
+        display: block;
+        width: 35px;
+        height: 4px;
+        background: white;
+        margin: 7px 0;
+        transition: all 0.3s ease;
+        border-radius: 2px;
+    }
     
+    /* Style pour le conteneur du bouton fermer */
     .burger-menu-close {
         position: absolute;
         top: 20px;
@@ -124,18 +145,109 @@ footer {
         background: rgba(255, 255, 255, 0.2);
         transform: scale(1.05);
     }
-    
-    .burger-menu-close .burger-toggle .burger-line:nth-child(1) {
-        transform: rotate(45deg) translate(6px, 6px);
+
+    .mobile-nav-links {
+        list-style: none;
+        padding: 0;
+        margin: 4rem 0 2rem 0;
     }
     
-    .burger-menu-close .burger-toggle .burger-line:nth-child(2) {
-        opacity: 0;
+    .mobile-nav-links li {
+        margin: 1.5rem 0;
     }
     
-    .burger-menu-close .burger-toggle .burger-line:nth-child(3) {
-        transform: rotate(-45deg) translate(6px, -6px);
+    .mobile-nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        display: block;
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent;
     }
+    
+    .mobile-nav-links i {
+        margin-right: 0.8rem;
+    }
+    
+    .mobile-nav-links a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-left-color: var(--blue-color);
+        transform: translateX(10px);
+    }
+    
+    .social-links-container {
+        display: flex;
+        padding: 0.2rem !important;
+    }
+
+    .nav.social-media {
+        gap: 0.5rem !important;
+    }
+
+    .ea-sidebar {
+        display: none !important;
+    }
+
+    .burger-menu-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1002;
+    }
+    
+    .burger-close-icon {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .burger-close-icon i {
+        color: white !important; /* Force la couleur */
+        font-size: 20px;
+        transition: all 0.3s ease;
+    }
+    
+    .burger-close-icon:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.1);
+    }
+    
+    .burger-close-icon:hover i {
+        transform: rotate(90deg);
+    }
+
+/* ✅ CACHE le bouton hamburger quand le menu est ouvert */
+    .mobile-nav.open ~ .burger-menu {
+        display: none !important;
+    }
+    
+    /* OU version alternative */
+    .burger-menu {
+        display: block;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1001;
+    }
+    
+    /* CACHE le burger quand le menu mobile est ouvert */
+    .mobile-nav.open + .burger-menu,
+    body.menu-open .burger-menu {
+        display: none !important;
+    }
+
+
 
     .mobile-nav-links {
         list-style: none;
@@ -216,7 +328,6 @@ footer {
     .container-fluid.home-1 {
         flex-direction: column;
         max-height: none;
-        margin-bottom: 1rem !important;
     }
     
     .div-home {
@@ -387,16 +498,17 @@ footer {
 /* --------------------------------------------- ADMIN ------------------------------------------- */
 .main-admin {
     width: 100% !important;
-    margin-left: 0 !important;
+    margin: 3rem 0 !important;
 }
 
-.main-admin .table.show-rdv {
+    /* ✅ TABLE SHOW-RDV */
+    .main-admin .table.show-rdv {
         border: none;
-        background: white !important;
+        background: transparent;
     }
     
     .main-admin .table.show-rdv thead {
-        display: none; /* Cache l'en-tête */
+        display: none;
     }
     
     .main-admin .table.show-rdv tbody,
@@ -426,13 +538,17 @@ footer {
         border-radius: 4px;
     }
 
-    /* Labels automatiques */
+    .main-admin .table.show-rdv td:last-child {
+        border-bottom: none;
+    }
+
+    /* Labels pour show-rdv */
     .main-admin .table.show-rdv td:nth-child(1):before { content: "Date du rendez-vous :"; }
     .main-admin .table.show-rdv td:nth-child(2):before { content: "Prestation :"; }
     .main-admin .table.show-rdv td:nth-child(3):before { content: "Date de création :"; }
     .main-admin .table.show-rdv td:nth-child(4):before { content: "Dernière modification :"; }
     .main-admin .table.show-rdv td:nth-child(5):before { content: "Statut :"; }
-    
+
     .main-admin .table.show-rdv td:before {
         position: absolute;
         left: 0;
@@ -445,14 +561,148 @@ footer {
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    
-    /* Style pour les éléments dans les cellules */
-    .main-admin .table.show-rdv td strong {
+
+    /* ✅ TABLE EDIT-RDV */
+    .main-admin .table.edit-rdv {
+        border: none;
+        background: transparent;
+    }
+
+    .main-admin .table.edit-rdv thead {
+        display: none;
+    }
+
+    .main-admin .table.edit-rdv tbody,
+    .main-admin .table.edit-rdv tr,
+    .main-admin .table.edit-rdv td {
+        display: block;
+        width: 100%;
+        border: none;
+    }
+
+    .main-admin .table.edit-rdv tbody tr {
+        border: 1px solid #c3e6cb;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-radius: 8px;
+        background: #d4edda; /* ✅ Fond vert success */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .main-admin .table.edit-rdv td {
+        position: relative;
+        padding: 0.75rem 0 0.75rem 40% !important;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        text-align: left;
+        background: transparent !important;
+        margin-bottom: 0.25rem;
+        border-radius: 4px;
+    }
+
+    .main-admin .table.edit-rdv td:last-child {
+        border-bottom: none;
+    }
+
+    /* ✅ CACHE le form_start qui décale tout */
+    .main-admin .table.edit-rdv td:nth-child(1) {
+        display: none !important;
+    }
+
+    /* ✅ Labels CORRECTS pour edit-rdv (après avoir caché le form_start) */
+    .main-admin .table.edit-rdv td:nth-child(2):before { content: "Date du rendez-vous :"; }
+    .main-admin .table.edit-rdv td:nth-child(3):before { content: "Prestation :"; }
+    .main-admin .table.edit-rdv td:nth-child(4):before { content: "Date de création :"; }
+    .main-admin .table.edit-rdv td:nth-child(5):before { content: "Dernière modification :"; }
+    .main-admin .table.edit-rdv td:nth-child(6):before { content: "Statut :"; }
+
+    .main-admin .table.edit-rdv td:before {
+        position: absolute;
+        left: 0;
+        top: 0.75rem;
+        width: 35%;
+        font-weight: bold;
+        padding-right: 1rem;
+        color: #333;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* ✅ FORMULAIRES Symfony dans les cellules */
+    .main-admin .table.edit-rdv .form-group {
+        margin-bottom: 0 !important;
+    }
+
+    .main-admin .table.edit-rdv .form-control {
+        font-size: 0.9rem !important;
+        padding: 0.5rem !important;
+        border: 1px solid #ced4da !important;
+        border-radius: 4px !important;
+        width: 100% !important;
+    }
+
+    .main-admin .table.edit-rdv select.form-control {
+        background-color: white !important;
+    }
+
+    .main-admin .table.edit-rdv label {
+        display: none !important;
+    }
+
+    /* Style commun pour les éléments dans les cellules */
+    .main-admin .table td strong {
         font-weight: 600;
     }
     
-    .main-admin .table.show-rdv td a {
+    .main-admin .table td a {
         margin-left: 0.5rem;
     }
+
+    /* ✅ BOUTONS du formulaire */
+    .main-admin .btn-group,
+    .main-admin .d-flex.gap-2 {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+        margin-top: 2rem !important;
+    }
+
+    .main-admin .btn {
+        width: 100% !important;
+        padding: 0.75rem !important;
+        font-size: 0.9rem !important;
+        text-align: center !important;
+    }
+
+    /* ✅ CARDS responsive */
+    .main-admin .card {
+        margin-bottom: 1.5rem !important;
+    }
+
+    .main-admin .card-header h4 {
+        font-size: 1.1rem !important;
+    }
+
+    .main-admin .card-body p {
+        margin-bottom: 0.75rem !important;
+        font-size: 0.9rem !important;
+        line-height: 1.4;
+    }
+
+    /* ✅ TITRE responsive */
+    .main-admin h1 {
+        font-size: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+        text-align: center;
+    }
+
+    .main-admin h1 i {
+        display: inline-block !important;
+        margin-right: 0.5rem !important;
+        font-size: 1.2rem !important;
+    }
+
+    /* ... reste de ton CSS inchangé ... */
+
 
 }

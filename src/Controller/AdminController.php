@@ -370,9 +370,12 @@ final class AdminController extends AbstractController
             $entityManager->persist($rdvForm->getData());
             $entityManager->flush();
 
+            return $this->redirectToRoute('show_rdv', ['id' => $id]);
+
             } elseif ($rdvForm->isSubmitted() && !$rdvForm->isValid()) {
                 $this->addFlash('error', 'Erreur lors de la modification du rendez-vous.');
             }
+        
     
         // affichage du formulaire d'édition
         return $this->render('admin/rdv/editRdv.html.twig', [

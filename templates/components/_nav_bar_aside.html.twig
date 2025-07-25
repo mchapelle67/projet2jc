@@ -27,17 +27,17 @@
                     <span class="menu-item-label">Devis en attente</span>
                 </a>
             </li>
+            <li class="menu-item {% if app.request.attributes.get('_route') == 'app_devis_historique' %}active{% endif %}">
+                <a href="{{ path('app_devis_historique') }}" class="menu-item-contents">
+                    <i class="fa-solid fa-box-archive"></i>
+                    <span class="menu-item-label">Historique des devis</span>
+                </a>
+            </li>
             {% endif %}
             <li class="menu-item {% if app.request.attributes.get('_route') == 'app_rdv_historique' %}active{% endif %}">
                 <a href="{{ path('app_rdv_historique') }}" class="menu-item-contents">
                     <i class="fa-solid fa-box-archive"></i>
                     <span class="menu-item-label">Historique des rdv</span>
-                </a>
-            </li>
-            <li class="menu-item {% if app.request.attributes.get('_route') == 'app_devis_historique' %}active{% endif %}">
-                <a href="{{ path('app_devis_historique') }}" class="menu-item-contents">
-                    <i class="fa-solid fa-box-archive"></i>
-                    <span class="menu-item-label">Historique des devis</span>
                 </a>
             </li>
         </ul>
