@@ -30,6 +30,9 @@
             {% else %}
                 <p>Aucun devis trouvé.</p>
             {% endif %}
+
+            {{ knp_pagination_render(devisHistorique, 'bundles/custom_pagination.html.twig')}}
+
 </main>
 {% endblock %}
             

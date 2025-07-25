@@ -11,7 +11,7 @@
 
 .voiture-item {
   background-color: #fff;
-  border-radius: 0.75rem;
+  border-radius: var(--border-radius);
   box-shadow: 0 0.3125rem 1.25rem rgba(0, 0, 0, 0.08);
   overflow: hidden;
   transition: transform 0.3s ease;
@@ -29,7 +29,6 @@
 
 .carousel.slide.vo {
     position: relative;
-    border-radius: 1.5rem 1.5rem 0 0;
     overflow: hidden;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
@@ -38,7 +37,7 @@
     height: 250px;
     object-fit: cover;
     transition: transform 0.4s ease;
-    border-radius: 1.5rem 1.5rem 0 0;
+    border-radius: var(--border-radius)
 }
 
 .carousel-control-prev.vo,

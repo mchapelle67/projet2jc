@@ -23,7 +23,16 @@ footer {
 }
 
 /* ================================ MENU BURGER ================================ */
-  .burger-menu {
+.dropdown-item {
+    color: black !important;
+}  
+
+.nav-link:focus, .nav-link:hover {
+    color: white !important;
+}
+
+
+.burger-menu {
         display: block;
         position: fixed;
         top: 20px;
@@ -54,9 +63,7 @@ footer {
         transition: all 0.3s ease;
         border-radius: 2px;
     }
-    
-    /* ❌ SUPPRIMÉ les 4 règles .burger-toggle.active */
-    
+        
     .mobile-nav {
         display: none;
         position: fixed;
@@ -167,6 +174,13 @@ footer {
         padding: 0.2rem !important;
     }
 
+    .nav.social-media {
+        gap: 0.5rem !important;
+    }
+
+    .ea-sidebar {
+        display: none !important;
+    }
 /* -------------------------------- INDEX ------------------------------------------ */
     #hero {
         height: 100% !important;
@@ -285,9 +299,17 @@ footer {
         display: none !important;
     }
 
-/* --------------------------------- FORM CLIENT  --------------------------------- */
+/* --------------------------------- FORM  --------------------------------- */
     .form-container {
         padding: 1.25rem;
+    }
+
+    .form {
+        margin: 0 2rem !important;
+    }
+
+    .form-container.contact {
+        padding: 2rem !important;
     }
     
     .progress-bar .step::after {
@@ -303,18 +325,134 @@ footer {
         justify-content: center;
     }
     
-    .form-navigation {
-        flex-direction: column-reverse;
-    }
     
     .form-navigation .btn {
         width: 100%;
     }
 
-/* ------------------------------------- SERVICES ------------------------------------- */
-.container-fluid.home-2.services {
-        margin-top: 3rem !important; /* ← Ajoute 3rem d'espace entre chaque section */
+    .form-group.submit {
+        margin-bottom: 0 !important;
+    }
+    
+    .form-group {
+        width: 100% !important;
+    }
+    
+    .col {
+        flex-direction: column !important;
+        gap: 0 !important;
     }
 
+/* ------------------------------------- SERVICES ------------------------------------- */
+    .container-fluid.home-2.services {
+        margin: 3rem auto 0 auto !important;
+    }
+
+/* -------------------------------------- VO LIST ----------------------------------------- */
+    .vo-list {
+        margin: 0 !important;
+    }
+
+    .form-group.submit {
+        margin-bottom: 0 !important;
+    }
+/* ------------------------------------- SERVICES ------------------------------------- */
+.container-fluid.home-2.services {
+        margin: 3rem auto 0 auto !important; /* ← Ajoute 3rem d'espace entre chaque section */
+    }
+
+/* -------------------------------------- VO LIST ----------------------------------------- */
+.vo-list {
+    margin: 0 !important;
+}
+
+/* -------------------------------------- LOGIN ----------------------------------------- */
+.login-form {
+    width: 100% !important;
+    padding: 3rem 1rem !important; /* Padding ne fait pas déborder */
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.form-group.login {
+    margin : 5rem 0 2rem 0!important;
+}
+
+
+/* ------------------------------------------- MENTIONS LEGALES ------------------------------- */
+.mentions-legales {
+    margin: 8rem 1rem !important;
+}
+
+/* --------------------------------------------- ADMIN ------------------------------------------- */
+.main-admin {
+    width: 100% !important;
+    margin-left: 0 !important;
+}
+
+.main-admin .table.show-rdv {
+        border: none;
+        background: white !important;
+    }
+    
+    .main-admin .table.show-rdv thead {
+        display: none; /* Cache l'en-tête */
+    }
+    
+    .main-admin .table.show-rdv tbody,
+    .main-admin .table.show-rdv tr,
+    .main-admin .table.show-rdv td {
+        display: block;
+        width: 100%;
+        border: none;
+    }
+    
+    .main-admin .table.show-rdv tbody tr {
+        border: 1px solid #ddd;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-radius: 8px;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .main-admin .table.show-rdv td {
+        position: relative;
+        padding: 0.75rem 0 0.75rem 40% !important;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        text-align: left;
+        background: white !important;
+        margin-bottom: 0.25rem;
+        border-radius: 4px;
+    }
+
+    /* Labels automatiques */
+    .main-admin .table.show-rdv td:nth-child(1):before { content: "Date du rendez-vous :"; }
+    .main-admin .table.show-rdv td:nth-child(2):before { content: "Prestation :"; }
+    .main-admin .table.show-rdv td:nth-child(3):before { content: "Date de création :"; }
+    .main-admin .table.show-rdv td:nth-child(4):before { content: "Dernière modification :"; }
+    .main-admin .table.show-rdv td:nth-child(5):before { content: "Statut :"; }
+    
+    .main-admin .table.show-rdv td:before {
+        position: absolute;
+        left: 0;
+        top: 0.75rem;
+        width: 35%;
+        font-weight: bold;
+        padding-right: 1rem;
+        color: #333;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    /* Style pour les éléments dans les cellules */
+    .main-admin .table.show-rdv td strong {
+        font-weight: 600;
+    }
+    
+    .main-admin .table.show-rdv td a {
+        margin-left: 0.5rem;
+    }
 
 }

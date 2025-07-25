@@ -8,16 +8,16 @@
 {% block body %}
 <main class="main-admin">
     <h1>Rendez-vous</h1>
-    <table class="table table-striped">
+    <table class="table table-striped show-rdv">
         <thead>
             {% if rdv.statut is same as 'En attente' %}
-                <tr class="table-warning">
+                <tr class="table-warning show-rdv">
             {% elseif rdv.statut is same as 'Confirmer' %}
-                <tr class="table-success">
+                <tr class="table-success show-rdv">
             {% elseif rdv.statut is same as 'Refuser' or 'Annuler' %}
-                <tr class="table-danger">
+                <tr class="table-danger show-rdv">
             {% else %}
-                <tr class="table">
+                <tr class="table show-rdv">
                 {% endif %}
                     <th scope="col">Date du rendez-vous</th>
                     <th scope="col">Prestation</th>
@@ -36,7 +36,7 @@
                 <td>{{ rdv.prestation.nomPrestation }}</td>
                 <td>{{ rdv.dateDemande|date('d/m/Y') }}</td>
                 <td>{{ rdv.dateModification|date('d/m/Y') }}</td>
-                <th class="row">{{ rdv.statut }}</th>
+                <td>{{ rdv.statut }}</td>
             </tr>
             </tbody>
         </table>

@@ -20,6 +20,27 @@
         </div>
         
         <ul class="mobile-nav-links">
+            {% if is_granted('ROLE_USER')%}
+            <li class="nav-item dropdown ms-auto">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa-solid fa-user fa-lg" style="opacity: 1;"></i>          
+                </a>
+                <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLinkAdmin">
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <a class="dropdown-item" href="{{ path('dashboard_admin') }}">SUPER ADMIN</a>
+                    {% endif %}
+                            <a class="dropdown-item" href="{{ path('app_admin_rdv_calendar') }}">Calendrier rdv</a>
+                    {% if is_granted('ROLE_ADMIN')%}
+                            <a class="dropdown-item" href="{{ path('app_admin_rdv') }}">Rdv en attente</a>
+                            <a class="dropdown-item" href="{{ path('app_admin_devis') }}">Devis en attente</a>
+                            <a class="dropdown-item" href="{{ path('app_rdv_historique') }}">Rdv historique</a>
+                            <a class="dropdown-item" href="{{ path('app_devis_historique') }}">Devis historique</a>
+                    <a class="dropdown-item" href="{{ path('add_vo') }}">Ajouter VO</a>
+                    {% endif %}
+                    <a class="dropdown-item" href="{{ path('app_logout') }}">Deconnexion</a>
+                </div>
+            </li>
+            {% endif %}
             <li><a href="{{ path('app_home') }}"><i class="fa-solid fa-house"></i>Accueil</a></li>
             <li><a href="{{ path('app_services') }}"><i class="fa-solid fa-wrench"></i>Nos services</a></li>
             <li><a href="{{ path('app_devis_client') }}"><i class="fa-solid fa-file"></i>Devis</a></li>
