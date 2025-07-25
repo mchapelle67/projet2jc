@@ -20,16 +20,12 @@
             color: var(--blue-color);
         }
         input,
-        select,
-        textarea {
+        select {
             padding: 0.75rem 1rem;
             border: 1px solid #ccc;
             border-radius: var(--border-radius);
             font-size: 1rem;
-            transition: border-color 0.3s ease;
-            &:focus {
-                border-color: var(--blue-color);
-            }
+            transition: border-color 0.3s ease
         }
     }
 }
@@ -90,15 +86,8 @@
     color: white;
 }
 
-.progress-bar-form .step.completed {
-    background-color: var(--blue-color);
-    border-color: var(--blue-color);
-    color: white;
-}
-
 .progress-bar-form .step::after,
-.progress-bar-form .step.active::after,
-.progress-bar-form .step.completed::after {
+.progress-bar-form .step.active::after {
     content: attr(data-step-title);
     position: absolute;
     top: 120%;
@@ -164,20 +153,10 @@
 
 
 .form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
+.form-group select:focus {
     outline: none;
     border-color: var(--blue-hover);
     box-shadow: 0 0 0 0.125rem rgb(0, 86, 179, 0.5);
-}
-
-.form-group-inline {
-    display: flex;
-    gap: 1.25rem;
-}
-
-.form-group-inline .form-group {
-    flex: 1;
 }
 
 .form-step p.champs-obligatoires {
@@ -206,29 +185,17 @@
     cursor: pointer;
     font-size: 1rem;
     font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.1s ease;
-    &:active {
-        transform: translateY(0.0625rem);
-}
+    transition: background-color 0.3s ease, transform 0.1s ease
 }
 
 .btn-primary {
     background-color: var(--blue-color);
-    color: white;
-    &:hover {
-        background-color: var(--blue-hover);
-    }
-    &:active {
-        background-color: var(--dark-red) !important;
-    }
+    color: white
 }
 
 .btn-secondary {
     background-color: var(--grey-color);
-    color: var(--dark-gray);
-    &:hover {
-        background-color: var(--input-placeholder);
-    }
+    color: var(--dark-gray)
 }
 
 #reviewDetails p {
@@ -246,23 +213,6 @@
 }
 
 /* Validation Error Styling */
-input.invalid {
-    border-color: var(--dark-red);
-    box-shadow: 0 0 0 0.125rem rgb(208, 0, 0, 0.3);
-}
-
-.error-message {
-    color: var(--dark-red);
-    font-size: 1em!important;
-    font-weight: 400 !important;
-    margin: 0.3rem 0 0 0 !important;
-    text-align: start !important;
-    font-style: normal !important;
-}
-
-#devis_type_form_text {
-    width: 100%;
-}
 
 .consentement {
     font-style: italic;
@@ -272,7 +222,6 @@ input.invalid {
 }
 
 input::placeholder,
-textarea::placeholder,
 .form-group select::placeholder {
     color: var(--bs-secondary-color) !important;
 }
@@ -312,39 +261,6 @@ textarea::placeholder,
 }
 
 /* ************************** FORMULAIRE CONTACT *********************************** */
-#contact_type_form_submit {
-    display: flex;
-    border: none;
-    width: fit-content;
-    justify-content: center;
-    background-color: var(--blue-color);
-    padding: 0.5rem 1.8rem;
-    margin: 1.875rem auto;
-    font-size: 1.5em;
-    font-weight: 600;
-    color: white;
-    border-radius: var(--border-radius);
-    transition: color 0.3s ease;
-    &:hover {
-        background-color: var(--blue-hover);
-        transform: translateY(-2px) scale(1.05);
-        box-shadow: 0 8px 25px rgba(30, 144, 255, 0.3);
-    }
-    &:active {
-        background-color: var(--dark-red);
-    }
-}
-
-#contact_type_form_submits::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.6s;
-}
 
 .form-container.contact {
     margin: 3rem auto 3rem auto !important;
@@ -374,10 +290,7 @@ textarea::placeholder,
     padding: 0.5rem;
     box-shadow: var(--box-shadow);
     z-index: 1000;
-    transition: background-color 0.3s ease, transform 0.1s ease;
-    &:hover {
-        opacity: 0.5;
-    }
+    transition: background-color 0.3s ease, transform 0.1s ease
 }
 
 /* Animation d'apparition pour chaque bloc-service */

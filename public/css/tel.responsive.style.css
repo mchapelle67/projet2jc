@@ -422,19 +422,6 @@ footer {
         padding: 2rem !important;
     }
     
-    .progress-bar .step::after {
-        display: none;
-    }
-    
-    .form-group-inline {
-        flex-direction: column;
-        gap: 0;
-    }
-    
-    .amount-options {
-        justify-content: center;
-    }
-    
     
     .form-navigation .btn {
         width: 100%;
@@ -658,7 +645,7 @@ footer {
     }
 
     /* ✅ BOUTONS du formulaire */
-    .main-admin .btn-group,
+    
     .main-admin .d-flex.gap-2 {
         display: flex !important;
         flex-direction: column !important;

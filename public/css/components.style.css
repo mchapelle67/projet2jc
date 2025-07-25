@@ -27,10 +27,7 @@
     padding: 0.5rem 1.5rem !important;
     i {
         color: white;
-        opacity: 0.55;
-        &:hover {
-            cursor: pointer;
-        }
+        opacity: 0.55
     }
 }
 
@@ -61,11 +58,6 @@
 }
 
 .nav-item.dropdown.ms-auto {
-    i {
-        &:hover {
-            opacity: 0.9;
-        }
-    }
 }
 
 #navbarDropdownMenuLinkAdmin:focus {
@@ -77,10 +69,7 @@
 .navbar.fixed a,
 .nav-link.dropdown-toggle.fixed i {
     color: black;
-    opacity: 0.9;
-    &:hover {
-        opacity: 0.6;
-    }
+    opacity: 0.9
 }
 
 .dropdown-item i {
@@ -90,18 +79,12 @@
 
 /* *************************** FOOTER ************************************ */
 .text-body-secondary:hover i,
-.col-md-4.d-flex.align-items-center:hover a,
 .nav-item.footer a:hover {
     opacity: 0.5;
 }
 
 footer.py-3.my-4 {
     margin-bottom: 0 !important;
-}
-
-.sf-toolbar-clearer {
-    display: none;
-    height: 0;
 }
 
 .pb-3,
@@ -190,10 +173,6 @@ footer.py-3.my-4 {
 }
 
 /* ************************************* SEARCH BAR ***************************** */
-#search_type_form_q {
-    width: 50%;
-    margin-right: 15px;
-}
 
 form.form-inline {
     display: flex;
@@ -227,10 +206,4 @@ input[type="date"]:focus, select:focus {
   border-color: var(--blue-color);
   outline: none;
   box-shadow: 0 0 5px rgba(0,123,255,0.5);
-}
-
-#time-rdv:disabled {
-  background-color: #f0f0f0;
-  color: #999;
-  cursor: not-allowed;
 }

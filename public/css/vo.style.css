@@ -16,10 +16,7 @@
   overflow: hidden;
   transition: transform 0.3s ease;
   display: flex;
-  flex-direction: column;
-    &:hover {
-      transform: translateY(-0.3125rem);
-  }
+  flex-direction: column
 }
 
 .carousel-inner img {
@@ -129,10 +126,7 @@
 .icones-vo i {
   margin: 0.625rem 0 0 0.625rem;
   color: #666;
-  font-size: 1.125rem;
-  &:hover {
-    color: var(--red-color);
-  }
+  font-size: 1.125rem
 }
 
 .no-voiture {
@@ -143,27 +137,6 @@
 } 
 
 /* ---------------- FORM ADD et EDIT VO ----------------- */
-.hero-vo.form {
-  height: 40vh;
-}
-
-#vo_type_form_submit {
-  display: flex;
-  margin: 1.25rem auto 0 auto;
-  background-color: var(--blue-color);
-  border: none;
-  color: white;
-  font-weight: 600;
-  padding: 0.625rem 2.5rem;
-  font-size: 1.2em;
-  border-radius: var(--border-radius);
-    &:hover {
-      background-color: var(--blue-hover);
-    }
-    &:active {
-    background-color: var(--dark-red);
-  }
-}
 
 .form-step.active.vo {
   padding: 3rem;
@@ -199,9 +172,6 @@
   display: flex;
   align-items: center;
   i {
-    margin: 0.5rem;
-    &:hover {
-      color: var(--red-color);
-    }
+    margin: 0.5rem
   }
 }

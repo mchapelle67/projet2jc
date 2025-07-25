@@ -77,12 +77,8 @@ p {
     margin-bottom: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4 {
     font-family: var(--font-secondary);
-}
-
-.home-main { 
-    width: 100% !important;
 }
 
 .btn-links {
@@ -140,16 +136,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .form-group {
     input,
-    select,
-    textarea {
+    select {
       padding: 0.75rem 1rem;
       border: 1px solid #ccc;
       border-radius: var(--border-radius);
       font-size: 1rem;
-      transition: border-color 0.3s ease;
-      &:focus {
-        border-color: var(--blue-color);
-      }
+      transition: border-color 0.3s ease
   }   
 }
 
@@ -383,12 +375,6 @@ h1, h2, h3, h4, h5, h6 {
         font-size: 3em;
         font-weight: 400;
     }
-}
-
-.container-parrallaxe {
-    width: 100%;
-    max-width: 62.5rem; 
-    padding: 0 1.25rem; 
 }
 
 /* Partie 4 */

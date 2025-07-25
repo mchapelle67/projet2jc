@@ -45,12 +45,12 @@ tarteaucitron.init({
 
     // "customCloserId": "", // Optionnel a11y: ID personnalisé pour ouvrir le panel
 
-    "googleConsentMode": true, // Activer le Google Consent Mode v2 pour Google ads & GA4
-    "bingConsentMode": true, // Activer le Bing Consent Mode pour Clarity & Bing Ads
+    "googleConsentMode": false, // Activer le Google Consent Mode v2 pour Google ads & GA4
+    "bingConsentMode": false, // Activer le Bing Consent Mode pour Clarity & Bing Ads
     "softConsentMode": false, // Soft consent mode (le consentement est requis pour charger les tags)
 
     "dataLayer": false, // Envoyer un événement dans dataLayer avec le statut des services
     "serverSide": false, // Server side seulement, les tags ne sont pas chargé côté client
 
-    "partnersList": true // Afficher le détail du nombre de partenaires sur la bandeau
+    "partnersList": false // Afficher le détail du nombre de partenaires sur la bandeau
 });
