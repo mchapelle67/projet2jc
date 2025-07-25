@@ -37,7 +37,9 @@
                 <div class="photo-preview">
                     {% for photo in photos %}
                         <div class="photo-item">
-                            <img src="{{ asset('uploads/vo/' ~ photo.img) }}" alt="Photo" style="max-width:150px;">
+                            <figure>
+                                <img src="{{ asset('uploads/vo/' ~ photo.img) }}" alt="Photo" style="max-width:150px;">
+                            </figure>
                             <a href="{{ path('delete_photo_vo', {'voId': vehicule.id, 'photoId': photo.id}) }}"><i class="fa-regular fa-trash"></i></a>
                         </div>
                     {% endfor %}

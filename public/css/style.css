@@ -257,7 +257,7 @@ h1, h2, h3, h4, h5, h6 {
 #hero {
   position: relative;
   height: 100vh;
-  background: url('../images/devis.avif') center center / cover no-repeat;
+  background: url('../images/car-design.webp') center center / cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -371,7 +371,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Partie 3 */
 .parallaxe {
-    background-image: url('../images/parralaxe.png');
+    background-image: url('../images/parralaxe.webp');
     background-attachment: fixed;
     background-size: cover; 
     background-position: center;

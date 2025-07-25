@@ -47,7 +47,6 @@ footer {
         padding: 15px;
         border-radius: 4px;
         transition: all 0.3s ease;
-        margin: 1rem;
     }
     
     .burger-toggle:hover {
@@ -296,7 +295,6 @@ footer {
 /* -------------------------------- INDEX ------------------------------------------ */
     #hero {
         height: 100% !important;
-        background: url('../images/devis.avif') center center / cover no-repeat !important;
     }
 
     .hero-overlay {
@@ -312,7 +310,8 @@ footer {
         font-size: 3em !important;
     }
     
-    .hero-content h2 {
+    .hero-content h2,
+    .hero-content-secondaire h2 {
         display: none;
     }
     

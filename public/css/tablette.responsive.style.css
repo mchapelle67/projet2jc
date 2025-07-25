@@ -1,0 +1,719 @@
+@media (min-width: 769px) and (max-width: 1024px) {
+/* --------------------------------- BASE ----------------------------------------- */
+    html, body {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden !important;
+    }
+
+
+footer {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+
+.social-media i {
+    margin-bottom: 1rem !important;
+}
+
+.py-3 {
+    padding-top: 0 !important;
+}
+
+.container.footer {
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important; /* ✅ Supprime la limitation Bootstrap */
+    padding: 1rem !important; /* ✅ Supprime les paddings Bootstrap */
+    box-sizing: border-box !important; /* ✅ Assure le bon calcul des dimensions */
+}
+/* ================================ MENU BURGER ================================ */
+.dropdown-item {
+    color: black !important;
+}  
+
+.nav-link:focus, .nav-link:hover {
+    color: white !important;
+}
+
+
+    .burger-menu {
+        display: block;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1001;
+    }
+
+    .burger-toggle {
+        background: rgba(0, 0, 0, 0.1);
+        border: none;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+    
+    .burger-toggle:hover {
+        background: rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+    }
+        
+    .burger-line {
+        display: block;
+        width: 35px;
+        height: 4px;
+        background: white;
+        margin: 7px 0;
+        transition: all 0.3s ease;
+        border-radius: 2px;
+    }
+    
+    .mobile-nav {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+    }
+    
+    .mobile-nav.open {
+        display: block;
+    }
+    
+    .mobile-nav-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+    }
+    
+    .mobile-nav-content {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 80%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        padding: 2rem;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .mobile-nav.open .mobile-nav-content {
+        transform: translateX(0);
+    }
+
+    .dropdown-item {
+        color: black !important;
+    }  
+
+    .nav-link:focus, .nav-link:hover {
+        color: white !important;
+    }
+
+    /* ✅ BOUTON HAMBURGER (ouvrir) - reste normal */
+    .burger-menu .burger-toggle .burger-line {
+        display: block;
+        width: 35px;
+        height: 4px;
+        background: white;
+        margin: 7px 0;
+        transition: all 0.3s ease;
+        border-radius: 2px;
+    }
+    
+    /* Style pour le conteneur du bouton fermer */
+    .burger-menu-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1002;
+    }
+    
+    .burger-menu-close .burger-toggle {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+    .burger-menu-close .burger-toggle:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.05);
+    }
+
+    .mobile-nav-links {
+        list-style: none;
+        padding: 0;
+        margin: 4rem 0 2rem 0;
+    }
+    
+    .mobile-nav-links li {
+        margin: 1.5rem 0;
+    }
+    
+    .mobile-nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        display: block;
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent;
+    }
+    
+    .mobile-nav-links i {
+        margin-right: 0.8rem;
+    }
+    
+    .mobile-nav-links a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-left-color: var(--blue-color);
+        transform: translateX(10px);
+    }
+    
+    .social-links-container {
+        display: flex;
+        padding: 0.2rem !important;
+    }
+
+    .nav.social-media {
+        gap: 0.5rem !important;
+    }
+
+    .ea-sidebar {
+        display: none !important;
+    }
+
+    .burger-menu-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1002;
+    }
+    
+    .burger-close-icon {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .burger-close-icon i {
+        color: white !important; /* Force la couleur */
+        font-size: 20px;
+        transition: all 0.3s ease;
+    }
+    
+    .burger-close-icon:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.1);
+    }
+    
+    .burger-close-icon:hover i {
+        transform: rotate(90deg);
+    }
+
+/* ✅ CACHE le bouton hamburger quand le menu est ouvert */
+    .mobile-nav.open ~ .burger-menu {
+        display: none !important;
+    }
+    
+    /* OU version alternative */
+    .burger-menu {
+        display: block;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1001;
+    }
+    
+    /* CACHE le burger quand le menu mobile est ouvert */
+    .mobile-nav.open + .burger-menu,
+    body.menu-open .burger-menu {
+        display: none !important;
+    }
+
+
+
+    .mobile-nav-links {
+        list-style: none;
+        padding: 0;
+        margin: 4rem 0 2rem 0;
+    }
+    
+    .mobile-nav-links li {
+        margin: 1.5rem 0;
+    }
+    
+    .mobile-nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        display: block;
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent;
+    }
+    
+    .mobile-nav-links i {
+        margin-right: 0.8rem;
+    }
+    
+    .mobile-nav-links a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-left-color: var(--blue-color);
+        transform: translateX(10px);
+    }
+    
+    .social-links-container {
+        display: flex;
+        padding: 0.2rem !important;
+    }
+
+    .nav.social-media {
+        gap: 0.5rem !important;
+    }
+
+    .ea-sidebar {
+        display: none !important;
+    }
+/* -------------------------------- INDEX ------------------------------------------ */
+    #hero {
+        height: 100% !important;
+    }
+
+    .hero-overlay {
+        height: 50% !important;
+    }
+
+    .hero-content {
+        padding: 5rem 1rem !important;
+    }
+    
+    .hero-content h1 {
+        margin: 3rem auto 0 auto !important;
+        font-size: 3em !important;
+    }
+    
+    .hero-content h2,
+    .hero-content-secondaire h2 {
+        font-size: 2em !important;
+        font-weight: 400;
+        margin-bottom: 2rem !important;
+    }
+    
+    .hero-content .cta-blue {
+        font-size: 1em !important;
+        margin-bottom: 2rem !important;
+    }
+    
+    .chevron-down i {
+        display: none !important;
+    }
+    
+    /* .container-fluid.home-1 {
+        flex-direction: column;
+        max-height: none;
+    }
+     */
+    .div-home {
+        width: 100% !important;
+        margin: 0 1rem 2rem 1rem;
+    }
+    
+    .parallaxe {
+        /* padding: 5rem !important; */
+        margin-bottom: 3rem;
+    }
+    
+    .parallaxe h2,
+    .parallaxe p {
+        display: none !important;
+    }
+/*     
+    .home-2 {
+        margin: 0 !important;
+    } */
+
+    .block-service {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .block-service.xp {
+        padding-left: 2rem !important;
+        flex-direction: column !important;
+        text-align: center !important; 
+        align-items: center !important; 
+    }
+
+    .block-text {
+        flex: 0 !important;
+    }
+    
+    .block-text p {
+        padding: 0.5rem 1rem;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .block-text h2 {
+        margin-bottom: 0 !important;
+    } */
+
+    /* .img-service,
+    .img-xp {
+        max-width: 80%;
+        margin: 0 auto;
+    } */
+
+    .container-fluid.home-3 {
+        flex-direction: column;
+        padding: 0 !important;
+        max-height: none;
+    }
+
+    /* .google_maps, .localisation {
+        flex: unset;
+        width: 100%;
+        height: 300px;
+        border-radius: 0 !important;
+    } */
+
+    /* .localisation {
+        padding: 1.5rem 1rem;
+        text-align: center;
+    }
+    
+    .localisation h3 {
+        display: none;
+    }
+    
+    .localisation address {
+        margin: 0.5rem 0;
+    } */
+
+    .localisation .cta-blue {
+        display: none !important;
+    }
+
+/* --------------------------------- FORM  --------------------------------- */
+    .form-container {
+        padding: 1.25rem;
+    }
+
+    .form {
+        margin: 0 2rem !important;
+    }
+
+    .form-container.contact {
+        padding: 2rem !important;
+    }
+    
+    .progress-bar .step::after {
+        display: none;
+    }
+    
+    .form-group-inline {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .amount-options {
+        justify-content: center;
+    }
+    
+    
+    .form-navigation .btn {
+        width: 100%;
+    }
+
+    .form-group.submit {
+        margin-bottom: 0 !important;
+    }
+    
+    .form-group {
+        width: 100% !important;
+    }
+    
+    .col {
+        flex-direction: column !important;
+        gap: 0 !important;
+    }
+
+/* ------------------------------------- SERVICES ------------------------------------- */
+    .container-fluid.home-2.services {
+        margin: 3rem auto 0 auto !important;
+    }
+
+/* -------------------------------------- VO LIST ----------------------------------------- */
+    .vo-list {
+        margin: 0 !important;
+    }
+
+    .form-group.submit {
+        margin-bottom: 0 !important;
+    }
+/* ------------------------------------- SERVICES ------------------------------------- */
+.container-fluid.home-2.services {
+        margin: 3rem auto 0 auto !important; /* ← Ajoute 3rem d'espace entre chaque section */
+    }
+
+/* -------------------------------------- VO LIST ----------------------------------------- */
+.vo-list {
+    margin: 0 !important;
+}
+
+/* -------------------------------------- LOGIN ----------------------------------------- */
+.login-form {
+    width: 100% !important;
+    padding: 3rem 1rem !important; /* Padding ne fait pas déborder */
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.form-group.login {
+    margin : 5rem 0 2rem 0!important;
+}
+
+
+/* ------------------------------------------- MENTIONS LEGALES ------------------------------- */
+.mentions-legales {
+    margin: 8rem 1rem !important;
+}
+
+/* --------------------------------------------- ADMIN ------------------------------------------- */
+.main-admin {
+    width: 100% !important;
+    margin: 3rem 0 !important;
+}
+
+    /* ✅ TABLE SHOW-RDV */
+    .main-admin .table.show-rdv {
+        border: none;
+        background: transparent;
+    }
+    
+    .main-admin .table.show-rdv thead {
+        display: none;
+    }
+    
+    .main-admin .table.show-rdv tbody,
+    .main-admin .table.show-rdv tr,
+    .main-admin .table.show-rdv td {
+        display: block;
+        width: 100%;
+        border: none;
+    }
+    
+    .main-admin .table.show-rdv tbody tr {
+        border: 1px solid #ddd;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-radius: 8px;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .main-admin .table.show-rdv td {
+        position: relative;
+        padding: 0.75rem 0 0.75rem 40% !important;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        text-align: left;
+        background: white !important;
+        margin-bottom: 0.25rem;
+        border-radius: 4px;
+    }
+
+    .main-admin .table.show-rdv td:last-child {
+        border-bottom: none;
+    }
+
+    /* Labels pour show-rdv */
+    .main-admin .table.show-rdv td:nth-child(1):before { content: "Date du rendez-vous :"; }
+    .main-admin .table.show-rdv td:nth-child(2):before { content: "Prestation :"; }
+    .main-admin .table.show-rdv td:nth-child(3):before { content: "Date de création :"; }
+    .main-admin .table.show-rdv td:nth-child(4):before { content: "Dernière modification :"; }
+    .main-admin .table.show-rdv td:nth-child(5):before { content: "Statut :"; }
+
+    .main-admin .table.show-rdv td:before {
+        position: absolute;
+        left: 0;
+        top: 0.75rem;
+        width: 35%;
+        font-weight: bold;
+        padding-right: 1rem;
+        color: #333;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* ✅ TABLE EDIT-RDV */
+    .main-admin .table.edit-rdv {
+        border: none;
+        background: transparent;
+    }
+
+    .main-admin .table.edit-rdv thead {
+        display: none;
+    }
+
+    .main-admin .table.edit-rdv tbody,
+    .main-admin .table.edit-rdv tr,
+    .main-admin .table.edit-rdv td {
+        display: block;
+        width: 100%;
+        border: none;
+    }
+
+    .main-admin .table.edit-rdv tbody tr {
+        border: 1px solid #c3e6cb;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-radius: 8px;
+        background: #d4edda; /* ✅ Fond vert success */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .main-admin .table.edit-rdv td {
+        position: relative;
+        padding: 0.75rem 0 0.75rem 40% !important;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        text-align: left;
+        background: transparent !important;
+        margin-bottom: 0.25rem;
+        border-radius: 4px;
+    }
+
+    .main-admin .table.edit-rdv td:last-child {
+        border-bottom: none;
+    }
+
+    /* ✅ CACHE le form_start qui décale tout */
+    .main-admin .table.edit-rdv td:nth-child(1) {
+        display: none !important;
+    }
+
+    /* ✅ Labels CORRECTS pour edit-rdv (après avoir caché le form_start) */
+    .main-admin .table.edit-rdv td:nth-child(2):before { content: "Date du rendez-vous :"; }
+    .main-admin .table.edit-rdv td:nth-child(3):before { content: "Prestation :"; }
+    .main-admin .table.edit-rdv td:nth-child(4):before { content: "Date de création :"; }
+    .main-admin .table.edit-rdv td:nth-child(5):before { content: "Dernière modification :"; }
+    .main-admin .table.edit-rdv td:nth-child(6):before { content: "Statut :"; }
+
+    .main-admin .table.edit-rdv td:before {
+        position: absolute;
+        left: 0;
+        top: 0.75rem;
+        width: 35%;
+        font-weight: bold;
+        padding-right: 1rem;
+        color: #333;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* ✅ FORMULAIRES Symfony dans les cellules */
+    .main-admin .table.edit-rdv .form-group {
+        margin-bottom: 0 !important;
+    }
+
+    .main-admin .table.edit-rdv .form-control {
+        font-size: 0.9rem !important;
+        padding: 0.5rem !important;
+        border: 1px solid #ced4da !important;
+        border-radius: 4px !important;
+        width: 100% !important;
+    }
+
+    .main-admin .table.edit-rdv select.form-control {
+        background-color: white !important;
+    }
+
+    .main-admin .table.edit-rdv label {
+        display: none !important;
+    }
+
+    /* Style commun pour les éléments dans les cellules */
+    .main-admin .table td strong {
+        font-weight: 600;
+    }
+    
+    .main-admin .table td a {
+        margin-left: 0.5rem;
+    }
+
+    /* ✅ BOUTONS du formulaire */
+    .main-admin .btn-group,
+    .main-admin .d-flex.gap-2 {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+        margin-top: 2rem !important;
+    }
+
+    .main-admin .btn {
+        width: 100% !important;
+        padding: 0.75rem !important;
+        font-size: 0.9rem !important;
+        text-align: center !important;
+    }
+
+    /* ✅ CARDS responsive */
+    .main-admin .card {
+        margin-bottom: 1.5rem !important;
+    }
+
+    .main-admin .card-header h4 {
+        font-size: 1.1rem !important;
+    }
+
+    .main-admin .card-body p {
+        margin-bottom: 0.75rem !important;
+        font-size: 0.9rem !important;
+        line-height: 1.4;
+    }
+
+    /* ✅ TITRE responsive */
+    .main-admin h1 {
+        font-size: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+        text-align: center;
+    }
+
+    .main-admin h1 i {
+        display: inline-block !important;
+        margin-right: 0.5rem !important;
+        font-size: 1.2rem !important;
+    }
+
+    /* ... reste de ton CSS inchangé ... */
+
+
+}

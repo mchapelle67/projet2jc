@@ -28,7 +28,9 @@
                         <div class="carousel-inner">
                             {% for photo in voiture.photos %}
                                 <div class="carousel-item {% if loop.first %}active{% endif %}">
-                                    <img src="{{ asset('uploads/vo/' ~  photo.img) }}" class="d-block w-100" alt="Image de la voiture {{ voiture.marque }} {{ voiture.modele }}">
+                                    <figure>
+                                        <img src="{{ asset('uploads/vo/' ~  photo.img) }}" class="d-block w-100" alt="Image de la voiture {{ voiture.marque }} {{ voiture.modele }}">
+                                    </figure>
                                 </div>
                             {% endfor %}
                         </div>
