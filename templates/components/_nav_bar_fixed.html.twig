@@ -7,7 +7,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle {% if app.request.attributes.get('_route') == 'app_services' %}active{% endif %}" href="{{ path('app_services') }}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Nos services <i class="fa-solid fa-chevron-down" style="color: #ffffff; font-size: 0.8em; margin-left: 0.3rem;"></i>
+            Nos services <i class="fa-solid fa-chevron-down" style="color: black; font-size: 0.8em; margin-left: 0.3rem; opacity: 0.9;"></i>
           </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="{{ path('app_services') }}">Tous nos services</a>
@@ -34,7 +34,7 @@
       {% if is_granted('ROLE_USER')%}
       <li class="nav-item dropdown ms-auto">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa-solid fa-user fa-lg"></i>          
+            <i class="fa-solid fa-user fa-lg" style="color: black; opacity: 0.9"></i>          
           </a>
           <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLink">
             {% if is_granted('ROLE_SUPER_ADMIN') %}
