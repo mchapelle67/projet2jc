@@ -139,11 +139,14 @@ final class ClientController extends AbstractController
                                 'Nom : ' . $rdvData->getNom() . ' ' . $rdvData->getPrenom() . '<br>' .
                                 'Email : ' . $rdvData->getEmail() . '<br>' .
                                 'Téléphone : ' . $tel . '<br>' .
-                                'Prestation : ' . $rdvData->getPrestation()->getNomPrestation() . '<br>' .
                                 'Date du rdv : ' . $rdvData->getDateRdv()->format('d-m-Y à H:m') . '<br>' .
+                                'Prestation : ' . $rdvData->getPrestation()->getNomPrestation() . '<br>' .
                                 '<a href="' . $rdvUrl . '">Cliquer ici pour acceder à la demande de rdv</a>';
                 $clientBody = 'Votre demande de rendez-vous a bien été prise en compte.<br>' .
-                                'Nous reviendrons vers vous très rapidement. Veuillez attendre notre confirmation.';
+                                'Date du rdv : ' . $rdvData->getDateRdv()->format('d-m-Y à H:m') . '<br>' .
+                                'Prestation : ' . $rdvData->getPrestation()->getNomPrestation() . '<br>' .
+                                'Nous reviendrons vers vous très rapidement. ' . '<br> ' .
+                                '<strong>' . 'Veuillez attendre notre confirmation.' . '</strong>';
 
                 $mail->sendMail('Nouvelle demande de rdv', $adminBody, 'Nouvelle demande de rdv.'); // ajouter mail admin
                 $mail->sendMail('Demande de rendez-vous', $clientBody, 'Votre demande de rendez-vous à bien été prise en compte.'); // ajouter mail client

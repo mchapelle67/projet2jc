@@ -23,7 +23,7 @@ class MailService
         $mail->Port       = 465;                                    // port du serveur SMTP
 
         // réglages de l'expéditeur et du destinataire
-        $mail->setFrom('manon.chp68@gmail.com', '2jc');
+        $mail->setFrom('manon.chp68@gmail.com', '2jc Automobiles'); // adresse de l'expéditeur
         $mail->addAddress('manon.chp68@gmail.com');      // à rempacer par $mailClient
 
         // contenu du message
