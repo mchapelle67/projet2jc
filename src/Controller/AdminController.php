@@ -28,7 +28,7 @@ final class AdminController extends AbstractController
     public function listeDevis(DevisRepository $devisRepository): Response
     {
         // on récupère les devis en bdd
-        $devisList = $devisRepository->findBy([], ['date_devis' => 'DESC']);
+        $devisList = $devisRepository->findAll();
         // on filtre les devis en cours
         $devisEnCours = array_filter($devisList, function (Devis $devis) {
             return $devis->getStatut() === 'En cours';

@@ -181,3 +181,21 @@
     margin: 0.5rem
   }
 }
+
+#vo_type_form_submit {
+  display: flex;
+  margin: 1.25rem auto 0 auto;
+  background-color: var(--blue-color);
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 0.625rem 2.5rem;
+  font-size: 1.2em;
+  border-radius: var(--border-radius);
+    &:hover {
+      background-color: var(--blue-hover);
+    }
+    &:active {
+    background-color: var(--dark-red);
+  }
+}

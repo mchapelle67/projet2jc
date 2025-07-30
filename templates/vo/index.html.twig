@@ -14,6 +14,14 @@
     <section class="hero-secondaire">
         <div class="hero-overlay-secondaire">
             <div class="hero-content-secondaire">
+            {% for label, messages in app.flashes %}
+                {% set alertClass = (label == 'error') ? 'danger' : label %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ alertClass }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+            {% endfor %}
                 <h1>Notre parc automobile</h1>
                 <h2>Achetez, roulez, on s’occupe du reste !</h2>
             </div> 

@@ -273,13 +273,16 @@ h1, h2, h3, h4 {
     text-align: center;
     padding: 2rem;
     h1 {
-        font-size: 6rem;
+        font-size: 7rem;
         margin-bottom: 0;
         font-weight: 600;
     }
     h2 {
-        font-size: 2.5rem;
-        margin-bottom: 3rem;
+        font-size: 3rem;
+        margin-bottom: 2.5rem;
+    }
+    .cta-blue {
+        font-size: 2em;
     }
 }
 
@@ -383,7 +386,7 @@ h1, h2, h3, h4 {
 
 /* Partie 4 */
 .home-2 {
-    margin: 3.125rem 4.5rem;
+    margin: 3.125rem auto;
     display: flex;
     max-width: fit-content;
     flex-direction: column;

@@ -25,6 +25,7 @@
 
 .nav-link {
     padding: 0.5rem 1.5rem !important;
+    font-size: 1.2em;
     i {
         color: white;
         opacity: 0.55
@@ -55,9 +56,6 @@
 .dropdown-item:hover {
     background-color: var(--light-gray);
     color: black;
-}
-
-.nav-item.dropdown.ms-auto {
 }
 
 #navbarDropdownMenuLinkAdmin:focus {
@@ -97,6 +95,9 @@ footer.py-3.my-4 {
     padding-top: 0.5rem !important;
 }
 
+.container.footer {
+    max-width: 100%;
+}
 
 /* ************************************* ASIDE NAVBAR ************************************* */
 /* ================== ASIDE NAVBAR ================== */
@@ -179,6 +180,14 @@ form.form-inline {
     justify-content: center;
     align-items: center;
     margin: 1.25rem auto;
+    width: 40%;
+    input {
+        margin-right: 0.5rem;
+    }
+}
+
+form.form-inline button:hover {
+    color: white;
 }
 
 

@@ -20,20 +20,20 @@
         <table class="table table-striped">
             <thead>
                 <tr class="table-warning">
-                    <th scope="col">#</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Date du rendez-vous</th>
                     <th scope="col">Prestation</th>
+                    <th scope="col">Date de la demande</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
             {% for rdv in rdvEnCours %}
             <tr>
-                <th scope="row">{{ rdv.id }}</th>
                 <td>{{ rdv.nom }} {{ rdv.prenom }}</td>
                 <td>{{ rdv.dateRdv|date('d/m/Y à H:i') }}</td>
                 <td>{{ rdv.prestation.nomPrestation }}</td>
+                <td>{{ rdv.dateDemande|date('d/m/Y à H:i') }}</td>
                 <td><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Gérer le rdv</a></td>
             </tr>
             {% endfor %}
