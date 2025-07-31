@@ -17,7 +17,7 @@
     <div class="alert alert-warning" role="alert">
         {% if action is same as('rdvDecline') %}
             <p class="mb-1"><strong>Envoi de mail de refus</strong></p>
-            <p class="mb-3">Souhaitez-vous envoyer un mail de refus au client pour le rendez-vous n°{{ rdv.id }} du {{ rdv.dateRdv|date("d/m/Y à H:i") }} ?</p>
+            <p class="mb-3">Souhaitez-vous envoyer un mail de refus au client pour de ce rendez-vous du {{ rdv.dateRdv|date("d/m/Y à H:i") }} ?</p>
                 <div class="d-flex gap-2">
                     <a class="btn btn-success" role="button" href="mailto:{{ rdv.email }}">
                         <i class="fa-solid fa-check"></i> Proposer une nouvelle date
@@ -28,7 +28,7 @@
                 </div>
         {% elseif action is same as('rdvCancel') %}
             <p class="mb-1"><strong>Envoi de mail d'annulation</strong></p>
-            <p class="mb-3">Souhaitez-vous envoyer un mail informant l'annulation du rendez-vous n°{{ rdv.id }} au client ?</p>
+            <p class="mb-3">Souhaitez-vous envoyer un mail informant l'annulation de ce rendez-vous du {{ rdv.dateRdv|date("d/m/Y à H:i") }} ?</p>
                 <div class="d-flex gap-2">
                     <a class="btn btn-success" role="button" href="mailto:{{ rdv.email }}">
                         <i class="fa-solid fa-check"></i> Proposer une nouvelle date
@@ -39,7 +39,7 @@
                 </div>
         {% elseif action is same as('devisDecline') %}
             <p class="mb-1"><strong>Envoi de mail de refus</strong></p>
-            <p class="mb-3">Souhaitez-vous envoyer un mail de refus au client pour le devis n°{{ devis.id }} ?</p>
+            <p class="mb-3">Souhaitez-vous envoyer un mail de refus au client pour ce devis ?</p>
                 <div class="d-flex gap-2">
                     <a class="btn btn-danger" role="button" href="{{ path('gestion_mail', {'id': devis.id, 'action': 'devisDecline'}) }}">
                         <i class="fa-solid fa-xmark"></i> Envoyer un mail de refus

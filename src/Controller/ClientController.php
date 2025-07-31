@@ -121,7 +121,7 @@ final class ClientController extends AbstractController
             $limiter = $contactLimiter->create(($request->getClientIp()));
                 if (!$limiter->consume(1)->isAccepted()) {
                     $this->addFlash('error', 'Trop de formulaires envoyés. Veuillez patienter.');
-                    return $this->redirectToRoute('app_rdv_client');
+                    return $this->redirectToRoute('app_home');
                 }
                     
             // on récupère les données du formulaire
@@ -136,7 +136,7 @@ final class ClientController extends AbstractController
             $entityManager->flush();
         
             // on prepare les mails vers l'administrateur et le client
-                $rdvUrl = $this->generateUrl('show_devis', [
+                $rdvUrl = $this->generateUrl('show_rdv', [
                                 'id' => $rdvData->getId(),
                                 'slug' => md5($rdvData->getId() . '-' . $rdvData->getNom())
                             ], 0); // On génère l'URL du devis avec un hash slug
@@ -163,6 +163,7 @@ final class ClientController extends AbstractController
                 
             } elseif ($rdvForm->isSubmitted() && !$rdvForm->isValid()) {
                 $this->addFlash('error', 'Erreur lors de la création de votre demande de rendez-vous');
+                return $this->redirectToRoute('app_rdv_client');
             }       
     
         return $this->render('client/rdv.html.twig', [

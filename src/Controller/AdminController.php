@@ -396,37 +396,66 @@ final class AdminController extends AbstractController
                 if (!$rdv) {
                     throw $this->createNotFoundException('Rendez-vous inexistant');
                 }
-                $body = "Votre rendez-vous du " . $rdv->getDateRdv()->format('d/m/Y H:i') . "  
-                        pour la prestation: " . $rdv->getPrestation()->getNomPrestation() . " a été accepté.";
+                $body = '<p>' . "Bonjour " . $rdv->getNom() . ' ' . $rdv->getPrenom() . "," . '</p>' .
+                        '<p>' . "Nous vous confirmons votre demande de rendez-vous du : " . '<strong>' . $rdv->getDateRdv()->format('d/m/Y à H:i') . '</strong>' . " pour la prestation suivante : " .'<strong>'. $rdv->getPrestation()->getNomPrestation() . ". " . '</strong></p>' .
+                        '<p> ' . "Rendez-vous dans votre centre 2JC Automobiles à l'adresse suivante : " . '<strong>' . "18 route de Thann, 68130 ALTKIRCH." . '</strong>' . '</p>' .
+                        "Pour tout désistement, veuillez nous contacter par téléphone au 03 89 40 07 97." . '<br>' .
+                        "Nous restons à votre disposition pour tout renseignements supplémentaire." . '</p>' .
+                        '<p>' . "Cordialement," . ' <br>' . 
+                        "L'équipe de 2JC Automobiles" . '</p>';
 
             } elseif ($action === 'rdvDecline') {
                 $rdv = $rdvRepository->find($id);
                 if (!$rdv) {
                     throw $this->createNotFoundException('Rendez-vous inexistant');
                 }
-                $body = "Votre rendez-vous du " . $rdv->getDateRdv()->format('d/m/Y H:i') . " 
-                        pour la prestation: " . $rdv->getPrestation()->getNomPrestation() . " a été refusé.";
+                $body = '<p>' . "Bonjour " . $rdv->getNom() . ' ' . $rdv->getPrenom() . "," . '</p>' .
+                        '<p>' . "Suite à votre demande de rendez-vous pour le : " . '<strong>' . $rdv->getDateRdv()->format('d/m/Y à H:i') . '</strong>' . " pour la prestation suivante : " .'<strong>'. $rdv->getPrestation()->getNomPrestation() . ", " . '</strong><br>' .
+                        "nous avons le regret de vous informer que nous ne pourrons pas honnorer votre demande à la date souhaitée." . '</p>' .
+                        '<p> ' . "Nous vous invitons à prendre un nouveau rendez-vous en ligne sur notre site internet ou par téléphone au 03 89 40 07 97." . '<br>' .
+                        "Nous vous remercions de votre compréhension et restons à votre disposition pour toute question." . '</p>' .
+                        '<p>' . "Cordialement," . ' <br>' . 
+                        "L'équipe de 2JC Automobiles" . '</p>';
 
             } elseif ($action === 'rdvCancel') {
                 $rdv = $rdvRepository->find($id);
                 if (!$rdv) {
                     throw $this->createNotFoundException('Rendez-vous inexistant');
                 }
-                $body = "Votre rendez-vous du " . $rdv->getDateRdv()->format('d/m/Y H:i') . "                    
-                pour la prestation: " . $rdv->getPrestation()->getNomPrestation() . " a été annulé.";
+                $body = '<p>' . "Bonjour " . $rdv->getNom() . ' ' . $rdv->getPrenom() . "," . '</p>' .
+                        '<p>' . "Suite à votre demande de rendez-vous pour le : " . '<strong>' . $rdv->getDateRdv()->format('d/m/Y à H:i') . '</strong>' . " pour la prestation suivante : " .'<strong>'. $rdv->getPrestation()->getNomPrestation() . ", " . '</strong><br>' .
+                        "nous avons le regret de vous informer que nous ne pourrons pas honnorer votre demande à la date souhaitée et que nous sommes contraints d'annuler la prestation." . '</p>' .
+                        '<p> ' . "Nous vous invitons à prendre un nouveau rendez-vous en ligne sur notre site internet ou par téléphone au 03 89 40 07 97." . '<br>' .
+                        "Nous vous remercions de votre compréhension et restons à votre disposition pour toute question." . '</p>' .
+                        '<p>' . "Cordialement," . ' <br>' . 
+                        "L'équipe de 2JC Automobiles" . '</p>';
 
             } elseif ($action === 'devisDecline') {
                 $devis = $devisRepository->find($id);
                 if (!$devis) {
                     throw $this->createNotFoundException('Devis inexistant');
                 }
-                $body = "Votre devis n°" . $devis->getId() . " a été refusé.";
+                $body = '<p>' . "Bonjour " . $devis->getNom() . ' ' . $devis->getPrenom() . "," . '</p>' .
+                        '<p>' . "Suite à votre demande de devis pour la prestation suivante : " .'<strong>'. $devis->getPrestation()->getNomPrestation() . ", " . '</strong><br>' .
+                        "nous avons le regret de vous informer que nous ne pouvons pas donner suite à votre demande." . '</p>' .
+                        '<p> ' . "Pour tout renseignement supplémentaire, vous pouvez nous contacter par téléphone au 03 89 40 07 97." . '<br>' .
+                        "Nous vous remercions de votre compréhension et restons à votre disposition." . '</p>' .
+                        '<p>' . "Cordialement," . ' <br>' . 
+                        "L'équipe de 2JC Automobiles" . '</p>';   
+                        
+                // envoi du mail
+                $mail->sendMail('Concernant votre demande', $body, 'Concernant votre demande'); // ajouter mail client 
+
+                // on envois un message de confirmation et on redirige  
+                $this->addFlash('success', 'Votre message a bien été envoyé.');
+                return $this->redirectToRoute('app_admin_devis');
+
             } else {    
                 throw $this->createNotFoundException('Action inconnue');
             }
 
             // envoi du mail
-            $mail->sendMail('Suite à votre demande', $body, 'Suite à votre demande'); // ajouter mail client 
+            $mail->sendMail('Concernant votre demande', $body, 'Concernant votre demande'); // ajouter mail client 
 
             // on envois un message de confirmation et on redirige  
             $this->addFlash('success', 'Votre message a bien été envoyé.');
