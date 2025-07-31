@@ -50,6 +50,9 @@ class Rdv
     #[ORM\Column]
     private ?bool $rappel_rdv = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -187,6 +190,21 @@ class Rdv
     {
         $this->rappel_rdv = $rappel_rdv;
 
+        return $this;
+    }
+
+      public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function setSlug(): static
+    {
+            
+        $this->slug = uniqid();
+    
         return $this;
     }
 }

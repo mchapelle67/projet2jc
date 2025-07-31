@@ -30,6 +30,20 @@
     }
 }
 
+input.invalid {
+    border-color: var(--dark-red);
+    box-shadow: 0 0 0 0.125rem rgb(208, 0, 0, 0.3);
+}
+
+.error-message {
+    color: var(--dark-red);
+    font-size: 1em!important;
+    font-weight: 400 !important;
+    margin: 0.3rem 0 0 0 !important;
+    text-align: start !important;
+    font-style: normal !important;
+} 
+
 .form-container {
     background-color: white;
     padding: 1.875rem 2.5rem;

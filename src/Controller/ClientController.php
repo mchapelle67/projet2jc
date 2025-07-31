@@ -53,7 +53,7 @@ final class ClientController extends AbstractController
             $limiter = $contactLimiter->create(($request->getClientIp()));
                 if (!$limiter->consume(1)->isAccepted()) {
                     $this->addFlash('error', 'Trop de formulaires envoyés. Veuillez patienter.');
-                    return $this->redirectToRoute('app_devis_clientt');
+                    return $this->redirectToRoute('app_devis_client');
                 }
                     
             // on récupère les données du formulaire
@@ -67,7 +67,10 @@ final class ClientController extends AbstractController
             $entityManager->flush();
            
             // on prepare les mails vers l'administrateur et le client    
-            $devisUrl = $this->generateUrl('show_devis', ['id' => $devisData->getId()], 0);             // On génère l'URL du devis
+            $devisUrl = $this->generateUrl('show_devis', [
+                'id' => $devisData->getId(),
+                'slug' => md5($devisData->getId() . '-' . $devisData->getNom())
+            ], 0); // On génère l'URL du devis avec un hash slug
             $tel = $devisData->getTel() ? $devisData->getTel() : 'Non renseigné';                 // On gère la reception des champs non obligatoires
             $adminBody = '<strong>Vous avez reçu une nouvelle demande de devis.</strong> <br>' .
                             'Nom : ' . $devisData->getNom() . ' ' . $devisData->getPrenom() . '<br>' .
@@ -133,8 +136,11 @@ final class ClientController extends AbstractController
             $entityManager->flush();
         
             // on prepare les mails vers l'administrateur et le client
-                $rdvUrl = $this->generateUrl('show_rdv', ['id' => $rdvData->getId()], 0);             // On génère l'URL du devis
-                $tel = $rdvData->getTel() ? $rdvData->getTel() : 'Non renseigné';                 // On gère la reception des champs non obligatoires
+                $rdvUrl = $this->generateUrl('show_devis', [
+                                'id' => $rdvData->getId(),
+                                'slug' => md5($rdvData->getId() . '-' . $rdvData->getNom())
+                            ], 0); // On génère l'URL du devis avec un hash slug
+                           $tel = $rdvData->getTel() ? $rdvData->getTel() : 'Non renseigné';                 // On gère la reception des champs non obligatoires
                 $adminBody = '<strong>Vous avez reçu une nouvelle demande de rdv.</strong> <br>' .
                                 'Nom : ' . $rdvData->getNom() . ' ' . $rdvData->getPrenom() . '<br>' .
                                 'Email : ' . $rdvData->getEmail() . '<br>' .

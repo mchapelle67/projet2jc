@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\DevisRepository;
 use DateTime;
 use DateTimeImmutable;
+use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\DevisRepository;
 
 #[ORM\Entity(repositoryClass: DevisRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -48,6 +49,9 @@ class Devis
 
     #[ORM\Column]
     private ?\DateTimeImmutable $dateModification = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
 
     public function getId(): ?int
     {
@@ -173,6 +177,21 @@ class Devis
     {
         $this->vehicule = $vehicule;
 
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function setSlug(): static
+    {
+            
+        $this->slug = uniqid();
+    
         return $this;
     }
  
