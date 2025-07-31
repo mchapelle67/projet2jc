@@ -9,6 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ClotureRdvCommand extends Command
 {
+    // php bin/console app:cloture-rdv
     protected static $defaultName = 'app:cloture-rdv';
 
     protected function configure()

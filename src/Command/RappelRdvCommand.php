@@ -11,6 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class RappelRdvCommand extends Command
 {
+    // php bin/console app:rappel-rdv
     protected static $defaultName = 'app:rappel-rdv';
 
     protected function configure()
@@ -39,7 +40,10 @@ protected function execute(InputInterface $input, OutputInterface $output): int
     $output->writeln('--- Exécution à ' . (new \DateTime())->format('Y-m-d H:i:s') . ' ---');
 
     // Rendez-vous dans ~48h
-    $rdvs = $this->rdvRepository->findBy(['rappel_rdv' => 0]);
+    $rdvs = $this->rdvRepository->findBy([
+        'rappel_rdv' => 0,
+        'statut' => 'confirmer'
+    ]);
     
     $now = new \DateTime();
     $in48h = (clone $now)->modify('+2 days');   
@@ -71,12 +75,15 @@ protected function execute(InputInterface $input, OutputInterface $output): int
             // contenu du message
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = 'Rappel de rendez-vous'; // Sujet du mail
-            $mail->Body    = '<strong>Rappel de rendez-vous.</strong> <br>' .
-            'Date du rendez-vous : ' . $dateRdv->format('d-m-Y à H:m') . '<br>' .
-            'Prestation : ' . $rdv->getPrestation()->getNomPrestation() . '<br>' .
-            'Un empêchement ? Contactez votre centre auto au 03 89 40 07 97.';
+            $mail->Body    = '<p>' . "Bonjour " . $rdv->getNom() . ' ' . $rdv->getPrenom() . "," . '</p>' .
+                            '<p>' . "Vous avez rendez-vous dans notre centre 2JC automobiles situé au " . '<strong>' . "18 route de Thann, 68130 ALTKIRCH " . '</strong>' . "le : " . $dateRdv->format('d-m-Y à H:m') . " pour la prestation suivante : " . '<strong>' . $rdv->getPrestation()->getNomPrestation() . ". " . '</strong><br>' .
+                            '<p> ' . "Pour tout desistement veuillez nous contacter par téléphone au 03 89 40 07 97." . '<br>' .
+                            "Nous restons à votre écoute pour tout renseignement supplémentaire." . '</p>' .
+                            '<p>' . "Cordialement," . ' <br>' . 
+                            "L'équipe de 2JC Automobiles" . '</p>'; 
             $mail->AltBody = 'Ceci est le corps du message en texte brut pour les clients mail ne supportant pas le HTML';        
-            
+
+
             // envoi du mail
             $mail->send();
             
