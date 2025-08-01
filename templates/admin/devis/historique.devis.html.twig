@@ -22,7 +22,7 @@
                     <tr>
                         <td>{{ devis.nom }} {{ devis.prenom }}</td>
                         <td>{{ devis.dateDevis|date('d/m/Y à H:i') }}</td>
-                        <td><a href="{{ path('show_devis', {'id': devis.id}) }}">Gérer le devis</a></td>
+                        <td><a href="{{ path('show_devis', {'slug': devis.slug}) }}">Gérer le devis</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

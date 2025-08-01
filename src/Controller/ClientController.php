@@ -68,15 +68,14 @@ final class ClientController extends AbstractController
            
             // on prepare les mails vers l'administrateur et le client    
             $devisUrl = $this->generateUrl('show_devis', [
-                'id' => $devisData->getId(),
-                'slug' => md5($devisData->getId() . '-' . $devisData->getNom())
+                'slug' => $devisData->getSlug() // on génère l'URL du devis avec le slug
             ], 0); // On génère l'URL du devis avec un hash slug
             $tel = $devisData->getTel() ? $devisData->getTel() : 'Non renseigné';                 // On gère la reception des champs non obligatoires
             $adminBody = '<strong>Vous avez reçu une nouvelle demande de devis.</strong> <br>' .
                             'Nom : ' . $devisData->getNom() . ' ' . $devisData->getPrenom() . '<br>' .
                             'Email : ' . $devisData->getEmail() . '<br>' .
                             'Téléphone : ' . $tel . '<br>' .
-                            'Date de la demande : ' . $devisData->getDateDevis()->format('d-m-Y à H:m') . '<br>' .
+                            'Date de la demande : ' . $devisData->getDateDevis()->format('d-m-Y à H:i') . '<br>' .
                             '<a href="' . $devisUrl . '">Cliquer ici pour acceder au devis</a>';
 
             $clientBody = 'Votre demande de devis a bien été prise en compte.<br>' .
@@ -128,7 +127,7 @@ final class ClientController extends AbstractController
             $rdvData = $rdvForm->getData();
 
             // on créer automatiquement un statut et un rappel
-            $rdvData->setRappelRdv(0); // 0 = pas de rappe
+            $rdvData->setRappelRdv(0); // 0 = pas de rappel
             $rdvData->setStatut('En attente');
 
             // on envois vers la bdd
@@ -136,30 +135,29 @@ final class ClientController extends AbstractController
             $entityManager->flush();
         
             // on prepare les mails vers l'administrateur et le client
-                $rdvUrl = $this->generateUrl('show_rdv', [
-                                'id' => $rdvData->getId(),
-                                'slug' => md5($rdvData->getId() . '-' . $rdvData->getNom())
-                            ], 0); // On génère l'URL du devis avec un hash slug
-                           $tel = $rdvData->getTel() ? $rdvData->getTel() : 'Non renseigné';                 // On gère la reception des champs non obligatoires
-                $adminBody = '<strong>Vous avez reçu une nouvelle demande de rdv.</strong> <br>' .
-                                'Nom : ' . $rdvData->getNom() . ' ' . $rdvData->getPrenom() . '<br>' .
-                                'Email : ' . $rdvData->getEmail() . '<br>' .
-                                'Téléphone : ' . $tel . '<br>' .
-                                'Date du rdv : ' . $rdvData->getDateRdv()->format('d-m-Y à H:m') . '<br>' .
-                                'Prestation : ' . $rdvData->getPrestation()->getNomPrestation() . '<br>' .
-                                '<a href="' . $rdvUrl . '">Cliquer ici pour acceder à la demande de rdv</a>';
-                $clientBody = 'Votre demande de rendez-vous a bien été prise en compte.<br>' .
-                                'Date du rdv : ' . $rdvData->getDateRdv()->format('d-m-Y à H:m') . '<br>' .
-                                'Prestation : ' . $rdvData->getPrestation()->getNomPrestation() . '<br>' .
-                                'Nous reviendrons vers vous très rapidement. ' . '<br> ' .
-                                '<strong>' . 'Veuillez attendre notre confirmation.' . '</strong>';
+            $rdvUrl = $this->generateUrl('show_rdv', [
+                    'slug' => $rdvData->getSlug()
+                    ], 0); // On génère l'URL du rdv avec le slug uniquement
+            $tel = $rdvData->getTel() ? $rdvData->getTel() : 'Non renseigné';                 // On gère la reception des champs non obligatoires
+            $adminBody = '<strong>Vous avez reçu une nouvelle demande de rdv.</strong> <br>' .
+                        'Nom : ' . $rdvData->getNom() . ' ' . $rdvData->getPrenom() . '<br>' .
+                        'Email : ' . $rdvData->getEmail() . '<br>' .
+                        'Téléphone : ' . $tel . '<br>' .
+                        'Date du rdv : ' . $rdvData->getDateRdv()->format('d-m-Y à H:i') . '<br>' .
+                        'Prestation : ' . $rdvData->getPrestation()->getNomPrestation() . '<br>' .
+                        '<a href="' . $rdvUrl . '">Cliquer ici pour acceder à la demande de rdv</a>';
+            $clientBody = 'Votre demande de rendez-vous a bien été prise en compte.<br>' .
+                        'Date du rdv : ' . $rdvData->getDateRdv()->format('d-m-Y à H:i') . '<br>' .
+                        'Prestation : ' . $rdvData->getPrestation()->getNomPrestation() . '<br>' .
+                        'Nous reviendrons vers vous très rapidement. ' . '<br> ' .
+                        '<strong>' . 'Veuillez attendre notre confirmation.' . '</strong>';
 
-                $mail->sendMail('Nouvelle demande de rdv', $adminBody, 'Nouvelle demande de rdv.'); // ajouter mail admin
-                $mail->sendMail('Demande de rendez-vous', $clientBody, 'Votre demande de rendez-vous à bien été prise en compte.'); // ajouter mail client
+            $mail->sendMail('Nouvelle demande de rdv', $adminBody, 'Nouvelle demande de rdv.'); // ajouter mail admin
+            $mail->sendMail('Demande de rendez-vous', $clientBody, 'Votre demande de rendez-vous à bien été prise en compte.'); // ajouter mail client
 
-                // puis on redirige vers la liste des véhicules d'occasion
-                $this->addFlash('success', 'Votre demande de rendez-vous a bien été prise en compte, nous reviendrons vers vous très rapidement.');
-                return $this->redirectToRoute('app_home');
+            // puis on redirige vers la liste des véhicules d'occasion
+            $this->addFlash('success', 'Votre demande de rendez-vous a bien été prise en compte, nous reviendrons vers vous très rapidement.');
+            return $this->redirectToRoute('app_home');
                 
             } elseif ($rdvForm->isSubmitted() && !$rdvForm->isValid()) {
                 $this->addFlash('error', 'Erreur lors de la création de votre demande de rendez-vous');

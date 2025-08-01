@@ -34,7 +34,7 @@
                 <td>{{ rdv.dateRdv|date('d/m/Y à H:i') }}</td>
                 <td>{{ rdv.prestation.nomPrestation }}</td>
                 <td>{{ rdv.dateDemande|date('d/m/Y à H:i') }}</td>
-                <td><a href="{{ path('show_rdv', {'id': rdv.id}) }}">Gérer le rdv</a></td>
+                <td><a href="{{ path('show_rdv', {'slug': rdv.slug}) }}">Gérer le rdv</a></td>
             </tr>
             {% endfor %}
             </tbody>

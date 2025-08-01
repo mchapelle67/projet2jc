@@ -85,11 +85,11 @@ final class AdminController extends AbstractController
     }
 
     #[IsGranted('ROLE_ADMIN')]
-    #[Route('/devis/{id}', name: 'show_devis')]
-    public function showDevis(DevisRepository $devisRepository, int $id): Response
+    #[Route('/devis/{slug}', name: 'show_devis')]
+    public function showDevis(DevisRepository $devisRepository, string $slug): Response
     {
         // on récupère le devis en bdd
-        $devis = $devisRepository->findOneBy(['id' => $id]);
+        $devis = $devisRepository->findOneBy(['slug' => $slug]);
         if (!$devis) {
             throw $this->createNotFoundException('Devis inexistant');
         }
@@ -238,11 +238,11 @@ final class AdminController extends AbstractController
     }
 
     #[IsGranted('ROLE_USER')]
-    #[Route('/rdv/{id}', name: 'show_rdv')]
-    public function showRdv(RdvRepository $rdvRepository, int $id): Response
+    #[Route('/rdv/{slug}', name: 'show_rdv')]
+    public function showRdv(RdvRepository $rdvRepository, string $slug): Response
     {
         // on récupère le devis en bdd
-        $rdv = $rdvRepository->findOneBy(['id' => $id]);
+        $rdv = $rdvRepository->findOneBy(['slug' => $slug]);
         if (!$rdv) {
             throw $this->createNotFoundException('Rendez-vous inexistant');
         }
@@ -337,7 +337,7 @@ final class AdminController extends AbstractController
             $events[] = [
                 'title' => $rdv->getPrestation()->getNomPrestation(),
                 'start' => $rdv->getDateRdv()->format('Y-m-d\TH:i:s'),
-                'url' => $this->generateUrl('show_rdv', ['id' => $rdv->getId()])
+                'url' => $this->generateUrl('show_rdv', ['slug' => $rdv->getSlug()])
             ];
         }
 
@@ -370,7 +370,7 @@ final class AdminController extends AbstractController
             $entityManager->persist($rdvForm->getData());
             $entityManager->flush();
 
-            return $this->redirectToRoute('show_rdv', ['id' => $id]);
+            return $this->redirectToRoute('show_rdv', ['slug' => $rdv->getSlug()]);
 
             } elseif ($rdvForm->isSubmitted() && !$rdvForm->isValid()) {
                 $this->addFlash('error', 'Erreur lors de la modification du rendez-vous.');
