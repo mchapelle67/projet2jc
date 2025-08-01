@@ -53,7 +53,7 @@ final class ClientController extends AbstractController
             $limiter = $contactLimiter->create(($request->getClientIp()));
                 if (!$limiter->consume(1)->isAccepted()) {
                     $this->addFlash('error', 'Trop de formulaires envoyés. Veuillez patienter.');
-                    return $this->redirectToRoute('app_devis_client');
+                    return $this->redirectToRoute('app_home');
                 }
                     
             // on récupère les données du formulaire
@@ -122,6 +122,14 @@ final class ClientController extends AbstractController
                     $this->addFlash('error', 'Trop de formulaires envoyés. Veuillez patienter.');
                     return $this->redirectToRoute('app_home');
                 }
+
+            // on vérifie que la date du rendez-vous n'est pas un dimanche ou un lundi au cas où javascript n'est pas prit en compte par le navigateur 
+            $date = $rdv->getDateRdv();
+            if (in_array((int) $date->format('w'), [0, 1])) {
+                $this->addFlash('error', 'Les rendez-vous ne sont pas possibles les dimanches et lundis.');
+                return $this->redirectToRoute('app_rdv_client');
+            }
+ 
                     
             // on récupère les données du formulaire
             $rdvData = $rdvForm->getData();
