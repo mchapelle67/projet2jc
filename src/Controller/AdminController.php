@@ -47,11 +47,6 @@ final class AdminController extends AbstractController
         // on récupère les devis en bdd
         $devisList = $devisRepository->findBy([], ['date_devis' => 'DESC']);
 
-        // on filtre les devis 
-        $devisHistoriqueArray = array_filter($devisList, function (Devis $devis) {
-            return $devis->getStatut() === 'Clôturé';
-        });
-
         // on créer un resultat de recherche
         $searchData = new SearchData();
 
@@ -75,7 +70,7 @@ final class AdminController extends AbstractController
         ]);
         }
 
-        $devisHistorique = $paginator->paginate($devisHistoriqueArray, $page, 20);
+        $devisHistorique = $paginator->paginate($devisList, $page, 20);
 
         return $this->render('admin/devis/historique.devis.html.twig', [
             'controller_name' => 'AdminController',
@@ -84,7 +79,7 @@ final class AdminController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_USER')]
     #[Route('/devis/{slug}', name: 'show_devis')]
     public function showDevis(DevisRepository $devisRepository, string $slug): Response
     {

@@ -9,8 +9,8 @@
     --white-color: #F7F7F7;
     --blue-color: #0056b3;
     --blue-hover: #003f8a;
-    --dark-blue: #054864;
-    --red-color: #DD1C1A;
+    /* --dark-blue: #054864; */
+    /* --red-color: #DD1C1A; */
     --dark-red: #d00000;
     --light-gray: #f5F5F5;
     --grey-color: #D1D5DB;
@@ -130,7 +130,7 @@ h1, h2, h3, h4 {
         box-shadow: 0 8px 25px rgba(0, 86, 179, 0.3);
     }
     &:active {
-        background-color: var(--red-color);
+        background-color: var(--dark-red);
     }
 }
 

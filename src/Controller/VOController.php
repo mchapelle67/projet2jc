@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -39,7 +40,7 @@ final class VOController extends AbstractController
     }
 
 // VO partie admin ----------------------------------------------------
-
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/add', name: 'add_vo')]
     public function addVO(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger,
     // gestion de l'upload des photos
@@ -107,6 +108,7 @@ final class VOController extends AbstractController
         
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/edit/{id}', name: 'edit_vo')]
     public function editVO(Request $request, EntityManagerInterface $entityManager, VORepository $voRepository, SluggerInterface $slugger,
         #[Autowire('%kernel.project_dir%/public/uploads/vo')] string $photoDirectory): Response
@@ -186,11 +188,11 @@ final class VOController extends AbstractController
             'photos' => $photos,
         ]);
     }
-
+    
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{voId}/photo/{photoId}/delete', name: 'delete_photo_vo')]
     public function deletePhotoVO(Request $request, EntityManagerInterface $entityManager, VORepository $voRepository, int $photoId, int $voId): Response
     {
-
         // on verifie que l'utilisateur a le rôle admin
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -214,6 +216,7 @@ final class VOController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/delete/{id}', name: 'delete_vo')]
     public function deleteVO(Request $request, EntityManagerInterface $entityManager, VORepository $voRepository): Response
     {

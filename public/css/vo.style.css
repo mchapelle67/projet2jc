@@ -131,7 +131,7 @@
   color: #666;
   font-size: 1.125rem;
   &:hover {
-    color: var(--red-color);
+    color: var(--dark-red);
   }
 }
 
