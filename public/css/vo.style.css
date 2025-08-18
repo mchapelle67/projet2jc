@@ -33,11 +33,13 @@
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
-.carousel-item img {
-    height: 250px;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-    border-radius: var(--border-radius)
+.carousel-item {
+  background-color: white;
+    img {
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+  }
 }
 
 .carousel-control-prev.vo,

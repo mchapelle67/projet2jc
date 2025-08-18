@@ -2,7 +2,11 @@
     <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
         <ul class="nav">
             <li class="nav-item footer">
-                <a href="{{ path('app_login') }}" class="nav-link px-2 text-body-secondary">Se connecter</a>
+                {% if app.user %}
+                    <a href="{{ path('app_logout') }}" class="nav-link px-2 text-body-secondary">Se déconnecter</a>
+                {% else %} 
+                    <a href="{{ path('app_login') }}" class="nav-link px-2 text-body-secondary">Se connecter</a>
+                {% endif %}
             </li>
             <li class="nav-item footer">
                 <a href="{{ path('mentions_legales') }}" class="nav-link px-2 text-body-secondary">Mentions légales</a>
@@ -16,12 +20,12 @@
         </ul>
         <ul class="nav social-media">
             <li class="ms-3">
-                <a href="https://www.facebook.com/p/2jc-Automobiles-100063767071947/?locale=fr_FR" aria-label="Facebook" class="text-body-secondary">
+                <a href="https://www.facebook.com/p/2jc-Automobiles-100063767071947/?locale=fr_FR" target="_blank" aria-label="Facebook" class="text-body-secondary">
                     <i class="fa-brands fa-facebook fa-xl"></i>
                 </a>
             </li>
             <li class="ms-3">
-                <a href="https://www.instagram.com/2jc_automobiles/" aria-label="Instagram" class="text-body-secondary">
+                <a href="https://www.instagram.com/2jc_automobiles/" target="_blank" aria-label="Instagram" class="text-body-secondary">
                     <i class="fa-brands fa-instagram fa-xl"></i>
                 </a>
             </li>
