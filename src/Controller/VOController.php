@@ -162,27 +162,28 @@ final class VOController extends AbstractController
                 foreach ($photosFile as $photoFile) {
                     // on vérifie l'extension du fichier
                     $extension = strtolower($photoFile->guessExtension());
-                    // hash le nom en slug, nécessaire pour éviter les problèmes de sécurité
-                    $safeFilename = hash_file('sha256', $photoFile->getPathname());
-                    // on génère un nom de fichier unique en ajoutant un id pour éviter les conflits
-                    $newFilename = $safeFilename.'-'.uniqid().'.'.$photoFile->guessExtension();
-                    
-                    // on déplace le fichier dans le répertoire des photos
-                    try {
-                        $photoFile->move($photoDirectory, $newFilename);
-                    } catch (FileException $e) {
-                        // on gère l'exception si quelque chose se passe pendant l'upload du fichier
-                        $this->addFlash('error', 'Erreur lors de l\'upload de la photo : '.$e->getMessage());}
+                    if (in_array($extension, $allowedExtensions)) {
+                        // hash le nom en slug, nécessaire pour éviter les problèmes de sécurité
+                        $safeFilename = hash_file('sha256', $photoFile->getPathname());
+                        // on génère un nom de fichier unique en ajoutant un id pour éviter les conflits
+                        $newFilename = $safeFilename.'-'.uniqid().'.'.$photoFile->guessExtension();
                         
-                    // on crée une nouvelle entité Photo
-                    $photo = new Photo();
-                    $photo->setImg($newFilename);
-                    $vehicule->addPhoto($photo);  
-                } 
-            } else {
-                // ne rien faire : les anciennes images restent
-                $photoFile = $form->get('photos')->getData();
-            } 
+                        // on déplace le fichier dans le répertoire des photos
+                        try {
+                            $photoFile->move($photoDirectory, $newFilename);
+                        } catch (FileException $e) {
+                            // on gère l'exception si quelque chose se passe pendant l'upload du fichier
+                            $this->addFlash('error', 'Erreur lors de l\'upload de la photo : '.$e->getMessage());}
+                            
+                        // on crée une nouvelle entité Photo
+                        $photo = new Photo();
+                        $photo->setImg($newFilename);
+                        $vehicule->addPhoto($photo);  
+                        
+                    } else {
+                        $this->addFlash('error', 'Extension de fichier non autorisée : '.$extension);
+                    }
+                }
 
                 // on enregistre les modifications dans la base de données
                 $entityManager->persist($vehicule);
@@ -195,8 +196,9 @@ final class VOController extends AbstractController
             } elseif ($form->isSubmitted() && !$form->isValid()) {
                 // si le formulaire n'est pas soumis ou n'est pas valide, on ajoute un message flash
                 $this->addFlash('error', 'Erreur lors de la modification du vehicule.');
-            }
-    
+            }    
+        }
+        
         // affichage du formulaire d'édition
         return $this->render('vo/edit.html.twig', [
             'form' => $form->createView(),
