@@ -56,6 +56,9 @@ final class VOController extends AbstractController
         // gestion de la requête
         $form->handleRequest($request);
 
+        // on choisit les types d'extensions autorisées
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
         // si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
             // récupération du fichier photo
@@ -66,22 +69,29 @@ final class VOController extends AbstractController
             if ($photosFile) {
                 // on boucle pour récupérer toutes les photos
                 foreach ($photosFile as $photoFile) {
-                    // hash le nom en slug, nécessaire pour éviter les problèmes de sécurité
-                    $safeFilename = hash_file('sha256', $photoFile->getPathname());
-                    // on génère un nom de fichier unique en ajoutant un id pour éviter les conflits
-                    $newFilename = $safeFilename.'-'.uniqid().'.'.$photoFile->guessExtension();
-                    
-                    // on déplace le fichier dans le répertoire des photos
-                    try {
-                        $photoFile->move($photoDirectory, $newFilename);
-                    } catch (FileException $e) {
-                        // on gère l'exception si quelque chose se passe pendant l'upload du fichier
-                        $this->addFlash('error', 'Erreur lors de l\'upload de la photo : '.$e->getMessage());}
+                    // on vérifie l'extension du fichier
+                    $extension = strtolower($photoFile->guessExtension());
+                    if (in_array($extension, $allowedExtensions)) {
+                        // hash le nom en slug, nécessaire pour éviter les problèmes de sécurité
+                        $safeFilename = hash_file('sha256', $photoFile->getPathname());
+                        // on génère un nom de fichier unique en ajoutant un id pour éviter les conflits
+                        $newFilename = $safeFilename.'-'.uniqid().'.'.$extension;
                         
-                    // on crée une nouvelle entité Photo
-                    $photo = new Photo();
-                    $photo->setImg($newFilename);
-                    $vehicule->addPhoto($photo);  
+                        // on déplace le fichier dans le répertoire des photos
+                        try {
+                            $photoFile->move($photoDirectory, $newFilename);
+                        } catch (FileException $e) {
+                            // on gère l'exception si quelque chose se passe pendant l'upload du fichier
+                            $this->addFlash('error', 'Erreur lors de l\'upload de la photo : '.$e->getMessage());
+                        }
+                        
+                        // on crée une nouvelle entité Photo
+                        $photo = new Photo();
+                        $photo->setImg($newFilename);
+                        $vehicule->addPhoto($photo);  
+                    } else {
+                        $this->addFlash('error', 'Extension de fichier non autorisée : '.$extension);
+                    }
                 }
                     
                 // on récupère les données du formulaire
@@ -135,17 +145,23 @@ final class VOController extends AbstractController
 
         // récupérer les photos du véhicule
         $photos = $vehicule->getPhotos()->toArray();
-       
+    
+        // on choisit les types d'extensions autorisées
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
         // si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
+
             // récupération du fichier photo
             /** @var UploadedFile $photoFile */
             $photosFile = $form->get('photos')->getData();
             
             // si une photo est uploadée
             if ($photosFile) {
-                // on boucle pour récupérer toutes les photos
+            // on boucle pour récupérer toutes les photos
                 foreach ($photosFile as $photoFile) {
+                    // on vérifie l'extension du fichier
+                    $extension = strtolower($photoFile->guessExtension());
                     // hash le nom en slug, nécessaire pour éviter les problèmes de sécurité
                     $safeFilename = hash_file('sha256', $photoFile->getPathname());
                     // on génère un nom de fichier unique en ajoutant un id pour éviter les conflits
