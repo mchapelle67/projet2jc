@@ -308,7 +308,7 @@ final class AdminController extends AbstractController
         if (!$rdv) {
             throw $this->createNotFoundException('Rdv inexistant');
         }
-
+        
         $now = new \DateTime();
         
         $rdv->setStatut('En attente');
@@ -349,6 +349,7 @@ final class AdminController extends AbstractController
         // trouver le rdv dans la base de données
         $id = $request->attributes->get('id');
         $rdv = $rdvRepository->find($id);
+        $slug = $rdv->getSlug();
 
         if (!$rdv) {
             return $this->redirectToRoute('app_admin_rdv');
@@ -361,10 +362,19 @@ final class AdminController extends AbstractController
         $rdvForm->handleRequest($request);
 
         if ($rdvForm->isSubmitted() && $rdvForm->isValid()) {
+
+            // on vérifie que la date du rendez-vous n'est pas un dimanche ou un lundi au cas où javascript n'est pas prit en compte par le navigateur 
+            $date = $rdv->getDateRdv();
+            if (in_array((int) $date->format('w'), [0, 1])) {
+                $this->addFlash('error', 'Les rendez-vous ne sont pas possibles les dimanches et lundis.');
+                return $this->redirectToRoute('edit_rdv', ['slug' => $rdv->getSlug()]);
+            }
+       
             // on enregistre les modifications dans la base de données
             $entityManager->persist($rdvForm->getData());
             $entityManager->flush();
 
+            $this->addFlash('success', 'Les modifications ont bien été prises en comptes.');
             return $this->redirectToRoute('show_rdv', ['slug' => $rdv->getSlug()]);
 
             } elseif ($rdvForm->isSubmitted() && !$rdvForm->isValid()) {
@@ -376,7 +386,7 @@ final class AdminController extends AbstractController
         return $this->render('admin/rdv/editRdv.html.twig', [
             'controller_name' => 'AdminController',
             'form' => $rdvForm->createView(),
-            'rdv' => $rdv
+            'rdv' => $rdv, 
         ]);
     }
 

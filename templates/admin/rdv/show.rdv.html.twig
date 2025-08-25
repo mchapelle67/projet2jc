@@ -7,6 +7,14 @@
 
 {% block body %}
 <main class="main-admin">
+    {% for label, messages in app.flashes %}
+    {% set alertClass = (label == 'error') ? 'danger' : label %}
+        {% for message in messages %}
+             <div class="alert alert-{{ alertClass }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
     <h1>Rendez-vous</h1>
     <table class="table table-striped show-rdv">
         <thead>

@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // validation de l'étape actuelle
     function validateStep(stepIndex) {
         const currentFormStep = formSteps[stepIndex];
-        const inputs = Array.from(currentFormStep.querySelectorAll('input[required], select[required]'));
+        const inputs = Array.from(currentFormStep.querySelectorAll('input[required], select[required], textarea[required]'));
         let isValid = true;
         
         // gestion des erreurs
