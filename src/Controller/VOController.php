@@ -46,8 +46,6 @@ final class VOController extends AbstractController
     // gestion de l'upload des photos
     #[Autowire('%kernel.project_dir%/public/uploads/vo')] string $photoDirectory): Response
     {
-        // on verifie que l'utilisateur a le rôle admin
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         
         // création du form
         $vehicule = new VO();
