@@ -337,6 +337,11 @@ input::placeholder,
     opacity: 0.5;
 }
 
+.block-service.services,
+.block-service.xp.services {
+    margin: 1rem !important;
+}
+
 .container-fluid.home-2.services {
     h2 {
         color: black;

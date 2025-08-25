@@ -181,7 +181,6 @@ h1, h2, h3, h4 {
 .text-muted  → .text-secondary
 .btn-primary → .btn-primary
 .d-flex      → .d-flex 
-
 /* ************************************** LOGIN FORM ************************************* */
 .login-form {
     min-height: 100vh;
@@ -515,7 +514,6 @@ h1, h2, h3, h4 {
     i {
         margin-right: 0.5rem;
         color: #bbb;
-        font-weight: 400;
     }
     a {
         color: #ddd;

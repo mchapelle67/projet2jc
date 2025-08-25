@@ -131,7 +131,6 @@
 .icones-vo i {
   margin: 0.625rem 0 0 0.625rem;
   color: #666;
-  font-size: 1.125rem;
   &:hover {
     color: var(--dark-red);
   }

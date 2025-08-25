@@ -110,5 +110,6 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
     <script src="{{ asset('js/rdv.js') }}"></script>
 {% endblock %}

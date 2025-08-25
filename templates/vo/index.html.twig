@@ -72,10 +72,10 @@
                             {% endif %}
                             <p>{{ voiture.description }}</p>
                             {% if is_granted('ROLE_ADMIN')  %}
-                                <a class="icones-vo" href="{{ path('edit_vo', {'id': voiture.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a class="icones-vo" href="{{ path('edit_vo', {'id': voiture.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <a  class="icones-vo" href="{{ path('delete_vo', {'id': voiture.id}) }}"
                                 onclick="return confirm('Êtes vous sûre de vouloir supprimer ce vehicule ? Cette action est irreversible.');">
-                                    <i class="fa-regular fa-trash"></i>
+                                    <i class="fa-solid fa-trash"></i>
                                 </a>
                             {% endif %}
                         {% if voiture.url %}
