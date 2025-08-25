@@ -186,7 +186,6 @@ class Devis
     }
 
     #[ORM\PrePersist]
-    #[ORM\PreUpdate]
     public function setSlug(): static
     {
             

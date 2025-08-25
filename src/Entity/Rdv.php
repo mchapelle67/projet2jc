@@ -199,7 +199,6 @@ class Rdv
     }
 
     #[ORM\PrePersist]
-    #[ORM\PreUpdate]
     public function setSlug(): static
     {
             

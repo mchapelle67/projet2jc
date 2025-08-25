@@ -253,7 +253,7 @@ final class AdminController extends AbstractController
     }
 
     #[IsGranted('ROLE_ADMIN')]
-    #[Route('/rdv/{action}/{id}', name: 'gestion_rdv_action', requirements: ['action' => 'accept|decline|cancel|delete'])]
+    #[Route('/rdv/{action}/{id}', name: 'gestion_rdv_action', requirements: ['action' => 'accept|decline|cancel|delete|cloture'])]
     public function gestionRdv(RdvRepository $rdvRepository, string $action, int $id, EntityManagerInterface $entityManager): Response 
     {
         // récupérer l'id du rendez-vous à traiter
@@ -284,6 +284,12 @@ final class AdminController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Le rendez-vous a été supprimé avec succès.');
             return $this->redirectToRoute('app_admin_rdv');
+
+        } elseif ($action === 'cloture') {
+            $rdv->setStatut('Clôturé');
+            $this->addFlash('success', 'Le rendez-vous a été clôturé avec succès.');
+            $entityManager->flush();
+            return $this->redirectToRoute('show_rdv', ['slug' => $rdv->getSlug()]);
 
         } else {    
             throw $this->createNotFoundException('Action inconnue');
@@ -349,7 +355,6 @@ final class AdminController extends AbstractController
         // trouver le rdv dans la base de données
         $id = $request->attributes->get('id');
         $rdv = $rdvRepository->find($id);
-        $slug = $rdv->getSlug();
 
         if (!$rdv) {
             return $this->redirectToRoute('app_admin_rdv');
@@ -367,7 +372,7 @@ final class AdminController extends AbstractController
             $date = $rdv->getDateRdv();
             if (in_array((int) $date->format('w'), [0, 1])) {
                 $this->addFlash('error', 'Les rendez-vous ne sont pas possibles les dimanches et lundis.');
-                return $this->redirectToRoute('edit_rdv', ['slug' => $rdv->getSlug()]);
+                return $this->redirectToRoute('edit_rdv', ['id' => $rdv->getId()]);
             }
        
             // on enregistre les modifications dans la base de données
@@ -386,7 +391,7 @@ final class AdminController extends AbstractController
         return $this->render('admin/rdv/editRdv.html.twig', [
             'controller_name' => 'AdminController',
             'form' => $rdvForm->createView(),
-            'rdv' => $rdv, 
+            'rdv' => $rdv
         ]);
     }
 

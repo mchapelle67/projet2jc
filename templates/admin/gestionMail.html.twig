@@ -19,10 +19,11 @@
             <p class="mb-1"><strong>Envoi de mail de refus</strong></p>
             <p class="mb-3">Souhaitez-vous envoyer un mail de refus au client pour de ce rendez-vous du {{ rdv.dateRdv|date("d/m/Y à H:i") }} ?</p>
                 <div class="d-flex gap-2">
-                    <a class="btn btn-success" role="button" href="mailto:{{ rdv.email }}">
+                    <a class="btn btn-success" role="button" href="mailto:{{ rdv.email }}" >
                         <i class="fa-solid fa-check"></i> Proposer une nouvelle date
                     </a>
-                    <a class="btn btn-danger" role="button" href="{{ path('gestion_mail', {'id': rdv.id, 'action': 'rdvDecline'}) }}">
+                    <a class="btn btn-danger" role="button" href="{{ path('gestion_mail', {'id': rdv.id, 'action': 'rdvDecline'}) }}"
+                    onclick="return confirm('Êtes vous sûre de vouloir envoyer un mail automatique de refus ?');">
                         <i class="fa-solid fa-xmark"></i> Envoyer un mail de refus
                     </a>
                 </div>
@@ -33,7 +34,8 @@
                     <a class="btn btn-success" role="button" href="mailto:{{ rdv.email }}">
                         <i class="fa-solid fa-check"></i> Proposer une nouvelle date
                     </a>
-                    <a class="btn btn-danger" role="button" href="{{ path('gestion_mail', {'id': rdv.id, 'action': 'rdvCancel'}) }}">
+                    <a class="btn btn-danger" role="button" href="{{ path('gestion_mail', {'id': rdv.id, 'action': 'rdvCancel'}) }}"
+                    onclick="return confirm('Êtes vous sûre de vouloir envoyer un mail automatique pour annuler ce rendez-vous ?')">
                         <i class="fa-solid fa-xmark"></i> Envoyer un mail d'annulation
                     </a>
                 </div>
@@ -41,7 +43,8 @@
             <p class="mb-1"><strong>Envoi de mail de refus</strong></p>
             <p class="mb-3">Souhaitez-vous envoyer un mail de refus au client pour ce devis ?</p>
                 <div class="d-flex gap-2">
-                    <a class="btn btn-danger" role="button" href="{{ path('gestion_mail', {'id': devis.id, 'action': 'devisDecline'}) }}">
+                    <a class="btn btn-danger" role="button" href="{{ path('gestion_mail', {'id': devis.id, 'action': 'devisDecline'}) }}"
+                        onclick="return confirm('Êtes vous sûre de vouloir envoyer un mail automatique informant que vous ne pouvez pas traîté ce devis ?')">
                         <i class="fa-solid fa-xmark"></i> Envoyer un mail de refus
                     </a>
                 </div>
