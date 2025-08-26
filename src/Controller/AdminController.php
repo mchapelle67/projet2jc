@@ -133,7 +133,7 @@ final class AdminController extends AbstractController
             $entityManager->persist($devis);
             $entityManager->flush();
             
-            $this->addFlash('success', 'Le devis a été traîté avec succès.');
+            $this->addFlash('success', 'Le devis a été refusé avec succès.');
             return $this->render('admin/gestionMail.html.twig', [
             'controller_name' => 'AdminController',
             'action' => 'devisDecline',
@@ -182,11 +182,7 @@ final class AdminController extends AbstractController
         $rdvEnCours = array_filter($rdvList, function (Rdv $rdv) {
             return $rdv->getStatut() === 'En attente';
         });
-        // on filtre les rdv confirmés pas encore passés
-        $rdvConfirmer = array_filter($rdvList, function (Rdv $rdv) {
-            return $rdv->getStatut() === 'Confirmer';
-        });
-
+        
         return $this->render('admin/rdv/liste.rdv.html.twig', [
             'controller_name' => 'AdminController',
             'rdvEnCours' => $rdvEnCours,
