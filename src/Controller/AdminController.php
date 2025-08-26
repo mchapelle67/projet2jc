@@ -185,8 +185,7 @@ final class AdminController extends AbstractController
         
         return $this->render('admin/rdv/liste.rdv.html.twig', [
             'controller_name' => 'AdminController',
-            'rdvEnCours' => $rdvEnCours,
-            'rdvConfirmer' => $rdvConfirmer
+            'rdvEnCours' => $rdvEnCours
         ]);
     }
 

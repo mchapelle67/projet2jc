@@ -86,7 +86,8 @@ class RdvTypeForm extends AbstractType
         ;
 
         // transformer le champ date_rdv pour gérer l'affichage et la soumission
-        // on utilise un CallbackTransformer pour transformer la valeur entre l'affichage et la soumission
+        // on utilise un CallbackTransformer pour transformer la valeur entre l'affichage et la soumission  parce que Symfny attend un objet DateTimeImutable 
+        // mais j'ai hidden le champs ce qui le rend string , donc transformer permet de reprendre la date en string pour ensuite la convertir dans le format demandé
          $builder->get('date_rdv')->addModelTransformer(new CallbackTransformer(
             function ($dateAsObject) {
                 // transforme l'objet en string pour le champ (affichage)

@@ -111,8 +111,9 @@
     </div>
 
         {% elseif rdv.statut == 'Confirmer'%}
-        <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'cancel'}) }}" class="btn btn-outline-danger">
-            <i class="fa-solid fa-ban"></i> Annuler le rendez-vous
+        <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'cancel'}) }}" class="btn btn-outline-danger"
+            onclick="return confirm('Êtes vous sûre de vouloir annuler ce rendez-vous ?');">
+                <i class="fa-solid fa-ban"></i> Annuler le rendez-vous
         </a>
 
         {% elseif is_granted('ROLE_ADMIN') %}
