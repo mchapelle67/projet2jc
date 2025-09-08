@@ -87,7 +87,7 @@
         {% if rdv.statut == 'En attente' and rdv.dateRdv < now %}
         <div class="alert alert-warning" role="alert">
             <p class="mb-1"><strong>Ce rendez-vous n'a pas été traîté mais sa date est depassée.</strong></p>
-            <p class="mb-3">En cliquant ci-dessous, vous archiverez le rendez-vous et aurez la possiblité de proposer une nouvelle date.</p>
+            <p class="mb-3">En cliquant ci-dessous, vous archiverez le rendez-vous. Nous vous invitons à contacter le client pour convenir d'une nouvelle date.</p>
             <div class="d-flex gap-2">
                 <a href="{{ path('gestion_rdv_action', {'id': rdv.id, 'action': 'cloture'}) }}" class="btn btn-danger">
                     <i class="fa-solid fa-xmark"></i> Clôturer le rendez-vous

@@ -69,22 +69,26 @@
     </section>
     <section class="effet_parallaxe">
         <div class="parallaxe">
-            <h2>PETIT SLOGAN ACCROCHEUR</h2>
-                <p>
-                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit... 
-                </p>
+            <div class="parallaxe-overlay">
+                <div class="parallaxe-content">
+                <h2>L’innovation au service de votre voiture.</h2>
+                    <p>
+                        Des services clairs, des prix justes, une équipe à votre écoute.
+                    </p>
+                </div>
+            </div>
         </div>
     </section>
     <section class="container-fluid home-2">
         <div class="block-service service">
             <figure>
-                <img src="{{ asset('images/image1.webp') }}" alt="Service automobile" class="img-service" loading="lazy" width="339" height="316" style="width: 100%; height: auto;">
+                <img src="{{ asset('images/image1.webp') }}" alt="Homme faisant de la mécanique" class="img-service" loading="lazy" width="339" height="316" style="width: 100%; height: auto;">
             </figure>
             <div class="block-text">
                 <h2>Nos services</h2>
                 <p>
-                    Nous proposons une large gamme de services pour répondre à tous vos besoins automobiles.
-                    De la mécanique générale à la carrosserie, en passant par l'entretien et la réparation.
+                    Nous proposons une large gamme de services automobiles pour répondre à tous vos besoins. Que ce soit pour de la <strong style="color: var(--blue-color);">mécanique générale ou l’entretien régulier de votre véhicule</strong> notre équipe met son savoir-faire et son expérience à votre service.<br>
+                    Nous veillons à garantir la <strong style="color: var(--blue-color);">sécurité, la fiabilité et la longévité</strong> de votre automobile.
                 </p>
                 <a role="button" class="cta-blue home" href="{{ path('app_services') }}">En savoir plus</a>
             </div>
@@ -92,13 +96,13 @@
 
         <div class="block-service xp">
             <figure>
-                <img src="{{ asset('images/image2.webp') }}" alt="Expérience garage" class="img-xp" loading="lazy" width="339" height="316" style="width: 100%; height: auto;">
+                <img src="{{ asset('images/2jc.jpg') }}" alt="Les deux frères créateurs du garage. Jerome et Julien Chapelle." class="img-xp" loading="lazy" width="339" height="316" style="width: 100%; height: auto;">
             </figure>
             <div class="block-text">
                 <h2>Notre expérience</h2>
                 <p>
-                    Depuis 2010, nous mettons notre expertise à votre service pour vous offrir un service de qualité.
-                    Notre équipe est composée de professionnels passionnés et expérimentés.
+                    Après une jeunesse passée à faire de la mécanique avec leur père, et quelques expériences professionnelles dans le domaine, <strong style="color: var(--blue-color)">les deux frères Chapelle</strong>, alors âgés de 28 et 24 ans, décidèrent de se lancer dans l’entrepreneuriat en 2004. <br> 
+                    Franchisés pendant une vingtaine d’années, ils choisirent en 2024 de prendre leur indépendance et de se lancer dans une nouvelle aventure avec un défi de taille : <strong style="color: var(--blue-color)">2JC Automobiles</strong>.
                 </p>
             </div>
         </div>
@@ -136,6 +140,11 @@
                     <strong>dim :</strong> fermé
                 </p>
             </address>
+            <p><i class="fa-solid fa-car"></i>
+                <strong>Garages partenaires :</strong> <br>
+                <a href="https://www.midas.fr/centres-auto-midas/grand-est/haut-rhin/altkirch/seppois_1565" target="_blank" aria-label="lien vers le site du Midas de Seppois">Midas Seppois</a><br>
+                <a href="https://www.midas.fr/centres-auto-midas/grand-est/haut-rhin/mulhouse/burnhaupt-le-haut_1643" target="_blank" aria-label="lien vers le site du Midas de Burnaupth-le-haut" >Midas Burnaupth-le-haut</a>
+            </p>
         </div>
     </section>
 </main>

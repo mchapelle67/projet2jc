@@ -231,7 +231,7 @@ final class AdminController extends AbstractController
     #[Route('/rdv/{slug}', name: 'show_rdv')]
     public function showRdv(RdvRepository $rdvRepository, string $slug): Response
     {
-        // on récupère le devis en bdd
+        // on récupère le rdv en bdd
         $rdv = $rdvRepository->findOneBy(['slug' => $slug]);
         if (!$rdv) {
             throw $this->createNotFoundException('Rendez-vous inexistant');

@@ -375,12 +375,37 @@ h1, h2, h3, h4 {
     background-position: center;
     background-repeat: no-repeat;
     padding: 8rem;
+    position: relative;
+}
+
+.parallaxe-content {
     color: white;
     text-align: center;
     h2 {
         font-size: 3em;
-        font-weight: 400;
+        font-weight: 500;
+        font-family: "Montserrat", sans-serif !important;
     }
+    p {
+        font-style: italic;
+        font-family: "Montserrat", sans-serif !important;
+        font-size: 1.2em;
+        font-weight: 300;
+
+    }
+}
+
+.parallaxe-overlay {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.01) 0%, rgba(0, 0, 0, 0.7) 50%);  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  z-index: 1;
 }
 
 /* Partie 4 */

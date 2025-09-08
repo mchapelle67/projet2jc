@@ -12,11 +12,11 @@
 
             <meta property="og:title" content="Réparation Auto Toutes Marques | Garage 2JC Auto">
             <meta property="og:description" content="Confiez votre véhicule au Garage 2JC Automobiles : entretien, réparation et diagnostics auto professionnels. Service rapide et fiable à prix juste.">
-            {# <meta property="og:image" content=""> #}
+            <meta property="og:image" content="{{ asset('favicon/favicon.png') }}">
             
             <meta name="twitter:title" content="Réparation Auto Toutes Marques | Garage 2JC Auto">
             <meta name="twitter:description" content="Confiez votre véhicule au Garage 2JC Automobiles : entretien, réparation et diagnostics auto professionnels. Service rapide et fiable à prix juste.">
-            {# <meta name="twitter:image" content=""> #}
+            <meta name="twitter:image" content="{{ asset('favicon/favicon.png') }}">
             {% block scriptCalendar %}{% endblock %}
         {% endblock %}
        
@@ -38,7 +38,9 @@
             {# FONTS #}
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">        
+            <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">        
+            {# FAVICON #}
+            <link rel="icon" type="image/png" href="{{ asset('favicon/favicon.png') }}" sizes="96x96" />
         {% endblock %}
     </head>
 
