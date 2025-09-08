@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
             anneeFabrication: formData.get('rdv_type_form[vehicule][anneeFabrication]') || 'Non renseigné',
             km: formData.get('rdv_type_form[vehicule][km]') || 'Non renseigné',
             carburant: (() => {
-            const select = document.getElementById('devis_type_form_vehicule_carburant');
+            const select = document.getElementById('rdv_type_form_vehicule_carburant');
                 if (select && select.selectedIndex >= 0) {
                     const selected = select.options[select.selectedIndex];
                     // Vérifie si la valeur est vide ou si le texte correspond à l'option par défaut
