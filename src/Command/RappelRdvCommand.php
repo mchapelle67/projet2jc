@@ -2,8 +2,8 @@
 
 namespace App\Command; 
 
+use App\Service\MailService;
 use App\Repository\RdvRepository;
-use PHPMailer\PHPMailer\PHPMailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,11 +24,12 @@ class RappelRdvCommand extends Command
     private $rdvRepository;
     private $entityManager;
 
-    public function __construct(RdvRepository $rdvRepository, EntityManagerInterface $entityManager)
+    public function __construct(RdvRepository $rdvRepository, EntityManagerInterface $entityManager, MailService $mail)
     {
         parent::__construct();
         $this->rdvRepository = $rdvRepository;
         $this->entityManager = $entityManager;
+        $this->mail = $mail;
     }
 
 protected function execute(InputInterface $input, OutputInterface $output): int
@@ -52,40 +53,19 @@ protected function execute(InputInterface $input, OutputInterface $output): int
 
     foreach ($rdvs as $rdv) {
         $dateRdv = $rdv->getDateRdv();
-        if($dateRdv >=  $now && $dateRdv <= $in48h) {
-            // on prepare le mail vers l'administrateur
-            $mail = new PHPMailer(true);
-        
-            // paramètre du serveur SMTP
-            $mail->SMTPDebug = 2;                                   // affiche les messages de debug (mettre à 0 en prod)
-            $mail->Debugoutput = 'error_log';                         // pour que ça aille dans les logs PHP
-            $mail->isSMTP();                                            // Simple Mail Transfer Protocol
-            $mail->Host       = 'smtp.gmail.com';                     // configuration du serveur SMTP
-            $mail->SMTPAuth   = true;                                   // active l'authentification SMTP
-            $mail->Username   = 'manon.chp68@gmail.com';                     //SMTP username
-            $mail->Password = $_SERVER['MAILER_PASSWORD'] ?? getenv('MAILER_PASSWORD');
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            // sert à crypter la connexion
-            $mail->Port       = 465;                                    // port du serveur SMTP
-            
-            
-            // réglages de l'expéditeur et du destinataire
-            $mail->setFrom('manon.chp68@gmail.com', '2jc');
-            $mail->addAddress('manon.chp68@gmail.com');     
-            
+        if($dateRdv >=  $now && $dateRdv <= $in48h) {            
             // contenu du message
-            $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'Rappel de rendez-vous'; // Sujet du mail
-            $mail->Body    = '<p>' . "Bonjour " . $rdv->getNom() . ' ' . $rdv->getPrenom() . "," . '</p>' .
+            $mailSubject = 'Rappel de rendez-vous'; 
+            $mailBody    = '<p>' . "Bonjour " . $rdv->getNom() . ' ' . $rdv->getPrenom() . "," . '</p>' .
                             '<p>' . "Vous avez rendez-vous dans notre centre 2JC automobiles situé au " . '<strong>' . "18 route de Thann, 68130 ALTKIRCH " . '</strong>' . "le : " . $dateRdv->format('d-m-Y à H:m') . " pour la prestation suivante : " . '<strong>' . $rdv->getPrestation()->getNomPrestation() . ". " . '</strong><br>' .
                             '<p> ' . "Pour tout desistement veuillez nous contacter par téléphone au 03 89 40 07 97." . '<br>' .
                             "Nous restons à votre écoute pour tout renseignement supplémentaire." . '</p>' .
                             '<p>' . "Cordialement," . ' <br>' . 
                             "L'équipe de 2JC Automobiles" . '</p>'; 
-            $mail->AltBody = 'Ceci est le corps du message en texte brut pour les clients mail ne supportant pas le HTML';        
-
+            $mailAltBody = 'Bonjour, vous avez rendez-vous dans notre centre automobiles 2JC situé à Altkirch.';        
 
             // envoi du mail
-            $mail->send();
+            $this->mail->sendMail($mailSubject, $mailBody, $mailAltBody); // ajouter mail client
             
             // mise à jour pour éviter les doublons
             $rdv->setRappelRdv(1);
