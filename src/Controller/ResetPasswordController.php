@@ -101,8 +101,7 @@ class ResetPasswordController extends AbstractController
                 $translator->trans($e->getReason(), [], 'ResetPasswordBundle')
             ));
             
-            $this->addFlash('success', 'Changement de mot de passe effectué');
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_home');
         }
 
         // Le token est valide ; on autorise l'utilisateur à changer son mot de passe.
@@ -123,7 +122,8 @@ class ResetPasswordController extends AbstractController
             // La session est nettoyée après le changement de mot de passe.
             $this->cleanSessionAfterReset();
 
-            return $this->redirectToRoute('app_home');
+            $this->addFlash('success', 'Votre mot de passe a bien été modifié. Veuillez vous connecter');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('reset_password/reset.html.twig', [

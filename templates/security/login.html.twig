@@ -9,6 +9,14 @@
 
 {% block body %}
 <main class="mentions-legales">
+    {% for label, messages in app.flashes %}
+        {% set alertClass = (label == 'error') ? 'danger' : label %}
+        {% for message in messages %}
+            <div class="alert alert-{{ alertClass }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
     <section class="login-form">
         <form method="post">
             <div class="form-login">

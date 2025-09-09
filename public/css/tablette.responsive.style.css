@@ -404,6 +404,10 @@ footer {
         display: none !important;
     }
 
+
+    .localisation h3 {
+        display: none;
+    }
 /* --------------------------------- FORM  --------------------------------- */
     .form-container {
         padding: 1.25rem;
