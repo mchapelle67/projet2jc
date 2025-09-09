@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ContactTypeForm extends AbstractType
@@ -71,6 +72,14 @@ class ContactTypeForm extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Envoyer',
+            ])
+            ->add('consentement', CheckboxType::class, [
+                'label' => 'Consentement',
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'required' => true,
+                'mapped' => false
             ])
         ;
     }

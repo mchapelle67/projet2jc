@@ -41,6 +41,7 @@
                     {{ form_row(contactForm.text, {'row_attr': {'class': 'form-group text'}}) }}
                 </div>
                     <p class="champs-obligatoires contact">* champs obligatoires</p>
+                        <span style="margin-top: 1em;" class="consentement">{{ form_row(contactForm.consentement) }}J'accepte que mes données soient utilisées pour le traitement de ma demande de rendez-vous.*</span>
                     {{ form_row(contactForm.submit, {'row_attr': {'class': 'form-group'}}) }}
             </div>
             {{ form_end(contactForm) }}
