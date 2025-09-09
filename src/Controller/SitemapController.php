@@ -21,16 +21,12 @@ class SitemapController extends AbstractController
             'priority' => '1.00'
         ];
         $urls[] = [
-            'loc' => $hostname . $this->generateUrl('app_vo'), 
+            'loc' => $hostname . $this->generateUrl('app_services'), 
             'priority' => '0.90'
         ];
         $urls[] = [
-            'loc' => $hostname . $this->generateUrl('app_services'), 
-            'priority' => '0.80'
-        ];
-        $urls[] = [
             'loc' => $hostname . $this->generateUrl('app_rdv_client'), 
-            'priority' => '0.70'
+            'priority' => '0.80'
         ];
         $urls[] = [
             'loc' => $hostname . $this->generateUrl('app_devis_client'), 
@@ -41,7 +37,7 @@ class SitemapController extends AbstractController
             'priority' => '0.60'
         ];
        
-        // ✅ Rendu du template
+        // rendu du template
         $response = $this->render('site_map/sitemap.xml.twig', [
             'urls' => $urls,
             'hostname' => $hostname
