@@ -76,11 +76,15 @@ class VOTypeForm extends AbstractType
             ])
             ->add('km', IntegerType::class, [
                 'label' => 'Kilométrage',
-                'attr' => ['placeholder' => 'Entrez les km'],
+                'attr' => ['
+                    placeholder' => 'Entrez les km',
+                    'min' => 0,
+                    'max' => 9999999
+                ],
                 'required' => false,
             ])
             ->add('photos', FileType::class, [
-                'label' => 'Photos*',
+                'label' => 'Photos',
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false,

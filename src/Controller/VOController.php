@@ -57,9 +57,10 @@ final class VOController extends AbstractController
         // on choisit les types d'extensions autorisées
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
-        // si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
+        // si le formulaire est soumis et valide
             // récupération du fichier photo
+           
             /** @var UploadedFile $photoFile */
             $photosFile = $form->get('photos')->getData();
             
@@ -82,7 +83,7 @@ final class VOController extends AbstractController
                             // on gère l'exception si quelque chose se passe pendant l'upload du fichier
                             $this->addFlash('error', 'Erreur lors de l\'upload de la photo : '.$e->getMessage());
                         }
-                        
+                           
                         // on crée une nouvelle entité Photo
                         $photo = new Photo();
                         $photo->setImg($newFilename);
@@ -91,6 +92,7 @@ final class VOController extends AbstractController
                         $this->addFlash('error', 'Extension de fichier non autorisée : '.$extension);
                     }
                 }
+            }
                     
                 // on récupère les données du formulaire
                 $vehicule = $form->getData();
@@ -104,10 +106,9 @@ final class VOController extends AbstractController
                 return $this->redirectToRoute('app_vo');
 
             } elseif ($form->isSubmitted() && !$form->isValid()) {
-            // si le formulaire n'est pas soumis ou n'est pas valide, on ajoute un message flash
-            $this->addFlash('error', 'Veuillez remplir tout les champs requis.');
+                // si le form n'est pas valide, on ajoute un message flash
+                $this->addFlash('error', 'Veuillez remplir tout les champs requis.');
             }
-        }
         
         // affichage du formulaire
         return $this->render('vo/add.html.twig', [
@@ -182,7 +183,7 @@ final class VOController extends AbstractController
                         $this->addFlash('error', 'Extension de fichier non autorisée : '.$extension);
                     }
                 }
-
+            }
                 // on enregistre les modifications dans la base de données
                 $entityManager->persist($vehicule);
                 $entityManager->flush();
@@ -195,7 +196,6 @@ final class VOController extends AbstractController
                 // si le formulaire n'est pas soumis ou n'est pas valide, on ajoute un message flash
                 $this->addFlash('error', 'Erreur lors de la modification du vehicule.');
             }    
-        }
         
         // affichage du formulaire d'édition
         return $this->render('vo/edit.html.twig', [
