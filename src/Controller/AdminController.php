@@ -449,7 +449,7 @@ final class AdminController extends AbstractController
                         "L'équipe de 2JC Automobiles" . '</p>';   
                         
                 // envoi du mail
-                $mail->sendMail('Concernant votre demande', $body, 'Concernant votre demande'); // ajouter mail client 
+                $mail->sendMail('Concernant votre demande', $body, 'Concernant votre demande', $devis->getEmail()); 
 
                 // on envois un message de confirmation et on redirige  
                 $this->addFlash('success', 'Votre message a bien été envoyé.');
@@ -460,7 +460,7 @@ final class AdminController extends AbstractController
             }
 
             // envoi du mail
-            $mail->sendMail('Concernant votre demande', $body, 'Concernant votre demande'); // ajouter mail client 
+            $mail->sendMail('Concernant votre demande', $body, 'Concernant votre demande', $rdv->getEmail()); 
 
             // on envois un message de confirmation et on redirige  
             $this->addFlash('success', 'Votre message a bien été envoyé.');

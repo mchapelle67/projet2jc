@@ -62,10 +62,11 @@ protected function execute(InputInterface $input, OutputInterface $output): int
                             "Nous restons à votre écoute pour tout renseignement supplémentaire." . '</p>' .
                             '<p>' . "Cordialement," . ' <br>' . 
                             "L'équipe de 2JC Automobiles" . '</p>'; 
-            $mailAltBody = 'Bonjour, vous avez rendez-vous dans notre centre automobiles 2JC situé à Altkirch.';        
+            $mailAltBody = 'Bonjour, vous avez rendez-vous dans notre centre automobiles 2JC situé à Altkirch.';
+            $mailClient = $rdv->getEmail();        
 
             // envoi du mail
-            $this->mail->sendMail($mailSubject, $mailBody, $mailAltBody); // ajouter mail client
+            $this->mail->sendMail($mailSubject, $mailBody, $mailAltBody, $mailClient); 
             
             // mise à jour pour éviter les doublons
             $rdv->setRappelRdv(1);

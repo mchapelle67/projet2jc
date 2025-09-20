@@ -20,24 +20,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class ClientController extends AbstractController
 {
 // gestion api ---------------------------------------------------------------------
-    #[Route('/api/modeles', name: 'api_modeles')]
-    public function apiModeles(ApiService $apiService, Request $request): Response
-    {
-        $marque = $request->query->get('marque');
-        $modeles = [];
-        if ($marque) {
-            $modeles = $apiService->getModelsByMake($marque);
-        }
+    // #[Route('/api/modeles', name: 'api_modeles')]
+    // public function apiModeles(ApiService $apiService, Request $request): Response
+    // {
+    //     $marque = $request->query->get('marque');
+    //     $modeles = [];
+    //     if ($marque) {
+    //         $modeles = $apiService->getModelsByMake($marque);
+    //     }
 
-        return $this->json($modeles);
-    }
+    //     return $this->json($modeles);
+    // }
 
 // gestion des devis -----------------------------------------------------
     #[Route('/devis', name: 'app_devis_client')]
     public function devis(ApiService $apiService, Request $request, EntityManagerInterface $entityManager, MailService $mail, RateLimiterFactory $contactLimiter): Response
     {
         // on récupère toutes les marques de véhicules
-        $marquesResponse = $apiService->getAllMakes();
+        // $marquesResponse = $apiService->getAllMakes();
 
         // on crée un forumlaire pour le devis
         $devis = new Devis(); 
@@ -71,6 +71,7 @@ final class ClientController extends AbstractController
                 'slug' => $devisData->getSlug() // on génère l'URL du devis avec le slug
             ], 0); // On génère l'URL du devis avec un hash slug
             $tel = $devisData->getTel() ? $devisData->getTel() : 'Non renseigné';                 // On gère la reception des champs non obligatoires
+            $mailClient = $devisData->getEmail();
             $adminBody = '<strong>Vous avez reçu une nouvelle demande de devis.</strong> <br>' .
                             'Nom : ' . $devisData->getNom() . ' ' . $devisData->getPrenom() . '<br>' .
                             'Email : ' . $devisData->getEmail() . '<br>' .
@@ -81,8 +82,8 @@ final class ClientController extends AbstractController
             $clientBody = 'Votre demande de devis a bien été prise en compte.<br>' .
                             'Nous reviendrons vers vous très rapidement.'; 
             
-            $mail->sendMail('Confirmation de votre demande de devis', $clientBody, 'Confirmation de votre demande de devis'); // ajouter $devisData->getEmail(), 
-            $mail->sendMail('Nouvelle demande de devis', $adminBody, 'Nouvelle demande de devis.'); // ajouter mail admin
+            $mail->sendMail('Confirmation de votre demande de devis', $clientBody, 'Confirmation de votre demande de devis', $mailClient); 
+            $mail->sendMail('Nouvelle demande de devis', $adminBody, 'Nouvelle demande de devis.', 'jerome.midas68@gmail.com'); 
             
             // puis on redirige vers la liste des véhicules d'occasion
             $this->addFlash('success', 'Votre demande de devis a bien été prise en compte, nous reviendrons vers vous très rapidement.');
@@ -94,7 +95,7 @@ final class ClientController extends AbstractController
                      
         return $this->render('client/devis.html.twig', [
             'controller_name' => 'ClientController',
-            'marques' => $marquesResponse,
+            // 'marques' => $marquesResponse,
             'devisForm' => $devisForm->createView(),     
         ]);
     }
@@ -104,7 +105,7 @@ final class ClientController extends AbstractController
     public function rdv(ApiService $apiService, Request $request, EntityManagerInterface $entityManager, MailService $mail, RateLimiterFactory $contactLimiter): Response
     {
         // on récupère toutes les marques de véhicules
-        $marquesResponse = $apiService->getAllMakes();
+        // $marquesResponse = $apiService->getAllMakes();
 
         // on crée un forumlaire pour la prise de rdv
         $rdv = new Rdv(); 
@@ -147,6 +148,7 @@ final class ClientController extends AbstractController
                     'slug' => $rdvData->getSlug()
                     ], 0); // On génère l'URL du rdv avec le slug uniquement
             $tel = $rdvData->getTel() ? $rdvData->getTel() : 'Non renseigné';                 // On gère la reception des champs non obligatoires
+            $mailClient = $rdvData->getEmail();
             $adminBody = '<strong>Vous avez reçu une nouvelle demande de rdv.</strong> <br>' .
                         'Nom : ' . $rdvData->getNom() . ' ' . $rdvData->getPrenom() . '<br>' .
                         'Email : ' . $rdvData->getEmail() . '<br>' .
@@ -160,8 +162,8 @@ final class ClientController extends AbstractController
                         'Nous reviendrons vers vous très rapidement. ' . '<br> ' .
                         '<strong>' . 'Veuillez attendre notre confirmation.' . '</strong>';
 
-            $mail->sendMail('Nouvelle demande de rdv', $adminBody, 'Nouvelle demande de rdv.'); // ajouter mail admin
-            $mail->sendMail('Demande de rendez-vous', $clientBody, 'Votre demande de rendez-vous à bien été prise en compte.'); // ajouter mail client
+            $mail->sendMail('Demande de rendez-vous', $clientBody, 'Votre demande de rendez-vous à bien été prise en compte.', $mailClient); 
+            $mail->sendMail('Nouvelle demande de rdv', $adminBody, 'Nouvelle demande de rdv.', 'jerome.midas68@gmail.com'); 
 
             // puis on redirige vers la liste des véhicules d'occasion
             $this->addFlash('success', 'Votre demande de rendez-vous a bien été prise en compte, nous reviendrons vers vous très rapidement.');
@@ -174,7 +176,7 @@ final class ClientController extends AbstractController
     
         return $this->render('client/rdv.html.twig', [
             'controller_name' => 'ClientController',
-            'marques' => $marquesResponse,
+            // 'marques' => $marquesResponse,
             'rdvForm' => $rdvForm->createView(),     
         ]);
     }
@@ -220,7 +222,7 @@ final class ClientController extends AbstractController
                     'Message : ' . nl2br($contactData['text']);
 
         // envoi du mail
-        $mail->sendMail('Nouvelle demande de contact', $body, 'Nouvelle demande de contact');
+        $mail->sendMail('Nouvelle demande de contact', $body, 'Nouvelle demande de contact', 'jerome.midas68@gmail.com');
 
         // on envois un message de confirmation et on redirige  
         $this->addFlash('success', 'Votre message a bien été envoyé, nous reviendrons vers vous très rapidement.');
