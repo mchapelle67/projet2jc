@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
@@ -21,8 +22,22 @@ class VehiculeTypeForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('marque', HiddenType::class)
-            ->add('modele', HiddenType::class)
+            ->add('marque', TextType::class, [
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'attr' => [
+                    'placeholder' => 'Entrez la marque*',
+                ]
+            ])
+            ->add('modele', TextType::class, [
+                'label_attr' => [
+                    'class' => 'visually-hidden'
+                ],
+                'attr' => [
+                    'placeholder' => 'Entrez le modèle*',
+                ]
+            ])
             ->add('km', IntegerType::class, [
                 'label' => 'Kilométrage',
                 'label_attr' => [

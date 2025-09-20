@@ -1,49 +1,54 @@
+//  MISE EN PLACE API 
+
+    // // on récupère les marques depuis l'API
+    // document.getElementById('marque').addEventListener('change', function() {
+    //     const marque = this.value;
+    //     console.log('Marque sélectionnée :', marque);
+
+    //     // mettre à jour le champ caché pour la marque
+    //     const marqueHidden = document.querySelector('[name="devis_type_form[vehicule][marque]"]');
+    //     if (marqueHidden) {
+    //         marqueHidden.value = marque;
+    //         console.log('Champ caché marque mis à jour :', marqueHidden.value);
+    //     } else {
+    //         console.log('Champ caché marque introuvable');
+    //     }
+
+    //     // appel à l'API pour récupérer les modèles associés à la marque
+    //     fetch('/client/api/modeles?marque=' + encodeURIComponent(marque))
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             console.log('Modèles reçus :', data);
+    //             const datalist = document.getElementById('modeles-list');
+    //             datalist.innerHTML = '';
+    //             if (data.length === 0) {
+    //                 datalist.innerHTML = `<option value="Pas de modèle associé"></option>`;
+    //             } else {
+    //                 data.forEach(modele => {
+    //                     datalist.innerHTML += `<option value="${modele.Model_Name}"></option>`;
+    //                 });
+    //             }
+    //         });
+    // });
+
+    // // on met à jour le champ caché pour le modèle sélectionné
+    // document.getElementById('modele').addEventListener('change', function() {
+    //     const modele = this.value;
+    //     console.log('Modèle sélectionné :', modele);
+
+    //     const modeleHidden = document.querySelector('[name="devis_type_form[vehicule][modele]"]');
+    //     if (modeleHidden) {
+    //         modeleHidden.value = modele;
+    //         console.log('Champ caché modèle mis à jour :', modeleHidden.value);
+    //     } else {
+    //         console.log('Champ caché modèle introuvable');
+    //     }
+    // });
+
+// ____________________________________________________________________________________________________________________
+
 // on charge les marques au chargement de la page
 document.addEventListener('DOMContentLoaded', function() {
-    // on récupère les marques depuis l'API
-    document.getElementById('marque').addEventListener('change', function() {
-        const marque = this.value;
-        console.log('Marque sélectionnée :', marque);
-
-        // mettre à jour le champ caché pour la marque
-        const marqueHidden = document.querySelector('[name="devis_type_form[vehicule][marque]"]');
-        if (marqueHidden) {
-            marqueHidden.value = marque;
-            console.log('Champ caché marque mis à jour :', marqueHidden.value);
-        } else {
-            console.log('Champ caché marque introuvable');
-        }
-
-        // appel à l'API pour récupérer les modèles associés à la marque
-        fetch('/client/api/modeles?marque=' + encodeURIComponent(marque))
-            .then(response => response.json())
-            .then(data => {
-                console.log('Modèles reçus :', data);
-                const datalist = document.getElementById('modeles-list');
-                datalist.innerHTML = '';
-                if (data.length === 0) {
-                    datalist.innerHTML = `<option value="Pas de modèle associé"></option>`;
-                } else {
-                    data.forEach(modele => {
-                        datalist.innerHTML += `<option value="${modele.Model_Name}"></option>`;
-                    });
-                }
-            });
-    });
-
-    // on met à jour le champ caché pour le modèle sélectionné
-    document.getElementById('modele').addEventListener('change', function() {
-        const modele = this.value;
-        console.log('Modèle sélectionné :', modele);
-
-        const modeleHidden = document.querySelector('[name="devis_type_form[vehicule][modele]"]');
-        if (modeleHidden) {
-            modeleHidden.value = modele;
-            console.log('Champ caché modèle mis à jour :', modeleHidden.value);
-        } else {
-            console.log('Champ caché modèle introuvable');
-        }
-    });
 
  // création les animations du formulaire
     const formSteps = Array.from(document.querySelectorAll('.form-step'));
@@ -164,8 +169,8 @@ document.addEventListener('DOMContentLoaded', function() {
             prenom: formData.get('devis_type_form[prenom]') || 'Non renseigné',
             email: formData.get('devis_type_form[email]') || 'Non renseigné',
             tel: formData.get('devis_type_form[tel]') || 'Non renseigné',
-            marque: formData.get('marque') || 'Non renseigné',
-            modele: formData.get('modele') || 'Non renseigné',
+            marque: formData.get('devis_type_form[vehicule][marque]') || 'Non renseigné',
+            modele: formData.get('devis_type_form[vehicule][modele]') || 'Non renseigné',
             anneeFabrication: formData.get('devis_type_form[vehicule][anneeFabrication]') || 'Non renseigné',
             km: formData.get('devis_type_form[vehicule][km]') || 'Non renseigné',
             carburant: (() => {

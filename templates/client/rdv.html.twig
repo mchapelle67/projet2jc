@@ -57,19 +57,19 @@
                 <div class="form-step">
                     <h4>Informations du véhicule</h4>
                     <div class="form-group">
-                        <label for="marque" style="display: none;">Marque</label>
+                        {# <label for="marque" style="display: none;">Marque</label>
                             <input list="marques-list" id="marque" name="marque" class="form-control" autocomplete="off" placeholder="Veuillez sélectionner une marque*" required>
                             <datalist id="marques-list">
                                 {% for marque in marques %}
                                     <option value="{{ marque.Make_Name }}"></option>
                                 {% endfor %}
-                            </datalist>
+                            </datalist> #}
                         {{ form_row(rdvForm.vehicule.marque) }}
                     </div>
                     <div class="form-group">
-                        <label for="modele" style="display: none;">Modèle</label>
+                        {# <label for="modele" style="display: none;">Modèle</label>
                             <input list="modeles-list" id="modele" name="modele" class="form-control" autocomplete="off" placeholder="Veuillez sélectionner un modèle*" required>
-                            <datalist id="modeles-list"></datalist>
+                            <datalist id="modeles-list"></datalist> #}
                         {{ form_row(rdvForm.vehicule.modele) }}
                     </div>
                     {{ form_row(rdvForm.vehicule.anneeFabrication, {'row_attr': {'class': 'form-group'}}) }}
