@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class DevisTest extends TestCase
 {
-    public function testRdvSettersAndGettersReturnCorrectValues()
+    public function testDevisSettersAndGettersReturnCorrectValues()
     {
         $devis = new Devis();
         $devis->setEmail('client@test.fr');
