@@ -12,18 +12,18 @@ class MailService
         $mail = new PHPMailer(true);
         
         // paramètre du serveur SMTP
-        $mail->SMTPDebug = 2;                                   // affiche les messages de debug (mettre à 0 en prod)
+        $mail->SMTPDebug = 0;                                   // affiche les messages de debug (mettre à 0 en prod)
         $mail->Debugoutput = 'error_log';                         // pour que ça aille dans les logs PHP
         $mail->isSMTP();                                            // Simple Mail Transfer Protocol
         $mail->Host       = 'smtp.gmail.com';                     // configuration du serveur SMTP
         $mail->SMTPAuth   = true;                                   // active l'authentification SMTP
-        $mail->Username   = 'jerome.midas68@gmail.com';                     //SMTP username
+        $mail->Username   = '2jcautomobiles@gmail.com';                     //SMTP username
         $mail->Password = $_SERVER['MAILER_PASSWORD'] ?? getenv('MAILER_PASSWORD');  
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            // sert à crypter la connexion
         $mail->Port       = 465;                                    // port du serveur SMTP
 
         // réglages de l'expéditeur et du destinataire
-        $mail->setFrom('jerome.midas68@gmail.com', '2jc Automobiles'); // adresse de l'expéditeur
+        $mail->setFrom('2jcautomobiles@gmail.com', '2jc Automobiles'); // adresse de l'expéditeur
         $mail->addAddress($email);      // adresse du destinataire
 
         // contenu du message
