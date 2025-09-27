@@ -1,4 +1,4 @@
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1023px) {
 /* --------------------------------- BASE ----------------------------------------- */
     html, body {
         width: 100% !important;
@@ -353,10 +353,6 @@ footer {
         margin-bottom: 3rem;
     }
     
-    .parallaxe h2,
-    .parallaxe p {
-        display: none !important;
-    }
 /*     
     .home-2 {
         margin: 0 !important;
