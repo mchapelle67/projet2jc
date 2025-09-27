@@ -23,6 +23,7 @@ class RappelRdvCommand extends Command
 
     private $rdvRepository;
     private $entityManager;
+    private $mail;
 
     public function __construct(RdvRepository $rdvRepository, EntityManagerInterface $entityManager, MailService $mail)
     {
