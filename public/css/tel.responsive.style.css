@@ -354,7 +354,7 @@ footer {
     }
 
     .block-service.xp {
-        padding: 1.2em 1.2 1.2em 2rem !important;
+        padding-left: 2rem !important;
         flex-direction: column !important;
         text-align: center !important; 
         align-items: center !important; 

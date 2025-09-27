@@ -20,7 +20,34 @@
   left: 0;
   width: 100%;
   z-index: 1030;
-  font-size: 1.1rem;
+  display: none; /* Masqué par défaut */
+}
+
+/* Navigation visible à partir de 1024px */
+@media (min-width: 1024px) {
+  .navbar {
+    display: block;
+    font-size: 0.9rem; /* Plus petite pour les écrans moyens */
+  }
+}
+
+/* Navigation avec police plus grande pour les grands écrans */
+@media (min-width: 1200px) {
+  .navbar {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .navbar {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 1600px) {
+  .navbar {
+    font-size: 1.2rem; /* Plus grande pour les très grands écrans */
+  }
 }
 
 .nav-link {
