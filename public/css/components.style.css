@@ -24,10 +24,16 @@
 }
 
 /* Navigation visible à partir de 1024px */
-@media (min-width: 1024px) {
+@media (min-width: 1025px) {
   .navbar {
     display: block;
-    font-size: 0.9rem; /* Plus petite pour les écrans moyens */
+    font-size: 0.7rem; /* Plus petite pour les écrans moyens */
+  }
+}
+
+@media (min-width: 1050px) {
+  .navbar {
+    font-size: 0.8rem; /* Plus petite pour les écrans moyens */
   }
 }
 

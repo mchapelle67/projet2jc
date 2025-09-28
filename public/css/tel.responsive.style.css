@@ -31,7 +31,6 @@ footer {
     color: white !important;
 }
 
-
     .burger-menu {
         display: block;
         position: fixed;
@@ -99,6 +98,23 @@ footer {
         transform: translateX(100%);
         transition: transform 0.3s ease;
     }
+    @media (max-width: 417px) {
+        .mobile-nav-links a {
+             font-size: 1.4em !important;
+        }
+    }
+
+    @media (max-width: 399px) {
+        .mobile-nav-links a {
+            font-size: 1.2em !important;
+        }
+    }                            
+
+    @media (max-width: 362px) {
+        .mobile-nav-links a {
+            padding: 0.2rem !important;
+        }
+    } 
     
     .mobile-nav.open .mobile-nav-content {
         transform: translateX(0);
