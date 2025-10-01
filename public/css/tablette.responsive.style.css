@@ -349,7 +349,8 @@ footer {
     }
     
     .parallaxe {
-        /* padding: 5rem !important; */
+        background-image: url('../images/responsive.png') !important;
+        background-attachment: scroll !important;
         margin-bottom: 3rem;
     }
     
