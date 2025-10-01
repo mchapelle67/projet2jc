@@ -464,6 +464,15 @@ footer {
         margin: 3rem auto 0 auto !important;
     }
 
+
+    .img-service,
+    .img-xp {
+        max-width: 90%;
+    } 
+    .cta-blue.home.services {
+        display: none !important;
+    }
+
 /* -------------------------------------- VO LIST ----------------------------------------- */
     .vo-list {
         margin: 0 !important;
