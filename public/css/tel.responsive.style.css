@@ -464,10 +464,9 @@ footer {
         margin: 3rem auto 0 auto !important;
     }
 
-
     .img-service,
     .img-xp {
-        max-width: 90%;
+        max-width:  18rem !important;
     } 
     .cta-blue.home.services {
         display: none !important;
